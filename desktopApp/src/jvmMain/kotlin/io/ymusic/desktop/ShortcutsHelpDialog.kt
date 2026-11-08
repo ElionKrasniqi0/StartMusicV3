@@ -56,7 +56,7 @@ internal fun ShortcutsHelpDialog(onDismiss: () -> Unit) {
     // Cmd on macOS, Ctrl everywhere else; the handler accepts both so this is purely a display label.
     val cmd = if (isMac) "⌘" else "Ctrl"
     val rows = listOf(
-        listOf("F8") to Res.string.shortcuts_play_pause,
+        listOf("F8", "Space") to Res.string.shortcuts_play_pause,
         listOf("$cmd + ←") to Res.string.cd_previous,
         listOf("$cmd + →") to Res.string.cd_next,
         listOf("$cmd + Shift + ←", "F7") to Res.string.cd_rewind10,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Before API 31 the launch window is drawn before the in-app theme setting can be read: the default
-         (dark) ground. values-v31 follows the app's night mode instead (YMusicApplication syncs it). -->
+    <!-- Before API 31 the launch window is drawn before the in-app theme setting can be read: charcoal
+         StartMusicV3 ground. values-v31 follows night mode (Application syncs UiModeManager). -->
     <style name="Theme.YMusicV4" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@color/app_surface_dark</item>
     </style>

@@ -94,6 +94,15 @@ object AppSettings {
     fun librarySort(id: String) = StringSetting("library.sort.$id", "")
 
     /**
+     * Favorite songs as [io.ymusic.mediastore.model.MediaStoreItem.playlistCode] values
+     * (YouTube video id or `@size:duration`). Persisted locally; no media-store favorites table.
+     */
+    val libraryFavorites = StringSetSetting("library.favorites")
+
+    /** Search box history: newline-joined queries (newest first); empty = none. */
+    val searchHistory = StringSetting("search.history", "")
+
+    /**
      * Fetch updates in the background as soon as they are found, so the update prompt opens ready
      * to install. On by default; the install itself always waits for the user's tap. Android and
      * desktop (iOS has no updater).

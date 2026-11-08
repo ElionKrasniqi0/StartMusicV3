@@ -3,6 +3,7 @@ package io.ymusic.ui
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -112,7 +114,7 @@ val DarkDesignColors = DesignPalette(
     InkSecondary = Brand.DarkTextMuted,
     InkFaint = Color(0xFF7E7A8E),
     IconDots = Color(0xFF8E8A9C),
-    OnInk = Color(0xFF101116),
+    OnInk = Brand.DarkBackground,
     OnAccent = Color.White,
     Placeholder = Color(0xFF353240),
     PlaceholderDim = Color(0xFF302E3A),
@@ -198,7 +200,7 @@ internal val ChipTextSize = 13.5.sp
  * The spacing scale: every layout spacing (margins, gaps, paddings between elements) is one of
  * these steps — component-internal geometry (pill insets, badge chrome, the 5dp stack tab) is
  * shape, not rhythm, and stays free. Feed layout bands live in `feedLayoutFor`: `<400dp` square
- * list, `400–469` 16:9 list, `≥470` grid — the fewest columns keeping cards ≤324dp wide
+ * list, `320–469` 16:9 list, `≥470` grid — the fewest columns keeping cards ≤324dp wide
  * (`gridColumnsFor`; 3 columns from 690dp).
  */
 object DesignSpacing {
@@ -249,6 +251,21 @@ object DesignSpacing {
 }
 
 /**
+ * Shared short motion budgets. Prefer these over ad-hoc durations so screens stay calm —
+ * no layout-size animations here (those shake lists); fades and indicator slides only.
+ */
+object DesignMotion {
+    /** Artwork fade-in over placeholder when the decode arrives late (not for cache hits). */
+    const val ArtCrossfadeMs = 140
+
+    /** Empty/error surface content opacity settle. */
+    const val ContentFadeMs = 160
+
+    /** Tab underline / chrome elevation. */
+    const val ChromeMs = 180
+}
+
+/**
  * Per-window-class grid metrics. [inset] is each card's hover/ripple breathing room — half the
  * gutter, so cards sit exactly one gutter apart with zero structural row spacing (callers lay rows
  * with `margin - inset` edges and `gutter - 2×inset` gaps).
@@ -292,6 +309,25 @@ private fun schemeFor(c: DesignPalette) = with(c) {
     )
 }
 
+/** Material3 type scale driven by [Brand] — keeps Windows and Android chrome consistent. */
+fun brandTypography(): Typography = Typography(
+    displayLarge = Brand.Display,
+    displayMedium = Brand.Display.copy(fontSize = 24.sp, lineHeight = 30.sp),
+    displaySmall = Brand.Title,
+    headlineLarge = Brand.Title,
+    headlineMedium = Brand.Headline.copy(fontSize = 18.sp, lineHeight = 24.sp),
+    headlineSmall = Brand.Headline,
+    titleLarge = Brand.Headline.copy(fontSize = 18.sp, lineHeight = 24.sp, fontWeight = FontWeight.SemiBold),
+    titleMedium = Brand.Headline,
+    titleSmall = Brand.Body.copy(fontWeight = FontWeight.SemiBold),
+    bodyLarge = Brand.Body.copy(fontSize = 16.sp, lineHeight = 22.sp),
+    bodyMedium = Brand.Body,
+    bodySmall = Brand.Caption,
+    labelLarge = Brand.Label.copy(fontSize = 14.sp, lineHeight = 18.sp),
+    labelMedium = Brand.Label,
+    labelSmall = Brand.Caption.copy(fontWeight = FontWeight.Medium),
+)
+
 @Composable
 fun YMusicTheme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) =
     YMusicTheme(if (dark) DarkDesignColors else LightDesignColors, content)
@@ -299,9 +335,10 @@ fun YMusicTheme(dark: Boolean = isSystemInDarkTheme(), content: @Composable () -
 @Composable
 fun YMusicTheme(palette: DesignPalette, content: @Composable () -> Unit) {
     val scheme = remember(palette) { schemeFor(palette) }
+    val typography = remember { brandTypography() }
     CompositionLocalProvider(LocalDesignColors provides palette) {
         SyncSystemBars(palette.isDark)
-        MaterialTheme(colorScheme = scheme) {
+        MaterialTheme(colorScheme = scheme, typography = typography) {
             // No root Surface sets it, so an uncolored Text would fall back to black in dark theme.
             CompositionLocalProvider(LocalContentColor provides palette.Ink) { AccentRipple(palette.Accent, content) }
         }

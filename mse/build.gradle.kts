@@ -297,12 +297,20 @@ val ffmpegBuildDir = (rootProject.projectDir.parentFile.resolve("ffmpeg-build"))
 val mseAndroidAbis = FfmpegBuild.ANDROID_ABIS
 // ANDROID_NDK_ROOT pins the NDK (CI matches the one its ffmpeg packs were built with); otherwise the
 // newest NDK installed in the SDK.
-val ndkDir: File? = System.getenv("ANDROID_NDK_ROOT")?.let(::File)?.takeIf { it.isDirectory } ?: run {
-    val sdk = System.getenv("ANDROID_HOME")
-        ?: System.getenv("ANDROID_SDK_ROOT")
-        ?: File(System.getProperty("user.home"), "Library/Android/sdk").takeIf { it.exists() }?.path
-    sdk?.let { File(it, "ndk").listFiles()?.filter { d -> d.isDirectory }?.maxByOrNull { d -> d.name } }
-}
+val ndkDir: File? =
+    sequenceOf("ANDROID_NDK_ROOT", "ANDROID_NDK_HOME")
+        .mapNotNull { System.getenv(it)?.let(::File)?.takeIf { d -> d.isDirectory } }
+        .firstOrNull()
+        ?: run {
+            val sdk = System.getenv("ANDROID_HOME")
+                ?: System.getenv("ANDROID_SDK_ROOT")
+                ?: File(System.getProperty("user.home"), "Library/Android/sdk").takeIf { it.exists() }?.path
+            sdk?.let { sdkPath ->
+                val ndks = File(sdkPath, "ndk").listFiles()?.filter { d -> d.isDirectory }.orEmpty()
+                ndks.firstOrNull { it.name.startsWith("28.2.") }
+                    ?: ndks.maxByOrNull { d -> d.name }
+            }
+        }
 val stageAndroidJni by tasks.registering {
     val jniLibsDir = projectDir.resolve("src/androidMain/jniLibs")
     inputs.dir(mseNativeSrc)
@@ -315,10 +323,10 @@ val stageAndroidJni by tasks.registering {
         val ndk = ndkDir ?: error("Android NDK not found (set ANDROID_HOME with an installed NDK)")
         val toolchain = File(ndk, "build/cmake/android.toolchain.cmake")
         val root = ffmpegBuildDir ?: error("ffmpeg-build not found next to YMusicV4-mse")
-        val sharedMissing = mseAndroidAbis.filter { abi ->
-            val prefix = File(root, "out/android-$abi")
-            prefix.resolve("include").isDirectory &&
-                !prefix.resolve("lib/libavformat.so").isFile
+        // Only require shared libav for ABIs that actually have an android out/ tree (partial packs OK).
+        val presentAbis = mseAndroidAbis.filter { File(root, "out/android-$it/include").isDirectory }
+        val sharedMissing = presentAbis.filter { abi ->
+            !File(root, "out/android-$abi/lib/libavformat.so").isFile
         }
         if (sharedMissing.isNotEmpty()) {
             throw GradleException(
@@ -328,17 +336,31 @@ val stageAndroidJni by tasks.registering {
             )
         }
         fun sh(vararg args: String) {
-            val p = ProcessBuilder(*args).redirectErrorStream(true).start()
+            val pb = ProcessBuilder(*args).redirectErrorStream(true)
+            val env = pb.environment()
+            val pathKey = env.keys.firstOrNull { it.equals("PATH", ignoreCase = true) } ?: "PATH"
+            val extra = listOf(
+                File("C:/msys64/mingw64/bin"),
+                File(System.getenv("ANDROID_HOME") ?: "", "cmake"),
+            ).filter { it.isDirectory }.joinToString(File.pathSeparator) { it.absolutePath }
+            if (extra.isNotEmpty()) {
+                env[pathKey] = extra + File.pathSeparator + (env[pathKey] ?: "")
+            }
+            val p = pb.start()
             val out = p.inputStream.bufferedReader().readText()
             if (p.waitFor() != 0) throw GradleException("command failed: ${args.joinToString(" ")}\n$out")
         }
-        mseAndroidAbis.forEach { abi ->
+        presentAbis.forEach { abi ->
             val prefix = File(root, "out/android-$abi")
             if (!File(prefix, "lib/libavformat.so").isFile) return@forEach
             val buildDir = layout.buildDirectory.dir("mse-android/$abi").get().asFile
+            if (File(buildDir, "CMakeCache.txt").isFile) {
+                buildDir.deleteRecursively()
+            }
             buildDir.mkdirs()
             sh(
                 "cmake", "-S", mseNativeSrc.absolutePath, "-B", buildDir.absolutePath,
+                "-G", "Ninja",
                 "-DCMAKE_TOOLCHAIN_FILE=${toolchain.absolutePath}",
                 "-DANDROID_ABI=$abi", "-DANDROID_PLATFORM=android-${Versions.minSdk}",
                 "-DCMAKE_BUILD_TYPE=Release",

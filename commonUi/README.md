@@ -8,12 +8,11 @@ The shared Compose Multiplatform app UI (jvm + android; iOS later).
   (live suggestions, paged results) over `:dynamic-engine`'s `yt` task methods; LibraryScreen over `:media-store`
   flows; the persistent mini-player + full Now Playing (transport, sleep timer, capability selectors, queue).
 
-- **SponsorBlock seam** — `ymusic.ui.sponsorblock`: `SponsorBlockApi` + `MockSponsorBlockApi` +
-  SQLite cache/whitelist (`SponsorBlockStore`) + `SponsorBlockService` + `SponsorBlockCoordinator`
-  (queue videoId → `Player.setSkipSegments`). The mock returns a 0–10s intro and a 60–75s mid-roll;
-  swap `AppGraph`'s `sponsorBlockApi` for the real `/sponsorBlock/getSkipSegments` client when that
-  lands. Enable is `AppSettings.sponsorBlockEnabled` (Settings row); per-video whitelist is the Now
-  Playing toggle (hidden when there are no segments). Seek bars draw the ranges on `SlimSeekBar`.
+- **SponsorBlock seam** — `ymusic.ui.sponsorblock`: `SponsorBlockApi` + `ServiceSponsorBlockApi` (real
+  `/sponsorBlock/getSkipSegments` when `api` is present) + SQLite cache/whitelist (`SponsorBlockStore`)
+  + `SponsorBlockService` + `SponsorBlockCoordinator` (queue videoId → `Player.setSkipSegments`).
+  Enable is `AppSettings.sponsorBlockEnabled` (Settings row); per-video whitelist is the Now Playing
+  toggle (hidden when there are no segments). Seek bars draw the ranges on `SlimSeekBar`.
 
 - **AppGraph** — shells construct `AppGraph` (engines + `Player` facade + optional mediaStore/scan callback + the
   platform `playerSurface(modifier)` composable, which hosts the one shared video container the shell handed the
@@ -23,8 +22,8 @@ The shared Compose Multiplatform app UI (jvm + android; iOS later).
   inbox. The desktop deletes the inbox as soon as it receives the payload.
 
 - **Outside links** — shells hand every url they are opened with to `IncomingLinks.open` (Android VIEW intents for
-  youtube.com / youtu.be / ymusic.io / ymusicapp.com / `ymusic://`; desktop macOS + iOS `ymusic://` only — no
-  universal links, and Windows/Linux have no protocol registration or single-instance hand-off yet). `AppRoot`
+  youtube.com / youtu.be / ymusic.io / ymusicapp.com / `ymusic://`; desktop macOS + iOS `ymusic://` —
+  Windows/Linux have single-instance hand-off (`SingleInstance`) but no OS protocol-scheme registration yet). `AppRoot`
   drains it and asks the engine (`resolveLink` → engine-js `yt/resolve-link`, which owns every YouTube url shape and
   the handle → channel lookup) what it opens: a video plays with its radio (or the link's playlist) in Now Playing,
   a playlist/channel/music page lands on Discover's stack, a search runs there.

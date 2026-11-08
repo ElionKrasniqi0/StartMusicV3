@@ -29,6 +29,21 @@ object FfmpegBuild {
     /** The ABIs the apk and the device tests ship; every Android native (quickjs, mse, ffmpeg) is built for each. */
     val ANDROID_ABIS = listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 
+    /**
+     * ABIs to stage/pack for this Gradle invocation. Default = [ANDROID_ABIS].
+     * Override with `-PandroidAbis=arm64-v8a` (comma-separated) for a single-device debug APK
+     * when only some sibling ffmpeg-build packs exist (e.g. Galaxy arm64).
+     */
+    fun androidAbis(project: Project): List<String> {
+        val raw = project.findProperty("androidAbis")?.toString()?.trim().orEmpty()
+        if (raw.isEmpty()) return ANDROID_ABIS
+        val requested = raw.split(',').map { it.trim() }.filter { it.isNotEmpty() }
+        val unknown = requested.filter { it !in ANDROID_ABIS }
+        require(unknown.isEmpty()) { "unknown -PandroidAbis values: $unknown (allowed: $ANDROID_ABIS)" }
+        require(requested.isNotEmpty()) { "-PandroidAbis must list at least one ABI" }
+        return requested
+    }
+
     fun root(project: Project): File = project.rootProject.projectDir.parentFile.resolve("ffmpeg-build")
 
     /** ffmpeg-build out/ slug for this machine (`macos-x86_64`, `linux-arm64`, …), or null. */

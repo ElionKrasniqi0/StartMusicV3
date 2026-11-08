@@ -1,5 +1,8 @@
 package io.ymusic.ui
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -53,6 +56,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -452,8 +456,16 @@ internal fun EmptyState(
     onSecondaryReload: (() -> Unit)? = null,
     onReload: (() -> Unit)?,
 ) {
+    val appear = remember { Animatable(0f) }
+    LaunchedEffect(Unit) {
+        appear.animateTo(1f, tween(DesignMotion.ContentFadeMs, easing = FastOutSlowInEasing))
+    }
     CenteredBox(modifier) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.graphicsLayer { alpha = appear.value },
+        ) {
             Icon(
                 Icons.Outlined.Inbox,
                 null,
@@ -522,8 +534,17 @@ internal const val SUPERVISED_ACCOUNT_CODE = "supervised_account"
 /** A captcha failure leads with the resolver's action (which retries once cleared), Retry beside it. */
 @Composable
 internal fun ErrorState(code: String, modifier: Modifier = Modifier, onRetry: () -> Unit) {
+    val appear = remember { Animatable(0f) }
+    LaunchedEffect(code) {
+        appear.snapTo(0f)
+        appear.animateTo(1f, tween(DesignMotion.ContentFadeMs, easing = FastOutSlowInEasing))
+    }
     CenteredBox(modifier) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.graphicsLayer { alpha = appear.value },
+        ) {
             Icon(
                 Icons.Outlined.CloudOff,
                 null,

@@ -2,7 +2,7 @@
 
 Module detail for the one-line summary in the root [`AGENTS.md`](../AGENTS.md) — read this before working inside the module.
 
-The cross-platform playback layer.
+The cross-platform playback layer. Phase 8 architecture map: [`docs/STARTMUSIC_PHASE8_AUDIO.md`](../docs/STARTMUSIC_PHASE8_AUDIO.md).
 
 - **MediaEngine SPI** — the common SPI is **`MediaEngine`** (a deliberately NARROW core both playback backends
   satisfy — status/progress + `init`/`reset` + `load` when `readyToLoad` / play/pause/seek/stop/`setConfig`/release).
@@ -15,8 +15,9 @@ The cross-platform playback layer.
   - Pushed via `setConfig` (the same object `load` applies atomically pre-first-frame; each engine diffs old→new and
     applies only what changed, ignoring fields it can't honor).
 
-- **Audio-only is not a boolean** — it is `preferVideoQuality.first == VideoQualityState.AUDIO_ONLY` (`"zero"`),
-  the music-app default.
+- **Audio-only** — `PlaybackConfig.audioOnly` (music-app default `true`), independent of
+  `preferVideoQuality` (Auto/hd720/…); turning audio-only off restores the last quality choice.
+  The quality chip may still expose `VideoQualityState.AUDIO_ONLY` (`"zero"`) as a one-shot option.
 
 - **Capability state** — the remaining engine-specific surface is **read-only capability STATE**
   (`VideoQualitySelectable`/`CaptionSelectable`/`AudioTrackSelectable` expose the *available*

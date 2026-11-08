@@ -2,6 +2,7 @@ package io.ymusic.ui
 
 import kmphttp.CookieJar
 import okio.FileSystem
+import java.util.UUID
 import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -13,11 +14,17 @@ import kotlin.test.assertNotNull
  */
 class AppHttpClientsTest {
 
-    private val dir = FileSystem.SYSTEM_TEMPORARY_DIRECTORY / "ymusic-http-cache-test"
+    // Unique path per class instance: OkHttp keeps the journal open, so a shared fixed dir fails
+    // Windows AfterTest deletes (and races across tests).
+    private val dir = FileSystem.SYSTEM_TEMPORARY_DIRECTORY / "ymusic-http-cache-test-${UUID.randomUUID()}"
 
     @AfterTest
     fun cleanup() {
-        FileSystem.SYSTEM.deleteRecursively(dir, mustExist = false)
+        try {
+            FileSystem.SYSTEM.deleteRecursively(dir, mustExist = false)
+        } catch (_: java.io.IOException) {
+            // Journal may stay locked until the client is GC'd; unique dirs avoid cross-test fallout.
+        }
     }
 
     @Test

@@ -362,7 +362,7 @@ private fun AppRoot(
         var discoverTab by rememberSaveable {
             val saved = graph.settings.flow(AppSettings.lastDiscoverTab).value
             // Trending music on a fresh install — Home stays empty until YouTube has watch history.
-            mutableStateOf(discoverTabs.firstOrNull { it.id == saved } ?: DiscoverTab.Music)
+            mutableStateOf(discoverTabs.firstOrNull { it.id == saved } ?: DiscoverTab.Home)
         }
         LaunchedEffect(discoverTab) { graph.settings.put(AppSettings.lastDiscoverTab, discoverTab.id) }
         // Live swipe progress (−1..1) so the Discover underline tracks the drag, not just the commit.
@@ -1127,6 +1127,7 @@ private fun AppRoot(
                                                         onOpen = openItem,
                                                         onDeeplink = openDeeplink,
                                                         onSearch = openSearch,
+                                                        onSelectDiscoverTab = { discoverTab = it },
                                                     )
                                                 }
                                                 AppSection.YtMusic -> YtMusicScreen(
@@ -1385,6 +1386,7 @@ private fun DiscoverFeed(
     onOpen: ((io.ymusic.dynamicengine.yt.YtFeedItem) -> Unit)? = null,
     onDeeplink: ((link: String, title: String?) -> Unit)? = null,
     onSearch: (() -> Unit)? = null,
+    onSelectDiscoverTab: (DiscoverTab) -> Unit = {},
 ) {
     if (tab == DiscoverTab.Account) {
         // The user/library tab: spinner until the profile probe finishes, then the sign-in
@@ -1501,6 +1503,19 @@ private fun DiscoverFeed(
                         coordinator.playAll(
                             videos,
                             startIndex = videos.indexOfFirst { it.id == tapped.id }.coerceAtLeast(0),
+                        )
+                    }
+                } else {
+                    null
+                },
+                topContent = if (tab == DiscoverTab.Home && onSearch != null) {
+                    {
+                        HomeHub(
+                            graph = graph,
+                            coordinator = coordinator,
+                            onSearch = onSearch,
+                            onSelectDiscoverTab = onSelectDiscoverTab,
+                            onOpenFeedItem = onOpen,
                         )
                     }
                 } else {

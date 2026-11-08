@@ -37,12 +37,13 @@ sentry {
 
 val appVersionName = appVersionName()
 
-// Outputs read YMusic-<versionName>-<abi>-release.apk.
-base { archivesName.set("YMusic-$appVersionName") }
+// Outputs read StartMusicV3-<abi>-release.apk (version lives in the APK badging / versionName).
+base { archivesName.set("StartMusicV3") }
 
 // The ABIs every native the app needs — quickjs, mse, ffmpeg — is built for. A device on any other
 // ABI could install an APK carrying only some of them and crash at the first engine call.
-val appAbis = FfmpegBuild.ANDROID_ABIS
+// Override with -PandroidAbis=arm64-v8a (etc.) when only some ffmpeg-build packs are present.
+val appAbis = FfmpegBuild.androidAbis(project)
 
 android {
     namespace = "io.ymusic.android"
@@ -100,12 +101,19 @@ android {
             applicationIdSuffix = ".debug"
         }
         release {
+            isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             // Without android.signing.* the release build is debug-signed: installable for
-            // on-device testing, never distributable.
+            // on-device testing, never distributable. Prefer secrets.properties / YMUSIC_ANDROID_*.
             signingConfig = releaseSigning ?: signingConfigs.getByName("debug")
+            if (releaseSigning == null) {
+                logger.warn(
+                    "androidApp release is debug-signed (no android.signing.* / YMUSIC_ANDROID_*). " +
+                        "Not for distribution — see secrets.properties.example.",
+                )
+            }
         }
     }
 

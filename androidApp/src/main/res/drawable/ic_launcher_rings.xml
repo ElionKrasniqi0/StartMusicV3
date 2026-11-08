@@ -7,16 +7,16 @@
     android:viewportHeight="1536">
     <path
         android:pathData="M0,0h1536v1536h-1536z"
-        android:fillColor="#4936A8" />
+        android:fillColor="#4A3A9E" />
     <group
         android:translateX="256"
         android:translateY="256">
         <path
             android:pathData="M512,512 m-512,0 a512,512 0 1,0 1024,0 a512,512 0 1,0 -1024,0"
-            android:fillColor="#4936A8" />
+            android:fillColor="#4A3A9E" />
         <path
             android:pathData="M512,512 m-420,0 a420,420 0 1,0 840,0 a420,420 0 1,0 -840,0"
-            android:fillColor="#7657FF" />
+            android:fillColor="#7B5CFF" />
         <path
             android:pathData="M512,512 m-300,0 a300,300 0 1,0 600,0 a300,300 0 1,0 -600,0"
             android:fillColor="#8B74FF" />

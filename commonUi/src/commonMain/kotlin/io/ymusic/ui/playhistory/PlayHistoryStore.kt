@@ -178,11 +178,32 @@ class PlayHistoryStore(
     }
 
     suspend fun youtubeTopChart(limit: Int = retain): List<YtFeedItem> = withContext(io) {
-        val ids = queryIds(
+        youtubeFeedItems(
             "SELECT video_id FROM yt_play_history ORDER BY watch_time DESC, tracked_at DESC LIMIT ?",
             limit,
         )
-        if (ids.isEmpty()) return@withContext emptyList()
+    }
+
+    /** Most recently tracked YouTube plays (recency, not watch-time rank). */
+    suspend fun youtubeRecent(limit: Int = retain): List<YtFeedItem> = withContext(io) {
+        youtubeFeedItems(
+            "SELECT video_id FROM yt_play_history ORDER BY tracked_at DESC LIMIT ?",
+            limit,
+        )
+    }
+
+    /** Clears local + YouTube play ranking and metadata used for cards (not Play again sessions). */
+    suspend fun clearPlayHistory() = withContext(io) {
+        driver.execute(null, "DELETE FROM local_play_history", 0)
+        driver.execute(null, "DELETE FROM yt_play_history", 0)
+        driver.execute(null, "DELETE FROM yt_video_metadata", 0)
+        historyCleaned = false
+        _changes.tryEmit(Unit)
+    }
+
+    private fun youtubeFeedItems(idSql: String, limit: Int): List<YtFeedItem> {
+        val ids = queryIds(idSql, limit)
+        if (ids.isEmpty()) return emptyList()
         val placeholders = ids.joinToString(",") { "?" }
         val byId = driver.executeQuery(
             null,
@@ -213,7 +234,7 @@ class PlayHistoryStore(
         ) {
             ids.forEachIndexed { i, id -> bindString(i, id) }
         }.value
-        ids.mapNotNull { byId[it] }
+        return ids.mapNotNull { byId[it] }
     }
 
     @OptIn(ExperimentalTime::class)

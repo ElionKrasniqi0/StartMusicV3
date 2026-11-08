@@ -2,6 +2,7 @@ package io.ymusic.ui
 
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.test.waitUntilAtLeastOneExists
@@ -58,7 +59,8 @@ class RecommendedScreenTest {
                 val graph = AppGraph(settings = InMemorySettingsStore(), engines = engines, player = player, playerSurface = {})
                 setContent { App(graph) }
 
-                onNodeWithActionLabel("Recommended").performClick()
+                // Home quick chip + Discover tab share the label; either opens Recommended.
+                onAllNodesWithActionLabel("Recommended").onFirst().performClick()
 
                 // Cold start: an invitation to go play something, not an error.
                 waitUntilAtLeastOneExists(hasText("Play a few songs", substring = true), 20_000)
@@ -68,7 +70,7 @@ class RecommendedScreenTest {
 
                 // Leaving the tab and coming back rebuilds the feed from the harvest.
                 onNodeWithActionLabel("Home").performClick()
-                onNodeWithActionLabel("Recommended").performClick()
+                onAllNodesWithActionLabel("Recommended").onFirst().performClick()
                 waitUntilAtLeastOneExists(hasText("A related song", substring = true), 20_000)
             }
         } finally {

@@ -261,12 +261,21 @@ kotlin.sourceSets.getByName("jvmMain").resources.srcDir(files(jvmJniResourcesDir
 val androidAbis = FfmpegBuild.ANDROID_ABIS
 // ANDROID_NDK_ROOT pins the NDK (CI matches the one its ffmpeg packs were built with); otherwise the
 // newest NDK installed in the SDK.
-val ndkDir: File? = System.getenv("ANDROID_NDK_ROOT")?.let(::File)?.takeIf { it.isDirectory } ?: run {
-    val sdk = System.getenv("ANDROID_HOME")
-        ?: System.getenv("ANDROID_SDK_ROOT")
-        ?: File(System.getProperty("user.home"), "Library/Android/sdk").takeIf { it.exists() }?.path
-    sdk?.let { File(it, "ndk").listFiles()?.filter { d -> d.isDirectory }?.maxByOrNull { d -> d.name } }
-}
+val ndkDir: File? =
+    sequenceOf("ANDROID_NDK_ROOT", "ANDROID_NDK_HOME")
+        .mapNotNull { System.getenv(it)?.let(::File)?.takeIf { d -> d.isDirectory } }
+        .firstOrNull()
+        ?: run {
+            val sdk = System.getenv("ANDROID_HOME")
+                ?: System.getenv("ANDROID_SDK_ROOT")
+                ?: File(System.getProperty("user.home"), "Library/Android/sdk").takeIf { it.exists() }?.path
+            // Prefer the pinned NDK the project documents (28.2.x) over a lexicographic "newest".
+            sdk?.let { sdkPath ->
+                val ndks = File(sdkPath, "ndk").listFiles()?.filter { d -> d.isDirectory }.orEmpty()
+                ndks.firstOrNull { it.name.startsWith("28.2.") }
+                    ?: ndks.maxByOrNull { d -> d.name }
+            }
+        }
 
 val stageAndroidJni by tasks.registering {
     // Staged into the library jniLibs (for consumers) and the device-test jniLibs (for our emulator run).
@@ -280,15 +289,31 @@ val stageAndroidJni by tasks.registering {
         val ndk = ndkDir ?: error("Android NDK not found (set ANDROID_HOME with an installed NDK)")
         val toolchain = File(ndk, "build/cmake/android.toolchain.cmake")
         fun sh(vararg args: String) {
-            val p = ProcessBuilder(*args).redirectErrorStream(true).start()
+            val pb = ProcessBuilder(*args).redirectErrorStream(true)
+            // Windows: system CMake defaults to Visual Studio; Ninja must be on PATH for -G Ninja.
+            val env = pb.environment()
+            val pathKey = env.keys.firstOrNull { it.equals("PATH", ignoreCase = true) } ?: "PATH"
+            val extra = listOf(
+                File("C:/msys64/mingw64/bin"),
+                File(System.getenv("ANDROID_HOME") ?: "", "cmake"),
+            ).filter { it.isDirectory }.joinToString(File.pathSeparator) { it.absolutePath }
+            if (extra.isNotEmpty()) {
+                env[pathKey] = extra + File.pathSeparator + (env[pathKey] ?: "")
+            }
+            val p = pb.start()
             val out = p.inputStream.bufferedReader().readText()
             if (p.waitFor() != 0) throw GradleException("command failed: ${args.joinToString(" ")}\n$out")
         }
         androidAbis.forEach { abi ->
             val buildDir = layout.buildDirectory.dir("quickjs-android/$abi").get().asFile
+            // Drop a stale VS-generator tree so -G Ninja can reconfigure cleanly.
+            if (File(buildDir, "CMakeCache.txt").isFile) {
+                buildDir.deleteRecursively()
+            }
             buildDir.mkdirs()
             sh(
                 "cmake", "-S", nativeSrc.absolutePath, "-B", buildDir.absolutePath,
+                "-G", "Ninja",
                 "-DCMAKE_TOOLCHAIN_FILE=${toolchain.absolutePath}",
                 "-DANDROID_ABI=$abi", "-DANDROID_PLATFORM=android-${Versions.minSdk}",
                 "-DCMAKE_BUILD_TYPE=Release",

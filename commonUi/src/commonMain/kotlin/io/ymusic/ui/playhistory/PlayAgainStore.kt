@@ -16,9 +16,8 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.put
-import projectcommon.json.bool
+import projectcommon.json.boolOrNull
 import projectcommon.json.longOrNull
-import projectcommon.json.string
 import projectcommon.json.stringOrNull
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.minutes
@@ -147,7 +146,9 @@ class PlayAgainStore(
             "SELECT $SESSION_COLUMNS FROM play_again ORDER BY updated_at DESC",
             { cursor ->
                 val out = mutableListOf<PlayAgainSession>()
-                while (cursor.next().value) out += cursor.toSession()
+                while (cursor.next().value) {
+                    runCatching { cursor.toSession() }.getOrNull()?.let { out += it }
+                }
                 QueryResult.Value(out)
             },
             0,
@@ -161,7 +162,13 @@ class PlayAgainStore(
             "SELECT $SESSION_COLUMNS, items FROM play_again WHERE queue_id = ?",
             { cursor ->
                 QueryResult.Value(
-                    if (cursor.next().value) cursor.toSession() to decodeItems(cursor.getString(11)!!) else null,
+                    if (cursor.next().value) {
+                        runCatching {
+                            cursor.toSession() to decodeItems(cursor.getString(11)!!)
+                        }.getOrNull()
+                    } else {
+                        null
+                    },
                 )
             },
             1,
@@ -202,9 +209,15 @@ private fun SqlCursor.toSession() = PlayAgainSession(
 
 private fun encodeThumbs(thumbs: List<String?>): String = buildJsonArray { thumbs.forEach { add(JsonPrimitive(it)) } }.toString()
 
-/** A row saved before the strip existed holds an empty string: no tiles. */
+/** A row saved before the strip existed holds an empty string: no tiles. Corrupt JSON → no tiles. */
 private fun decodeThumbs(json: String): List<String?> =
-    if (json.isEmpty()) emptyList() else Json.parseToJsonElement(json).jsonArray.map { (it as? JsonPrimitive)?.contentOrNull }
+    if (json.isEmpty()) {
+        emptyList()
+    } else {
+        runCatching {
+            Json.parseToJsonElement(json).jsonArray.map { (it as? JsonPrimitive)?.contentOrNull }
+        }.getOrDefault(emptyList())
+    }
 
 private const val TYPE_LOCAL = "local"
 private const val TYPE_YT = "yt"
@@ -241,29 +254,38 @@ private fun encodeItems(items: List<PlayableItem>): String = buildJsonArray {
     }
 }.toString()
 
+/** Corrupt or unknown rows yield an empty queue rather than crashing Play again. */
 private fun decodeItems(json: String): List<PlayableItem> =
-    Json.parseToJsonElement(json).jsonArray.map { element ->
-        val obj = element as JsonObject
-        when (val type = obj.string("type")) {
-            TYPE_LOCAL -> PlayableItem.LocalMedia(
-                uri = obj.string("uri"),
-                mediaId = obj.longOrNull("mediaId"),
-                title = obj.stringOrNull("title"),
-                artist = obj.stringOrNull("artist"),
-                album = obj.stringOrNull("album"),
-                thumbnailUrl = obj.stringOrNull("thumbnailUrl"),
-                durationMs = obj.longOrNull("durationMs"),
-            )
-            TYPE_YT -> PlayableItem.YtMedia(
-                videoId = obj.string("videoId"),
-                title = obj.stringOrNull("title"),
-                artist = obj.stringOrNull("artist"),
-                thumbnailUrl = obj.stringOrNull("thumbnailUrl"),
-                duration = obj.stringOrNull("duration"),
-                durationMs = obj.longOrNull("durationMs"),
-                live = obj.bool("live"),
-                channelUrl = obj.stringOrNull("channelUrl"),
-            )
-            else -> error("Unknown play-again item type $type")
+    runCatching {
+        Json.parseToJsonElement(json).jsonArray.mapNotNull { element ->
+            val obj = element as? JsonObject ?: return@mapNotNull null
+            when (obj.stringOrNull("type")) {
+                TYPE_LOCAL -> {
+                    val uri = obj.stringOrNull("uri") ?: return@mapNotNull null
+                    PlayableItem.LocalMedia(
+                        uri = uri,
+                        mediaId = obj.longOrNull("mediaId"),
+                        title = obj.stringOrNull("title"),
+                        artist = obj.stringOrNull("artist"),
+                        album = obj.stringOrNull("album"),
+                        thumbnailUrl = obj.stringOrNull("thumbnailUrl"),
+                        durationMs = obj.longOrNull("durationMs"),
+                    )
+                }
+                TYPE_YT -> {
+                    val videoId = obj.stringOrNull("videoId") ?: return@mapNotNull null
+                    PlayableItem.YtMedia(
+                        videoId = videoId,
+                        title = obj.stringOrNull("title"),
+                        artist = obj.stringOrNull("artist"),
+                        thumbnailUrl = obj.stringOrNull("thumbnailUrl"),
+                        duration = obj.stringOrNull("duration"),
+                        durationMs = obj.longOrNull("durationMs"),
+                        live = obj.boolOrNull("live") ?: false,
+                        channelUrl = obj.stringOrNull("channelUrl"),
+                    )
+                }
+                else -> null
+            }
         }
-    }
+    }.getOrDefault(emptyList())

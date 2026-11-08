@@ -6,7 +6,11 @@ Machine-local dev notes are imported when present: @~/.agents/AGENTS.md
 
 ## Project Overview
 
-YMusic V4 is a complete rewrite of `YMusicLegacy` (the previous YMusic Android app) on new tech stacks: Kotlin Multiplatform + Compose Multiplatform, targeting Android, desktop JVM, and iOS. The legacy sources are not published; if you have a copy it sits at `YMusicLegacy/` (gitignored) for reference.
+**Product name:** StartMusicV3 (user-facing). Technically this tree is the KMP + Compose Multiplatform rewrite of `YMusicLegacy` (Android / desktop JVM / iOS). Legacy sources are not published; a local copy may sit at `YMusicLegacy/` (gitignored) for reference.
+
+**Mandatory product rules (Phase 14):** work in this repo; no unnecessary rewrites; do not regress Windows↔Android; share common code / isolate platforms; no fake or untested “complete” features; fix root causes; keep UI responsive; preserve FFmpeg integration; brand as StartMusicV3. Full list → [`docs/STARTMUSIC_PHASE14_DEVELOPMENT_RULES.md`](docs/STARTMUSIC_PHASE14_DEVELOPMENT_RULES.md) and [`.cursor/rules/startmusic-development.mdc`](.cursor/rules/startmusic-development.mdc).
+
+**Implementation order (Phase 15):** do not ship everything in one uncontrolled pass — follow [`docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md`](docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md). After each major step: build, test, fix, summarize files, state what works / what remains; explain options before destructive architecture changes.
 
 ## Modules
 

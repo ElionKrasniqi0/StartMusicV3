@@ -76,7 +76,7 @@ registerFfmpegSync(
 
 registerFfmpegSync(
     "syncFfmpegAndroid",
-    FfmpegBuild.ANDROID_ABIS.associateWith(FfmpegBuild::androidSlug),
+    FfmpegBuild.androidAbis(project).associateWith(FfmpegBuild::androidSlug),
     FfmpegBuild.androidDir(project),
     "the per-ABI ffmpeg pack the apk ships as lib/<abi>/{libffmpeg.so,libav*.so}",
 )

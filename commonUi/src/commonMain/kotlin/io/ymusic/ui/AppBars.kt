@@ -189,8 +189,14 @@ internal fun ElevatedBarColumn(bottomShadow: Boolean = true, content: @Composabl
     // swallowed in the Scaffold topBar slot. The stops approximate the 6dp elevation blur the
     // ElevatedBarDialog bars cast (soft peak, gaussian-ish falloff), so every lifted bar in the
     // app reads identically.
-    val shadowAlpha by animateFloatAsState(if (elevated && bottomShadow) 1f else 0f)
-    val tone by animateColorAsState(if (elevated) DesignColors.SurfaceElevated else DesignColors.Surface)
+    val shadowAlpha by animateFloatAsState(
+        targetValue = if (elevated && bottomShadow) 1f else 0f,
+        animationSpec = tween(DesignMotion.ChromeMs),
+    )
+    val tone by animateColorAsState(
+        targetValue = if (elevated) DesignColors.SurfaceElevated else DesignColors.Surface,
+        animationSpec = tween(DesignMotion.ChromeMs),
+    )
     Column(
         Modifier
             .zIndex(1f)

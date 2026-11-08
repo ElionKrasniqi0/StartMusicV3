@@ -1,0 +1,31 @@
+---
+description: Mandatory StartMusicV3 development rules (Phase 14) — architecture, platforms, honesty, branding
+alwaysApply: true
+---
+
+# StartMusicV3 — mandatory development rules
+
+Product name in user-facing surfaces: **StartMusicV3**. Full phase note: `docs/STARTMUSIC_PHASE14_DEVELOPMENT_RULES.md`.
+
+1. **Work with the existing repository.** Extend this KMP + Compose tree; do not start a parallel app.
+2. **Do not delete working features.** Prefer additive fixes; remove behavior only when explicitly requested.
+3. **Do not rewrite the entire project unnecessarily.** No Flutter/Electron/greenfield rewrite; fill gaps in place.
+4. **Do not break Windows while developing Android.** Keep `:desktopApp:run` / packaging green when touching shared or desktop paths.
+5. **Do not break Android while improving Windows.** Keep `:androidApp` and shared UI/player contracts intact.
+6. **Keep common code shared where appropriate.** App logic in `:commonUi` / shared modules; avoid duplicating features per shell.
+7. **Keep platform-specific code isolated.** Shells (`:desktopApp`, `:androidApp`, `iosApp`) and `expect`/`actual` only where the platform API forces it.
+8. **Use clean architecture and maintainable code.** Narrow SPIs (`Player` / `MediaEngine`, stores); match existing module boundaries in `AGENTS.md`.
+9. **Avoid unnecessary dependencies.** Prefer in-tree modules (`:kmpHttp`, `:image-loader`, …) over new libraries.
+10. **Do not create fake functionality.** No stubs presented as shipping features.
+11. **Do not use placeholder buttons for features presented as complete.** Incomplete UI must be honest or omitted.
+12. **Do not claim a feature works without testing it.** Verify behavior; document blocks (e.g. missing SDK) instead of inventing a pass.
+13. **Fix root causes instead of hiding errors.** No swallowing exceptions, disabling tests, or silencing failures for a green build.
+14. **Keep the UI responsive.** Main/engine threads stay non-blocking; hop IO/CPU off as in `AGENTS.md` coroutines rules.
+15. **Preserve the existing FFmpeg integration.** Keep `:kmpFfmpeg` / `ffmpeg-build` staging (`syncFfmpegHost`, ABI packs); do not replace with an ad-hoc stack.
+16. **Use StartMusicV3 consistently as the product name.** User-visible strings, window titles, installers, README — not YMusic/YMusicV4 branding.
+
+## Implementation order (Phase 15)
+
+Do not implement everything in one uncontrolled operation. Follow `docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md` (audit → Windows preserve → Android SDK → branding → shared UI → player → Windows → Android → features → persistence/errors → independent tests → distribution → docs).
+
+After every major step: appropriate build, relevant tests, fix root causes, summarize modified files, state what works and what remains. Explain architectural options before destructive changes.

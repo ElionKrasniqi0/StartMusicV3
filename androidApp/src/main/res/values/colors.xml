@@ -2,8 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <!-- commonUi DesignColors.Surface (Light / Dark) — keep in sync: the splash and window background must
-         equal the first Compose frame's ground or the launch flashes a colour change. -->
-    <color name="app_surface">#FFFFFFFF</color>
-    <color name="app_surface_dark">#FF101116</color>
+    <!-- Keep in sync with Brand / DesignColors.Surface — splash must match first Compose frame. -->
+    <color name="app_surface">#FFF6F4FB</color>
+    <color name="app_surface_dark">#FF0C0C10</color>
+    <color name="brand_primary">#FF7B5CFF</color>
+    <color name="brand_secondary">#FF4A3A9E</color>
 </resources>

@@ -35,7 +35,7 @@ internal class UpgradeNotice(private val settings: SettingsStore, private val ve
     }
 }
 
-/** "YMusic updated to X" on the first launch after an update, with a View changelog action. */
+/** "StartMusicV3 updated to X" on the first launch after an update, with a View changelog action. */
 @Composable
 internal fun UpgradeSnackbar(graph: AppGraph, snackbarHostState: SnackbarHostState) {
     val uriHandler = LocalUriHandler.current

@@ -6,6 +6,7 @@ import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
@@ -159,7 +160,8 @@ class AccountLibraryScreenTest {
         try {
             runComposeUiTest {
                 setContent { App(AppGraph(settings = InMemorySettingsStore(), engines = engines, player = StubPlayer(), playerSurface = {})) }
-                onNodeWithActionLabel("Library").performClick()
+                // Discover Account tab — not Home's "Library" chip (local media) or the drawer row.
+                onAllNodesWithActionLabel("Library").onLast().performClick()
                 waitUntilAtLeastOneExists(hasText("Sign in with YouTube"), 20_000)
                 onAllNodesWithText("Watch history").assertCountEquals(0)
             }
@@ -180,7 +182,7 @@ class AccountLibraryScreenTest {
         try {
             runComposeUiTest {
                 setContent { App(AppGraph(settings = InMemorySettingsStore(), engines = engines, player = StubPlayer(), playerSurface = {})) }
-                onNodeWithActionLabel("Library").performClick()
+                onAllNodesWithActionLabel("Library").onLast().performClick()
 
                 // The account card (from account_menu) over the cookie gate.
                 waitUntilAtLeastOneExists(hasText("Mock Account"), 20_000)

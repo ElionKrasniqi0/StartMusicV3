@@ -58,6 +58,9 @@ import io.ymusic.dynamicengine.yt.musicSearch
 import io.ymusic.dynamicengine.yt.musicSearchSuggestions
 import io.ymusic.dynamicengine.yt.search
 import io.ymusic.dynamicengine.yt.searchSuggestions
+import io.ymusic.settings.AppSettings
+import io.ymusic.settings.flow
+import io.ymusic.settings.put
 import io.ymusic.ui.resources.Res
 import io.ymusic.ui.resources.cd_insert_query
 import io.ymusic.ui.resources.cd_remove_from_history
@@ -75,7 +78,6 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
-private const val SearchHistoryKey = "search.history"
 private const val HistoryLimit = 20
 
 /**
@@ -162,11 +164,11 @@ fun SearchScreen(
     var suggestions by remember { mutableStateOf(listOf<String>()) }
     var filterOpen by remember { mutableStateOf(false) }
 
-    val historyRaw by remember(graph) { graph.settings.string(SearchHistoryKey, "") }.collectAsState()
+    val historyRaw by remember(graph) { graph.settings.flow(AppSettings.searchHistory) }.collectAsState()
     val history = remember(historyRaw) { historyRaw.split('\n').filter { it.isNotBlank() } }
     fun saveHistory(entries: List<String>) {
         scope.launch {
-            graph.settings.putString(SearchHistoryKey, entries.take(HistoryLimit).joinToString("\n"))
+            graph.settings.put(AppSettings.searchHistory, entries.take(HistoryLimit).joinToString("\n"))
         }
     }
 

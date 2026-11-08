@@ -91,5 +91,6 @@ private fun BoxScope.ImageLayer(
         modifier = Modifier.matchParentSize().clip(shape),
         contentScale = ContentScale.Crop,
         placeholder = placeholder,
+        crossfadeMs = DesignMotion.ArtCrossfadeMs,
     )
 }

@@ -20,8 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -32,8 +30,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
@@ -48,6 +44,7 @@ import io.ymusic.settings.flow
 import io.ymusic.ui.App
 import io.ymusic.ui.AppGraph
 import io.ymusic.ui.AppSection
+import io.ymusic.ui.BrandBootScreen
 import io.ymusic.ui.IncomingLinks
 import io.ymusic.ui.LinkAction
 import io.ymusic.ui.designPaletteFor
@@ -668,9 +665,11 @@ private fun FolderPickerIssueDialog(issue: FolderPickerIssue, onOpenSettings: (S
 
 @androidx.compose.runtime.Composable
 private fun Booting(content: @androidx.compose.runtime.Composable () -> Unit) {
-    // The first frame App will paint, so the launch window → this → App never changes colour.
+    // Splash system theme → BrandBootScreen → App: same ground + StartMusicV3 mark.
     val context = androidx.compose.ui.platform.LocalContext.current
     val theme = remember { PrefsSettingsStore.open(context).flow(AppSettings.theme).value }
-    val ground = designPaletteFor(theme, androidx.compose.foundation.isSystemInDarkTheme()).Surface
-    Box(Modifier.fillMaxSize().background(ground), contentAlignment = Alignment.Center) { content() }
+    val palette = designPaletteFor(theme, androidx.compose.foundation.isSystemInDarkTheme())
+    io.ymusic.ui.YMusicTheme(palette) {
+        BrandBootScreen(background = palette.Surface) { content() }
+    }
 }

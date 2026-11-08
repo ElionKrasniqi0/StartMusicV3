@@ -4,6 +4,13 @@ Module detail for the one-line summary in the root [`AGENTS.md`](../AGENTS.md) �
 
 - **Run** — the JVM desktop product shell: `./gradlew :desktopApp:run`.
 
+- **Windows packaging** — on a Windows x64 host with a full JDK (jpackage) and Inno Setup:
+  - `./gradlew :desktopApp:releaseInstaller` → `build/release/StartMusicV3-<version>-windows-x64.exe`
+  - lower-level: `createReleaseDistributable` (bundled runtime + FFmpeg) then `packageReleaseInnoSetup` (`installer/windows/ymusic.iss`, icon `startmusic.ico`)
+  - Phase 6 notes: [`docs/STARTMUSIC_PHASE6_WINDOWS.md`](../docs/STARTMUSIC_PHASE6_WINDOWS.md)
+
+- **FFmpeg (Windows)** — `syncFfmpegHost` stages the sibling `ffmpeg-build` pack; `FfmpegBuild.copyPack` prefers `cp -a` when present and falls back to Java `copyRecursively` so Windows builds do not require MSYS `cp`.
+
 - **Boot sequence** — boots:
   - `DynamicEngineManager` (QuickJS + engine-js)
   - a file-backed `:media-store` + `:media-scanner` "Scan folder…" (packed ffmpeg, or `-Dio.ymusic.ffmpeg` / PATH)

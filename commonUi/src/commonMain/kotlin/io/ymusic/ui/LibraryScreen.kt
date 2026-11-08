@@ -39,6 +39,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Album
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.MusicNote
@@ -121,6 +122,7 @@ import io.ymusic.ui.resources.library_tab_genres
 import io.ymusic.ui.resources.library_tab_playlists
 import io.ymusic.ui.resources.library_tab_songs
 import io.ymusic.ui.resources.library_unavailable
+import io.ymusic.ui.resources.menu_add_favorite
 import io.ymusic.ui.resources.menu_delete_playlist
 import io.ymusic.ui.resources.menu_download_location
 import io.ymusic.ui.resources.menu_exclude_folder
@@ -129,6 +131,7 @@ import io.ymusic.ui.resources.menu_go_to_artist
 import io.ymusic.ui.resources.menu_include_folder
 import io.ymusic.ui.resources.menu_play
 import io.ymusic.ui.resources.menu_remove
+import io.ymusic.ui.resources.menu_remove_favorite
 import io.ymusic.ui.resources.menu_remove_folder
 import io.ymusic.ui.resources.menu_remove_from_disk
 import io.ymusic.ui.resources.menu_remove_from_playlist
@@ -139,6 +142,8 @@ import io.ymusic.ui.resources.playlist_create_confirm
 import io.ymusic.ui.resources.playlist_create_title
 import io.ymusic.ui.resources.playlist_delete_message
 import io.ymusic.ui.resources.playlist_delete_title
+import io.ymusic.ui.resources.playlist_favorites
+import io.ymusic.ui.resources.playlist_favorites_desc
 import io.ymusic.ui.resources.playlist_name_exists
 import io.ymusic.ui.resources.playlist_name_hint
 import io.ymusic.ui.resources.playlist_new
@@ -218,6 +223,17 @@ internal val LocalPlaylistRemove = compositionLocalOf<((MediaStoreItem) -> Unit)
 
 /** A song's "Remove" action on Library Top tracks — drops the local watch-time row. Null elsewhere. */
 internal val LocalRemoveFromPlayHistory = compositionLocalOf<((MediaStoreItem) -> Unit)?> { null }
+
+/** Favorite song codes ([MediaStoreItem.playlistCode]) + toggle; provided over Library. */
+internal data class FavoritesActions(
+    val codes: Set<String>,
+    val toggle: (MediaStoreItem) -> Unit,
+)
+
+internal val LocalFavorites = compositionLocalOf<FavoritesActions?> { null }
+
+/** "Remove from favorites" while browsing the Favorites smart playlist. */
+internal val LocalRemoveFavorite = compositionLocalOf<((MediaStoreItem) -> Unit)?> { null }
 
 /** The local library over [AppGraph.mediaStore]: an empty state with the scan action until the first
  *  scan lands, then the Folders/Playlists/Songs/Artists/Albums/Genres tabs. Styled with
@@ -315,6 +331,17 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
             val tabStateHolder = rememberSaveableStateHolder()
             // Live swipe progress (−1..1) so the underline tracks the drag, not just the commit.
             var tabDrag by remember { mutableFloatStateOf(0f) }
+            val favoriteCodes by remember(graph) { graph.settings.flow(AppSettings.libraryFavorites) }.collectAsState()
+            val favoritesScope = rememberCoroutineScope()
+            val favorites = remember(favoriteCodes) {
+                FavoritesActions(favoriteCodes) { song ->
+                    favoritesScope.launch {
+                        val code = song.playlistCode
+                        val next = if (code in favoriteCodes) favoriteCodes - code else favoriteCodes + code
+                        graph.settings.put(AppSettings.libraryFavorites, next)
+                    }
+                }
+            }
             Column(Modifier.fillMaxSize()) {
                 // The tab row is pinned under the app bar and elevates with it (one continuous
                 // surface); each tab's sort/breadcrumb scroll away with the content below.
@@ -322,7 +349,10 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                     LibraryTabRow(tab, tabDrag) { tab = it }
                     HorizontalDivider(color = DesignColors.Divider)
                 }
-                CompositionLocalProvider(LocalLibraryReveal provides reveal) {
+                CompositionLocalProvider(
+                    LocalLibraryReveal provides reveal,
+                    LocalFavorites provides favorites,
+                ) {
                     val openDrawer = LocalOpenNavDrawer.current
                     SwipeTabSwitcher(
                         tab,
@@ -916,6 +946,7 @@ internal fun DeleteFromDiskDialog(
 // PlayHistoryStore), so they use negative ids that AUTOINCREMENT user playlists (always positive)
 // never collide with.
 private const val SMART_RECENT_PLAY = -1L
+private const val SMART_FAVORITES = -2L
 private const val SMART_TOP_TRACKS = -3L
 
 /** One row in the Playlists list: either a computed system playlist or a user-created one. */
@@ -938,6 +969,7 @@ private data class UserEntry(val playlist: Playlist, val count: Int, val artUrl:
  *  the Songs tab's "Date added" sort already covers it.) */
 private val smartPlaylists = listOf(
     SmartEntry(SMART_RECENT_PLAY, Res.string.playlist_recent_play, Res.string.playlist_recent_play_desc, Icons.Default.History),
+    SmartEntry(SMART_FAVORITES, Res.string.playlist_favorites, Res.string.playlist_favorites_desc, Icons.Default.Favorite),
     SmartEntry(SMART_TOP_TRACKS, Res.string.playlist_top_tracks, Res.string.playlist_top_tracks_desc, Icons.Default.Whatshot),
 )
 
@@ -981,11 +1013,16 @@ private fun PlaylistsTab(
     // a user playlist reads its live membership so add/remove/reorder reflect at once. We DON'T clear
     // the previous list first — it stays until the new one lands (Folders-style), so drilling in
     // doesn't flash empty then reflow.
-    LaunchedEffect(selected?.first, content, playHistory) {
+    val favoriteCodes by remember(graph) { graph.settings.flow(AppSettings.libraryFavorites) }.collectAsState()
+    LaunchedEffect(selected?.first, content, playHistory, favoriteCodes) {
         val id = selected?.first ?: return@LaunchedEffect
         if (id > 0) {
             // Item changes too: a member queued by video id resolves (appears) once its download lands.
             merge(store.playlistChanges(id).map { }, store.itemsChanges()).collect { userItems = store.playlistItemDetails(id) }
+            return@LaunchedEffect
+        }
+        if (id == SMART_FAVORITES) {
+            systemSongs = mediaItemsByPlayHistoryCodes(content.songs, favoriteCodes.toList())
             return@LaunchedEffect
         }
         val history = playHistory
@@ -1103,11 +1140,20 @@ private fun PlaylistsTab(
             null
         }
     }
+    val favorites = LocalFavorites.current
+    val removeFromFavorites: ((MediaStoreItem) -> Unit)? = remember(open?.first, favorites) {
+        if (open?.first == SMART_FAVORITES && favorites != null) {
+            { song: MediaStoreItem -> favorites.toggle(song) }
+        } else {
+            null
+        }
+    }
 
     TrackScroll { listState.canScrollBackward || gridState.canScrollBackward }
     CompositionLocalProvider(
         LocalPlaylistRemove provides removeFromPlaylist,
         LocalRemoveFromPlayHistory provides removeFromPlayHistory,
+        LocalRemoveFavorite provides removeFromFavorites,
     ) {
         BoxWithConstraints(Modifier.fillMaxSize()) {
             if (maxWidth >= LibraryGridMinWidth) {
@@ -1601,6 +1647,8 @@ private fun songActions(song: MediaStoreItem, coordinator: PlaybackCoordinator):
     val addToPlaylistLabel = stringResource(Res.string.cd_add_to_playlist)
     val removeFromPlaylistLabel = stringResource(Res.string.menu_remove_from_playlist)
     val removeFromTopTracks = stringResource(Res.string.menu_remove)
+    val addFavorite = stringResource(Res.string.menu_add_favorite)
+    val removeFavorite = stringResource(Res.string.menu_remove_favorite)
     val showInFolder = stringResource(Res.string.menu_show_in_folder)
     val removeFromDisk = stringResource(Res.string.menu_remove_from_disk)
     val reveal = LocalLibraryReveal.current
@@ -1610,6 +1658,8 @@ private fun songActions(song: MediaStoreItem, coordinator: PlaybackCoordinator):
     val addToPlaylist = LocalAddToPlaylist.current
     val removeFromPlaylist = LocalPlaylistRemove.current
     val removeFromHistory = LocalRemoveFromPlayHistory.current
+    val removeFavoriteAction = LocalRemoveFavorite.current
+    val favorites = LocalFavorites.current
     val goToGroup = LocalGoToLibraryGroup.current
     val goToArtist = stringResource(Res.string.menu_go_to_artist)
     val goToAlbum = stringResource(Res.string.menu_go_to_album)
@@ -1621,6 +1671,12 @@ private fun songActions(song: MediaStoreItem, coordinator: PlaybackCoordinator):
             if (addToPlaylist != null) add(addToPlaylistLabel to { addToPlaylist(song) })
             if (removeFromPlaylist != null) add(removeFromPlaylistLabel to { removeFromPlaylist(song) })
             if (removeFromHistory != null) add(removeFromTopTracks to { removeFromHistory(song) })
+            if (removeFavoriteAction != null) {
+                add(removeFavorite to { removeFavoriteAction(song) })
+            } else if (favorites != null) {
+                val isFavorite = song.playlistCode in favorites.codes
+                add((if (isFavorite) removeFavorite else addFavorite) to { favorites.toggle(song) })
+            }
             if (goToGroup != null) {
                 add(goToArtist to { goToGroup(LibraryGroupKind.Artist, song) })
                 add(goToAlbum to { goToGroup(LibraryGroupKind.Album, song) })

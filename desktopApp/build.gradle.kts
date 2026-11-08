@@ -382,14 +382,12 @@ compose.desktop {
                 perUserInstall = false
                 menu = true
                 shortcut = true
-                // Multi-res ICO (16–256 px): a one-off Skia render of ymusic_logo.xml's ring artwork
-                // clipped to a circle; without this jpackage falls back to its default Java/Compose
-                // icon on the installer dialog, Start-menu entry, and running window.
-                iconFile.set(project.file("ymusic.ico"))
+                // Multi-res ICO (16–256 px) from the StartMusicV3 mark; without this jpackage falls
+                // back to its default Java/Compose icon on the installer, Start menu, and window.
+                iconFile.set(project.file("startmusic.ico"))
             }
             linux {
-                // :commonUi's ymusic_logo.xml rendered at 512 px, inset to 7/8 (Main.kt's runtime entry matches).
-                iconFile.set(project.file("ymusic.png"))
+                iconFile.set(project.file("startmusic.png"))
                 appCategory = "sound"
                 menuGroup = "AudioVideo;Audio;Player;"
             }
@@ -566,7 +564,7 @@ val packageReleaseInnoSetup by tasks.registering(Exec::class) {
     dependsOn("createReleaseDistributable")
 
     val script = project.file("installer/windows/ymusic.iss")
-    val iconFile = project.file("ymusic.ico")
+    val iconFile = project.file("startmusic.ico")
     // Directory name follows compose.desktop nativeDistributions.packageName.
     val appDir = layout.buildDirectory.dir("compose/binaries/main-release/app/StartMusicV3")
 

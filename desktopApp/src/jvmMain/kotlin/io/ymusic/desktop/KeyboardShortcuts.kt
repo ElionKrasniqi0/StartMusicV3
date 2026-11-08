@@ -42,6 +42,15 @@ internal fun handleGlobalShortcut(
     val cmd = event.isMetaPressed || event.isCtrlPressed
     return when {
         event.key == Key.F8 -> { player?.togglePlay(); true }
+        // Hardware / OS media keys (Windows keyboards, headsets) when this window is focused.
+        event.key == Key.MediaPlayPause || event.key == Key.MediaPlay || event.key == Key.MediaPause -> {
+            player?.togglePlay(); true
+        }
+        event.key == Key.MediaNext -> { player?.skipNext(); true }
+        event.key == Key.MediaPrevious -> { player?.skipPrev(); true }
+        event.key == Key.MediaStop -> { player?.pause(); true }
+        event.key == Key.VolumeUp -> { player?.let { stepVolume(it, 1) }; true }
+        event.key == Key.VolumeDown -> { player?.let { stepVolume(it, -1) }; true }
         event.key == Key.F7 -> { player?.let { seekBy(it, -SEEK_STEP_MS) }; true }
         event.key == Key.F9 -> { player?.let { seekBy(it, SEEK_STEP_MS) }; true }
         event.key == Key.F11 -> { frame.toggleFullscreen(); true }
@@ -68,7 +77,13 @@ internal fun handleGlobalShortcut(
  * selection. [onVolume] gets the new volume, for the on-screen message.
  */
 internal fun handleArrowShortcut(event: KeyEvent, player: Player?, onVolume: (Float) -> Unit): Boolean {
-    if (event.type != KeyEventType.KeyDown || event.isAltPressed || !(event.isMetaPressed || event.isCtrlPressed)) return false
+    if (event.type != KeyEventType.KeyDown || event.isAltPressed) return false
+    // Space play/pause only here (post-child): a focused text field keeps Space for typing.
+    if (!event.isMetaPressed && !event.isCtrlPressed && !event.isShiftPressed && event.key == Key.Spacebar) {
+        player?.togglePlay()
+        return true
+    }
+    if (!(event.isMetaPressed || event.isCtrlPressed)) return false
     val shift = event.isShiftPressed
     when {
         event.key == Key.DirectionLeft -> if (shift) player?.let { seekBy(it, -SEEK_STEP_MS) } else player?.skipPrev()

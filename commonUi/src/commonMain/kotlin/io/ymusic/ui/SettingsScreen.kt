@@ -51,14 +51,22 @@ import io.ymusic.settings.BoolSetting
 import io.ymusic.settings.flow
 import io.ymusic.settings.put
 import io.ymusic.ui.resources.Res
+import io.ymusic.ui.resources.about_tagline
 import io.ymusic.ui.resources.app_name
 import io.ymusic.ui.resources.dialog_cancel
 import io.ymusic.ui.resources.settings_audio_focus
 import io.ymusic.ui.resources.settings_audio_focus_apps
 import io.ymusic.ui.resources.settings_audio_focus_calls
+import io.ymusic.ui.resources.settings_audio_only
+import io.ymusic.ui.resources.settings_audio_only_hint
 import io.ymusic.ui.resources.settings_auto_update
 import io.ymusic.ui.resources.settings_auto_update_hint
 import io.ymusic.ui.resources.settings_changelog
+import io.ymusic.ui.resources.settings_clear_play_history
+import io.ymusic.ui.resources.settings_clear_play_history_hint
+import io.ymusic.ui.resources.settings_clear_search_history
+import io.ymusic.ui.resources.settings_clear_search_history_hint
+import io.ymusic.ui.resources.settings_cleared
 import io.ymusic.ui.resources.settings_content_locale_hint
 import io.ymusic.ui.resources.settings_content_region
 import io.ymusic.ui.resources.settings_crash_reports
@@ -102,6 +110,7 @@ import kmpcommon.log.Logger
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.StringResource
@@ -186,6 +195,7 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
         SettingsSection(Res.string.settings_section_playback) {
             SoundRow(graph, speed = true)
             SoundRow(graph, speed = false)
+            AudioOnlyDefaultRow(graph)
             ToggleRow(graph, AppSettings.enablePip, Res.string.settings_enable_pip, Res.string.settings_enable_pip_hint)
             if (graph.audioFocusSetting) AudioFocusRow(graph)
             ToggleRow(
@@ -211,9 +221,19 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
         SettingsSection(Res.string.settings_section_privacy) {
             ToggleRow(graph, AppSettings.crashReports, Res.string.settings_crash_reports, Res.string.settings_crash_reports_hint)
             ToggleRow(graph, AppSettings.stats, Res.string.settings_stats, Res.string.settings_stats_hint)
+            ClearHistoryRow(
+                title = Res.string.settings_clear_search_history,
+                hint = Res.string.settings_clear_search_history_hint,
+                onClear = { graph.settings.put(AppSettings.searchHistory, "") },
+            )
+            ClearHistoryRow(
+                title = Res.string.settings_clear_play_history,
+                hint = Res.string.settings_clear_play_history_hint,
+                onClear = { graph.playHistory?.clearPlayHistory() },
+            )
         }
         SettingsSection(Res.string.settings_section_about) {
-            AboutBrandHeader(graph.appVersionName)
+            AboutBrandHeader(graph.appVersionName, graph.appVersionCode)
             HorizontalDivider(color = DesignColors.DividerMini)
             VersionsRow(graph)
             // Download updates in the background (on by default); installing still waits for a tap.
@@ -259,6 +279,70 @@ private fun SoundRow(graph: AppGraph, speed: Boolean) {
     if (open) {
         if (speed) PlaybackFxSheet(graph.player, onDismiss = { open = false })
         else EqualizerFxSheet(graph, onDismiss = { open = false })
+    }
+}
+
+/** Default audio-only: mirrors [Player.setAudioOnly], which AppGraph already persists. */
+@Composable
+private fun AudioOnlyDefaultRow(graph: AppGraph) {
+    val scope = rememberCoroutineScope()
+    val enabled by remember(graph) {
+        graph.player.config.map { it.audioOnly }
+    }.collectAsState(initial = graph.player.config.value.audioOnly)
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .toggleable(value = enabled, role = Role.Switch) {
+                scope.launch { graph.player.setAudioOnly(it) }
+            }
+            .padding(horizontal = DesignSpacing.SettingsRowHorizontal, vertical = DesignSpacing.SettingsRowVertical),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(
+                stringResource(Res.string.settings_audio_only),
+                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
+            )
+            Text(
+                stringResource(Res.string.settings_audio_only_hint),
+                style = TextStyle(fontSize = 12.sp, color = DesignColors.InkSecondary),
+                modifier = Modifier.padding(top = DesignSpacing.Space2),
+            )
+        }
+        CompactSwitch(enabled)
+    }
+}
+
+@Composable
+private fun ClearHistoryRow(title: StringResource, hint: StringResource, onClear: suspend () -> Unit) {
+    val scope = rememberCoroutineScope()
+    val snackbar = LocalSnackbar.current
+    val cleared = stringResource(Res.string.settings_cleared)
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clickable {
+                scope.launch {
+                    onClear()
+                    snackbar(cleared)
+                }
+            }
+            .padding(horizontal = DesignSpacing.SettingsRowHorizontal, vertical = DesignSpacing.SettingsRowVertical),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(
+                stringResource(title),
+                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
+            )
+            Text(
+                stringResource(hint),
+                style = TextStyle(fontSize = 12.sp, color = DesignColors.InkSecondary),
+                modifier = Modifier.padding(top = DesignSpacing.Space2),
+            )
+        }
     }
 }
 
@@ -345,29 +429,39 @@ private fun LinkRow(label: StringResource, url: String) {
 }
 
 @Composable
-private fun AboutBrandHeader(versionName: String?) {
+private fun AboutBrandHeader(versionName: String?, versionCode: Int?) {
     Row(
         Modifier
             .fillMaxWidth()
             .padding(horizontal = DesignSpacing.SettingsRowHorizontal, vertical = DesignSpacing.SettingsRowVertical),
-        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             painterResource(Res.drawable.startmusic_logo),
             contentDescription = stringResource(Res.string.app_name),
-            modifier = Modifier.size(44.dp).clip(RoundedCornerShape(Brand.ThumbCorner)),
+            modifier = Modifier.size(56.dp).clip(RoundedCornerShape(Brand.SplashCorner)),
         )
         Column(Modifier.weight(1f)) {
             Text(
                 stringResource(Res.string.app_name),
-                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = DesignColors.InkStrong),
+                style = Brand.Title.copy(fontWeight = FontWeight.Bold, color = DesignColors.InkStrong),
             )
-            versionName?.let {
-                Text(
-                    it,
-                    style = TextStyle(fontSize = 12.sp, color = DesignColors.InkSecondary),
-                    modifier = Modifier.padding(top = DesignSpacing.Space2),
+            Text(
+                stringResource(Res.string.about_tagline),
+                style = Brand.Caption.copy(color = DesignColors.InkSecondary),
+                modifier = Modifier.padding(top = DesignSpacing.Space4),
+            )
+            when {
+                versionName != null && versionCode != null -> Text(
+                    stringResource(Res.string.settings_versions_app, versionName, versionCode.toString()),
+                    style = Brand.Label.copy(color = DesignColors.InkFaint),
+                    modifier = Modifier.padding(top = DesignSpacing.Space4),
+                )
+                versionName != null -> Text(
+                    versionName,
+                    style = Brand.Label.copy(color = DesignColors.InkFaint),
+                    modifier = Modifier.padding(top = DesignSpacing.Space4),
                 )
             }
         }
@@ -393,11 +487,11 @@ private fun VersionsRow(graph: AppGraph) {
     ) {
         Text(
             stringResource(Res.string.settings_versions),
-            style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
+            style = Brand.Headline.copy(color = DesignColors.Ink),
         )
         Text(
             parts.joinToString(" · "),
-            style = TextStyle(fontSize = 12.sp, color = DesignColors.InkSecondary),
+            style = Brand.Caption.copy(color = DesignColors.InkSecondary),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(top = DesignSpacing.Space2),

@@ -40,6 +40,7 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.outlined.PlaylistAdd
 import androidx.compose.material.icons.automirrored.outlined.QueueMusic
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.ClosedCaption
 import androidx.compose.material.icons.filled.CropFree
 import androidx.compose.material.icons.filled.DragHandle
@@ -165,6 +166,7 @@ import io.ymusic.ui.resources.badge_live
 import io.ymusic.ui.resources.captions_auto_translate
 import io.ymusic.ui.resources.captions_off
 import io.ymusic.ui.resources.cd_captions
+import io.ymusic.ui.resources.cd_clear_queue
 import io.ymusic.ui.resources.cd_close
 import io.ymusic.ui.resources.cd_download
 import io.ymusic.ui.resources.cd_exit_fullscreen
@@ -355,6 +357,12 @@ fun MiniPlayer(
                                 overflow = TextOverflow.Ellipsis,
                             )
                         }
+                    }
+                    IconButton(
+                        onClick = { coordinator.player.skipPrev() },
+                        modifier = Modifier.a11yActionLabel(stringResource(Res.string.cd_previous)),
+                    ) {
+                        Icon(Icons.Default.SkipPrevious, null, tint = DesignColors.InkMuted)
                     }
                     IconButton(
                         onClick = { coordinator.player.togglePlay() },
@@ -1869,6 +1877,15 @@ private fun QueueHeader(
             checked = shuffle,
             tint = if (shuffle) DesignColors.Accent else DesignColors.InkSoft,
             onCheckedChange = { player.setShuffle(it) },
+        )
+        ActionIcon(
+            Icons.Default.Clear,
+            stringResource(Res.string.cd_clear_queue),
+            tint = DesignColors.InkSoft,
+            onClick = {
+                player.stop()
+                player.clearQueue()
+            },
         )
     }
 }

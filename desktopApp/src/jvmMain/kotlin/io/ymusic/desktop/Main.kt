@@ -147,6 +147,7 @@ import io.ymusic.ui.ActionIcon
 import io.ymusic.ui.App
 import io.ymusic.ui.AppGraph
 import io.ymusic.ui.AppHttpClients
+import io.ymusic.ui.BrandBootScreen
 import io.ymusic.ui.CatalogueScreen
 import io.ymusic.ui.FolderWriteProblem
 import io.ymusic.ui.IncomingLinks
@@ -169,6 +170,7 @@ import io.ymusic.ui.resources.Res
 import io.ymusic.ui.resources.cd_always_on_top
 import io.ymusic.ui.resources.cd_close
 import io.ymusic.ui.resources.cd_fullscreen
+import io.ymusic.ui.resources.cd_maximize
 import io.ymusic.ui.resources.cd_minimize
 import io.ymusic.ui.resources.folder_picker_title
 import io.ymusic.ui.resources.playlist_menu_backup
@@ -264,7 +266,7 @@ private fun flushLogBeforeExit() {
 // Long enough for the recorders to write what clearing the queue triggers (watch time, the Play again play-head).
 private val QUIT_SAVE_DELAY = 500.milliseconds
 
-/** The installed YMusic.exe (jpackage launcher); null under `gradlew run`, where tasks have nothing to relaunch. */
+/** The installed StartMusicV3.exe (jpackage launcher); null under `gradlew run`, where tasks have nothing to relaunch. */
 private val jumpListExe: String? = System.getProperty("jpackage.app-path")?.takeIf { isWindows }
 
 /** Ticks when the OS hands over a link or the app icon is clicked, so a window hidden to the tray comes back. */
@@ -486,6 +488,14 @@ fun main(args: Array<String>) {
                     window.iconImages = listOf(16, 20, 24, 32, 40, 48, 64, 128, 256).map { windowIcon.rasterize(it) }
                 }
             }
+            // Match the restored-size floor in loadWindowPrefs; Compose state alone does not stop AWT
+            // from shrinking past it while the user drags an edge.
+            LaunchedEffect(window) {
+                val d = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment()
+                    .defaultScreenDevice.defaultConfiguration.defaultTransform.scaleX
+                    .coerceAtLeast(1.0)
+                window.minimumSize = java.awt.Dimension((320 * d).toInt(), (480 * d).toInt())
+            }
             val closeApp = {
                 if (graph?.player?.queue?.value?.items?.isNotEmpty() == true) windowVisible = false else quit()
             }
@@ -555,11 +565,13 @@ fun main(args: Array<String>) {
                                 stringResource(Res.string.cd_minimize),
                                 TrafficGlyph.Minimize,
                             ) { window.extendedState = java.awt.Frame.ICONIFIED }
+                            // Windows/Linux: green = maximize/restore work area (double-click title
+                            // does the same). Fullscreen stays on F11. macOS green = native fullscreen.
                             MacTrafficLight(
                                 Color(0xFF28C840),
-                                stringResource(Res.string.cd_fullscreen),
-                                TrafficGlyph.Fullscreen,
-                                onClick = { frame.toggleFullscreen() },
+                                stringResource(if (isMac) Res.string.cd_fullscreen else Res.string.cd_maximize),
+                                if (isMac) TrafficGlyph.Fullscreen else TrafficGlyph.Maximize,
+                                onClick = { if (isMac) frame.toggleFullscreen() else frame.toggleZoom() },
                             )
                         }
                         Text(
@@ -680,9 +692,9 @@ fun main(args: Array<String>) {
                                         bootScope.launch { boot { session } }
                                     },
                                 )
-                                // No spinner while the graph builds: the window paints the app's own ground until
-                                // the first frame has something in it.
-                                graph == null -> Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background))
+                                // Window is usually held invisible until the graph is ready; if it
+                                // does paint early, keep the StartMusicV3 boot identity on screen.
+                                graph == null -> Booting { }
                                 else -> App(graph!!, catalogue = if (DEBUG_BUILD) ({ CatalogueScreen() }) else null)
                             }
                         }
@@ -978,8 +990,8 @@ private suspend fun buildGraph(settings: AppStoreSettings, session: CookieSessio
         )
     }
 
-    // OS media surface — macOS Now Playing widget + media keys (Linux MPRIS / Windows SMTC have no
-    // backend yet). Commands come back on the Main dispatcher, where the player is driven.
+    // OS media surface — macOS Now Playing widget + media keys. Linux MPRIS / Windows SMTC have no
+    // backend yet; Windows still gets focused Media* / Volume keys via KeyboardShortcuts.
     connectMediaSession(player, CoroutineScope(Dispatchers.Main), rootLogger.fork("now-playing"))
 
     // Offline downloads: SABR stack over ffmpeg. Spec comes from the MSE engine's cached
@@ -1775,7 +1787,7 @@ private fun MacTrafficLight(color: Color, label: String, glyph: TrafficGlyph, on
     )
 }
 
-private enum class TrafficGlyph { Close, Minimize, Fullscreen }
+private enum class TrafficGlyph { Close, Minimize, Fullscreen, Maximize }
 
 private fun DrawScope.drawTrafficGlyph(glyph: TrafficGlyph) {
     val ink = Color(0x99000000)
@@ -1798,16 +1810,21 @@ private fun DrawScope.drawTrafficGlyph(glyph: TrafficGlyph) {
             line(-a, 0f, a, 0f)
             line(0f, -a, 0f, a)
         }
+        TrafficGlyph.Maximize -> {
+            val a = 2.6.dp.toPx()
+            drawRect(
+                color = ink,
+                topLeft = Offset(c.x - a, c.y - a),
+                size = androidx.compose.ui.geometry.Size(a * 2, a * 2),
+                style = androidx.compose.ui.graphics.drawscope.Stroke(width = stroke),
+            )
+        }
     }
 }
 
 @Composable
 private fun Booting(content: @Composable () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) { content() }
+    BrandBootScreen(background = MaterialTheme.colorScheme.background) { content() }
 }
 
 private const val FEEDBACK_LOG_NAME = "ymusic-log.txt.gz"

@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.ymusic.ui.resources.Res
+import io.ymusic.ui.resources.about_tagline
 import io.ymusic.ui.resources.app_name
 import io.ymusic.ui.resources.badge_premium
 import io.ymusic.ui.resources.startmusic_logo
@@ -114,13 +115,13 @@ private fun DrawerHeader(appVersion: String?, premium: Boolean, onCheckUpdate: (
             Image(
                 painterResource(Res.drawable.startmusic_logo),
                 contentDescription = stringResource(Res.string.app_name),
-                modifier = Modifier.size(48.dp).clip(RoundedCornerShape(14.dp)),
+                modifier = Modifier.size(48.dp).clip(RoundedCornerShape(Brand.SplashCorner)),
             )
             Column {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         stringResource(Res.string.app_name),
-                        style = TextStyle(fontSize = 17.sp, fontWeight = FontWeight.ExtraBold, color = DesignColors.InkStrong),
+                        style = Brand.Headline.copy(fontWeight = FontWeight.ExtraBold, color = DesignColors.InkStrong),
                     )
                     if (premium) {
                         Text(
@@ -138,10 +139,15 @@ private fun DrawerHeader(appVersion: String?, premium: Boolean, onCheckUpdate: (
                         )
                     }
                 }
+                Text(
+                    stringResource(Res.string.about_tagline),
+                    style = Brand.Caption.copy(color = DesignColors.InkSecondary),
+                    modifier = Modifier.padding(top = 2.dp),
+                )
                 appVersion?.let {
                     Text(
                         it,
-                        style = TextStyle(fontSize = 11.sp, color = DesignColors.InkFaint),
+                        style = Brand.Label.copy(color = DesignColors.InkFaint),
                         modifier = Modifier.padding(top = 4.dp),
                     )
                 }

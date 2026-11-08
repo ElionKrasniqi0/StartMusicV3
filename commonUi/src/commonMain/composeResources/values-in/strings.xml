@@ -1,4 +1,25 @@
 <resources>
+    <string name="home_search_hint">Search songs, artists, videos</string>
+    <string name="home_featured">Featured</string>
+    <string name="home_recently_played">Recently played</string>
+    <string name="home_quick_recommended">Recommended</string>
+    <string name="home_quick_trending">Charts</string>
+    <string name="home_quick_library">Library</string>
+    <string name="home_quick_playlists">Playlists</string>
+    <string name="home_quick_play_again">Play again</string>
+    <string name="home_recently_added">Recently added</string>
+    <string name="cd_clear_queue">Clear queue</string>
+    <string name="settings_clear_search_history">Clear search history</string>
+    <string name="settings_clear_search_history_hint">Removes queries saved in Search</string>
+    <string name="settings_clear_play_history">Clear recently played</string>
+    <string name="settings_clear_play_history_hint">Clears Top tracks and Recently played ranking</string>
+    <string name="settings_cleared">Cleared</string>
+    <string name="settings_audio_only">Audio only by default</string>
+    <string name="settings_audio_only_hint">Start playback without video when possible</string>
+    <string name="playlist_favorites">Favorites</string>
+    <string name="playlist_favorites_desc">Songs you marked as favorites</string>
+    <string name="menu_add_favorite">Add to favorites</string>
+    <string name="menu_remove_favorite">Remove from favorites</string>
     <!-- Drawer sections -->
     <string name="section_discover">Jelajahi</string>
     <string name="section_yt_music">YT Music</string>
@@ -295,6 +316,7 @@
     <string name="cd_previous">Sebelumnya</string>
     <string name="cd_download">Unduh</string>
     <string name="cd_fullscreen">Layar penuh</string>
+    <string name="cd_maximize">Maximize</string>
     <string name="cd_exit_fullscreen">Keluar dari layar penuh</string>
     <string name="cd_fit_video">Sesuaikan video</string>
     <string name="cd_fill_video">Penuhi layar</string>

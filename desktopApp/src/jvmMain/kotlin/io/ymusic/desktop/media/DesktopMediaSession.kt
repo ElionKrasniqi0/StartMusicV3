@@ -46,7 +46,7 @@ interface MediaSessionCommands {
  * surface and receives its transport commands. Per-OS backends — macOS is implemented
  * (MPNowPlayingInfoCenter + MPRemoteCommandCenter → Control Center, media keys); Linux (MPRIS over
  * D-Bus) and Windows (SystemMediaTransportControls) have no backend yet, where [create] returns
- * null and the app simply has no OS media surface.
+ * null. On Windows, focused-window media and volume keys are still handled in KeyboardShortcuts.
  */
 interface DesktopMediaSession {
     fun update(state: MediaSessionState)

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- app_surface resolves through the app's night mode (UiModeManager.setApplicationNightMode, synced
-         from the theme setting), so the system splash matches the in-app light/dark choice. -->
+    <!-- Splash follows night mode (UiModeManager synced from the in-app theme setting). -->
     <style name="Theme.YMusicV4" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@color/app_surface</item>
         <item name="android:windowSplashScreenBackground">@color/app_surface</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/brand_secondary</item>
     </style>
 </resources>
