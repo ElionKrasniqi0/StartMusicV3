@@ -170,8 +170,8 @@ internal fun AudioOnlyArtWave(
             Box(
                 Modifier
                     .size(side)
-                    .shadow(10.dp, RoundedCornerShape(8.dp))
-                    .clip(RoundedCornerShape(8.dp)),
+                    .shadow(12.dp, RoundedCornerShape(Brand.ArtCorner))
+                    .clip(RoundedCornerShape(Brand.ArtCorner)),
             ) {
                 ArtSquare(art)
             }

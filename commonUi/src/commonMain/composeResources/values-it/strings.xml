@@ -261,7 +261,7 @@
     <string name="settings_show_fps_hint">Mostra i fotogrammi al secondo sul video in riproduzione. La misurazione si interrompe in pausa o quando esci da quella schermata.</string>
     <string name="settings_licenses">Licenze open source</string>
     <string name="settings_terms">Termini e privacy</string>
-    <string name="settings_licenses_intro">YMusic è open source con licenza GNU GPL v3.0. Include questi componenti:</string>
+    <string name="settings_licenses_intro">StartMusicV3 è open source con licenza GNU GPL v3.0. Include questi componenti:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Dicci cosa non ha funzionato o cosa ti piacerebbe vedere, su GitHub o via email. Includi le tue info anonime qui sotto così possiamo trovare i tuoi log e risponderti.</string>
@@ -277,10 +277,10 @@
     <string name="feedback_github_hint">Pubblico. Ideale per bug e idee — altri possono seguirla e contribuire.</string>
     <string name="feedback_email_title">Scrivi a %1$s</string>
     <string name="feedback_email_hint">Privato. Ideale per domande sull’account o personali.</string>
-    <string name="feedback_email_subject">Feedback su YMusic</string>
+    <string name="feedback_email_subject">Feedback su StartMusicV3</string>
     <string name="feedback_prefilled_note">Entrambi si aprono con le info già compilate. Se mancano, incollale — senza non possiamo aiutarti.</string>
     <string name="feedback_reports_off_title">I report anonimi sono disattivati</string>
-    <string name="feedback_reports_off_message">Per esaminare il problema ci servono i log di questa app. Tocca Continua e YMusic riattiverà i report anonimi e invierà i log.</string>
+    <string name="feedback_reports_off_message">Per esaminare il problema ci servono i log di questa app. Tocca Continua e StartMusicV3 riattiverà i report anonimi e invierà i log.</string>
     <string name="feedback_reports_off_note">Non vengono inviati nome, email o account. Puoi disattivare di nuovo i report nelle Impostazioni.</string>
     <string name="feedback_continue">Continua</string>
     <string name="feedback_sentry_link">o tramite Sentry</string>
@@ -330,7 +330,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Accedi con YouTube</string>
-    <string name="signin_preface_subtitle">e ottieni tutte le funzioni di YouTube in YMusic</string>
+    <string name="signin_preface_subtitle">e ottieni tutte le funzioni di YouTube in StartMusicV3</string>
     <string name="signin_enables">Con l'accesso puoi:</string>
     <string name="signin_feature_home">Home di YouTube personalizzata</string>
     <string name="signin_feature_subscriptions">Feed delle iscrizioni</string>
@@ -343,8 +343,8 @@
     <string name="signin_screen_title">Accedi</string>
     <string name="signin_loading">Caricamento accesso…</string>
     <string name="signin_unavailable">L'accesso non è ancora disponibile su questo dispositivo</string>
-    <string name="signin_qr_title">Scansiona con l'app YMusic</string>
-    <string name="signin_qr_hint">Sul telefono apri YMusic → Impostazioni → Collega dispositivi → Apri fotocamera, poi scansiona questo codice.</string>
+    <string name="signin_qr_title">Scansiona con l'app StartMusicV3</string>
+    <string name="signin_qr_hint">Sul telefono apri StartMusicV3 → Impostazioni → Collega dispositivi → Apri fotocamera, poi scansiona questo codice.</string>
     <string name="signin_qr_waiting">In attesa del telefono…</string>
     <string name="signin_qr_sas_hint">Il telefono mostrerà lo stesso codice. Invia solo se corrispondono.</string>
     <string name="signin_or_paste">Oppure incolla i cookie da un browser</string>
@@ -370,11 +370,11 @@
     <string name="signin_paste_no_cookie_title">Quella richiesta non contiene cookie</string>
     <string name="signin_paste_no_cookie_body">Copia come cURL da un'altra richiesta, preferibilmente Fetch/XHR, ad esempio:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Ho capito</string>
-    <string name="cd_device_link_qr">Codice QR da scansionare con l'app YMusic</string>
+    <string name="cd_device_link_qr">Codice QR da scansionare con l'app StartMusicV3</string>
     <string name="settings_link_devices">Collega dispositivi</string>
     <string name="settings_link_devices_hint">Accedi su un computer scansionando il suo codice QR</string>
     <string name="device_link_title">Collega dispositivi</string>
-    <string name="device_link_intro">Scansiona il codice QR mostrato da YMusic sul computer. Questo telefono deve aver già effettuato l'accesso.</string>
+    <string name="device_link_intro">Scansiona il codice QR mostrato da StartMusicV3 sul computer. Questo telefono deve aver già effettuato l'accesso.</string>
     <string name="device_link_open_camera">Apri fotocamera</string>
     <string name="device_link_scan_hint">Inquadra il codice QR del computer</string>
     <string name="device_link_sas_hint">Questo codice deve corrispondere a quello del computer. Se non corrisponde, tocca Annulla.</string>
@@ -587,7 +587,7 @@
     <string name="video_details_delete_message">Eliminare definitivamente il tuo commento e tutte le sue risposte?</string>
     <string name="video_details_deleted">Commento eliminato</string>
     <string name="cookie_protect_title">Proteggere l'accesso con una password?</string>
-    <string name="cookie_protect_body">Il tuo accesso è salvato su questo computer, dove altre app che esegui possono leggerlo. Imposta una password per bloccarlo; YMusic te la chiederà a ogni avvio.</string>
+    <string name="cookie_protect_body">Il tuo accesso è salvato su questo computer, dove altre app che esegui possono leggerlo. Imposta una password per bloccarlo; StartMusicV3 te la chiederà a ogni avvio.</string>
     <string name="cookie_password">Password</string>
     <string name="cookie_protect_confirm">Conferma password</string>
     <string name="cookie_protect_mismatch">Le password non corrispondono.</string>
@@ -603,7 +603,7 @@
     <string name="cookie_unlock_sign_out">Esci</string>
     <string name="cookie_unlock_sign_out_hint">Rimuove questo accesso salvato.</string>
     <string name="cookie_unlock_sign_out_title">Uscire dall'account?</string>
-    <string name="cookie_unlock_sign_out_body">L'accesso salvato verrà rimosso da questo computer. Per accedere di nuovo, scansiona il codice QR con l'app YMusic.</string>
+    <string name="cookie_unlock_sign_out_body">L'accesso salvato verrà rimosso da questo computer. Per accedere di nuovo, scansiona il codice QR con l'app StartMusicV3.</string>
     <string name="menu_details_comments">Dettagli e commenti</string>
     <string name="menu_search_lyrics">Cerca il testo</string>
     <string name="menu_speed_pitch">Velocità e intonazione</string>
@@ -615,7 +615,7 @@
     <string name="cd_move_to_top">Sposta in cima</string>
     <string name="dialog_undo">Annulla</string>
     <string name="dialog_save">Salva</string>
-    <string name="upgraded_message">YMusic aggiornato alla %1$s</string>
+    <string name="upgraded_message">StartMusicV3 aggiornato alla %1$s</string>
     <string name="upgraded_view_changelog">Vedi le novità</string>
     <string name="menu_go_to_artist">Vai all'artista</string>
     <string name="menu_go_to_album">Vai all'album</string>

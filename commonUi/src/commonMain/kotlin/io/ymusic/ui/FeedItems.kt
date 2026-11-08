@@ -318,7 +318,7 @@ fun FeedGridCard(
     // around the content (grid callers shave the inset off their gaps to keep the visual metrics).
     Column(
         modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(Brand.CardCorner))
             .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .a11yActionLabel(feedItemLabel(item))
             .padding(inset),
@@ -341,10 +341,10 @@ fun FeedGridCard(
                 Modifier
                     .fillMaxWidth()
                     .aspectRatio(16f / 9f)
-                    .clip(RoundedCornerShape(5.dp)),
+                    .clip(RoundedCornerShape(Brand.ThumbCorner)),
                 contentAlignment = Alignment.Center,
             ) {
-                ThumbImage(item.thumbs, RoundedCornerShape(5.dp)) {
+                ThumbImage(item.thumbs, RoundedCornerShape(Brand.ThumbCorner)) {
                     ThumbPlaceholder(Icons.Outlined.Image, 22.dp)
                 }
                 WatchedBar(item, Modifier.align(Alignment.BottomCenter))
@@ -379,7 +379,7 @@ private fun ChannelGridCard(
 ) {
     Column(
         modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(Brand.CardCorner))
             .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .a11yActionLabel(feedItemLabel(item))
             .padding(inset),
@@ -604,10 +604,10 @@ private fun RectThumb(
         modifier
             .size(width = width, height = height)
             .then(if (stacked) Modifier.drawBehind { drawPlaylistStack(stackFar, stackNear) } else Modifier)
-            .clip(RoundedCornerShape(6.dp)),
+            .clip(RoundedCornerShape(Brand.ThumbCorner)),
         contentAlignment = Alignment.Center,
     ) {
-        ThumbImage(item.thumbs, RoundedCornerShape(6.dp)) {
+        ThumbImage(item.thumbs, RoundedCornerShape(Brand.ThumbCorner)) {
             ThumbPlaceholder(Icons.Outlined.Image, if (height < 80.dp) 21.dp else 30.dp)
         }
         WatchedBar(item, Modifier.align(Alignment.BottomCenter))

@@ -327,10 +327,10 @@ compose.desktop {
         }
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "YMusic"
+            packageName = "StartMusicV3"
             packageVersion = desktopVersion
-            description = "Music player"
-            vendor = "YMusic"
+            description = "StartMusicV3 music player"
+            vendor = "StartMusicV3"
             macOS {
                 // Stable across releases: the updater and Gatekeeper both identify the app by it.
                 bundleID = "io.ymusic.desktop"
@@ -530,10 +530,10 @@ tasks.matching { it.name == "proguardReleaseJars" }.configureEach {
 }
 
 // The host's installer under a name that says what it is for, ready for sign-app-update.mjs:
-//   ./gradlew :desktopApp:releaseInstaller   →   build/release/YMusic-<version>-<platform>.<dmg|exe|deb>
+//   ./gradlew :desktopApp:releaseInstaller   →   build/release/StartMusicV3-<version>-<platform>.<dmg|exe|deb>
 tasks.register<Copy>("releaseInstaller") {
     group = "distribution"
-    description = "Package the release installer for this OS/arch and name it YMusic-<version>-<platform>."
+    description = "Package the release installer for this OS/arch and name it StartMusicV3-<version>-<platform>."
     val (task, dir, ext) = when (hostOs) {
         "macos" -> Triple("packageReleaseDmg", "dmg", "dmg")
         "windows" -> Triple("packageReleaseInnoSetup", "innosetup", "exe")
@@ -542,7 +542,7 @@ tasks.register<Copy>("releaseInstaller") {
     dependsOn(task)
     from(layout.buildDirectory.dir("compose/binaries/main-release/$dir"))
     include("*.$ext")
-    rename { "YMusic-$desktopVersion-$hostPlatform.$ext" }
+    rename { "StartMusicV3-$desktopVersion-$hostPlatform.$ext" }
     into(layout.buildDirectory.dir("release"))
 }
 
@@ -567,7 +567,8 @@ val packageReleaseInnoSetup by tasks.registering(Exec::class) {
 
     val script = project.file("installer/windows/ymusic.iss")
     val iconFile = project.file("ymusic.ico")
-    val appDir = layout.buildDirectory.dir("compose/binaries/main-release/app/YMusic")
+    // Directory name follows compose.desktop nativeDistributions.packageName.
+    val appDir = layout.buildDirectory.dir("compose/binaries/main-release/app/StartMusicV3")
 
     inputs.file(script)
     inputs.file(iconFile)
@@ -582,13 +583,13 @@ val packageReleaseInnoSetup by tasks.registering(Exec::class) {
             isccPath.get().absolutePath,
             "/Qp",
             "/DAppVersion=$desktopVersion",
-            "/DAppPublisher=YMusic",
-            "/DAppURL=https://ymusic.io",
+            "/DAppPublisher=StartMusicV3",
+            "/DAppURL=https://github.com/ElionKrasniqi0/StartMusicV3",
             "/DAppSourceDir=${appDir.get().asFile.absolutePath}",
             "/DIconFile=${iconFile.absolutePath}",
             "/DOutputDir=${out.absolutePath}",
             "/DArch=${if (hostArm64) "arm64" else "x64compatible"}",
-            "/DOutputBaseName=YMusic-Setup-$desktopVersion-$hostPlatform",
+            "/DOutputBaseName=StartMusicV3-Setup-$desktopVersion-$hostPlatform",
             script.absolutePath,
         )
     }

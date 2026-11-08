@@ -26,7 +26,6 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -216,7 +215,22 @@ fun SearchScreen(
             )
             when {
                 s.field.text.isBlank() && history.isEmpty() -> CenteredBox {
-                    Text(stringResource(Res.string.search_type_to_search), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.padding(horizontal = 32.dp),
+                    ) {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = null,
+                            modifier = Modifier.size(40.dp),
+                            tint = DesignColors.Accent.copy(alpha = 0.85f),
+                        )
+                        Text(
+                            stringResource(Res.string.search_type_to_search),
+                            style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Medium, color = DesignColors.InkSecondary),
+                        )
+                    }
                 }
                 s.field.text.isBlank() -> LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = LocalMiniPlayerInset.current)) {
                     items(history) { entry ->

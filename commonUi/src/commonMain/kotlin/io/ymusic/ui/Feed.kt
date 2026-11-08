@@ -458,7 +458,7 @@ internal fun EmptyState(
                 Icons.Outlined.Inbox,
                 null,
                 Modifier.size(56.dp).padding(bottom = 4.dp),
-                tint = DesignColors.PlaceholderIcon,
+                tint = DesignColors.Accent.copy(alpha = 0.75f),
             )
             if (title != null) {
                 Text(

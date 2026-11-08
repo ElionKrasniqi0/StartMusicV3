@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Показва кадрите в секунда върху видеото в „Сега се изпълнява“. Отчитането спира при пауза или когато напуснете екрана.</string>
     <string name="settings_licenses">Лицензи за отворен код</string>
     <string name="settings_terms">Условия и поверителност</string>
-    <string name="settings_licenses_intro">YMusic е с отворен код под лиценз GNU GPL v3.0. Включва следните компоненти:</string>
+    <string name="settings_licenses_intro">StartMusicV3 е с отворен код под лиценз GNU GPL v3.0. Включва следните компоненти:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Кажете ни какво се е объркало или какво бихте искали да видите – в GitHub или по имейл. Включете анонимната си информация по-долу, за да намерим логовете ви и да отговорим.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">Публично. Най-добре за грешки и идеи — други могат да следят и да добавят.</string>
     <string name="feedback_email_title">Имейл до %1$s</string>
     <string name="feedback_email_hint">Лично. Най-добре за въпроси за акаунта или лични въпроси.</string>
-    <string name="feedback_email_subject">Отзив за YMusic</string>
+    <string name="feedback_email_subject">Отзив за StartMusicV3</string>
     <string name="feedback_prefilled_note">И двата варианта се отварят с вече попълнена информация. Ако липсва, поставете я — без нея не можем да помогнем.</string>
     <string name="feedback_reports_off_title">Анонимните отчети са изключени</string>
-    <string name="feedback_reports_off_message">За да проучим проблема ви, ни трябват логовете на това приложение. Докоснете „Продължи“ и YMusic ще включи отново анонимните отчети и ще изпрати логовете.</string>
+    <string name="feedback_reports_off_message">За да проучим проблема ви, ни трябват логовете на това приложение. Докоснете „Продължи“ и StartMusicV3 ще включи отново анонимните отчети и ще изпрати логовете.</string>
     <string name="feedback_reports_off_note">Не се изпраща име, имейл или акаунт. Можете отново да изключите отчетите в Настройки.</string>
     <string name="feedback_continue">Продължи</string>
     <string name="feedback_sentry_link">или чрез Sentry</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Вход с YouTube</string>
-    <string name="signin_preface_subtitle">и получете всички функции на YouTube в YMusic</string>
+    <string name="signin_preface_subtitle">и получете всички функции на YouTube в StartMusicV3</string>
     <string name="signin_enables">Входът дава достъп до:</string>
     <string name="signin_feature_home">Персонализирана начална емисия в YouTube</string>
     <string name="signin_feature_subscriptions">Емисия с абонаменти</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">Вход</string>
     <string name="signin_loading">Зареждане на входа…</string>
     <string name="signin_unavailable">Входът все още не е наличен на това устройство</string>
-    <string name="signin_qr_title">Сканирайте с приложението YMusic</string>
-    <string name="signin_qr_hint">На телефона си отворете YMusic → Настройки → Свързване на устройства → Отвори камерата и сканирайте този код.</string>
+    <string name="signin_qr_title">Сканирайте с приложението StartMusicV3</string>
+    <string name="signin_qr_hint">На телефона си отворете StartMusicV3 → Настройки → Свързване на устройства → Отвори камерата и сканирайте този код.</string>
     <string name="signin_qr_waiting">Изчакване на телефона…</string>
     <string name="signin_qr_sas_hint">Телефонът ви ще покаже същия код. Изпратете само ако съвпадат.</string>
     <string name="signin_or_paste">Или поставете бисквитки от браузър</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">Тази заявка няма бисквитки</string>
     <string name="signin_paste_no_cookie_body">Копирайте като cURL друга заявка, за предпочитане Fetch/XHR, например:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Разбрах</string>
-    <string name="cd_device_link_qr">QR код за сканиране с приложението YMusic</string>
+    <string name="cd_device_link_qr">QR код за сканиране с приложението StartMusicV3</string>
     <string name="settings_link_devices">Свързване на устройства</string>
     <string name="settings_link_devices_hint">Влезте на компютър, като сканирате неговия QR код</string>
     <string name="device_link_title">Свързване на устройства</string>
-    <string name="device_link_intro">Сканирайте QR кода, показан в YMusic на компютъра ви. Този телефон трябва вече да е влязъл.</string>
+    <string name="device_link_intro">Сканирайте QR кода, показан в StartMusicV3 на компютъра ви. Този телефон трябва вече да е влязъл.</string>
     <string name="device_link_open_camera">Отвори камерата</string>
     <string name="device_link_scan_hint">Насочете камерата към QR кода на компютъра</string>
     <string name="device_link_sas_hint">Този код трябва да съвпада с този на компютъра. Ако не съвпада, докоснете „Отказ“.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">Да се изтрият ли окончателно коментарът ви и всички отговори към него?</string>
     <string name="video_details_deleted">Коментарът е изтрит</string>
     <string name="cookie_protect_title">Да защитите данните за вход с парола?</string>
-    <string name="cookie_protect_body">Данните ви за вход са запазени на този компютър, където други приложения, които стартирате, могат да ги прочетат. Задайте парола, за да ги заключите; YMusic ще я иска при всяко стартиране.</string>
+    <string name="cookie_protect_body">Данните ви за вход са запазени на този компютър, където други приложения, които стартирате, могат да ги прочетат. Задайте парола, за да ги заключите; StartMusicV3 ще я иска при всяко стартиране.</string>
     <string name="cookie_password">Парола</string>
     <string name="cookie_protect_confirm">Потвърдете паролата</string>
     <string name="cookie_protect_mismatch">Паролите не съвпадат.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">Изход</string>
     <string name="cookie_unlock_sign_out_hint">Премахва тези запазени данни за вход.</string>
     <string name="cookie_unlock_sign_out_title">Да излезете ли от профила?</string>
-    <string name="cookie_unlock_sign_out_body">Това премахва запазените данни за вход от този компютър. За да влезете отново, сканирайте QR кода с приложението YMusic.</string>
+    <string name="cookie_unlock_sign_out_body">Това премахва запазените данни за вход от този компютър. За да влезете отново, сканирайте QR кода с приложението StartMusicV3.</string>
     <string name="menu_details_comments">Подробности и коментари</string>
     <string name="menu_search_lyrics">Търсене на текста</string>
     <string name="menu_speed_pitch">Скорост и тон</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">Премести най-горе</string>
     <string name="dialog_undo">Отмени</string>
     <string name="dialog_save">Запази</string>
-    <string name="upgraded_message">YMusic е обновено до %1$s</string>
+    <string name="upgraded_message">StartMusicV3 е обновено до %1$s</string>
     <string name="upgraded_view_changelog">Вижте промените</string>
     <string name="menu_go_to_artist">Към изпълнителя</string>
     <string name="menu_go_to_album">Към албума</string>

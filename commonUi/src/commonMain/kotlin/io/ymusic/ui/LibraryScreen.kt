@@ -421,11 +421,32 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
 @Composable
 private fun EmptyLibrary(scan: ScanAction?, controller: ScanController?) {
     CenteredBox {
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(14.dp)) {
-            Text(stringResource(Res.string.library_empty), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.padding(horizontal = 32.dp),
+        ) {
+            Box(
+                Modifier
+                    .size(72.dp)
+                    .clip(RoundedCornerShape(Brand.CardCorner))
+                    .background(DesignColors.SurfaceElevated),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    Icons.Default.MusicNote,
+                    contentDescription = null,
+                    modifier = Modifier.size(36.dp),
+                    tint = DesignColors.Accent,
+                )
+            }
+            Text(
+                stringResource(Res.string.library_empty),
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong),
+            )
             if (scan == null || controller == null) return@Column
             ScanPill(scan, controller, label = stringResource(Res.string.library_scan_folder))
-            if (controller.running) CircularProgressIndicator(Modifier.size(22.dp))
+            if (controller.running) CircularProgressIndicator(Modifier.size(22.dp), color = DesignColors.Accent)
         }
     }
 }
@@ -1151,14 +1172,15 @@ private fun PlaylistRow(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onOpen(entry.id to title) }
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.Top,
+            .padding(horizontal = 16.dp, vertical = 10.dp),
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         LibraryThumb(
             icon,
             badge = (entry as? UserEntry)?.count?.toString(),
             artUrl = (entry as? UserEntry)?.artUrl,
+            corner = Brand.ThumbCorner,
             modifier = Modifier.a11ySilent(),
         )
         Column(Modifier.weight(1f)) {
@@ -1518,21 +1540,43 @@ internal fun SongList(
 }
 
 @Composable
+private fun isSongPlaying(song: MediaStoreItem, coordinator: PlaybackCoordinator?): Boolean {
+    if (coordinator == null) return false
+    val queue by coordinator.player.queue.collectAsState()
+    val current = queue.currentItem
+    return current is io.ymusic.player.PlayableItem.LocalMedia && current.uri == song.uri.toString()
+}
+
+@Composable
 internal fun SongRow(song: MediaStoreItem, coordinator: PlaybackCoordinator? = null, onPlay: () -> Unit) {
     val sub = listOfNotNull(song.artist, song.album).joinToString(" · ")
     val length = song.durationMs?.takeIf { it > 0 }?.let { spokenDuration(it) }
+    val playing = isSongPlaying(song, coordinator)
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .then(if (playing) Modifier.background(DesignColors.Accent.copy(alpha = 0.10f)) else Modifier)
             .clickable(onClick = onPlay)
             .a11yActionLabel(listOfNotNull(song.title, length, sub.ifEmpty { null }).joinToString(", "))
-            .padding(start = 16.dp, end = 4.dp, top = 8.dp, bottom = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.Top,
+            .padding(start = 16.dp, end = 4.dp, top = 9.dp, bottom = 9.dp),
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        LibraryThumb(Icons.Default.MusicNote, formatDuration(song.durationMs), artUrl = localArtUrl(song), modifier = Modifier.a11ySilent())
+        LibraryThumb(
+            Icons.Default.MusicNote,
+            formatDuration(song.durationMs),
+            artUrl = localArtUrl(song),
+            corner = Brand.ThumbCorner,
+            badgeColor = if (playing) DesignColors.Accent else DesignColors.BadgeInk,
+            modifier = Modifier.a11ySilent(),
+        )
         Column(Modifier.weight(1f).a11ySilent()) {
-            Text(song.title, style = ListTitleStyle, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(
+                song.title,
+                style = ListTitleStyle.copy(color = if (playing) DesignColors.Accent else DesignColors.InkStrong),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
             if (sub.isNotEmpty()) {
                 Text(
                     sub,
@@ -1703,11 +1747,11 @@ private fun GroupRow(icon: ImageVector, name: String, members: List<MediaStoreIt
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onOpen)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.Top,
+            .padding(horizontal = 16.dp, vertical = 10.dp),
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        LibraryThumb(icon, badge = null, artUrl = members.firstNotNullOfOrNull(::localArtUrl))
+        LibraryThumb(icon, badge = null, artUrl = members.firstNotNullOfOrNull(::localArtUrl), corner = Brand.ThumbCorner)
         Column(Modifier.weight(1f)) {
             Text(name, style = ListTitleStyle, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Text(
@@ -1748,7 +1792,7 @@ private fun LibraryGridCard(
     val contentAlpha = if (dimmed) 0.4f else 1f
     Column(
         Modifier
-            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(Brand.CardCorner))
             .clickable(enabled = !dimmed, onClick = onClick)
             .padding(6.dp),
     ) {
@@ -1761,10 +1805,10 @@ private fun LibraryGridCard(
                 Modifier
                     .fillMaxSize()
                     .alpha(contentAlpha)
-                    .clip(RoundedCornerShape(10.dp)),
+                    .clip(RoundedCornerShape(Brand.ThumbCorner)),
                 contentAlignment = Alignment.Center,
             ) {
-                ArtImage(artUrl, RoundedCornerShape(10.dp)) {
+                ArtImage(artUrl, RoundedCornerShape(Brand.ThumbCorner)) {
                     ThumbPlaceholder(icon, 28.dp)
                 }
             }
@@ -1829,28 +1873,28 @@ internal fun LibraryThumb(
     icon: ImageVector,
     badge: String?,
     artUrl: String? = null,
-    corner: Dp = 10.dp,
+    corner: Dp = Brand.ThumbCorner,
     badgeColor: Color = DesignColors.BadgeInk,
     modifier: Modifier = Modifier,
 ) {
     val shape = RoundedCornerShape(corner)
     Box(
         modifier = modifier
-            .size(56.dp)
+            .size(58.dp)
             .clip(shape),
         contentAlignment = Alignment.Center,
     ) {
         ArtImage(artUrl, shape) {
-            ThumbPlaceholder(icon, 21.dp)
+            ThumbPlaceholder(icon, 22.dp)
         }
         badge?.let {
             Text(
                 it,
-                style = TextStyle(fontSize = 9.sp, color = Color.White),
+                style = TextStyle(fontSize = 9.sp, fontWeight = FontWeight.SemiBold, color = Color.White),
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(4.dp)
-                    .background(badgeColor, RoundedCornerShape(3.dp))
+                    .background(badgeColor, RoundedCornerShape(4.dp))
                     .padding(horizontal = 4.dp, vertical = 1.dp),
             )
         }

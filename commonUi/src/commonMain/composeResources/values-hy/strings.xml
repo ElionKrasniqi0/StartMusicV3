@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Ցուցադրում է կադրերի քանակը վայրկյանում «Հիմա հնչում է» տեսանյութի վրա։ Չափումը դադարում է դադարի ժամանակ կամ էկրանից դուրս գալիս։</string>
     <string name="settings_licenses">Բաց կոդի լիցենզիաներ</string>
     <string name="settings_terms">Պայմաններ և գաղտնիություն</string>
-    <string name="settings_licenses_intro">YMusic-ը բաց կոդով է՝ GNU GPL v3.0 լիցենզիայով։ Այն ներառում է հետևյալ բաղադրիչները՝</string>
+    <string name="settings_licenses_intro">StartMusicV3-ը բաց կոդով է՝ GNU GPL v3.0 լիցենզիայով։ Այն ներառում է հետևյալ բաղադրիչները՝</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Պատմեք մեզ, թե ինչն է սխալ գնացել կամ ինչ կցանկանայիք տեսնել՝ GitHub-ում կամ էլ. փոստով։ Կցեք ձեր անանուն տվյալները ստորև, որպեսզի գտնենք ձեր մատյանները և պատասխանենք։</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">Հրապարակային։ Լավագույնը սխալների և գաղափարների համար — մյուսները կարող են հետևել և լրացնել։</string>
     <string name="feedback_email_title">Գրել %1$s հասցեին</string>
     <string name="feedback_email_hint">Անձնական։ Լավագույնը հաշվի կամ անձնական հարցերի համար։</string>
-    <string name="feedback_email_subject">YMusic-ի կարծիք</string>
+    <string name="feedback_email_subject">StartMusicV3-ի կարծիք</string>
     <string name="feedback_prefilled_note">Երկուսն էլ բացվում են արդեն լրացված տեղեկությամբ։ Եթե այն բացակայում է, տեղադրեք այն — առանց դրա չենք կարող օգնել։</string>
     <string name="feedback_reports_off_title">Անանուն հաշվետվություններն անջատված են</string>
-    <string name="feedback_reports_off_message">Ձեր խնդիրն ուսումնասիրելու համար մեզ պետք են այս հավելվածի մատյանները։ Հպեք Շարունակել, և YMusic-ը նորից կմիացնի անանուն հաշվետվությունները ու կուղարկի մատյանները։</string>
+    <string name="feedback_reports_off_message">Ձեր խնդիրն ուսումնասիրելու համար մեզ պետք են այս հավելվածի մատյանները։ Հպեք Շարունակել, և StartMusicV3-ը նորից կմիացնի անանուն հաշվետվությունները ու կուղարկի մատյանները։</string>
     <string name="feedback_reports_off_note">Անուն, էլ. փոստ կամ հաշիվ չի ուղարկվում։ Հաշվետվությունները կարող եք նորից անջատել Կարգավորումներում։</string>
     <string name="feedback_continue">Շարունակել</string>
     <string name="feedback_sentry_link">կամ Sentry-ի միջոցով</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Մուտք գործել YouTube-ով</string>
-    <string name="signin_preface_subtitle">և ստանալ YouTube-ի բոլոր հնարավորությունները YMusic-ում</string>
+    <string name="signin_preface_subtitle">և ստանալ YouTube-ի բոլոր հնարավորությունները StartMusicV3-ում</string>
     <string name="signin_enables">Մուտք գործելով ակտիվանում են՝</string>
     <string name="signin_feature_home">Անհատականացված YouTube գլխավոր լրահոս</string>
     <string name="signin_feature_subscriptions">Բաժանորդագրությունների լրահոս</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">Մուտք գործել</string>
     <string name="signin_loading">Մուտքը բեռնվում է…</string>
     <string name="signin_unavailable">Մուտքն այս սարքում դեռ հասանելի չէ</string>
-    <string name="signin_qr_title">Սկանավորեք YMusic հավելվածով</string>
-    <string name="signin_qr_hint">Ձեր հեռախոսում բացեք YMusic → Կարգավորումներ → Կապել սարքերը → Բացել տեսախցիկը, ապա սկանավորեք այս կոդը։</string>
+    <string name="signin_qr_title">Սկանավորեք StartMusicV3 հավելվածով</string>
+    <string name="signin_qr_hint">Ձեր հեռախոսում բացեք StartMusicV3 → Կարգավորումներ → Կապել սարքերը → Բացել տեսախցիկը, ապա սկանավորեք այս կոդը։</string>
     <string name="signin_qr_waiting">Սպասում ենք հեռախոսին…</string>
     <string name="signin_qr_sas_hint">Ձեր հեռախոսը կցուցադրի նույն կոդը։ Ուղարկեք միայն եթե դրանք համընկնում են։</string>
     <string name="signin_or_paste">Կամ տեղադրեք cookie-ները դիտարկիչից</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">Այս հարցումը cookie-ներ չունի</string>
     <string name="signin_paste_no_cookie_body">Պատճենեք Copy as cURL-ով այլ հարցումից, նախընտրելի է Fetch/XHR, օրինակ՝\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Հասկանալի է</string>
-    <string name="cd_device_link_qr">QR կոդ՝ YMusic հավելվածով սկանավորելու համար</string>
+    <string name="cd_device_link_qr">QR կոդ՝ StartMusicV3 հավելվածով սկանավորելու համար</string>
     <string name="settings_link_devices">Կապել սարքերը</string>
     <string name="settings_link_devices_hint">Մուտք գործեք համակարգչում՝ սկանավորելով դրա QR կոդը</string>
     <string name="device_link_title">Կապել սարքերը</string>
-    <string name="device_link_intro">Սկանավորեք ձեր համակարգչի YMusic-ում ցուցադրված QR կոդը։ Այս հեռախոսում արդեն պետք է մուտք գործած լինեք։</string>
+    <string name="device_link_intro">Սկանավորեք ձեր համակարգչի StartMusicV3-ում ցուցադրված QR կոդը։ Այս հեռախոսում արդեն պետք է մուտք գործած լինեք։</string>
     <string name="device_link_open_camera">Բացել տեսախցիկը</string>
     <string name="device_link_scan_hint">Ուղղեք տեսախցիկը համակարգչի QR կոդին</string>
     <string name="device_link_sas_hint">Այս կոդը պետք է համընկնի համակարգչի կոդի հետ։ Եթե չի համընկնում, սեղմեք Չեղարկել։</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">Ընդմիշտ ջնջե՞լ ձեր մեկնաբանությունը և դրա բոլոր պատասխանները։</string>
     <string name="video_details_deleted">Մեկնաբանությունը ջնջվեց</string>
     <string name="cookie_protect_title">Պաշտպանե՞լ ձեր մուտքը գաղտնաբառով</string>
-    <string name="cookie_protect_body">Ձեր մուտքը պահված է այս համակարգչում, որտեղ ձեր գործարկած այլ հավելվածները կարող են կարդալ այն։ Սահմանեք գաղտնաբառ՝ այն կողպելու համար։ YMusic-ը այն կհարցնի ամեն գործարկման ժամանակ։</string>
+    <string name="cookie_protect_body">Ձեր մուտքը պահված է այս համակարգչում, որտեղ ձեր գործարկած այլ հավելվածները կարող են կարդալ այն։ Սահմանեք գաղտնաբառ՝ այն կողպելու համար։ StartMusicV3-ը այն կհարցնի ամեն գործարկման ժամանակ։</string>
     <string name="cookie_password">Գաղտնաբառ</string>
     <string name="cookie_protect_confirm">Հաստատել գաղտնաբառը</string>
     <string name="cookie_protect_mismatch">Գաղտնաբառերը չեն համընկնում։</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">Դուրս գալ</string>
     <string name="cookie_unlock_sign_out_hint">Հեռացնում է այս պահված մուտքը։</string>
     <string name="cookie_unlock_sign_out_title">Դուրս գա՞լ</string>
-    <string name="cookie_unlock_sign_out_body">Սա կհեռացնի պահված մուտքը այս համակարգչից։ Կրկին մուտք գործելու համար սկանավորեք QR կոդը YMusic հավելվածով։</string>
+    <string name="cookie_unlock_sign_out_body">Սա կհեռացնի պահված մուտքը այս համակարգչից։ Կրկին մուտք գործելու համար սկանավորեք QR կոդը StartMusicV3 հավելվածով։</string>
     <string name="menu_details_comments">Մանրամասներ և մեկնաբանություններ</string>
     <string name="menu_search_lyrics">Որոնել երգի բառերը</string>
     <string name="menu_speed_pitch">Արագություն և տոն</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">Տեղափոխել վերև</string>
     <string name="dialog_undo">Հետարկել</string>
     <string name="dialog_save">Պահել</string>
-    <string name="upgraded_message">YMusic-ը թարմացվեց %1$s տարբերակի</string>
+    <string name="upgraded_message">StartMusicV3-ը թարմացվեց %1$s տարբերակի</string>
     <string name="upgraded_view_changelog">Դիտել փոփոխությունները</string>
     <string name="menu_go_to_artist">Անցնել կատարողին</string>
     <string name="menu_go_to_album">Անցնել ալբոմին</string>

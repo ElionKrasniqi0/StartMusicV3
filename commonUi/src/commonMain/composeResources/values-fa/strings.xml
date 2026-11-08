@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">نمایش تعداد فریم در ثانیه روی ویدیوی در حال پخش. نمونه‌برداری هنگام توقف یا خروج از آن صفحه متوقف می‌شود.</string>
     <string name="settings_licenses">مجوزهای متن‌باز</string>
     <string name="settings_terms">شرایط و حریم خصوصی</string>
-    <string name="settings_licenses_intro">YMusic متن‌باز و تحت مجوز GNU GPL v3.0 است. این برنامه شامل این اجزا است:</string>
+    <string name="settings_licenses_intro">StartMusicV3 متن‌باز و تحت مجوز GNU GPL v3.0 است. این برنامه شامل این اجزا است:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">بگویید چه چیزی خراب شد یا دوست دارید چه چیزی ببینید، در GitHub یا با ایمیل. اطلاعات ناشناس زیر را هم بفرستید تا گزارش‌هایتان را پیدا کنیم و پاسخ دهیم.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">عمومی. بهترین گزینه برای اشکال‌ها و ایده‌ها — دیگران می‌توانند آن را دنبال کنند و به آن بیفزایند.</string>
     <string name="feedback_email_title">ایمیل به %1$s</string>
     <string name="feedback_email_hint">خصوصی. بهترین گزینه برای پرسش‌های مربوط به حساب یا شخصی.</string>
-    <string name="feedback_email_subject">بازخورد YMusic</string>
+    <string name="feedback_email_subject">بازخورد StartMusicV3</string>
     <string name="feedback_prefilled_note">هر دو با اطلاعاتِ از پیش پرشده باز می‌شوند. اگر نبود، آن را جای‌گذاری کنید — بدون آن نمی‌توانیم کمک کنیم.</string>
     <string name="feedback_reports_off_title">گزارش‌های ناشناس خاموش است</string>
-    <string name="feedback_reports_off_message">برای بررسی مشکل شما به گزارش‌های ثبت این برنامه نیاز داریم. روی ادامه بزنید تا YMusic گزارش‌های ناشناس را دوباره روشن کند و گزارش‌های ثبت را بفرستد.</string>
+    <string name="feedback_reports_off_message">برای بررسی مشکل شما به گزارش‌های ثبت این برنامه نیاز داریم. روی ادامه بزنید تا StartMusicV3 گزارش‌های ناشناس را دوباره روشن کند و گزارش‌های ثبت را بفرستد.</string>
     <string name="feedback_reports_off_note">هیچ نام، ایمیل یا حسابی ارسال نمی‌شود. می‌توانید دوباره گزارش‌ها را در تنظیمات خاموش کنید.</string>
     <string name="feedback_continue">ادامه</string>
     <string name="feedback_sentry_link">یا از طریق Sentry</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">ورود با YouTube</string>
-    <string name="signin_preface_subtitle">و همه امکانات YouTube را در YMusic داشته باشید</string>
+    <string name="signin_preface_subtitle">و همه امکانات YouTube را در StartMusicV3 داشته باشید</string>
     <string name="signin_enables">ورود این امکانات را فعال می‌کند:</string>
     <string name="signin_feature_home">صفحه اصلی شخصی‌سازی‌شده YouTube</string>
     <string name="signin_feature_subscriptions">فید اشتراک‌ها</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">ورود</string>
     <string name="signin_loading">در حال بارگذاری صفحه ورود…</string>
     <string name="signin_unavailable">ورود هنوز در این دستگاه در دسترس نیست</string>
-    <string name="signin_qr_title">با برنامه YMusic اسکن کنید</string>
-    <string name="signin_qr_hint">در گوشی، YMusic را باز کنید ← تنظیمات ← اتصال دستگاه‌ها ← باز کردن دوربین، سپس این کد را اسکن کنید.</string>
+    <string name="signin_qr_title">با برنامه StartMusicV3 اسکن کنید</string>
+    <string name="signin_qr_hint">در گوشی، StartMusicV3 را باز کنید ← تنظیمات ← اتصال دستگاه‌ها ← باز کردن دوربین، سپس این کد را اسکن کنید.</string>
     <string name="signin_qr_waiting">در انتظار گوشی…</string>
     <string name="signin_qr_sas_hint">گوشی شما همین کد را نشان می‌دهد. فقط در صورت یکسان بودن ارسال کنید.</string>
     <string name="signin_or_paste">یا کوکی‌ها را از مرورگر جای‌گذاری کنید</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">این درخواست کوکی ندارد</string>
     <string name="signin_paste_no_cookie_body">از درخواست دیگری، ترجیحاً Fetch/XHR، با Copy as cURL کپی کنید، برای مثال:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">متوجه شدم</string>
-    <string name="cd_device_link_qr">کد QR برای اسکن با برنامه YMusic</string>
+    <string name="cd_device_link_qr">کد QR برای اسکن با برنامه StartMusicV3</string>
     <string name="settings_link_devices">اتصال دستگاه‌ها</string>
     <string name="settings_link_devices_hint">با اسکن کد QR رایانه، در آن وارد شوید</string>
     <string name="device_link_title">اتصال دستگاه‌ها</string>
-    <string name="device_link_intro">کد QR نمایش‌داده‌شده در YMusic روی رایانه را اسکن کنید. این گوشی باید از قبل وارد حساب شده باشد.</string>
+    <string name="device_link_intro">کد QR نمایش‌داده‌شده در StartMusicV3 روی رایانه را اسکن کنید. این گوشی باید از قبل وارد حساب شده باشد.</string>
     <string name="device_link_open_camera">باز کردن دوربین</string>
     <string name="device_link_scan_hint">دوربین را به سمت کد QR رایانه بگیرید</string>
     <string name="device_link_sas_hint">این کد باید با رایانه یکسان باشد. اگر نیست، روی لغو بزنید.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">نظر شما و همه پاسخ‌های آن برای همیشه حذف شود؟</string>
     <string name="video_details_deleted">نظر حذف شد</string>
     <string name="cookie_protect_title">از ورود با رمز عبور محافظت شود؟</string>
-    <string name="cookie_protect_body">ورود شما روی این رایانه ذخیره شده است و برنامه‌های دیگری که اجرا می‌کنید می‌توانند آن را بخوانند. برای قفل کردن آن یک رمز عبور تنظیم کنید؛ YMusic در هر بار اجرا آن را می‌پرسد.</string>
+    <string name="cookie_protect_body">ورود شما روی این رایانه ذخیره شده است و برنامه‌های دیگری که اجرا می‌کنید می‌توانند آن را بخوانند. برای قفل کردن آن یک رمز عبور تنظیم کنید؛ StartMusicV3 در هر بار اجرا آن را می‌پرسد.</string>
     <string name="cookie_password">رمز عبور</string>
     <string name="cookie_protect_confirm">تأیید رمز عبور</string>
     <string name="cookie_protect_mismatch">رمزهای عبور یکسان نیستند.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">خروج از حساب</string>
     <string name="cookie_unlock_sign_out_hint">این ورود ذخیره‌شده را حذف می‌کند.</string>
     <string name="cookie_unlock_sign_out_title">از حساب خارج می‌شوید؟</string>
-    <string name="cookie_unlock_sign_out_body">با این کار ورود ذخیره‌شده از این رایانه حذف می‌شود. برای ورود دوباره، کد QR را با برنامه YMusic اسکن کنید.</string>
+    <string name="cookie_unlock_sign_out_body">با این کار ورود ذخیره‌شده از این رایانه حذف می‌شود. برای ورود دوباره، کد QR را با برنامه StartMusicV3 اسکن کنید.</string>
     <string name="menu_details_comments">جزئیات و نظرات</string>
     <string name="menu_search_lyrics">جستجوی متن آهنگ</string>
     <string name="menu_speed_pitch">سرعت و زیر و بمی</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">انتقال به بالا</string>
     <string name="dialog_undo">واگرد</string>
     <string name="dialog_save">ذخیره</string>
-    <string name="upgraded_message">YMusic به نسخهٔ %1$s به‌روز شد</string>
+    <string name="upgraded_message">StartMusicV3 به نسخهٔ %1$s به‌روز شد</string>
     <string name="upgraded_view_changelog">مشاهدهٔ تغییرات</string>
     <string name="menu_go_to_artist">رفتن به هنرمند</string>
     <string name="menu_go_to_album">رفتن به آلبوم</string>

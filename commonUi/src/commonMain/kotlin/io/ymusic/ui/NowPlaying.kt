@@ -281,7 +281,8 @@ fun MiniPlayer(
     val duration = progress.durationMs
     val density = LocalDensity.current
     var colH by remember { mutableIntStateOf(0) }
-    val tileH = with(density) { if (colH > 0) colH.toDp() else 48.dp }
+    val tileH = with(density) { if (colH > 0) colH.toDp() else 56.dp }
+    val shape = RoundedCornerShape(topStart = Brand.MiniPlayerCorner, topEnd = Brand.MiniPlayerCorner)
     SwipeDownDismissBox(
         onDismiss = {
             coordinator.player.stop()
@@ -295,6 +296,8 @@ fun MiniPlayer(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .clip(shape)
+                .background(DesignColors.SurfaceElevated)
                 .clickable(onClick = onExpand),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -322,33 +325,32 @@ fun MiniPlayer(
             }
             Column(
                 Modifier.weight(1f)
-                    .background(DesignColors.SurfaceDim)
                     .onSizeChanged { colH = it.height },
             ) {
                 LinearProgressIndicator(
                     progress = { if (duration > 0) progress.positionMs.toFloat() / duration else 0f },
-                    modifier = Modifier.fillMaxWidth().height(4.dp).a11ySilent(),
+                    modifier = Modifier.fillMaxWidth().height(3.dp).a11ySilent(),
                     color = DesignColors.Accent,
-                    trackColor = Color.Transparent,
+                    trackColor = DesignColors.OutlineSoft.copy(alpha = 0.35f),
                     strokeCap = StrokeCap.Butt,
                     drawStopIndicator = {},
                     gapSize = 0.dp,
                 )
                 Row(
-                    Modifier.fillMaxWidth().padding(start = 12.dp, end = 8.dp, top = 6.dp, bottom = 8.dp),
+                    Modifier.fillMaxWidth().padding(start = 12.dp, end = 6.dp, top = 8.dp, bottom = 10.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Column(Modifier.weight(1f)) {
                         Text(
                             item.displayTitle,
-                            style = TextStyle(fontSize = 12.5.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Ink),
+                            style = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
                         artistText(item, status)?.let {
                             Text(
                                 it,
-                                style = TextStyle(fontSize = 11.sp, color = DesignColors.InkSecondary),
+                                style = TextStyle(fontSize = 11.5.sp, color = DesignColors.InkSecondary),
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                             )
@@ -360,11 +362,20 @@ fun MiniPlayer(
                             stringResource(if (status.showsPause()) Res.string.cd_pause else Res.string.cd_play),
                         ),
                     ) {
-                        Icon(
-                            if (status.showsPause()) Icons.Default.Pause else Icons.Default.PlayArrow,
-                            null,
-                            tint = DesignColors.InkMuted,
-                        )
+                        Box(
+                            Modifier
+                                .size(36.dp)
+                                .clip(CircleShape)
+                                .background(DesignColors.Accent),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Icon(
+                                if (status.showsPause()) Icons.Default.Pause else Icons.Default.PlayArrow,
+                                null,
+                                Modifier.size(22.dp),
+                                tint = DesignColors.OnAccent,
+                            )
+                        }
                     }
                     IconButton(
                         onClick = { coordinator.player.skipNext() },
@@ -621,25 +632,31 @@ private fun PortraitNowPlaying(
             item {
                 Column(Modifier.fillMaxWidth()) {
                     Column(
-                        Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 18.dp, bottom = 4.dp),
+                        Modifier.fillMaxWidth().padding(start = 24.dp, end = 24.dp, top = 20.dp, bottom = 6.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text(
                             current?.displayTitle.orEmpty(),
-                            style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold, color = DesignColors.InkStrong),
-                            maxLines = 1,
+                            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold, color = DesignColors.InkStrong),
+                            maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
                             textAlign = TextAlign.Center,
                         )
                         ArtistLine(
                             current,
                             status,
-                            TextStyle(fontSize = 13.sp, color = DesignColors.InkSecondary),
-                            Modifier.padding(top = 5.dp),
+                            TextStyle(fontSize = 14.sp, color = DesignColors.InkSecondary),
+                            Modifier.padding(top = 6.dp),
                         )
                     }
                     SeekBar(player, progress)
-                    TransportRow(coordinator, status.showsPause())
+                    TransportRow(
+                        coordinator,
+                        status.showsPause(),
+                        playBackground = DesignColors.Accent,
+                        playForeground = DesignColors.OnAccent,
+                        playSize = 68.dp,
+                    )
                 }
             }
             stickyHeader {
@@ -1560,11 +1577,11 @@ private fun lyricsSearchUrl(item: PlayableItem): String {
 private fun SeekBar(player: io.ymusic.player.Player, progress: Progress) {
     var scrubMs by remember { mutableStateOf<Long?>(null) }
     val labelProgress = scrubMs?.let { progress.copy(positionMs = it) } ?: progress
-    Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 2.dp)) {
+    Column(Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 14.dp, bottom = 2.dp)) {
         SeekSlider(player, progress, trackColor = DesignColors.OutlineSoft, onScrubMs = { scrubMs = it })
         MediaLtr {
-            Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                val timeStyle = TextStyle(fontSize = 11.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkSecondary)
+            Row(Modifier.fillMaxWidth().padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                val timeStyle = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkSecondary)
                 Text(labelProgress.progressLabel.orEmpty(), style = timeStyle, modifier = Modifier.a11ySilent())
                 Spacer(Modifier.weight(1f))
                 DurationLabel(player, progress, timeStyle)
@@ -1803,18 +1820,18 @@ private fun QueueHeader(
 ) {
     val player = coordinator.player
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 6.dp),
+        Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             stringResource(Res.string.up_next),
-            style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold, color = DesignColors.Ink),
+            style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.Bold, color = DesignColors.InkStrong),
             modifier = Modifier.semantics { heading() },
         )
         Text(
             "${currentIndex + 1} / $total",
-            style = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkFaint),
+            style = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Accent),
             modifier = Modifier.spokenAs(stringResource(Res.string.play_again_track_of, currentIndex + 1, total)),
         )
         if (onLocateCurrent != null) {
@@ -1970,10 +1987,10 @@ private fun QueueRowContent(
             tint = if (current) DesignColors.Accent else DesignColors.Outline,
         )
         Box(
-            Modifier.size(if (large) 60.dp else 48.dp).clip(RoundedCornerShape(6.dp)).a11ySilent(),
+            Modifier.size(if (large) 60.dp else 48.dp).clip(RoundedCornerShape(Brand.ThumbCorner)).a11ySilent(),
             contentAlignment = Alignment.Center,
         ) {
-            ArtImage(item.displayThumbnailUrl, RoundedCornerShape(6.dp)) {
+            ArtImage(item.displayThumbnailUrl, RoundedCornerShape(Brand.ThumbCorner)) {
                 ThumbPlaceholder(Icons.Outlined.Image, 18.dp)
             }
         }

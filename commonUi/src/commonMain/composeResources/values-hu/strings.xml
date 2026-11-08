@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Másodpercenkénti képkockaszám megjelenítése a Most szól videón. A mérés leáll szüneteltetéskor vagy a képernyő elhagyásakor.</string>
     <string name="settings_licenses">Nyílt forráskódú licencek</string>
     <string name="settings_terms">Feltételek és adatvédelem</string>
-    <string name="settings_licenses_intro">A YMusic nyílt forráskódú, GNU GPL v3.0 licenc alatt. A következő összetevőket tartalmazza:</string>
+    <string name="settings_licenses_intro">A StartMusicV3 nyílt forráskódú, GNU GPL v3.0 licenc alatt. A következő összetevőket tartalmazza:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Írd meg, mi romlott el, vagy mit szeretnél látni, GitHubon vagy e-mailben. Csatold az alábbi anonim adataidat, hogy megtaláljuk a naplóidat és válaszolhassunk.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">Nyilvános. Hibákhoz és ötletekhez a legjobb — mások is követhetik és kiegészíthetik.</string>
     <string name="feedback_email_title">E-mail küldése ide: %1$s</string>
     <string name="feedback_email_hint">Privát. Fiókkal kapcsolatos vagy személyes kérdésekhez a legjobb.</string>
-    <string name="feedback_email_subject">YMusic visszajelzés</string>
+    <string name="feedback_email_subject">StartMusicV3 visszajelzés</string>
     <string name="feedback_prefilled_note">Mindkettő a már kitöltött adatokkal nyílik meg. Ha hiányoznak, illeszd be őket — nélkülük nem tudunk segíteni.</string>
     <string name="feedback_reports_off_title">A névtelen jelentések ki vannak kapcsolva</string>
-    <string name="feedback_reports_off_message">A probléma kivizsgálásához szükségünk van az alkalmazás naplóira. Koppints a Folytatás gombra, és a YMusic újra bekapcsolja a névtelen jelentéseket, majd elküldi a naplókat.</string>
+    <string name="feedback_reports_off_message">A probléma kivizsgálásához szükségünk van az alkalmazás naplóira. Koppints a Folytatás gombra, és a StartMusicV3 újra bekapcsolja a névtelen jelentéseket, majd elküldi a naplókat.</string>
     <string name="feedback_reports_off_note">Nem küldünk nevet, e-mailt vagy fiókot. A jelentéseket a Beállításokban újra kikapcsolhatod.</string>
     <string name="feedback_continue">Folytatás</string>
     <string name="feedback_sentry_link">vagy Sentryn keresztül</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Bejelentkezés YouTube-bal</string>
-    <string name="signin_preface_subtitle">és érd el az összes YouTube-funkciót a YMusicban</string>
+    <string name="signin_preface_subtitle">és érd el az összes YouTube-funkciót a StartMusicV3ban</string>
     <string name="signin_enables">A bejelentkezéssel elérhető:</string>
     <string name="signin_feature_home">Személyre szabott YouTube-kezdőlap</string>
     <string name="signin_feature_subscriptions">Feliratkozások hírfolyama</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">Bejelentkezés</string>
     <string name="signin_loading">Bejelentkezés betöltése…</string>
     <string name="signin_unavailable">A bejelentkezés még nem érhető el ezen az eszközön</string>
-    <string name="signin_qr_title">Olvasd be a YMusic alkalmazással</string>
-    <string name="signin_qr_hint">A telefonodon nyisd meg: YMusic → Beállítások → Eszközök összekapcsolása → Kamera megnyitása, majd olvasd be ezt a kódot.</string>
+    <string name="signin_qr_title">Olvasd be a StartMusicV3 alkalmazással</string>
+    <string name="signin_qr_hint">A telefonodon nyisd meg: StartMusicV3 → Beállítások → Eszközök összekapcsolása → Kamera megnyitása, majd olvasd be ezt a kódot.</string>
     <string name="signin_qr_waiting">Várakozás a telefonra…</string>
     <string name="signin_qr_sas_hint">A telefonod ugyanezt a kódot fogja mutatni. Csak akkor küldd el, ha egyeznek.</string>
     <string name="signin_or_paste">Vagy illessz be sütiket egy böngészőből</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">Ebben a kérésben nincsenek sütik</string>
     <string name="signin_paste_no_cookie_body">Másolj cURL-ként egy másik kérést, lehetőleg Fetch/XHR típusút, például:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Értem</string>
-    <string name="cd_device_link_qr">QR-kód a YMusic alkalmazással való beolvasáshoz</string>
+    <string name="cd_device_link_qr">QR-kód a StartMusicV3 alkalmazással való beolvasáshoz</string>
     <string name="settings_link_devices">Eszközök összekapcsolása</string>
     <string name="settings_link_devices_hint">Jelentkezz be egy számítógépen a QR-kódja beolvasásával</string>
     <string name="device_link_title">Eszközök összekapcsolása</string>
-    <string name="device_link_intro">Olvasd be a számítógépen a YMusicban megjelenő QR-kódot. Ennek a telefonnak már bejelentkezve kell lennie.</string>
+    <string name="device_link_intro">Olvasd be a számítógépen a StartMusicV3ban megjelenő QR-kódot. Ennek a telefonnak már bejelentkezve kell lennie.</string>
     <string name="device_link_open_camera">Kamera megnyitása</string>
     <string name="device_link_scan_hint">Irányítsd a kamerát a számítógép QR-kódjára</string>
     <string name="device_link_sas_hint">Ennek a kódnak egyeznie kell a számítógépen lévővel. Ha nem egyezik, koppints a Mégse gombra.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">Véglegesen törlöd a hozzászólásodat és az összes rá érkezett választ?</string>
     <string name="video_details_deleted">Hozzászólás törölve</string>
     <string name="cookie_protect_title">Jelszóval véded a bejelentkezésed?</string>
-    <string name="cookie_protect_body">A bejelentkezésed ezen a számítógépen van mentve, ahol az általad futtatott más alkalmazások is olvashatják. Állíts be jelszót a zárolásához; a YMusic minden indításkor kérni fogja.</string>
+    <string name="cookie_protect_body">A bejelentkezésed ezen a számítógépen van mentve, ahol az általad futtatott más alkalmazások is olvashatják. Állíts be jelszót a zárolásához; a StartMusicV3 minden indításkor kérni fogja.</string>
     <string name="cookie_password">Jelszó</string>
     <string name="cookie_protect_confirm">Jelszó megerősítése</string>
     <string name="cookie_protect_mismatch">A jelszavak nem egyeznek.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">Kijelentkezés</string>
     <string name="cookie_unlock_sign_out_hint">Törli ezt a mentett bejelentkezést.</string>
     <string name="cookie_unlock_sign_out_title">Kijelentkezel?</string>
-    <string name="cookie_unlock_sign_out_body">Ezzel törlöd a mentett bejelentkezést erről a számítógépről. Az újbóli bejelentkezéshez olvasd be a QR-kódot a YMusic alkalmazással.</string>
+    <string name="cookie_unlock_sign_out_body">Ezzel törlöd a mentett bejelentkezést erről a számítógépről. Az újbóli bejelentkezéshez olvasd be a QR-kódot a StartMusicV3 alkalmazással.</string>
     <string name="menu_details_comments">Részletek és hozzászólások</string>
     <string name="menu_search_lyrics">Dalszöveg keresése</string>
     <string name="menu_speed_pitch">Sebesség és hangmagasság</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">Áthelyezés a tetejére</string>
     <string name="dialog_undo">Visszavonás</string>
     <string name="dialog_save">Mentés</string>
-    <string name="upgraded_message">A YMusic frissült erre: %1$s</string>
+    <string name="upgraded_message">A StartMusicV3 frissült erre: %1$s</string>
     <string name="upgraded_view_changelog">Változások megtekintése</string>
     <string name="menu_go_to_artist">Ugrás az előadóhoz</string>
     <string name="menu_go_to_album">Ugrás az albumhoz</string>

@@ -1,15 +1,15 @@
-; Inno Setup script for YMusic, compiled as-is by the Gradle task `packageReleaseInnoSetup`, which
+; Inno Setup script for StartMusicV3, compiled as-is by the Gradle task `packageReleaseInnoSetup`, which
 ; passes the version, paths and arch as ISCC /D defines.
 ;
 ; Build input (jpackage's `createReleaseDistributable` output):
-;   AppSourceDir = desktopApp/build/compose/binaries/main-release/app/YMusic
-;     containing YMusic.exe + runtime/ + app/
+;   AppSourceDir = desktopApp/build/compose/binaries/main-release/app/StartMusicV3
+;     containing StartMusicV3.exe + runtime/ + app/
 ;
 ; Output:
 ;   OutputDir/OutputBaseFilename.exe (self-contained installer, LZMA2)
 
-#define AppName "YMusic"
-#define AppExeName "YMusic.exe"
+#define AppName "StartMusicV3"
+#define AppExeName "StartMusicV3.exe"
 ; Never change: Inno finds the previous install by AppId, so a new one would install side by side.
 #define AppId "{{6F3C2B9E-4D1A-4E8B-9A57-2C1F0D8E7B34}"
 

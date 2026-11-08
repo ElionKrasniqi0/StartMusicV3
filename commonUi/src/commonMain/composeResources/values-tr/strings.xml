@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Şimdi Çalıyor videosunun üzerinde saniyedeki kare sayısını gösterir. Duraklatıldığında veya ekrandan çıktığınızda ölçüm durur.</string>
     <string name="settings_licenses">Açık kaynak lisansları</string>
     <string name="settings_terms">Koşullar ve gizlilik</string>
-    <string name="settings_licenses_intro">YMusic, GNU GPL v3.0 kapsamında açık kaynaklıdır. Şu bileşenleri içerir:</string>
+    <string name="settings_licenses_intro">StartMusicV3, GNU GPL v3.0 kapsamında açık kaynaklıdır. Şu bileşenleri içerir:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Neyin ters gittiğini ya da ne görmek istediğini GitHub’da veya e-postayla bize anlat. Günlüklerini bulup yanıt verebilmemiz için aşağıdaki anonim bilgilerini ekle.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">Herkese açık. Hatalar ve fikirler için en iyisi — başkaları takip edip ekleme yapabilir.</string>
     <string name="feedback_email_title">%1$s adresine e-posta gönder</string>
     <string name="feedback_email_hint">Gizli. Hesap veya kişisel sorular için en iyisi.</string>
-    <string name="feedback_email_subject">YMusic geri bildirimi</string>
+    <string name="feedback_email_subject">StartMusicV3 geri bildirimi</string>
     <string name="feedback_prefilled_note">İkisi de bilgiler önceden doldurulmuş olarak açılır. Eksikse yapıştır — onsuz yardımcı olamayız.</string>
     <string name="feedback_reports_off_title">Anonim raporlar kapalı</string>
-    <string name="feedback_reports_off_message">Sorununu incelemek için bu uygulamanın günlüklerine ihtiyacımız var. Devam’a dokun; YMusic anonim raporları yeniden açıp günlükleri gönderir.</string>
+    <string name="feedback_reports_off_message">Sorununu incelemek için bu uygulamanın günlüklerine ihtiyacımız var. Devam’a dokun; StartMusicV3 anonim raporları yeniden açıp günlükleri gönderir.</string>
     <string name="feedback_reports_off_note">Ad, e-posta veya hesap gönderilmez. Raporları Ayarlar’dan yeniden kapatabilirsin.</string>
     <string name="feedback_continue">Devam</string>
     <string name="feedback_sentry_link">veya Sentry ile</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube ile giriş yap</string>
-    <string name="signin_preface_subtitle">ve YMusic içinde tüm YouTube özelliklerini kullanın</string>
+    <string name="signin_preface_subtitle">ve StartMusicV3 içinde tüm YouTube özelliklerini kullanın</string>
     <string name="signin_enables">Giriş yaparak şunları kullanabilirsiniz:</string>
     <string name="signin_feature_home">Kişiselleştirilmiş YouTube ana sayfa akışı</string>
     <string name="signin_feature_subscriptions">Abonelikler akışı</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">Giriş yap</string>
     <string name="signin_loading">Giriş yükleniyor…</string>
     <string name="signin_unavailable">Bu cihazda giriş henüz kullanılamıyor</string>
-    <string name="signin_qr_title">YMusic uygulamasıyla tarayın</string>
-    <string name="signin_qr_hint">Telefonunuzda YMusic → Ayarlar → Cihazları bağla → Kamerayı aç'ı açın, ardından bu kodu tarayın.</string>
+    <string name="signin_qr_title">StartMusicV3 uygulamasıyla tarayın</string>
+    <string name="signin_qr_hint">Telefonunuzda StartMusicV3 → Ayarlar → Cihazları bağla → Kamerayı aç'ı açın, ardından bu kodu tarayın.</string>
     <string name="signin_qr_waiting">Telefon bekleniyor…</string>
     <string name="signin_qr_sas_hint">Telefonunuz da aynı kodu gösterecek. Yalnızca eşleşiyorlarsa gönderin.</string>
     <string name="signin_or_paste">Veya bir tarayıcıdan çerezleri yapıştırın</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">Bu istekte çerez yok</string>
     <string name="signin_paste_no_cookie_body">Başka bir istekten, tercihen Fetch/XHR, Copy as cURL ile kopyalayın, örneğin:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Anladım</string>
-    <string name="cd_device_link_qr">YMusic uygulamasıyla taranacak QR kodu</string>
+    <string name="cd_device_link_qr">StartMusicV3 uygulamasıyla taranacak QR kodu</string>
     <string name="settings_link_devices">Cihazları bağla</string>
     <string name="settings_link_devices_hint">Bir bilgisayardaki QR kodunu tarayarak orada giriş yapın</string>
     <string name="device_link_title">Cihazları bağla</string>
-    <string name="device_link_intro">Bilgisayarınızdaki YMusic'te gösterilen QR kodunu tarayın. Bu telefonda zaten giriş yapılmış olmalıdır.</string>
+    <string name="device_link_intro">Bilgisayarınızdaki StartMusicV3'te gösterilen QR kodunu tarayın. Bu telefonda zaten giriş yapılmış olmalıdır.</string>
     <string name="device_link_open_camera">Kamerayı aç</string>
     <string name="device_link_scan_hint">Kamerayı bilgisayarın QR koduna doğrultun</string>
     <string name="device_link_sas_hint">Bu kod bilgisayardakiyle eşleşmelidir. Eşleşmiyorsa İptal'e dokunun.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">Yorumunuz ve tüm yanıtları kalıcı olarak silinsin mi?</string>
     <string name="video_details_deleted">Yorum silindi</string>
     <string name="cookie_protect_title">Girişiniz şifreyle korunsun mu?</string>
-    <string name="cookie_protect_body">Girişiniz bu bilgisayarda kayıtlıdır ve çalıştırdığınız diğer uygulamalar onu okuyabilir. Kilitlemek için bir şifre belirleyin; YMusic her açılışta bu şifreyi sorar.</string>
+    <string name="cookie_protect_body">Girişiniz bu bilgisayarda kayıtlıdır ve çalıştırdığınız diğer uygulamalar onu okuyabilir. Kilitlemek için bir şifre belirleyin; StartMusicV3 her açılışta bu şifreyi sorar.</string>
     <string name="cookie_password">Şifre</string>
     <string name="cookie_protect_confirm">Şifreyi onaylayın</string>
     <string name="cookie_protect_mismatch">Şifreler eşleşmiyor.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">Çıkış yap</string>
     <string name="cookie_unlock_sign_out_hint">Bu kayıtlı girişi kaldırır.</string>
     <string name="cookie_unlock_sign_out_title">Çıkış yapılsın mı?</string>
-    <string name="cookie_unlock_sign_out_body">Bu işlem kayıtlı girişi bu bilgisayardan kaldırır. Tekrar giriş yapmak için QR kodunu YMusic uygulamasıyla tarayın.</string>
+    <string name="cookie_unlock_sign_out_body">Bu işlem kayıtlı girişi bu bilgisayardan kaldırır. Tekrar giriş yapmak için QR kodunu StartMusicV3 uygulamasıyla tarayın.</string>
     <string name="menu_details_comments">Ayrıntılar ve yorumlar</string>
     <string name="menu_search_lyrics">Şarkı sözlerini ara</string>
     <string name="menu_speed_pitch">Hız ve perde</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">En üste taşı</string>
     <string name="dialog_undo">Geri al</string>
     <string name="dialog_save">Kaydet</string>
-    <string name="upgraded_message">YMusic %1$s sürümüne güncellendi</string>
+    <string name="upgraded_message">StartMusicV3 %1$s sürümüne güncellendi</string>
     <string name="upgraded_view_changelog">Değişiklikleri gör</string>
     <string name="menu_go_to_artist">Sanatçıya git</string>
     <string name="menu_go_to_album">Albüme git</string>

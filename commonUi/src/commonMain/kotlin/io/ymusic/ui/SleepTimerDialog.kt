@@ -212,7 +212,7 @@ private fun ArmedCard(sleepMs: Long?, nowMs: Long, onExtend: (() -> Unit)?, onTu
     Column(
         Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(Brand.CardCorner))
             .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(start = DesignSpacing.Space16, end = DesignSpacing.Space4, top = DesignSpacing.Space16),
     ) {

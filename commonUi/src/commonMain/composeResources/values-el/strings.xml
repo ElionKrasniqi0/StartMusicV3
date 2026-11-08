@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Εμφανίζει τα καρέ ανά δευτερόλεπτο πάνω στο βίντεο της Αναπαραγωγής τώρα. Η μέτρηση σταματά σε παύση ή όταν φύγετε από την οθόνη.</string>
     <string name="settings_licenses">Άδειες ανοιχτού κώδικα</string>
     <string name="settings_terms">Όροι &amp; απόρρητο</string>
-    <string name="settings_licenses_intro">Το YMusic είναι ανοιχτού κώδικα με άδεια GNU GPL v3.0. Περιλαμβάνει τα εξής στοιχεία:</string>
+    <string name="settings_licenses_intro">Το StartMusicV3 είναι ανοιχτού κώδικα με άδεια GNU GPL v3.0. Περιλαμβάνει τα εξής στοιχεία:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Πείτε μας τι πήγε στραβά ή τι θα θέλατε να δείτε, στο GitHub ή με email. Συμπεριλάβετε τις ανώνυμες πληροφορίες σας παρακάτω για να βρούμε τα αρχεία καταγραφής σας και να απαντήσουμε.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">Δημόσιο. Ιδανικό για σφάλματα και ιδέες — άλλοι μπορούν να το παρακολουθούν και να προσθέτουν.</string>
     <string name="feedback_email_title">Email στο %1$s</string>
     <string name="feedback_email_hint">Ιδιωτικό. Ιδανικό για ερωτήσεις λογαριασμού ή προσωπικές.</string>
-    <string name="feedback_email_subject">Σχόλια για το YMusic</string>
+    <string name="feedback_email_subject">Σχόλια για το StartMusicV3</string>
     <string name="feedback_prefilled_note">Και τα δύο ανοίγουν με τις πληροφορίες ήδη συμπληρωμένες. Αν λείπουν, επικολλήστε τις — χωρίς αυτές δεν μπορούμε να βοηθήσουμε.</string>
     <string name="feedback_reports_off_title">Οι ανώνυμες αναφορές είναι απενεργοποιημένες</string>
-    <string name="feedback_reports_off_message">Για να εξετάσουμε το πρόβλημά σας χρειαζόμαστε τα αρχεία καταγραφής της εφαρμογής. Πατήστε Συνέχεια και το YMusic θα ενεργοποιήσει ξανά τις ανώνυμες αναφορές και θα στείλει τα αρχεία.</string>
+    <string name="feedback_reports_off_message">Για να εξετάσουμε το πρόβλημά σας χρειαζόμαστε τα αρχεία καταγραφής της εφαρμογής. Πατήστε Συνέχεια και το StartMusicV3 θα ενεργοποιήσει ξανά τις ανώνυμες αναφορές και θα στείλει τα αρχεία.</string>
     <string name="feedback_reports_off_note">Δεν αποστέλλεται όνομα, email ή λογαριασμός. Μπορείτε να απενεργοποιήσετε ξανά τις αναφορές στις Ρυθμίσεις.</string>
     <string name="feedback_continue">Συνέχεια</string>
     <string name="feedback_sentry_link">ή μέσω Sentry</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Σύνδεση με το YouTube</string>
-    <string name="signin_preface_subtitle">και αποκτήστε όλες τις λειτουργίες του YouTube μέσα στο YMusic</string>
+    <string name="signin_preface_subtitle">και αποκτήστε όλες τις λειτουργίες του YouTube μέσα στο StartMusicV3</string>
     <string name="signin_enables">Η σύνδεση ενεργοποιεί:</string>
     <string name="signin_feature_home">Εξατομικευμένη αρχική ροή YouTube</string>
     <string name="signin_feature_subscriptions">Ροή εγγραφών</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">Σύνδεση</string>
     <string name="signin_loading">Φόρτωση σύνδεσης…</string>
     <string name="signin_unavailable">Η σύνδεση δεν είναι ακόμη διαθέσιμη σε αυτήν τη συσκευή</string>
-    <string name="signin_qr_title">Σάρωση με την εφαρμογή YMusic</string>
-    <string name="signin_qr_hint">Στο τηλέφωνό σας, ανοίξτε YMusic → Ρυθμίσεις → Σύνδεση συσκευών → Άνοιγμα κάμερας και σαρώστε αυτόν τον κωδικό.</string>
+    <string name="signin_qr_title">Σάρωση με την εφαρμογή StartMusicV3</string>
+    <string name="signin_qr_hint">Στο τηλέφωνό σας, ανοίξτε StartMusicV3 → Ρυθμίσεις → Σύνδεση συσκευών → Άνοιγμα κάμερας και σαρώστε αυτόν τον κωδικό.</string>
     <string name="signin_qr_waiting">Αναμονή για το τηλέφωνο…</string>
     <string name="signin_qr_sas_hint">Το τηλέφωνό σας θα δείξει τον ίδιο κωδικό. Στείλτε μόνο αν ταιριάζουν.</string>
     <string name="signin_or_paste">Ή επικολλήστε cookies από ένα πρόγραμμα περιήγησης</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">Αυτό το αίτημα δεν έχει cookies</string>
     <string name="signin_paste_no_cookie_body">Αντιγράψτε ως cURL από άλλο αίτημα, κατά προτίμηση Fetch/XHR, για παράδειγμα:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Κατάλαβα</string>
-    <string name="cd_device_link_qr">Κωδικός QR για σάρωση με την εφαρμογή YMusic</string>
+    <string name="cd_device_link_qr">Κωδικός QR για σάρωση με την εφαρμογή StartMusicV3</string>
     <string name="settings_link_devices">Σύνδεση συσκευών</string>
     <string name="settings_link_devices_hint">Συνδεθείτε σε υπολογιστή σαρώνοντας τον κωδικό QR του</string>
     <string name="device_link_title">Σύνδεση συσκευών</string>
-    <string name="device_link_intro">Σαρώστε τον κωδικό QR που εμφανίζεται στο YMusic στον υπολογιστή σας. Αυτό το τηλέφωνο πρέπει να είναι ήδη συνδεδεμένο.</string>
+    <string name="device_link_intro">Σαρώστε τον κωδικό QR που εμφανίζεται στο StartMusicV3 στον υπολογιστή σας. Αυτό το τηλέφωνο πρέπει να είναι ήδη συνδεδεμένο.</string>
     <string name="device_link_open_camera">Άνοιγμα κάμερας</string>
     <string name="device_link_scan_hint">Στρέψτε την κάμερα στον κωδικό QR του υπολογιστή</string>
     <string name="device_link_sas_hint">Αυτός ο κωδικός πρέπει να ταιριάζει με τον υπολογιστή. Αν όχι, πατήστε Ακύρωση.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">Να διαγραφεί οριστικά το σχόλιό σας και όλες οι απαντήσεις του;</string>
     <string name="video_details_deleted">Το σχόλιο διαγράφηκε</string>
     <string name="cookie_protect_title">Να προστατευτεί η σύνδεσή σας με κωδικό πρόσβασης;</string>
-    <string name="cookie_protect_body">Η σύνδεσή σας είναι αποθηκευμένη σε αυτόν τον υπολογιστή, όπου μπορούν να τη διαβάσουν άλλες εφαρμογές που εκτελείτε. Ορίστε κωδικό πρόσβασης για να την κλειδώσετε. Το YMusic θα τον ζητά σε κάθε εκκίνηση.</string>
+    <string name="cookie_protect_body">Η σύνδεσή σας είναι αποθηκευμένη σε αυτόν τον υπολογιστή, όπου μπορούν να τη διαβάσουν άλλες εφαρμογές που εκτελείτε. Ορίστε κωδικό πρόσβασης για να την κλειδώσετε. Το StartMusicV3 θα τον ζητά σε κάθε εκκίνηση.</string>
     <string name="cookie_password">Κωδικός πρόσβασης</string>
     <string name="cookie_protect_confirm">Επιβεβαίωση κωδικού πρόσβασης</string>
     <string name="cookie_protect_mismatch">Οι κωδικοί πρόσβασης δεν ταιριάζουν.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">Αποσύνδεση</string>
     <string name="cookie_unlock_sign_out_hint">Αφαιρεί αυτή την αποθηκευμένη σύνδεση.</string>
     <string name="cookie_unlock_sign_out_title">Αποσύνδεση;</string>
-    <string name="cookie_unlock_sign_out_body">Η αποθηκευμένη σύνδεση θα αφαιρεθεί από αυτόν τον υπολογιστή. Για να συνδεθείτε ξανά, σαρώστε τον κωδικό QR με την εφαρμογή YMusic.</string>
+    <string name="cookie_unlock_sign_out_body">Η αποθηκευμένη σύνδεση θα αφαιρεθεί από αυτόν τον υπολογιστή. Για να συνδεθείτε ξανά, σαρώστε τον κωδικό QR με την εφαρμογή StartMusicV3.</string>
     <string name="menu_details_comments">Λεπτομέρειες και σχόλια</string>
     <string name="menu_search_lyrics">Αναζήτηση στίχων</string>
     <string name="menu_speed_pitch">Ταχύτητα και τονικότητα</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">Μετακίνηση στην κορυφή</string>
     <string name="dialog_undo">Αναίρεση</string>
     <string name="dialog_save">Αποθήκευση</string>
-    <string name="upgraded_message">Το YMusic ενημερώθηκε στην έκδοση %1$s</string>
+    <string name="upgraded_message">Το StartMusicV3 ενημερώθηκε στην έκδοση %1$s</string>
     <string name="upgraded_view_changelog">Προβολή αλλαγών</string>
     <string name="menu_go_to_artist">Πήγαινε στον καλλιτέχνη</string>
     <string name="menu_go_to_album">Πήγαινε στο άλμπουμ</string>

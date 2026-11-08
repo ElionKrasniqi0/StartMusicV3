@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Now Playing வீடியோவின் மேல் ஒரு வினாடிக்கான படங்களைக் காட்டு. இடைநிறுத்தும்போதோ அந்தத் திரையை விட்டு வெளியேறும்போதோ அளவிடல் நிற்கும்.</string>
     <string name="settings_licenses">ஓப்பன் சோர்ஸ் உரிமங்கள்</string>
     <string name="settings_terms">விதிமுறைகள் &amp; தனியுரிமை</string>
-    <string name="settings_licenses_intro">YMusic GNU GPL v3.0 இன் கீழ் ஓப்பன் சோர்ஸ் ஆகும். இதில் இந்தக் கூறுகள் அடங்கும்:</string>
+    <string name="settings_licenses_intro">StartMusicV3 GNU GPL v3.0 இன் கீழ் ஓப்பன் சோர்ஸ் ஆகும். இதில் இந்தக் கூறுகள் அடங்கும்:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">என்ன தவறு நடந்தது அல்லது நீங்கள் எதைப் பார்க்க விரும்புகிறீர்கள் என்பதை GitHub-இல் அல்லது மின்னஞ்சலில் சொல்லுங்கள். உங்கள் பதிவுகளைக் கண்டறிந்து பதிலளிக்க, கீழே உள்ள உங்கள் அநாமதேயத் தகவலைச் சேர்க்கவும்.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">பொதுவானது. பிழைகள் மற்றும் யோசனைகளுக்குச் சிறந்தது — மற்றவர்கள் பின்தொடர்ந்து சேர்க்கலாம்.</string>
     <string name="feedback_email_title">%1$s-க்கு மின்னஞ்சல் அனுப்பு</string>
     <string name="feedback_email_hint">தனிப்பட்டது. கணக்கு அல்லது தனிப்பட்ட கேள்விகளுக்குச் சிறந்தது.</string>
-    <string name="feedback_email_subject">YMusic கருத்து</string>
+    <string name="feedback_email_subject">StartMusicV3 கருத்து</string>
     <string name="feedback_prefilled_note">இரண்டும் தகவல் ஏற்கெனவே நிரப்பப்பட்ட நிலையில் திறக்கும். அது இல்லையெனில் ஒட்டவும் — அது இல்லாமல் எங்களால் உதவ முடியாது.</string>
     <string name="feedback_reports_off_title">அநாமதேய அறிக்கைகள் முடக்கப்பட்டுள்ளன</string>
-    <string name="feedback_reports_off_message">உங்கள் சிக்கலை ஆராய இந்த ஆப்ஸின் பதிவுகள் தேவை. தொடர் என்பதைத் தட்டினால், YMusic அநாமதேய அறிக்கைகளை மீண்டும் இயக்கிப் பதிவுகளை அனுப்பும்.</string>
+    <string name="feedback_reports_off_message">உங்கள் சிக்கலை ஆராய இந்த ஆப்ஸின் பதிவுகள் தேவை. தொடர் என்பதைத் தட்டினால், StartMusicV3 அநாமதேய அறிக்கைகளை மீண்டும் இயக்கிப் பதிவுகளை அனுப்பும்.</string>
     <string name="feedback_reports_off_note">பெயர், மின்னஞ்சல், கணக்கு எதுவும் அனுப்பப்படாது. அமைப்புகளில் அறிக்கைகளை மீண்டும் முடக்கலாம்.</string>
     <string name="feedback_continue">தொடர்</string>
     <string name="feedback_sentry_link">அல்லது Sentry வழியாக</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube மூலம் உள்நுழையவும்</string>
-    <string name="signin_preface_subtitle">YMusic-க்குள்ளேயே YouTube-இன் அனைத்து அம்சங்களையும் பெறுங்கள்</string>
+    <string name="signin_preface_subtitle">StartMusicV3-க்குள்ளேயே YouTube-இன் அனைத்து அம்சங்களையும் பெறுங்கள்</string>
     <string name="signin_enables">உள்நுழைந்தால் கிடைப்பவை:</string>
     <string name="signin_feature_home">உங்களுக்கேற்ற YouTube முகப்பு ஃபீட்</string>
     <string name="signin_feature_subscriptions">சந்தா ஃபீட்</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">உள்நுழை</string>
     <string name="signin_loading">உள்நுழைவு ஏற்றப்படுகிறது…</string>
     <string name="signin_unavailable">இந்தச் சாதனத்தில் இன்னும் உள்நுழைவு கிடைக்கவில்லை</string>
-    <string name="signin_qr_title">YMusic ஆப்ஸ் மூலம் ஸ்கேன் செய்யவும்</string>
-    <string name="signin_qr_hint">உங்கள் ஃபோனில் YMusic-ஐத் திறக்கவும் → அமைப்புகள் → சாதனங்களை இணை → கேமராவைத் திற, பின்னர் இந்தக் குறியீட்டை ஸ்கேன் செய்யவும்.</string>
+    <string name="signin_qr_title">StartMusicV3 ஆப்ஸ் மூலம் ஸ்கேன் செய்யவும்</string>
+    <string name="signin_qr_hint">உங்கள் ஃபோனில் StartMusicV3-ஐத் திறக்கவும் → அமைப்புகள் → சாதனங்களை இணை → கேமராவைத் திற, பின்னர் இந்தக் குறியீட்டை ஸ்கேன் செய்யவும்.</string>
     <string name="signin_qr_waiting">ஃபோனுக்காகக் காத்திருக்கிறது…</string>
     <string name="signin_qr_sas_hint">உங்கள் ஃபோனில் இதே குறியீடு காட்டப்படும். பொருந்தினால் மட்டும் அனுப்பவும்.</string>
     <string name="signin_or_paste">அல்லது உலாவியிலிருந்து குக்கீகளை ஒட்டவும்</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">அந்தக் கோரிக்கையில் குக்கீகள் இல்லை</string>
     <string name="signin_paste_no_cookie_body">வேறொரு கோரிக்கையிலிருந்து Copy as cURL செய்யவும், முடிந்தால் Fetch/XHR, எடுத்துக்காட்டாக:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">புரிந்தது</string>
-    <string name="cd_device_link_qr">YMusic ஆப்ஸ் மூலம் ஸ்கேன் செய்ய வேண்டிய QR குறியீடு</string>
+    <string name="cd_device_link_qr">StartMusicV3 ஆப்ஸ் மூலம் ஸ்கேன் செய்ய வேண்டிய QR குறியீடு</string>
     <string name="settings_link_devices">சாதனங்களை இணை</string>
     <string name="settings_link_devices_hint">கணினியின் QR குறியீட்டை ஸ்கேன் செய்து அதில் உள்நுழையவும்</string>
     <string name="device_link_title">சாதனங்களை இணை</string>
-    <string name="device_link_intro">உங்கள் கணினியில் YMusic-இல் காட்டப்படும் QR குறியீட்டை ஸ்கேன் செய்யவும். இந்த ஃபோனில் ஏற்கனவே உள்நுழைந்திருக்க வேண்டும்.</string>
+    <string name="device_link_intro">உங்கள் கணினியில் StartMusicV3-இல் காட்டப்படும் QR குறியீட்டை ஸ்கேன் செய்யவும். இந்த ஃபோனில் ஏற்கனவே உள்நுழைந்திருக்க வேண்டும்.</string>
     <string name="device_link_open_camera">கேமராவைத் திற</string>
     <string name="device_link_scan_hint">கணினியின் QR குறியீட்டை நோக்கி கேமராவைக் காட்டவும்</string>
     <string name="device_link_sas_hint">இந்தக் குறியீடு கணினியில் உள்ளதுடன் பொருந்த வேண்டும். பொருந்தவில்லை எனில், ரத்துசெய் என்பதைத் தட்டவும்.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">உங்கள் கருத்தையும் அதன் எல்லாப் பதில்களையும் நிரந்தரமாக நீக்கவா?</string>
     <string name="video_details_deleted">கருத்து நீக்கப்பட்டது</string>
     <string name="cookie_protect_title">உங்கள் உள்நுழைவைக் கடவுச்சொல்லால் பாதுகாக்கவா?</string>
-    <string name="cookie_protect_body">உங்கள் உள்நுழைவு இந்தக் கணினியில் சேமிக்கப்பட்டுள்ளது, நீங்கள் இயக்கும் பிற ஆப்ஸ் அதைப் படிக்க முடியும். அதைப் பூட்ட ஒரு கடவுச்சொல்லை அமைக்கவும்; ஒவ்வொரு முறை தொடங்கும்போதும் YMusic அதைக் கேட்கும்.</string>
+    <string name="cookie_protect_body">உங்கள் உள்நுழைவு இந்தக் கணினியில் சேமிக்கப்பட்டுள்ளது, நீங்கள் இயக்கும் பிற ஆப்ஸ் அதைப் படிக்க முடியும். அதைப் பூட்ட ஒரு கடவுச்சொல்லை அமைக்கவும்; ஒவ்வொரு முறை தொடங்கும்போதும் StartMusicV3 அதைக் கேட்கும்.</string>
     <string name="cookie_password">கடவுச்சொல்</string>
     <string name="cookie_protect_confirm">கடவுச்சொல்லை உறுதிசெய்</string>
     <string name="cookie_protect_mismatch">கடவுச்சொற்கள் பொருந்தவில்லை.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">வெளியேறு</string>
     <string name="cookie_unlock_sign_out_hint">சேமித்த இந்த உள்நுழைவை அகற்றும்.</string>
     <string name="cookie_unlock_sign_out_title">வெளியேறவா?</string>
-    <string name="cookie_unlock_sign_out_body">இது சேமித்த உள்நுழைவை இந்தக் கணினியிலிருந்து அகற்றும். மீண்டும் உள்நுழைய, YMusic ஆப்ஸ் மூலம் QR குறியீட்டை ஸ்கேன் செய்யவும்.</string>
+    <string name="cookie_unlock_sign_out_body">இது சேமித்த உள்நுழைவை இந்தக் கணினியிலிருந்து அகற்றும். மீண்டும் உள்நுழைய, StartMusicV3 ஆப்ஸ் மூலம் QR குறியீட்டை ஸ்கேன் செய்யவும்.</string>
     <string name="menu_details_comments">விவரங்களும் கருத்துகளும்</string>
     <string name="menu_search_lyrics">பாடல் வரிகளைத் தேடு</string>
     <string name="menu_speed_pitch">வேகமும் சுருதியும்</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">மேலே நகர்த்து</string>
     <string name="dialog_undo">செயல்தவிர்</string>
     <string name="dialog_save">சேமி</string>
-    <string name="upgraded_message">YMusic %1$s-க்குப் புதுப்பிக்கப்பட்டது</string>
+    <string name="upgraded_message">StartMusicV3 %1$s-க்குப் புதுப்பிக்கப்பட்டது</string>
     <string name="upgraded_view_changelog">மாற்றங்களைக் காண்க</string>
     <string name="menu_go_to_artist">கலைஞருக்குச் செல்</string>
     <string name="menu_go_to_album">ஆல்பத்துக்குச் செல்</string>

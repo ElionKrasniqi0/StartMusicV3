@@ -912,7 +912,6 @@ private fun AppRoot(
                                 },
                                 premium = premium,
                                 showDonate = graph.openDonation != null,
-                                websiteUrl = AppLinks(config).website,
                                 updates = graph.updates,
                                 onCheckUpdate = graph.updates?.let {
                                     {

@@ -172,7 +172,7 @@ OSStatus AudioQueueNewOutput(const AudioStreamBasicDescription *fmt, AudioQueueO
     attr.prebuf = (uint32_t)-1;
     attr.minreq = (uint32_t)-1;
     attr.fragsize = (uint32_t)-1;
-    q->pa = g_pa.new_(NULL, "YMusic", PA_STREAM_PLAYBACK, NULL, "Playback", &ss, NULL, &attr, &err);
+    q->pa = g_pa.new_(NULL, "StartMusicV3", PA_STREAM_PLAYBACK, NULL, "Playback", &ss, NULL, &attr, &err);
     if (!q->pa) {
         mse_critf(MSE_LOG_WARN, "aq-pulse: pa_simple_new failed (%d)", err);
         free(q);

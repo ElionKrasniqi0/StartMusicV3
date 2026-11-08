@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">වාදනය වන වීඩියෝව මත තත්පරයකට රාමු ගණන පෙන්වයි. විරාම කළ විට හෝ එම තිරයෙන් ඉවත් වූ විට මැනීම නතර වේ.</string>
     <string name="settings_licenses">විවෘත මූලාශ්‍ර බලපත්‍ර</string>
     <string name="settings_terms">නියම සහ පෞද්ගලිකත්වය</string>
-    <string name="settings_licenses_intro">YMusic යනු GNU GPL v3.0 යටතේ ඇති විවෘත මූලාශ්‍ර යෙදුමකි. එයට මෙම සංරචක ඇතුළත් වේ:</string>
+    <string name="settings_licenses_intro">StartMusicV3 යනු GNU GPL v3.0 යටතේ ඇති විවෘත මූලාශ්‍ර යෙදුමකි. එයට මෙම සංරචක ඇතුළත් වේ:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">වැරදුණේ කුමක්ද නැතහොත් ඔබ දැකීමට කැමති දේ GitHub හි හෝ ඊමේල් මගින් අපට කියන්න. අපට ඔබගේ ලොග සොයා පිළිතුරු දීමට පහත ඔබගේ නිර්නාමික තොරතුරු ඇතුළත් කරන්න.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">පොදු. දෝෂ සහ අදහස් සඳහා හොඳම — අනෙක් අයට අනුගමනය කර එකතු කළ හැක.</string>
     <string name="feedback_email_title">%1$s වෙත ඊමේල් කරන්න</string>
     <string name="feedback_email_hint">පෞද්ගලික. ගිණුම් හෝ පෞද්ගලික ප්‍රශ්න සඳහා හොඳම.</string>
-    <string name="feedback_email_subject">YMusic ප්‍රතිපෝෂණ</string>
+    <string name="feedback_email_subject">StartMusicV3 ප්‍රතිපෝෂණ</string>
     <string name="feedback_prefilled_note">දෙකම තොරතුරු දැනටමත් පුරවා විවෘත වේ. එය නොමැති නම් අලවන්න — එය නොමැතිව අපට උදව් කළ නොහැක.</string>
     <string name="feedback_reports_off_title">නිර්නාමික වාර්තා අක්‍රියයි</string>
-    <string name="feedback_reports_off_message">ඔබේ ගැටලුව සොයා බැලීමට අපට මෙම යෙදුමේ ලොග අවශ්‍යයි. ඉදිරියට යන්න තට්ටු කරන්න, YMusic නිර්නාමික වාර්තා නැවත සක්‍රිය කර ලොග යවයි.</string>
+    <string name="feedback_reports_off_message">ඔබේ ගැටලුව සොයා බැලීමට අපට මෙම යෙදුමේ ලොග අවශ්‍යයි. ඉදිරියට යන්න තට්ටු කරන්න, StartMusicV3 නිර්නාමික වාර්තා නැවත සක්‍රිය කර ලොග යවයි.</string>
     <string name="feedback_reports_off_note">නමක්, ඊමේලයක් හෝ ගිණුමක් යවනු නොලැබේ. සැකසීම් තුළ ඔබට නැවත වාර්තා අක්‍රිය කළ හැක.</string>
     <string name="feedback_continue">ඉදිරියට යන්න</string>
     <string name="feedback_sentry_link">නැතහොත් Sentry හරහා</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube සමඟ පුරන්න</string>
-    <string name="signin_preface_subtitle">සහ YMusic තුළ සියලු YouTube විශේෂාංග ලබා ගන්න</string>
+    <string name="signin_preface_subtitle">සහ StartMusicV3 තුළ සියලු YouTube විශේෂාංග ලබා ගන්න</string>
     <string name="signin_enables">පුරනය වීමෙන් සක්‍රිය වේ:</string>
     <string name="signin_feature_home">පුද්ගලීකරණය කළ YouTube මුල් පිටු සංග්‍රහය</string>
     <string name="signin_feature_subscriptions">දායකත්ව සංග්‍රහය</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">පුරන්න</string>
     <string name="signin_loading">පුරනය පූරණය වෙමින්…</string>
     <string name="signin_unavailable">මෙම උපාංගයේ තවම පුරනය වීමට නොහැක</string>
-    <string name="signin_qr_title">YMusic යෙදුමෙන් ස්කෑන් කරන්න</string>
-    <string name="signin_qr_hint">ඔබගේ දුරකථනයේ YMusic → සැකසීම් → උපාංග සම්බන්ධ කරන්න → කැමරාව විවෘත කරන්න, ඉන්පසු මෙම කේතය ස්කෑන් කරන්න.</string>
+    <string name="signin_qr_title">StartMusicV3 යෙදුමෙන් ස්කෑන් කරන්න</string>
+    <string name="signin_qr_hint">ඔබගේ දුරකථනයේ StartMusicV3 → සැකසීම් → උපාංග සම්බන්ධ කරන්න → කැමරාව විවෘත කරන්න, ඉන්පසු මෙම කේතය ස්කෑන් කරන්න.</string>
     <string name="signin_qr_waiting">දුරකථනය සඳහා රැඳී සිටිමින්…</string>
     <string name="signin_qr_sas_hint">ඔබගේ දුරකථනය මෙම කේතයම පෙන්වයි. ඒවා ගැළපේ නම් පමණක් යවන්න.</string>
     <string name="signin_or_paste">නැතහොත් බ්‍රව්සරයකින් කුකී අලවන්න</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">එම ඉල්ලීමේ කුකී නැත</string>
     <string name="signin_paste_no_cookie_body">වෙනත් ඉල්ලීමකින්, වඩාත් සුදුසු Fetch/XHR එකකින් Copy as cURL කරන්න, උදාහරණ:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">තේරුණා</string>
-    <string name="cd_device_link_qr">YMusic යෙදුමෙන් ස්කෑන් කිරීමට QR කේතය</string>
+    <string name="cd_device_link_qr">StartMusicV3 යෙදුමෙන් ස්කෑන් කිරීමට QR කේතය</string>
     <string name="settings_link_devices">උපාංග සම්බන්ධ කරන්න</string>
     <string name="settings_link_devices_hint">පරිගණකයක QR කේතය ස්කෑන් කර එහි පුරන්න</string>
     <string name="device_link_title">උපාංග සම්බන්ධ කරන්න</string>
-    <string name="device_link_intro">ඔබගේ පරිගණකයේ YMusic හි පෙන්වන QR කේතය ස්කෑන් කරන්න. මෙම දුරකථනය දැනටමත් පුරනය වී තිබිය යුතුය.</string>
+    <string name="device_link_intro">ඔබගේ පරිගණකයේ StartMusicV3 හි පෙන්වන QR කේතය ස්කෑන් කරන්න. මෙම දුරකථනය දැනටමත් පුරනය වී තිබිය යුතුය.</string>
     <string name="device_link_open_camera">කැමරාව විවෘත කරන්න</string>
     <string name="device_link_scan_hint">කැමරාව පරිගණකයේ QR කේතය දෙසට යොමු කරන්න</string>
     <string name="device_link_sas_hint">මෙම කේතය පරිගණකයේ කේතයට ගැළපිය යුතුය. නොගැළපේ නම්, අවලංගු කරන්න තට්ටු කරන්න.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">ඔබගේ අදහස සහ එහි සියලු පිළිතුරු ස්ථිරවම මකන්නද?</string>
     <string name="video_details_deleted">අදහස මකන ලදී</string>
     <string name="cookie_protect_title">ඔබගේ පුරනය මුරපදයකින් ආරක්ෂා කරන්නද?</string>
-    <string name="cookie_protect_body">ඔබගේ පුරනය මෙම පරිගණකයේ සුරැකී ඇති අතර, ඔබ ධාවනය කරන වෙනත් යෙදුම්වලට එය කියවිය හැක. එය අගුළු දැමීමට මුරපදයක් සකසන්න; YMusic සෑම ආරම්භයකදීම එය අසයි.</string>
+    <string name="cookie_protect_body">ඔබගේ පුරනය මෙම පරිගණකයේ සුරැකී ඇති අතර, ඔබ ධාවනය කරන වෙනත් යෙදුම්වලට එය කියවිය හැක. එය අගුළු දැමීමට මුරපදයක් සකසන්න; StartMusicV3 සෑම ආරම්භයකදීම එය අසයි.</string>
     <string name="cookie_password">මුරපදය</string>
     <string name="cookie_protect_confirm">මුරපදය තහවුරු කරන්න</string>
     <string name="cookie_protect_mismatch">මුරපද නොගැළපේ.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">වරන්න</string>
     <string name="cookie_unlock_sign_out_hint">සුරැකි මෙම පුරනය ඉවත් කරයි.</string>
     <string name="cookie_unlock_sign_out_title">වරන්නද?</string>
-    <string name="cookie_unlock_sign_out_body">මෙය සුරැකි පුරනය මෙම පරිගණකයෙන් ඉවත් කරයි. නැවත පුරනය වීමට, YMusic යෙදුමෙන් QR කේතය ස්කෑන් කරන්න.</string>
+    <string name="cookie_unlock_sign_out_body">මෙය සුරැකි පුරනය මෙම පරිගණකයෙන් ඉවත් කරයි. නැවත පුරනය වීමට, StartMusicV3 යෙදුමෙන් QR කේතය ස්කෑන් කරන්න.</string>
     <string name="menu_details_comments">විස්තර සහ අදහස්</string>
     <string name="menu_search_lyrics">ගී පද සොයන්න</string>
     <string name="menu_speed_pitch">වේගය සහ තාරතාව</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">ඉහළට ගෙන යන්න</string>
     <string name="dialog_undo">පසුගමනය</string>
     <string name="dialog_save">සුරකින්න</string>
-    <string name="upgraded_message">YMusic %1$s වෙත යාවත්කාලීන විය</string>
+    <string name="upgraded_message">StartMusicV3 %1$s වෙත යාවත්කාලීන විය</string>
     <string name="upgraded_view_changelog">වෙනස්කම් බලන්න</string>
     <string name="menu_go_to_artist">කලාකරු වෙත යන්න</string>
     <string name="menu_go_to_album">ඇල්බමය වෙත යන්න</string>

@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Erakutsi segundoko irudiak Orain erreproduzitzen pantailako bideoaren gainean. Neurketa gelditu egiten da pausatzean edo pantaila hori uztean.</string>
     <string name="settings_licenses">Kode irekiko lizentziak</string>
     <string name="settings_terms">Baldintzak eta pribatutasuna</string>
-    <string name="settings_licenses_intro">YMusic kode irekikoa da GNU GPL v3.0 lizentziapean. Osagai hauek ditu:</string>
+    <string name="settings_licenses_intro">StartMusicV3 kode irekikoa da GNU GPL v3.0 lizentziapean. Osagai hauek ditu:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Esaiguzu zer joan den gaizki edo zer ikusi nahiko zenukeen, GitHub-en edo posta elektronikoz. Gehitu beheko zure informazio anonimoa zure erregistroak aurkitu eta erantzun ahal izateko.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">Publikoa. Akatsetarako eta ideietarako onena — beste batzuek jarraitu eta gehitu dezakete.</string>
     <string name="feedback_email_title">Bidali mezua helbide honetara: %1$s</string>
     <string name="feedback_email_hint">Pribatua. Kontuari buruzko galderetarako edo galdera pertsonaletarako onena.</string>
-    <string name="feedback_email_subject">YMusic-i buruzko iritzia</string>
+    <string name="feedback_email_subject">StartMusicV3-i buruzko iritzia</string>
     <string name="feedback_prefilled_note">Biak informazioa beteta dutela irekitzen dira. Falta bada, itsatsi — hura gabe ezin dizugu lagundu.</string>
     <string name="feedback_reports_off_title">Txosten anonimoak desaktibatuta daude</string>
-    <string name="feedback_reports_off_message">Zure arazoa aztertzeko aplikazio honen erregistroak behar ditugu. Sakatu Jarraitu, eta YMusic-ek txosten anonimoak berriro aktibatu eta erregistroak bidaliko ditu.</string>
+    <string name="feedback_reports_off_message">Zure arazoa aztertzeko aplikazio honen erregistroak behar ditugu. Sakatu Jarraitu, eta StartMusicV3-ek txosten anonimoak berriro aktibatu eta erregistroak bidaliko ditu.</string>
     <string name="feedback_reports_off_note">Ez da izenik, helbide elektronikorik edo konturik bidaltzen. Txostenak berriro desaktiba ditzakezu Ezarpenetan.</string>
     <string name="feedback_continue">Jarraitu</string>
     <string name="feedback_sentry_link">edo Sentry bidez</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Hasi saioa YouTuberekin</string>
-    <string name="signin_preface_subtitle">eta izan YouTuberen eginbide guztiak YMusicen</string>
+    <string name="signin_preface_subtitle">eta izan YouTuberen eginbide guztiak StartMusicV3en</string>
     <string name="signin_enables">Saioa hasita, hauek izango dituzu:</string>
     <string name="signin_feature_home">YouTube hasierako jario pertsonalizatua</string>
     <string name="signin_feature_subscriptions">Harpidetzen jarioa</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">Hasi saioa</string>
     <string name="signin_loading">Saio-hasiera kargatzen…</string>
     <string name="signin_unavailable">Saioa hastea ez dago erabilgarri gailu honetan oraindik</string>
-    <string name="signin_qr_title">Eskaneatu YMusic aplikazioarekin</string>
-    <string name="signin_qr_hint">Telefonoan, ireki YMusic → Ezarpenak → Lotu gailuak → Ireki kamera, eta eskaneatu kode hau.</string>
+    <string name="signin_qr_title">Eskaneatu StartMusicV3 aplikazioarekin</string>
+    <string name="signin_qr_hint">Telefonoan, ireki StartMusicV3 → Ezarpenak → Lotu gailuak → Ireki kamera, eta eskaneatu kode hau.</string>
     <string name="signin_qr_waiting">Telefonoaren zain…</string>
     <string name="signin_qr_sas_hint">Telefonoak kode bera erakutsiko du. Bidali bat badatoz soilik.</string>
     <string name="signin_or_paste">Edo itsatsi arakatzaile bateko cookieak</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">Eskaera horrek ez du cookierik</string>
     <string name="signin_paste_no_cookie_body">Egin Copy as cURL beste eskaera batetik, ahal bada Fetch/XHR, adibidez:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Ados</string>
-    <string name="cd_device_link_qr">YMusic aplikazioarekin eskaneatzeko QR kodea</string>
+    <string name="cd_device_link_qr">StartMusicV3 aplikazioarekin eskaneatzeko QR kodea</string>
     <string name="settings_link_devices">Lotu gailuak</string>
     <string name="settings_link_devices_hint">Hasi saioa ordenagailu batean haren QR kodea eskaneatuta</string>
     <string name="device_link_title">Lotu gailuak</string>
-    <string name="device_link_intro">Eskaneatu ordenagailuko YMusicek erakusten duen QR kodea. Telefono honek saioa hasita izan behar du.</string>
+    <string name="device_link_intro">Eskaneatu ordenagailuko StartMusicV3ek erakusten duen QR kodea. Telefono honek saioa hasita izan behar du.</string>
     <string name="device_link_open_camera">Ireki kamera</string>
     <string name="device_link_scan_hint">Zuzendu kamera ordenagailuko QR kodera</string>
     <string name="device_link_sas_hint">Kode honek ordenagailukoarekin bat etorri behar du. Bestela, sakatu Utzi.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">Zure iruzkina eta haren erantzun guztiak betiko ezabatu nahi dituzu?</string>
     <string name="video_details_deleted">Iruzkina ezabatu da</string>
     <string name="cookie_protect_title">Saio-hasiera pasahitz batekin babestu nahi duzu?</string>
-    <string name="cookie_protect_body">Zure saio-hasiera ordenagailu honetan gordeta dago, eta exekutatzen dituzun beste aplikazioek irakur dezakete. Ezarri pasahitz bat blokeatzeko; YMusic-ek abiarazten den bakoitzean eskatuko dizu.</string>
+    <string name="cookie_protect_body">Zure saio-hasiera ordenagailu honetan gordeta dago, eta exekutatzen dituzun beste aplikazioek irakur dezakete. Ezarri pasahitz bat blokeatzeko; StartMusicV3-ek abiarazten den bakoitzean eskatuko dizu.</string>
     <string name="cookie_password">Pasahitza</string>
     <string name="cookie_protect_confirm">Berretsi pasahitza</string>
     <string name="cookie_protect_mismatch">Pasahitzak ez datoz bat.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">Amaitu saioa</string>
     <string name="cookie_unlock_sign_out_hint">Gordetako saio-hasiera hau kentzen du.</string>
     <string name="cookie_unlock_sign_out_title">Saioa amaitu nahi duzu?</string>
-    <string name="cookie_unlock_sign_out_body">Gordetako saio-hasiera ordenagailu honetatik kenduko da. Berriro saioa hasteko, eskaneatu QR kodea YMusic aplikazioarekin.</string>
+    <string name="cookie_unlock_sign_out_body">Gordetako saio-hasiera ordenagailu honetatik kenduko da. Berriro saioa hasteko, eskaneatu QR kodea StartMusicV3 aplikazioarekin.</string>
     <string name="menu_details_comments">Xehetasunak eta iruzkinak</string>
     <string name="menu_search_lyrics">Bilatu letra</string>
     <string name="menu_speed_pitch">Abiadura eta tonua</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">Eraman goiko aldera</string>
     <string name="dialog_undo">Desegin</string>
     <string name="dialog_save">Gorde</string>
-    <string name="upgraded_message">YMusic %1$s bertsiora eguneratu da</string>
+    <string name="upgraded_message">StartMusicV3 %1$s bertsiora eguneratu da</string>
     <string name="upgraded_view_changelog">Ikusi aldaketak</string>
     <string name="menu_go_to_artist">Joan artistara</string>
     <string name="menu_go_to_album">Joan albumera</string>

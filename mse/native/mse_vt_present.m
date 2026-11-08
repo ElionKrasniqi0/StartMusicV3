@@ -356,8 +356,8 @@ static void mse_fs_timer_stop(void)
 
 static void mse_fs_restack(void)
 {
-    NSWindow *ui = mse_named_window(@"YMusic");
-    NSWindow *video = mse_named_window(@"YMusic video");
+    NSWindow *ui = mse_named_window(@"StartMusicV3");
+    NSWindow *video = mse_named_window(@"StartMusicV3 video");
     BOOL fs;
     if (!ui || !video || ui == video)
         return;
@@ -400,8 +400,8 @@ static void mse_fs_timer_start(void)
                                     usingBlock:^(NSNotification *note) {
                                         NSWindow *w = note.object;
                                         NSString *t = w.title;
-                                        if (![t isEqualToString:@"YMusic"] &&
-                                            ![t isEqualToString:@"YMusic video"])
+                                        if (![t isEqualToString:@"StartMusicV3"] &&
+                                            ![t isEqualToString:@"StartMusicV3 video"])
                                             return;
                                         mse_fs_restack();
                                     }];
@@ -411,8 +411,8 @@ static void mse_fs_timer_start(void)
                                   usingBlock:^(NSNotification *note) {
                                       NSWindow *w = note.object;
                                       NSString *t = w.title;
-                                      if (![t isEqualToString:@"YMusic"] &&
-                                          ![t isEqualToString:@"YMusic video"])
+                                      if (![t isEqualToString:@"StartMusicV3"] &&
+                                          ![t isEqualToString:@"StartMusicV3 video"])
                                           return;
                                       mse_fs_restack();
                                   }];
@@ -475,7 +475,7 @@ void mse_vt_prepare_fullscreen(void *envp, void *primary)
     mse_bind_mouse_jni(env);
     ui = mse_awt_nswindow(env, primary);
     if (!ui)
-        ui = mse_named_window(@"YMusic");
+        ui = mse_named_window(@"StartMusicV3");
     if (!ui)
         return;
     mse_on_main(^{
@@ -493,7 +493,7 @@ void mse_vt_toggle_fullscreen(void *envp, void *primary)
         return;
     ui = primary ? mse_awt_nswindow(env, primary) : nil;
     if (!ui)
-        ui = mse_named_window(@"YMusic");
+        ui = mse_named_window(@"StartMusicV3");
     if (!ui)
         return;
     mse_on_main(^{

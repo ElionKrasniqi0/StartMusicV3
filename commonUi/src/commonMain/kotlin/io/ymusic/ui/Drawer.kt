@@ -32,7 +32,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
@@ -42,8 +41,8 @@ import androidx.compose.ui.unit.sp
 import io.ymusic.ui.resources.Res
 import io.ymusic.ui.resources.app_name
 import io.ymusic.ui.resources.badge_premium
+import io.ymusic.ui.resources.startmusic_logo
 import io.ymusic.ui.resources.update_check
-import io.ymusic.ui.resources.ymusic_logo
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -68,7 +67,6 @@ fun AppDrawer(
     premium: Boolean = false,
     /** Lists Donate (only where a donation screen exists). */
     showDonate: Boolean = false,
-    websiteUrl: String = AppLinks(null).website,
     /** Whether the drawer is open: each opening lands keyboard focus on the current section's item. */
     open: Boolean = false,
 ) {
@@ -80,7 +78,7 @@ fun AppDrawer(
         Column(Modifier.fillMaxHeight()) {
             val updateStatus = updates?.status?.collectAsState()?.value
             val updateWaiting = updateStatus is AppUpdateStatus.Offered
-            DrawerHeader(appVersion, premium, onCheckUpdate, updateWaiting, websiteUrl)
+            DrawerHeader(appVersion, premium, onCheckUpdate, updateWaiting)
             HorizontalDivider(color = DesignColors.Divider)
             val listed = AppSection.entries
                 .filter { it != AppSection.Catalogue || showCatalogue }
@@ -110,19 +108,19 @@ fun AppDrawer(
 }
 
 @Composable
-private fun DrawerHeader(appVersion: String?, premium: Boolean, onCheckUpdate: (() -> Unit)?, updateWaiting: Boolean, websiteUrl: String) {
+private fun DrawerHeader(appVersion: String?, premium: Boolean, onCheckUpdate: (() -> Unit)?, updateWaiting: Boolean) {
     Column(Modifier.fillMaxWidth().padding(start = 18.dp, end = 18.dp, top = 16.dp, bottom = 13.dp)) {
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(horizontalArrangement = Arrangement.spacedBy(14.dp), verticalAlignment = Alignment.CenterVertically) {
             Image(
-                painterResource(Res.drawable.ymusic_logo),
-                contentDescription = null,
-                modifier = Modifier.size(46.dp).clip(RoundedCornerShape(13.dp)),
+                painterResource(Res.drawable.startmusic_logo),
+                contentDescription = stringResource(Res.string.app_name),
+                modifier = Modifier.size(48.dp).clip(RoundedCornerShape(14.dp)),
             )
             Column {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         stringResource(Res.string.app_name),
-                        style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.ExtraBold, color = DesignColors.InkStrong),
+                        style = TextStyle(fontSize = 17.sp, fontWeight = FontWeight.ExtraBold, color = DesignColors.InkStrong),
                     )
                     if (premium) {
                         Text(
@@ -149,10 +147,8 @@ private fun DrawerHeader(appVersion: String?, premium: Boolean, onCheckUpdate: (
                 }
             }
         }
-        // Text links under the logo, as in YMusicLegacy's drawer header; accent and a trailing dot while an update is waiting.
-        val uriHandler = LocalUriHandler.current
-        Column(Modifier.padding(top = DesignSpacing.Space8)) {
-            if (onCheckUpdate != null) {
+        if (onCheckUpdate != null) {
+            Column(Modifier.padding(top = DesignSpacing.Space8)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     HeaderLink(stringResource(Res.string.update_check), highlighted = updateWaiting, onClick = onCheckUpdate)
                     if (updateWaiting) {
@@ -160,7 +156,6 @@ private fun DrawerHeader(appVersion: String?, premium: Boolean, onCheckUpdate: (
                     }
                 }
             }
-            HeaderLink("ymusic.io") { uriHandler.openUri(websiteUrl) }
         }
     }
 }

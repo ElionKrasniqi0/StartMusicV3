@@ -253,7 +253,7 @@
     <string name="settings_show_fps_hint">Paparkan bingkai sesaat di atas video Sedang Dimainkan. Pensampelan berhenti apabila dijeda atau anda meninggalkan skrin itu.</string>
     <string name="settings_licenses">Lesen sumber terbuka</string>
     <string name="settings_terms">Terma &amp; privasi</string>
-    <string name="settings_licenses_intro">YMusic ialah sumber terbuka di bawah GNU GPL v3.0. Ia mengandungi komponen berikut:</string>
+    <string name="settings_licenses_intro">StartMusicV3 ialah sumber terbuka di bawah GNU GPL v3.0. Ia mengandungi komponen berikut:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Beritahu kami apa yang tidak kena atau apa yang anda mahu lihat, di GitHub atau melalui e-mel. Sertakan maklumat tanpa nama anda di bawah supaya kami dapat mencari log anda dan membalas.</string>
@@ -269,10 +269,10 @@
     <string name="feedback_github_hint">Awam. Terbaik untuk pepijat dan idea — orang lain boleh mengikuti dan menambah.</string>
     <string name="feedback_email_title">E-mel %1$s</string>
     <string name="feedback_email_hint">Peribadi. Terbaik untuk soalan akaun atau peribadi.</string>
-    <string name="feedback_email_subject">Maklum balas YMusic</string>
+    <string name="feedback_email_subject">Maklum balas StartMusicV3</string>
     <string name="feedback_prefilled_note">Kedua-duanya dibuka dengan maklumat sudah diisi. Jika tiada, tampalkannya — tanpanya kami tidak dapat membantu.</string>
     <string name="feedback_reports_off_title">Laporan tanpa nama dimatikan</string>
-    <string name="feedback_reports_off_message">Untuk menyiasat masalah anda, kami memerlukan log apl ini. Ketik Teruskan dan YMusic akan menghidupkan semula laporan tanpa nama dan menghantar log.</string>
+    <string name="feedback_reports_off_message">Untuk menyiasat masalah anda, kami memerlukan log apl ini. Ketik Teruskan dan StartMusicV3 akan menghidupkan semula laporan tanpa nama dan menghantar log.</string>
     <string name="feedback_reports_off_note">Tiada nama, e-mel atau akaun dihantar. Anda boleh mematikan laporan semula dalam Tetapan.</string>
     <string name="feedback_continue">Teruskan</string>
     <string name="feedback_sentry_link">atau melalui Sentry</string>
@@ -322,7 +322,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Log masuk dengan YouTube</string>
-    <string name="signin_preface_subtitle">dan dapatkan semua ciri YouTube dalam YMusic</string>
+    <string name="signin_preface_subtitle">dan dapatkan semua ciri YouTube dalam StartMusicV3</string>
     <string name="signin_enables">Log masuk membolehkan:</string>
     <string name="signin_feature_home">Suapan utama YouTube yang diperibadikan</string>
     <string name="signin_feature_subscriptions">Suapan langganan</string>
@@ -335,8 +335,8 @@
     <string name="signin_screen_title">Log masuk</string>
     <string name="signin_loading">Memuatkan log masuk…</string>
     <string name="signin_unavailable">Log masuk belum tersedia pada peranti ini</string>
-    <string name="signin_qr_title">Imbas dengan apl YMusic</string>
-    <string name="signin_qr_hint">Pada telefon anda, buka YMusic → Tetapan → Pautkan peranti → Buka kamera, kemudian imbas kod ini.</string>
+    <string name="signin_qr_title">Imbas dengan apl StartMusicV3</string>
+    <string name="signin_qr_hint">Pada telefon anda, buka StartMusicV3 → Tetapan → Pautkan peranti → Buka kamera, kemudian imbas kod ini.</string>
     <string name="signin_qr_waiting">Menunggu telefon…</string>
     <string name="signin_qr_sas_hint">Telefon anda akan menunjukkan kod yang sama. Hantar hanya jika kedua-duanya sepadan.</string>
     <string name="signin_or_paste">Atau tampal kuki daripada penyemak imbas</string>
@@ -362,11 +362,11 @@
     <string name="signin_paste_no_cookie_title">Permintaan itu tiada kuki</string>
     <string name="signin_paste_no_cookie_body">Gunakan Copy as cURL pada permintaan lain, sebaik-baiknya Fetch/XHR, contohnya:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Faham</string>
-    <string name="cd_device_link_qr">Kod QR untuk diimbas dengan apl YMusic</string>
+    <string name="cd_device_link_qr">Kod QR untuk diimbas dengan apl StartMusicV3</string>
     <string name="settings_link_devices">Pautkan peranti</string>
     <string name="settings_link_devices_hint">Log masuk pada komputer dengan mengimbas kod QR-nya</string>
     <string name="device_link_title">Pautkan peranti</string>
-    <string name="device_link_intro">Imbas kod QR yang dipaparkan dalam YMusic pada komputer anda. Telefon ini mesti sudah log masuk.</string>
+    <string name="device_link_intro">Imbas kod QR yang dipaparkan dalam StartMusicV3 pada komputer anda. Telefon ini mesti sudah log masuk.</string>
     <string name="device_link_open_camera">Buka kamera</string>
     <string name="device_link_scan_hint">Halakan kamera ke kod QR komputer</string>
     <string name="device_link_sas_hint">Kod ini mesti sepadan dengan komputer. Jika tidak, ketik Batal.</string>
@@ -571,7 +571,7 @@
     <string name="video_details_delete_message">Padamkan ulasan anda dan semua balasannya secara kekal?</string>
     <string name="video_details_deleted">Ulasan dipadamkan</string>
     <string name="cookie_protect_title">Lindungi log masuk anda dengan kata laluan?</string>
-    <string name="cookie_protect_body">Log masuk anda disimpan pada komputer ini, tempat apl lain yang anda jalankan boleh membacanya. Tetapkan kata laluan untuk menguncinya; YMusic akan memintanya setiap kali dimulakan.</string>
+    <string name="cookie_protect_body">Log masuk anda disimpan pada komputer ini, tempat apl lain yang anda jalankan boleh membacanya. Tetapkan kata laluan untuk menguncinya; StartMusicV3 akan memintanya setiap kali dimulakan.</string>
     <string name="cookie_password">Kata laluan</string>
     <string name="cookie_protect_confirm">Sahkan kata laluan</string>
     <string name="cookie_protect_mismatch">Kata laluan tidak sepadan.</string>
@@ -587,7 +587,7 @@
     <string name="cookie_unlock_sign_out">Log keluar</string>
     <string name="cookie_unlock_sign_out_hint">Mengalih keluar log masuk yang disimpan ini.</string>
     <string name="cookie_unlock_sign_out_title">Log keluar?</string>
-    <string name="cookie_unlock_sign_out_body">Tindakan ini mengalih keluar log masuk yang disimpan daripada komputer ini. Untuk log masuk semula, imbas kod QR dengan apl YMusic.</string>
+    <string name="cookie_unlock_sign_out_body">Tindakan ini mengalih keluar log masuk yang disimpan daripada komputer ini. Untuk log masuk semula, imbas kod QR dengan apl StartMusicV3.</string>
     <string name="menu_details_comments">Butiran dan ulasan</string>
     <string name="menu_search_lyrics">Cari lirik</string>
     <string name="menu_speed_pitch">Kelajuan dan pic</string>
@@ -599,7 +599,7 @@
     <string name="cd_move_to_top">Alih ke atas</string>
     <string name="dialog_undo">Buat asal</string>
     <string name="dialog_save">Simpan</string>
-    <string name="upgraded_message">YMusic dikemas kini ke %1$s</string>
+    <string name="upgraded_message">StartMusicV3 dikemas kini ke %1$s</string>
     <string name="upgraded_view_changelog">Lihat log perubahan</string>
     <string name="menu_go_to_artist">Pergi ke artis</string>
     <string name="menu_go_to_album">Pergi ke album</string>

@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">बजिरहेको भिडियोमाथि प्रति सेकेन्ड फ्रेम देखाउनुहोस्। पज गर्दा वा त्यो स्क्रिन छोड्दा मापन रोकिन्छ।</string>
     <string name="settings_licenses">खुला स्रोत इजाजतपत्रहरू</string>
     <string name="settings_terms">सर्तहरू र गोपनीयता</string>
-    <string name="settings_licenses_intro">YMusic GNU GPL v3.0 अन्तर्गत खुला स्रोत हो। यसमा यी कम्पोनेन्टहरू समावेश छन्:</string>
+    <string name="settings_licenses_intro">StartMusicV3 GNU GPL v3.0 अन्तर्गत खुला स्रोत हो। यसमा यी कम्पोनेन्टहरू समावेश छन्:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">के बिग्रियो वा तपाईं के हेर्न चाहनुहुन्छ, GitHub मा वा इमेलबाट हामीलाई भन्नुहोस्। हामीले तपाईंको लग फेला पारी जवाफ दिन सकौं भनेर तलको बेनामी जानकारी समावेश गर्नुहोस्।</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">सार्वजनिक। बग र विचारहरूका लागि उत्तम — अरूले पनि फलो गर्न र थप्न सक्छन्।</string>
     <string name="feedback_email_title">%1$s मा इमेल गर्नुहोस्</string>
     <string name="feedback_email_hint">निजी। खाता वा व्यक्तिगत प्रश्नहरूका लागि उत्तम।</string>
-    <string name="feedback_email_subject">YMusic प्रतिक्रिया</string>
+    <string name="feedback_email_subject">StartMusicV3 प्रतिक्रिया</string>
     <string name="feedback_prefilled_note">दुवै जानकारी पहिले नै भरिएको अवस्थामा खुल्छन्। यदि छैन भने, पेस्ट गर्नुहोस् — यसबिना हामी मद्दत गर्न सक्दैनौं।</string>
     <string name="feedback_reports_off_title">बेनामी रिपोर्टहरू बन्द छन्</string>
-    <string name="feedback_reports_off_message">तपाईंको समस्या हेर्न हामीलाई यो एपका लगहरू चाहिन्छ। जारी राख्नुहोस् मा ट्याप गर्नुहोस्, YMusic ले बेनामी रिपोर्टहरू फेरि सक्रिय गरेर लगहरू पठाउनेछ।</string>
+    <string name="feedback_reports_off_message">तपाईंको समस्या हेर्न हामीलाई यो एपका लगहरू चाहिन्छ। जारी राख्नुहोस् मा ट्याप गर्नुहोस्, StartMusicV3 ले बेनामी रिपोर्टहरू फेरि सक्रिय गरेर लगहरू पठाउनेछ।</string>
     <string name="feedback_reports_off_note">कुनै नाम, इमेल वा खाता पठाइँदैन। तपाईं सेटिङमा रिपोर्टहरू फेरि बन्द गर्न सक्नुहुन्छ।</string>
     <string name="feedback_continue">जारी राख्नुहोस्</string>
     <string name="feedback_sentry_link">वा Sentry मार्फत</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube मार्फत साइन इन गर्नुहोस्</string>
-    <string name="signin_preface_subtitle">र YMusic भित्रै YouTube का सबै सुविधाहरू पाउनुहोस्</string>
+    <string name="signin_preface_subtitle">र StartMusicV3 भित्रै YouTube का सबै सुविधाहरू पाउनुहोस्</string>
     <string name="signin_enables">साइन इन गर्दा सक्षम हुन्छ:</string>
     <string name="signin_feature_home">तपाईंका लागि YouTube गृह फिड</string>
     <string name="signin_feature_subscriptions">सब्स्क्रिप्सन फिड</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">साइन इन</string>
     <string name="signin_loading">साइन इन लोड हुँदैछ…</string>
     <string name="signin_unavailable">यो डिभाइसमा साइन इन अझै उपलब्ध छैन</string>
-    <string name="signin_qr_title">YMusic एपबाट स्क्यान गर्नुहोस्</string>
-    <string name="signin_qr_hint">आफ्नो फोनमा YMusic खोल्नुहोस् → सेटिङ → डिभाइस लिङ्क गर्नुहोस् → क्यामेरा खोल्नुहोस्, अनि यो कोड स्क्यान गर्नुहोस्।</string>
+    <string name="signin_qr_title">StartMusicV3 एपबाट स्क्यान गर्नुहोस्</string>
+    <string name="signin_qr_hint">आफ्नो फोनमा StartMusicV3 खोल्नुहोस् → सेटिङ → डिभाइस लिङ्क गर्नुहोस् → क्यामेरा खोल्नुहोस्, अनि यो कोड स्क्यान गर्नुहोस्।</string>
     <string name="signin_qr_waiting">फोनको प्रतीक्षा गर्दै…</string>
     <string name="signin_qr_sas_hint">तपाईंको फोनले यही कोड देखाउनेछ। मेल खाएमा मात्र पठाउनुहोस्।</string>
     <string name="signin_or_paste">वा ब्राउजरबाट कुकीहरू पेस्ट गर्नुहोस्</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">त्यो अनुरोधमा कुनै कुकी छैन</string>
     <string name="signin_paste_no_cookie_body">अर्को अनुरोधबाट, सकेसम्म Fetch/XHR बाट, Copy as cURL गर्नुहोस्, जस्तै:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">बुझेँ</string>
-    <string name="cd_device_link_qr">YMusic एपबाट स्क्यान गर्ने QR कोड</string>
+    <string name="cd_device_link_qr">StartMusicV3 एपबाट स्क्यान गर्ने QR कोड</string>
     <string name="settings_link_devices">डिभाइस लिङ्क गर्नुहोस्</string>
     <string name="settings_link_devices_hint">कम्प्युटरको QR कोड स्क्यान गरेर त्यसमा साइन इन गर्नुहोस्</string>
     <string name="device_link_title">डिभाइस लिङ्क गर्नुहोस्</string>
-    <string name="device_link_intro">आफ्नो कम्प्युटरको YMusic मा देखाइएको QR कोड स्क्यान गर्नुहोस्। यो फोन पहिले नै साइन इन भएको हुनुपर्छ।</string>
+    <string name="device_link_intro">आफ्नो कम्प्युटरको StartMusicV3 मा देखाइएको QR कोड स्क्यान गर्नुहोस्। यो फोन पहिले नै साइन इन भएको हुनुपर्छ।</string>
     <string name="device_link_open_camera">क्यामेरा खोल्नुहोस्</string>
     <string name="device_link_scan_hint">क्यामेरालाई कम्प्युटरको QR कोडतिर फर्काउनुहोस्</string>
     <string name="device_link_sas_hint">यो कोड कम्प्युटरसँग मेल खानुपर्छ। मेल नखाए रद्द गर्नुहोस् थिच्नुहोस्।</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">तपाईंको टिप्पणी र यसका सबै जवाफहरू स्थायी रूपमा मेटाउने हो?</string>
     <string name="video_details_deleted">टिप्पणी मेटाइयो</string>
     <string name="cookie_protect_title">आफ्नो साइन इन पासवर्डले सुरक्षित गर्ने?</string>
-    <string name="cookie_protect_body">तपाईंको साइन इन यो कम्प्युटरमा सेभ गरिएको छ, जहाँ तपाईंले चलाउने अन्य एपहरूले यसलाई पढ्न सक्छन्। यसलाई लक गर्न पासवर्ड सेट गर्नुहोस्; YMusic ले हरेक पटक सुरु हुँदा यो सोध्नेछ।</string>
+    <string name="cookie_protect_body">तपाईंको साइन इन यो कम्प्युटरमा सेभ गरिएको छ, जहाँ तपाईंले चलाउने अन्य एपहरूले यसलाई पढ्न सक्छन्। यसलाई लक गर्न पासवर्ड सेट गर्नुहोस्; StartMusicV3 ले हरेक पटक सुरु हुँदा यो सोध्नेछ।</string>
     <string name="cookie_password">पासवर्ड</string>
     <string name="cookie_protect_confirm">पासवर्ड पुष्टि गर्नुहोस्</string>
     <string name="cookie_protect_mismatch">पासवर्डहरू मेल खाँदैनन्।</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">साइन आउट</string>
     <string name="cookie_unlock_sign_out_hint">सेभ गरिएको यो साइन इन हटाउँछ।</string>
     <string name="cookie_unlock_sign_out_title">साइन आउट गर्ने?</string>
-    <string name="cookie_unlock_sign_out_body">यसले यो कम्प्युटरबाट सेभ गरिएको साइन इन हटाउँछ। फेरि साइन इन गर्न YMusic एपबाट QR कोड स्क्यान गर्नुहोस्।</string>
+    <string name="cookie_unlock_sign_out_body">यसले यो कम्प्युटरबाट सेभ गरिएको साइन इन हटाउँछ। फेरि साइन इन गर्न StartMusicV3 एपबाट QR कोड स्क्यान गर्नुहोस्।</string>
     <string name="menu_details_comments">विवरण र टिप्पणीहरू</string>
     <string name="menu_search_lyrics">गीतका शब्द खोज्नुहोस्</string>
     <string name="menu_speed_pitch">गति र पिच</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">माथि सार्नुहोस्</string>
     <string name="dialog_undo">अन्डू गर्नुहोस्</string>
     <string name="dialog_save">सेभ गर्नुहोस्</string>
-    <string name="upgraded_message">YMusic %1$s मा अद्यावधिक भयो</string>
+    <string name="upgraded_message">StartMusicV3 %1$s मा अद्यावधिक भयो</string>
     <string name="upgraded_view_changelog">परिवर्तनहरू हेर्नुहोस्</string>
     <string name="menu_go_to_artist">कलाकारमा जानुहोस्</string>
     <string name="menu_go_to_album">एल्बममा जानुहोस्</string>

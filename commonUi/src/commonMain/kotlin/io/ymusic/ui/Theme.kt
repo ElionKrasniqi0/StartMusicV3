@@ -69,71 +69,66 @@ data class DesignPalette(
     val WatchedFill = Color(0xFFFF0000)
 }
 
-/** The accent when the user has not picked one. */
-val DefaultAccent = Color(0xFFE8732A)
+/** The accent when the user has not picked one — [Brand.Primary]. */
+val DefaultAccent = Brand.Primary
 
 val LightDesignColors = DesignPalette(
     isDark = false,
     Accent = DefaultAccent,
-    InkStrong = Color(0xFF222222),
-    Ink = Color(0xFF333333),
-    InkMuted = Color(0xFF555555),
-    InkSoft = Color(0xFF666666),
-    InkSecondary = Color(0xFF8A8A8A),
-    InkFaint = Color(0xFF9A9A9A),
-    IconDots = Color(0xFF999999),
+    InkStrong = Brand.LightText,
+    Ink = Color(0xFF2A2540),
+    InkMuted = Color(0xFF4A4560),
+    InkSoft = Color(0xFF5C5772),
+    InkSecondary = Brand.LightTextMuted,
+    InkFaint = Color(0xFF8A849C),
+    IconDots = Color(0xFF9A94AC),
     OnInk = Color.White,
     OnAccent = Color.White,
-    Placeholder = Color(0xFFE3E3E3),
-    PlaceholderDim = Color(0xFFE0E0E0),
-    PlaceholderIcon = Color(0xFFB3B3B3),
-    StackNear = Color(0xFFECECEC),
-    StackFar = Color(0xFFF3F3F3),
-    StackTab = Color(0xFFEDEDED),
-    Outline = Color(0xFFCFCFCF),
-    OutlineSoft = Color(0xFFD8D8D8),
-    Divider = Color(0xFFE6E6E6),
-    DividerMini = Color(0xFFE2E2E2),
-    Surface = Color.White,
-    SurfaceDim = Color(0xFFFAFAFA),
-    SurfaceElevated = Color(0xFFF5F5F5),
-    SettingsCard = Color(0xFFF2F2F2),
-    FieldPill = Color(0xFFF1F1F1),
+    Placeholder = Color(0xFFE2DEEF),
+    PlaceholderDim = Color(0xFFDCD7EC),
+    PlaceholderIcon = Color(0xFFB0A9C4),
+    StackNear = Color(0xFFE8E4F4),
+    StackFar = Color(0xFFF0EDF8),
+    StackTab = Color(0xFFE6E2F2),
+    Outline = Color(0xFFCFC9E0),
+    OutlineSoft = Color(0xFFD8D3E8),
+    Divider = Color(0xFFE6E2F0),
+    DividerMini = Color(0xFFE2DEEC),
+    Surface = Brand.LightBackground,
+    SurfaceDim = Brand.LightSurface,
+    SurfaceElevated = Brand.LightElevated,
+    SettingsCard = Color(0xFFEAE6F6),
+    FieldPill = Color(0xFFE8E4F4),
     BrandGreen = Color(0xFF1DB954),
 )
 
 val DarkDesignColors = DesignPalette(
     isDark = true,
     Accent = DefaultAccent,
-    InkStrong = Color(0xFFEDEDED),
-    Ink = Color(0xFFE2E2E2),
-    InkMuted = Color(0xFFC6C6C6),
-    InkSoft = Color(0xFFB2B2B2),
-    InkSecondary = Color(0xFF9A9A9A),
-    InkFaint = Color(0xFF7E7E7E),
-    IconDots = Color(0xFF8E8E8E),
-    OnInk = Color(0xFF141414),
+    InkStrong = Brand.DarkText,
+    Ink = Color(0xFFECEAF6),
+    InkMuted = Color(0xFFC8C4D6),
+    InkSoft = Color(0xFFB4B0C2),
+    InkSecondary = Brand.DarkTextMuted,
+    InkFaint = Color(0xFF7E7A8E),
+    IconDots = Color(0xFF8E8A9C),
+    OnInk = Color(0xFF101116),
     OnAccent = Color.White,
-    // The legacy YMusic grounds (#303030 / #343434 / #383838, from the v3 app) and their
-    // companions, each keeping roughly the lift it had over the old near-black trio
-    // (0xFF121212 / 0xFF171717 / 0xFF1F1F1F): placeholders/stacks/pills sit clearly above the
-    // surface, outlines lift further, and dividers stay the legacy way — slightly DARKER lines
-    // cut into the grey rather than light hairlines on black.
-    Placeholder = Color(0xFF454545),
-    PlaceholderDim = Color(0xFF414141),
-    PlaceholderIcon = Color(0xFF767676),
-    StackNear = Color(0xFF454545),
-    StackFar = Color(0xFF3D3D3D),
-    StackTab = Color(0xFF424242),
-    Outline = Color(0xFF5C5C5C),
-    OutlineSoft = Color(0xFF525252),
-    Divider = Color(0xFF2A2A2A),
-    DividerMini = Color(0xFF2D2D2D),
-    Surface = Color(0xFF272727),
-    SurfaceDim = Color(0xFF313131),
-    SurfaceElevated = Color(0xFF292929),
-    SettingsCard = Color(0xFF333333),
-    FieldPill = Color(0xFF3F3F3F),
+    Placeholder = Color(0xFF353240),
+    PlaceholderDim = Color(0xFF302E3A),
+    PlaceholderIcon = Color(0xFF7A7688),
+    StackNear = Color(0xFF353240),
+    StackFar = Color(0xFF2E2C38),
+    StackTab = Color(0xFF323040),
+    Outline = Color(0xFF4A4658),
+    OutlineSoft = Color(0xFF3E3A4C),
+    Divider = Color(0xFF1E1C26),
+    DividerMini = Color(0xFF22202A),
+    Surface = Brand.DarkBackground,
+    SurfaceDim = Brand.DarkSurface,
+    SurfaceElevated = Brand.DarkElevated,
+    SettingsCard = Color(0xFF2A2734),
+    FieldPill = Color(0xFF302D3C),
     BrandGreen = Color(0xFF1DB954),
 )
 
@@ -239,7 +234,7 @@ object DesignSpacing {
 
     /** Settings section card: its margin from the screen edge, corner, and the gap above each header. */
     val SettingsCardInset = Space16
-    val SettingsCardCorner = 12.dp
+    val SettingsCardCorner = Brand.CardCorner
     val SettingsSectionGap = Space24
 
     /** Row insets inside the elevated-bar picker dialog ([ElevatedBarDialog]) — the choice rows align

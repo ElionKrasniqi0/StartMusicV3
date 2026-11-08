@@ -1,5 +1,6 @@
 package io.ymusic.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,10 +15,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +33,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.Role
@@ -47,6 +51,7 @@ import io.ymusic.settings.BoolSetting
 import io.ymusic.settings.flow
 import io.ymusic.settings.put
 import io.ymusic.ui.resources.Res
+import io.ymusic.ui.resources.app_name
 import io.ymusic.ui.resources.dialog_cancel
 import io.ymusic.ui.resources.settings_audio_focus
 import io.ymusic.ui.resources.settings_audio_focus_apps
@@ -92,6 +97,7 @@ import io.ymusic.ui.resources.settings_versions_engine
 import io.ymusic.ui.resources.settings_versions_player
 import io.ymusic.ui.resources.sound_eq
 import io.ymusic.ui.resources.sound_speed
+import io.ymusic.ui.resources.startmusic_logo
 import kmpcommon.log.Logger
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.emptyFlow
@@ -99,6 +105,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import projectcommon.error.runSuspendCatching
 
@@ -206,6 +213,8 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
             ToggleRow(graph, AppSettings.stats, Res.string.settings_stats, Res.string.settings_stats_hint)
         }
         SettingsSection(Res.string.settings_section_about) {
+            AboutBrandHeader(graph.appVersionName)
+            HorizontalDivider(color = DesignColors.DividerMini)
             VersionsRow(graph)
             // Download updates in the background (on by default); installing still waits for a tap.
             if (graph.updates != null) {
@@ -333,6 +342,36 @@ private fun LinkRow(label: StringResource, url: String) {
             .clickable { uriHandler.openUri(url) }
             .padding(horizontal = DesignSpacing.SettingsRowHorizontal, vertical = DesignSpacing.SettingsRowVertical),
     )
+}
+
+@Composable
+private fun AboutBrandHeader(versionName: String?) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = DesignSpacing.SettingsRowHorizontal, vertical = DesignSpacing.SettingsRowVertical),
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Image(
+            painterResource(Res.drawable.startmusic_logo),
+            contentDescription = stringResource(Res.string.app_name),
+            modifier = Modifier.size(44.dp).clip(RoundedCornerShape(Brand.ThumbCorner)),
+        )
+        Column(Modifier.weight(1f)) {
+            Text(
+                stringResource(Res.string.app_name),
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = DesignColors.InkStrong),
+            )
+            versionName?.let {
+                Text(
+                    it,
+                    style = TextStyle(fontSize = 12.sp, color = DesignColors.InkSecondary),
+                    modifier = Modifier.padding(top = DesignSpacing.Space2),
+                )
+            }
+        }
+    }
 }
 
 /** Informational only: the app build and the JS bundle revisions in effect ("—" until a bundle has run). */

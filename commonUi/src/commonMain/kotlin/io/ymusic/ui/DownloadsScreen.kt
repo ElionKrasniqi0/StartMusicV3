@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -44,9 +45,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.ymusic.download.DownloadFolderAccessException
 import io.ymusic.download.DownloadFormat
 import io.ymusic.download.DownloadService
@@ -142,12 +146,24 @@ fun DownloadsScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
     val visible = tasks.filter { it.state != DownloadState.CANCELED }
     if (visible.isEmpty()) {
         CenteredBox {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(stringResource(Res.string.downloads_none_title), style = MaterialTheme.typography.titleMedium)
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier.padding(horizontal = 32.dp),
+            ) {
+                Icon(
+                    Icons.Outlined.FileDownload,
+                    contentDescription = null,
+                    modifier = Modifier.size(48.dp),
+                    tint = DesignColors.Accent.copy(alpha = 0.85f),
+                )
+                Text(
+                    stringResource(Res.string.downloads_none_title),
+                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong),
+                )
                 Text(
                     stringResource(Res.string.downloads_none_message),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = TextStyle(fontSize = 14.sp, color = DesignColors.InkSecondary),
                 )
             }
         }
@@ -704,7 +720,7 @@ private fun downloadColors(): DownloadColors {
 
 // --- layout tokens (match the mockup's media-card metrics) ---------------------------------------
 private val BadgeCorner = 3.dp
-internal val MediaCardCorner = 6.dp // match the video thumbnail radius (RectThumb)
+internal val MediaCardCorner = Brand.ThumbCorner
 private val CardPadding = 14.dp
 private val CardGap = 12.dp // thumb ↔ text
 private val ThumbSize = 56.dp // LibraryThumb's size

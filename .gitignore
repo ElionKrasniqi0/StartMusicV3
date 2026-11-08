@@ -17,7 +17,16 @@ node_modules/
 kmpHttp/core/test-cache
 kmpHttp/test/test-cache
 design
-docs
+# Ignore docs contents but allow the VibeTune transformation reports.
+docs/*
+!docs/STARTMUSIC_AUDIT.md
+!docs/STARTMUSIC_TRANSFORMATION.md
+!docs/STARTMUSIC_MULTIPLATFORM.md
+!docs/STARTMUSIC_MULTIPLATFORM_ARCHITECTURE.md
+!docs/STARTMUSIC_MULTIPLATFORM_PLATFORMS.md
+!docs/STARTMUSIC_MULTIPLATFORM_PLAN.md
+!docs/STARTMUSIC_PLATFORM_COMPATIBILITY.md
+!docs/STARTMUSIC_MULTIPLATFORM_TESTING.md
 scripts
 tools
 test-cache

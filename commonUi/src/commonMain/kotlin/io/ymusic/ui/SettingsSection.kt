@@ -1,6 +1,7 @@
 package io.ymusic.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -19,9 +21,15 @@ import org.jetbrains.compose.resources.stringResource
 /** One Settings group: an accent header over a rounded card holding its rows. */
 @Composable
 internal fun SettingsSection(title: StringResource, content: @Composable ColumnScope.() -> Unit) {
+    val shape = RoundedCornerShape(DesignSpacing.SettingsCardCorner)
     Text(
         stringResource(title),
-        style = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = DesignColors.Accent),
+        style = TextStyle(
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.3.sp,
+            color = DesignColors.Accent,
+        ),
         modifier = Modifier.padding(
             start = DesignSpacing.SettingsCardInset + DesignSpacing.SettingsRowHorizontal,
             end = DesignSpacing.SettingsCardInset + DesignSpacing.SettingsRowHorizontal,
@@ -33,8 +41,9 @@ internal fun SettingsSection(title: StringResource, content: @Composable ColumnS
         Modifier
             .fillMaxWidth()
             .padding(horizontal = DesignSpacing.SettingsCardInset)
-            .clip(RoundedCornerShape(DesignSpacing.SettingsCardCorner))
-            .background(DesignColors.SettingsCard),
+            .clip(shape)
+            .background(DesignColors.SettingsCard)
+            .border(1.dp, DesignColors.OutlineSoft.copy(alpha = 0.35f), shape),
         content = content,
     )
 }

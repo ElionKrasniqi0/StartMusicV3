@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities
  * the Compose window there has no alpha visual, so nothing behind it shows through ([ComposeVideoFrame]).
  */
 internal class VideoUnderlay {
-    val frame: Frame = Frame("YMusic video").apply { // title matched in mse_vt_present fullscreen restack
+    val frame: Frame = Frame("StartMusicV3 video").apply { // title matched in mse_vt_present fullscreen restack
         isUndecorated = true
         isResizable = false
         focusableWindowState = false

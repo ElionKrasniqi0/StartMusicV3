@@ -140,7 +140,7 @@ private object LinuxSecretService {
     private fun store(service: String, account: String, value: String) = withSchema(service, account) { schema, attributes ->
         val error = PointerByReference()
         val ok = secret.getFunction("secret_password_storev_sync").invokeInt(
-            arrayOf(schema, attributes, null, "YMusic sign-in key", value, null, error),
+            arrayOf(schema, attributes, null, "StartMusicV3 sign-in key", value, null, error),
         )
         throwIfError(error, "secret_password_storev_sync")
         if (ok == 0) throw IOException("secret_password_storev_sync refused")

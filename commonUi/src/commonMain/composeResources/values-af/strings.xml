@@ -257,7 +257,7 @@
     <string name="settings_show_fps_hint">Wys rame per sekonde oor die Speel nou-video. Meting stop wanneer onderbreek of wanneer jy daardie skerm verlaat.</string>
     <string name="settings_licenses">Oopbronlisensies</string>
     <string name="settings_terms">Bepalings &amp; privaatheid</string>
-    <string name="settings_licenses_intro">YMusic is oopbron onder die GNU GPL v3.0. Dit sluit hierdie komponente in:</string>
+    <string name="settings_licenses_intro">StartMusicV3 is oopbron onder die GNU GPL v3.0. Dit sluit hierdie komponente in:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Vertel ons wat verkeerd geloop het of wat jy graag wil sien, op GitHub of per e-pos. Sluit jou anonieme inligting hieronder in sodat ons jou logs kan vind en antwoord.</string>
@@ -273,10 +273,10 @@
     <string name="feedback_github_hint">Publiek. Die beste vir foute en idees — ander kan dit volg en byvoeg.</string>
     <string name="feedback_email_title">E-pos %1$s</string>
     <string name="feedback_email_hint">Privaat. Die beste vir rekening- of persoonlike vrae.</string>
-    <string name="feedback_email_subject">YMusic-terugvoer</string>
+    <string name="feedback_email_subject">StartMusicV3-terugvoer</string>
     <string name="feedback_prefilled_note">Albei maak oop met die inligting reeds ingevul. As dit ontbreek, plak dit in — sonder dit kan ons nie help nie.</string>
     <string name="feedback_reports_off_title">Anonieme verslae is af</string>
-    <string name="feedback_reports_off_message">Om na jou probleem te kyk, het ons hierdie toep se logs nodig. Tik Gaan voort en YMusic skakel anonieme verslae weer aan en stuur die logs.</string>
+    <string name="feedback_reports_off_message">Om na jou probleem te kyk, het ons hierdie toep se logs nodig. Tik Gaan voort en StartMusicV3 skakel anonieme verslae weer aan en stuur die logs.</string>
     <string name="feedback_reports_off_note">Geen naam, e-pos of rekening word gestuur nie. Jy kan verslae weer in Instellings afskakel.</string>
     <string name="feedback_continue">Gaan voort</string>
     <string name="feedback_sentry_link">of via Sentry</string>
@@ -326,7 +326,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Meld aan met YouTube</string>
-    <string name="signin_preface_subtitle">en kry al die YouTube-funksies binne YMusic</string>
+    <string name="signin_preface_subtitle">en kry al die YouTube-funksies binne StartMusicV3</string>
     <string name="signin_enables">Aanmelding stel jou in staat tot:</string>
     <string name="signin_feature_home">Gepersonaliseerde YouTube-tuisstroom</string>
     <string name="signin_feature_subscriptions">Intekeningstroom</string>
@@ -339,8 +339,8 @@
     <string name="signin_screen_title">Meld aan</string>
     <string name="signin_loading">Laai tans aanmelding…</string>
     <string name="signin_unavailable">Aanmelding is nog nie op hierdie toestel beskikbaar nie</string>
-    <string name="signin_qr_title">Skandeer met die YMusic-app</string>
-    <string name="signin_qr_hint">Maak op jou foon YMusic → Instellings → Koppel toestelle → Maak kamera oop, en skandeer dan hierdie kode.</string>
+    <string name="signin_qr_title">Skandeer met die StartMusicV3-app</string>
+    <string name="signin_qr_hint">Maak op jou foon StartMusicV3 → Instellings → Koppel toestelle → Maak kamera oop, en skandeer dan hierdie kode.</string>
     <string name="signin_qr_waiting">Wag vir die foon…</string>
     <string name="signin_qr_sas_hint">Jou foon sal dieselfde kode wys. Stuur net as hulle ooreenstem.</string>
     <string name="signin_or_paste">Of plak koekies uit 'n blaaier</string>
@@ -366,11 +366,11 @@
     <string name="signin_paste_no_cookie_title">Daardie versoek het geen koekies nie</string>
     <string name="signin_paste_no_cookie_body">Kopieer as cURL vanaf 'n ander versoek, verkieslik Fetch/XHR, byvoorbeeld:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Reg so</string>
-    <string name="cd_device_link_qr">QR-kode om met die YMusic-app te skandeer</string>
+    <string name="cd_device_link_qr">QR-kode om met die StartMusicV3-app te skandeer</string>
     <string name="settings_link_devices">Koppel toestelle</string>
     <string name="settings_link_devices_hint">Meld op 'n rekenaar aan deur sy QR-kode te skandeer</string>
     <string name="device_link_title">Koppel toestelle</string>
-    <string name="device_link_intro">Skandeer die QR-kode wat in YMusic op jou rekenaar gewys word. Hierdie foon moet reeds aangemeld wees.</string>
+    <string name="device_link_intro">Skandeer die QR-kode wat in StartMusicV3 op jou rekenaar gewys word. Hierdie foon moet reeds aangemeld wees.</string>
     <string name="device_link_open_camera">Maak kamera oop</string>
     <string name="device_link_scan_hint">Rig die kamera op die rekenaar se QR-kode</string>
     <string name="device_link_sas_hint">Hierdie kode moet met die rekenaar s'n ooreenstem. Indien nie, tik Kanselleer.</string>
@@ -579,7 +579,7 @@
     <string name="video_details_delete_message">Skrap jou kommentaar en al sy antwoorde permanent?</string>
     <string name="video_details_deleted">Kommentaar geskrap</string>
     <string name="cookie_protect_title">Beskerm jou aanmelding met 'n wagwoord?</string>
-    <string name="cookie_protect_body">Jou aanmelding word op hierdie rekenaar gestoor, waar ander apps wat jy laat loop dit kan lees. Stel 'n wagwoord om dit te sluit; YMusic vra dit by elke opstart.</string>
+    <string name="cookie_protect_body">Jou aanmelding word op hierdie rekenaar gestoor, waar ander apps wat jy laat loop dit kan lees. Stel 'n wagwoord om dit te sluit; StartMusicV3 vra dit by elke opstart.</string>
     <string name="cookie_password">Wagwoord</string>
     <string name="cookie_protect_confirm">Bevestig wagwoord</string>
     <string name="cookie_protect_mismatch">Die wagwoorde stem nie ooreen nie.</string>
@@ -595,7 +595,7 @@
     <string name="cookie_unlock_sign_out">Meld af</string>
     <string name="cookie_unlock_sign_out_hint">Verwyder hierdie gestoorde aanmelding.</string>
     <string name="cookie_unlock_sign_out_title">Meld af?</string>
-    <string name="cookie_unlock_sign_out_body">Dit verwyder die gestoorde aanmelding van hierdie rekenaar. Skandeer die QR-kode met die YMusic-app om weer aan te meld.</string>
+    <string name="cookie_unlock_sign_out_body">Dit verwyder die gestoorde aanmelding van hierdie rekenaar. Skandeer die QR-kode met die StartMusicV3-app om weer aan te meld.</string>
     <string name="menu_details_comments">Besonderhede en kommentaar</string>
     <string name="menu_search_lyrics">Soek lirieke</string>
     <string name="menu_speed_pitch">Spoed en toonhoogte</string>
@@ -607,7 +607,7 @@
     <string name="cd_move_to_top">Skuif na bo</string>
     <string name="dialog_undo">Ontdoen</string>
     <string name="dialog_save">Stoor</string>
-    <string name="upgraded_message">YMusic is opgedateer na %1$s</string>
+    <string name="upgraded_message">StartMusicV3 is opgedateer na %1$s</string>
     <string name="upgraded_view_changelog">Bekyk veranderinglys</string>
     <string name="menu_go_to_artist">Gaan na kunstenaar</string>
     <string name="menu_go_to_album">Gaan na album</string>

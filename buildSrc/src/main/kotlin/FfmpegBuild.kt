@@ -116,14 +116,36 @@ abstract class SyncFfmpeg : DefaultTask() {
     private fun copyPack(src: File, dest: File) {
         dest.mkdirs()
         dest.listFiles()?.forEach { it.deleteRecursively() }
-        // Preserve Mach-O symlinks (libavcodec.63.dylib -> libavcodec.63.2.100.dylib).
-        // Java copyRecursively dereferences them and would triple the packed size.
-        val process = ProcessBuilder("cp", "-a", "${src.absolutePath}/.", dest.absolutePath)
-            .redirectErrorStream(true).start()
-        val text = process.inputStream.bufferedReader().readText()
-        check(process.waitFor() == 0) { "cp -a $src -> $dest failed: $text" }
+        // Prefer `cp -a` so Mach-O symlinks stay links (Java copyRecursively would dereference
+        // them and triple the pack). On Windows Gradle often has no `cp` on PATH; desktop packs
+        // there are flat DLL files, so a plain recursive copy is fine.
+        if (!copyPackWithCp(src, dest)) {
+            src.listFiles()?.forEach { child ->
+                child.copyRecursively(File(dest, child.name), overwrite = true)
+            }
+        }
         listOf("ffmpeg", "ffmpeg.exe", "libffmpeg.so").forEach { name ->
             File(dest, name).takeIf { it.isFile }?.setExecutable(true)
         }
+    }
+
+    private fun copyPackWithCp(src: File, dest: File): Boolean {
+        val candidates = listOf(
+            "cp",
+            "C:/msys64/usr/bin/cp.exe",
+            "C:/msys64/usr/bin/cp",
+        )
+        for (cp in candidates) {
+            try {
+                val process = ProcessBuilder(cp, "-a", "${src.absolutePath}/.", dest.absolutePath)
+                    .redirectErrorStream(true).start()
+                val text = process.inputStream.bufferedReader().readText()
+                check(process.waitFor() == 0) { "cp -a $src -> $dest failed: $text" }
+                return true
+            } catch (_: java.io.IOException) {
+                // try next candidate
+            }
+        }
+        return false
     }
 }

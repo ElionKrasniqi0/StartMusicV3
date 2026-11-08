@@ -1,0 +1,19 @@
+<!-- StartMusicV3 mark: violet disc + white play glyph. Original asset — not derived from YMusic. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="192dp"
+    android:height="192dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+    <path
+        android:pathData="M512,512 m-512,0 a512,512 0 1,0 1024,0 a512,512 0 1,0 -1024,0"
+        android:fillColor="#4936A8" />
+    <path
+        android:pathData="M512,512 m-420,0 a420,420 0 1,0 840,0 a420,420 0 1,0 -840,0"
+        android:fillColor="#7657FF" />
+    <path
+        android:pathData="M512,512 m-300,0 a300,300 0 1,0 600,0 a300,300 0 1,0 -600,0"
+        android:fillColor="#8B74FF" />
+    <path
+        android:pathData="M410,320 L410,704 L740,512 Z"
+        android:fillColor="#FFFFFF" />
+</vector>

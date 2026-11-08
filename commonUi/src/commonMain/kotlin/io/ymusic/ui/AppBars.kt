@@ -13,6 +13,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.animateScrollBy
@@ -383,13 +384,20 @@ internal fun SearchInputBar(
         Row(
             Modifier
                 .weight(1f)
-                .height(40.dp)
+                .height(44.dp)
                 .clip(RoundedCornerShape(999.dp))
                 .background(DesignColors.FieldPill)
+                .border(1.dp, DesignColors.OutlineSoft.copy(alpha = 0.55f), RoundedCornerShape(999.dp))
                 // The ✕'s own 8dp inset is the trailing padding while it shows.
-                .padding(start = 16.dp, end = if (value.text.isEmpty()) 16.dp else 0.dp),
+                .padding(start = 14.dp, end = if (value.text.isEmpty()) 16.dp else 0.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            Icon(
+                Icons.Default.Search,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp).padding(end = 2.dp),
+                tint = DesignColors.InkFaint,
+            )
             BasicTextField(
                 value = value,
                 onValueChange = onValue,
@@ -398,7 +406,7 @@ internal fun SearchInputBar(
                 cursorBrush = SolidColor(DesignColors.Accent),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = { onSubmit(value.text) }),
-                modifier = Modifier.weight(1f).fillMaxHeight().focusRequester(focusRequester),
+                modifier = Modifier.weight(1f).fillMaxHeight().padding(start = 8.dp).focusRequester(focusRequester),
                 decorationBox = { inner ->
                     Box(Modifier.fillMaxHeight(), contentAlignment = Alignment.CenterStart) {
                         if (value.text.isEmpty()) {
@@ -416,7 +424,7 @@ internal fun SearchInputBar(
                 ActionIcon(
                     Icons.Default.Close,
                     stringResource(Res.string.cd_clear),
-                    tint = DesignColors.InkSecondary,
+                    tint = DesignColors.Accent,
                     onClick = { onValue(TextFieldValue("")) },
                 )
             }

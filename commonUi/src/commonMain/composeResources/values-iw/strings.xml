@@ -261,7 +261,7 @@
     <string name="settings_show_fps_hint">הצגת מספר התמונות לשנייה מעל הסרטון במסך המתנגן כעת. המדידה נעצרת בהשהיה או כשיוצאים מהמסך.</string>
     <string name="settings_licenses">רישיונות קוד פתוח</string>
     <string name="settings_terms">תנאים ופרטיות</string>
-    <string name="settings_licenses_intro">YMusic היא תוכנת קוד פתוח ברישיון GNU GPL v3.0. היא כוללת את הרכיבים הבאים:</string>
+    <string name="settings_licenses_intro">StartMusicV3 היא תוכנת קוד פתוח ברישיון GNU GPL v3.0. היא כוללת את הרכיבים הבאים:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">ספרו לנו מה השתבש או מה הייתם רוצים לראות, ב־GitHub או באימייל. צרפו את המידע האנונימי שלכם שלמטה כדי שנוכל למצוא את היומנים שלכם ולהשיב.</string>
@@ -277,10 +277,10 @@
     <string name="feedback_github_hint">ציבורי. הכי מתאים לבאגים ולרעיונות — אחרים יכולים לעקוב ולהוסיף.</string>
     <string name="feedback_email_title">שליחת אימייל אל %1$s</string>
     <string name="feedback_email_hint">פרטי. הכי מתאים לשאלות על החשבון או לשאלות אישיות.</string>
-    <string name="feedback_email_subject">משוב על YMusic</string>
+    <string name="feedback_email_subject">משוב על StartMusicV3</string>
     <string name="feedback_prefilled_note">שתי האפשרויות נפתחות עם המידע כבר ממולא. אם הוא חסר, הדביקו אותו — בלעדיו לא נוכל לעזור.</string>
     <string name="feedback_reports_off_title">הדוחות האנונימיים כבויים</string>
-    <string name="feedback_reports_off_message">כדי לבדוק את הבעיה אנחנו צריכים את היומנים של האפליקציה. הקישו על המשך ו-YMusic יפעיל מחדש את הדוחות האנונימיים וישלח את היומנים.</string>
+    <string name="feedback_reports_off_message">כדי לבדוק את הבעיה אנחנו צריכים את היומנים של האפליקציה. הקישו על המשך ו-StartMusicV3 יפעיל מחדש את הדוחות האנונימיים וישלח את היומנים.</string>
     <string name="feedback_reports_off_note">לא נשלחים שם, אימייל או חשבון. אפשר לכבות שוב את הדוחות בהגדרות.</string>
     <string name="feedback_continue">המשך</string>
     <string name="feedback_sentry_link">או דרך Sentry</string>
@@ -330,7 +330,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">כניסה עם YouTube</string>
-    <string name="signin_preface_subtitle">וקבל את כל התכונות של YouTube בתוך YMusic</string>
+    <string name="signin_preface_subtitle">וקבל את כל התכונות של YouTube בתוך StartMusicV3</string>
     <string name="signin_enables">הכניסה מאפשרת:</string>
     <string name="signin_feature_home">פיד בית מותאם אישית של YouTube</string>
     <string name="signin_feature_subscriptions">פיד ההרשמות</string>
@@ -343,8 +343,8 @@
     <string name="signin_screen_title">כניסה</string>
     <string name="signin_loading">טוען את מסך הכניסה…</string>
     <string name="signin_unavailable">הכניסה עדיין לא זמינה במכשיר הזה</string>
-    <string name="signin_qr_title">סרוק עם אפליקציית YMusic</string>
-    <string name="signin_qr_hint">בטלפון, פתח את YMusic ← הגדרות ← קישור מכשירים ← פתח מצלמה, ואז סרוק את הקוד הזה.</string>
+    <string name="signin_qr_title">סרוק עם אפליקציית StartMusicV3</string>
+    <string name="signin_qr_hint">בטלפון, פתח את StartMusicV3 ← הגדרות ← קישור מכשירים ← פתח מצלמה, ואז סרוק את הקוד הזה.</string>
     <string name="signin_qr_waiting">ממתין לטלפון…</string>
     <string name="signin_qr_sas_hint">הטלפון שלך יציג את אותו הקוד. שלח רק אם הם תואמים.</string>
     <string name="signin_or_paste">או הדבק קובצי Cookie מדפדפן</string>
@@ -370,11 +370,11 @@
     <string name="signin_paste_no_cookie_title">בבקשה הזו אין קובצי Cookie</string>
     <string name="signin_paste_no_cookie_body">העתק כ-cURL מבקשה אחרת, רצוי Fetch/XHR, לדוגמה:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">הבנתי</string>
-    <string name="cd_device_link_qr">קוד QR לסריקה עם אפליקציית YMusic</string>
+    <string name="cd_device_link_qr">קוד QR לסריקה עם אפליקציית StartMusicV3</string>
     <string name="settings_link_devices">קישור מכשירים</string>
     <string name="settings_link_devices_hint">היכנס במחשב על ידי סריקת קוד ה-QR שלו</string>
     <string name="device_link_title">קישור מכשירים</string>
-    <string name="device_link_intro">סרוק את קוד ה-QR שמוצג ב-YMusic במחשב שלך. הטלפון הזה חייב להיות מחובר לחשבון.</string>
+    <string name="device_link_intro">סרוק את קוד ה-QR שמוצג ב-StartMusicV3 במחשב שלך. הטלפון הזה חייב להיות מחובר לחשבון.</string>
     <string name="device_link_open_camera">פתח מצלמה</string>
     <string name="device_link_scan_hint">כוון את המצלמה אל קוד ה-QR של המחשב</string>
     <string name="device_link_sas_hint">הקוד הזה חייב להתאים למחשב. אם לא, הקש על ביטול.</string>
@@ -587,7 +587,7 @@
     <string name="video_details_delete_message">למחוק לצמיתות את התגובה שלך ואת כל התשובות לה?</string>
     <string name="video_details_deleted">התגובה נמחקה</string>
     <string name="cookie_protect_title">להגן על הכניסה באמצעות סיסמה?</string>
-    <string name="cookie_protect_body">הכניסה שלך שמורה במחשב הזה, ואפליקציות אחרות שאתה מפעיל יכולות לקרוא אותה. הגדר סיסמה כדי לנעול אותה; YMusic יבקש אותה בכל הפעלה.</string>
+    <string name="cookie_protect_body">הכניסה שלך שמורה במחשב הזה, ואפליקציות אחרות שאתה מפעיל יכולות לקרוא אותה. הגדר סיסמה כדי לנעול אותה; StartMusicV3 יבקש אותה בכל הפעלה.</string>
     <string name="cookie_password">סיסמה</string>
     <string name="cookie_protect_confirm">אימות סיסמה</string>
     <string name="cookie_protect_mismatch">הסיסמאות אינן תואמות.</string>
@@ -603,7 +603,7 @@
     <string name="cookie_unlock_sign_out">יציאה מהחשבון</string>
     <string name="cookie_unlock_sign_out_hint">הסרת הכניסה השמורה הזו.</string>
     <string name="cookie_unlock_sign_out_title">לצאת מהחשבון?</string>
-    <string name="cookie_unlock_sign_out_body">הפעולה תסיר את הכניסה השמורה מהמחשב הזה. כדי להיכנס שוב, סרוק את קוד ה-QR באפליקציית YMusic.</string>
+    <string name="cookie_unlock_sign_out_body">הפעולה תסיר את הכניסה השמורה מהמחשב הזה. כדי להיכנס שוב, סרוק את קוד ה-QR באפליקציית StartMusicV3.</string>
     <string name="menu_details_comments">פרטים ותגובות</string>
     <string name="menu_search_lyrics">חיפוש מילות השיר</string>
     <string name="menu_speed_pitch">מהירות וגובה צליל</string>
@@ -615,7 +615,7 @@
     <string name="cd_move_to_top">העברה לראש</string>
     <string name="dialog_undo">ביטול</string>
     <string name="dialog_save">שמירה</string>
-    <string name="upgraded_message">YMusic עודכן לגרסה %1$s</string>
+    <string name="upgraded_message">StartMusicV3 עודכן לגרסה %1$s</string>
     <string name="upgraded_view_changelog">הצגת רשימת השינויים</string>
     <string name="menu_go_to_artist">עבור לאומן</string>
     <string name="menu_go_to_album">עבור לאלבום</string>
