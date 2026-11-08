@@ -1511,11 +1511,21 @@ private suspend fun scanUris(store: BetterMediaStore, uris: List<Uri>, onProgres
  * cookies, window geometry. `$YMUSIC_DATA_DIR` relocates the lot — a packaged build's launcher
  * passes neither JVM args nor JAVA_TOOL_OPTIONS through, so an env var is the only way to run a
  * second copy (testing a release build while the dev one is open) or to keep state on an external
- * disk.
+ * disk. A `portable` marker file next to the jpackage launcher redirects state to `<app>/data`
+ * without touching an installed copy's `%USERPROFILE%\.ymusic`.
  */
 internal fun ymusicDataDir(): File =
     System.getenv("YMUSIC_DATA_DIR")?.takeIf { it.isNotBlank() }?.let(::File)
+        ?: portableDataDir()
         ?: File(System.getProperty("user.home"), ".ymusic")
+
+/** `<dir-of-StartMusicV3.exe>/data` when a sibling `portable` marker file is present. */
+private fun portableDataDir(): File? {
+    val launcher = System.getProperty("jpackage.app-path")?.let(::File)?.takeIf { it.isFile } ?: return null
+    val appDir = launcher.parentFile ?: return null
+    if (!File(appDir, "portable").isFile) return null
+    return File(appDir, "data")
+}
 
 private val windowPrefsFile = File(ymusicDataDir(), "window.properties")
 private val defaultWindowSize = DpSize(480.dp, 860.dp)

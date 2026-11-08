@@ -7,6 +7,7 @@ Module detail for the one-line summary in the root [`AGENTS.md`](../AGENTS.md) �
 - **Windows packaging** — on a Windows x64 host with a full JDK (jpackage) and Inno Setup:
   - `./gradlew :desktopApp:releaseInstaller` → `build/release/StartMusicV3-<version>-windows-x64.exe`
   - lower-level: `createReleaseDistributable` (bundled runtime + FFmpeg) then `packageReleaseInnoSetup` (`installer/windows/ymusic.iss`, icon `startmusic.ico`)
+  - **Portable (no installer):** `./gradlew :desktopApp:packagePortableWindows` → `dist/StartMusicV3-Portable/` + `dist/StartMusicV3-Portable.zip` (jlinked runtime, `portable` marker → state in `./data`)
   - Phase 6 notes: [`docs/STARTMUSIC_PHASE6_WINDOWS.md`](../docs/STARTMUSIC_PHASE6_WINDOWS.md)
 
 - **FFmpeg (Windows)** — `syncFfmpegHost` stages the sibling `ffmpeg-build` pack; `FfmpegBuild.copyPack` prefers `cp -a` when present and falls back to Java `copyRecursively` so Windows builds do not require MSYS `cp`.

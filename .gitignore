@@ -101,3 +101,6 @@ gradle/gradle-daemon-jvm.properties
 *.cer
 *.mobileprovision
 spikes/ios-mse-lab
+
+# Local Windows portable packaging output (jlink image + ZIP)
+/dist/

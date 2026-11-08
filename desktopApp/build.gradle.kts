@@ -592,3 +592,93 @@ val packageReleaseInnoSetup by tasks.registering(Exec::class) {
         )
     }
 }
+
+// ---------------------------------------------------------------------------------------------
+// Windows portable: copy the jlinked release app dir + a `portable` marker so ymusicDataDir()
+// stores state under ./data next to StartMusicV3.exe (no installer, no Program Files).
+// ---------------------------------------------------------------------------------------------
+val portableOutDir = rootProject.layout.projectDirectory.dir("dist/StartMusicV3-Portable")
+val portableZipFile = rootProject.layout.projectDirectory.file("dist/StartMusicV3-Portable.zip")
+
+val packagePortableWindows by tasks.registering {
+    group = "distribution"
+    description = "Assemble a self-contained StartMusicV3 Portable folder + ZIP under dist/ (Windows)."
+    onlyIf { hostOs == "windows" }
+    dependsOn("createReleaseDistributable")
+
+    val appDir = layout.buildDirectory.dir("compose/binaries/main-release/app/StartMusicV3")
+    inputs.dir(appDir)
+    inputs.property("version", desktopVersion)
+    outputs.dir(portableOutDir)
+    outputs.file(portableZipFile)
+
+    doLast {
+        val src = appDir.get().asFile
+        check(File(src, "StartMusicV3.exe").isFile) {
+            "missing StartMusicV3.exe under ${src.absolutePath} — createReleaseDistributable did not produce it"
+        }
+        val dest = portableOutDir.asFile
+        if (dest.exists()) dest.deleteRecursively()
+        dest.mkdirs()
+        src.copyRecursively(dest, overwrite = true)
+
+        // Marker read by Main.kt portableDataDir(); keep installed MSI/Inno copies on ~/.ymusic.
+        File(dest, "portable").writeText("StartMusicV3 portable layout\n")
+        listOf("data", "config", "logs").forEach { name ->
+            File(dest, name).mkdirs()
+        }
+        File(dest, "config").resolve("README.txt").writeText(
+            "Portable config note\n" +
+                "--------------------\n" +
+                "Application settings, databases and caches live under the sibling data/ folder.\n" +
+                "This config/ directory is reserved for optional user overlays; leave it empty unless\n" +
+                "a release note says otherwise. Do not delete the portable marker file in the app root.\n",
+        )
+        File(dest, "logs").resolve("README.txt").writeText(
+            "Portable logs note\n" +
+                "------------------\n" +
+                "Runtime logs are stored inside data/ (for example logs.db). This logs/ folder is a\n" +
+                "stable place for support exports you drop beside the app.\n",
+        )
+        File(dest, "README-PORTABLE.txt").writeText(
+            """
+            StartMusicV3 Portable (Windows x64)
+            ===================================
+            Version: $desktopVersion
+
+            Run StartMusicV3.exe — no installer required. A bundled Java runtime ships in runtime/.
+
+            Data: all user state is kept in the data/ folder next to the executable (playlists,
+            settings, caches). Copy or move the whole StartMusicV3-Portable folder to keep your
+            library with the app. Do not remove the file named "portable".
+
+            External runtimes: none beyond a normal Windows 11 x64 install (Visual C++ libs may
+            already be present via Windows Update). Audio uses the bundled FFmpeg / MSE natives.
+
+            """.trimIndent(),
+        )
+
+        val zipOut = portableZipFile.asFile
+        zipOut.parentFile.mkdirs()
+        if (zipOut.exists()) zipOut.delete()
+        zipDirectory(dest, zipOut, rootName = "StartMusicV3-Portable")
+    }
+}
+
+/** Zip [sourceDir] so entries are rooted at [rootName]/… (Windows portable archive). */
+fun zipDirectory(sourceDir: File, zipFile: File, rootName: String) {
+    ZipOutputStream(zipFile.outputStream().buffered()).use { zos ->
+        sourceDir.walkTopDown().forEach { file ->
+            val rel = sourceDir.toPath().relativize(file.toPath()).toString().replace('\\', '/')
+            val entryName = if (rel.isEmpty()) "$rootName/" else "$rootName/$rel${if (file.isDirectory) "/" else ""}"
+            if (file.isDirectory) {
+                zos.putNextEntry(ZipEntry(entryName))
+                zos.closeEntry()
+            } else {
+                zos.putNextEntry(ZipEntry(entryName))
+                file.inputStream().use { it.copyTo(zos) }
+                zos.closeEntry()
+            }
+        }
+    }
+}
