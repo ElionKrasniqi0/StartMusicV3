@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- StartMusicV3 splash mark — same original disc+play identity as the launcher. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="288dp"
-    android:height="288dp"
+    android:width="192dp"
+    android:height="192dp"
     android:viewportWidth="1024"
     android:viewportHeight="1024">
     <path

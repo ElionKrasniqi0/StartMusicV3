@@ -1,4 +1,4 @@
-# Generates original StartMusicV3 PNG/ICO marks (violet disc + play). Not derived from YMusic assets.
+# Generates original StartMusicV3 PNG/ICO marks (#7B5CFF disc + play). Not derived from YMusic assets.
 Add-Type -AssemblyName System.Drawing
 
 function New-BrandBitmap([int]$size) {
@@ -15,8 +15,8 @@ function New-BrandBitmap([int]$size) {
         $g.FillEllipse($brush, [float]($cx - $r), [float]($cy - $r), $d, $d)
         $brush.Dispose()
     }
-    Disk ($size * 0.5) '#4936A8'
-    Disk ($size * 0.41) '#7657FF'
+    Disk ($size * 0.5) '#4A3A9E'
+    Disk ($size * 0.41) '#7B5CFF'
     Disk ($size * 0.29) '#8B74FF'
     $pen = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::White)
     $pts = @(
