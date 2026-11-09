@@ -111,6 +111,7 @@ import io.ymusic.dynamicengine.yt.extractTrendingMusicFeed
 import io.ymusic.dynamicengine.yt.getRecommendedFeed
 import io.ymusic.dynamicengine.yt.resolveLink
 import io.ymusic.player.PlayableItem
+import io.ymusic.player.QueueOrigin
 import io.ymusic.player.showsVideo
 import io.ymusic.settings.AppSettings
 import io.ymusic.settings.flow
@@ -185,6 +186,10 @@ val LocalNavigateToSection = androidx.compose.runtime.compositionLocalOf<(AppSec
  *  actual folder, not wherever the Library was left. Null host outside the shell. */
 val LocalLibraryFolderReveal =
     androidx.compose.runtime.compositionLocalOf<androidx.compose.runtime.MutableState<Long?>?> { null }
+
+/** Home's Playlists chip: open Library on the Playlists tab (not Folders). Consumed once Library composes. */
+val LocalLibraryPlaylistsReveal =
+    androidx.compose.runtime.compositionLocalOf<androidx.compose.runtime.MutableState<Boolean>?> { null }
 
 /**
  * The app root: drawer navigation + the persistent mini-player + the Now Playing overlay. The shell
@@ -344,6 +349,7 @@ private fun AppRoot(
         // Library once it composes. Lives here so it survives the section switch.
         val libraryReveal = remember { androidx.compose.runtime.mutableStateOf<Long?>(null) }
         val libraryGroupReveal = remember { androidx.compose.runtime.mutableStateOf<LibraryGroupReveal?>(null) }
+        val libraryPlaylistsReveal = remember { androidx.compose.runtime.mutableStateOf(false) }
         // Signed-in state, derived from the engine's cookie gate. Bumps loginEpoch on sign-in/out.
         val accountController = graph.account
         val signedIn by accountController.signedIn.collectAsState()
@@ -742,7 +748,11 @@ private fun AppRoot(
                         val downloads = graph.downloads
                         when {
                             action == LinkAction.PLAY_SINGLE || (queueEmpty && action in QueueActions) ->
-                                coordinator.player.setQueue(listOf(video.toYtMedia()), startPositionMs = target.startMs ?: 0L)
+                                coordinator.player.setQueue(
+                                    listOf(video.toYtMedia()),
+                                    startPositionMs = target.startMs ?: 0L,
+                                    origin = QueueOrigin.Link,
+                                )
                             action == LinkAction.QUEUE_NEXT -> {
                                 coordinator.playNext(video)
                                 showSnackbar(linkQueuedNext)
@@ -765,6 +775,11 @@ private fun AppRoot(
                                         NextQueueSource.playlist(graph.engines, playlist, listOf(video), null, log?.fork("queue-source"))
                                     } else {
                                         NextQueueSource.radio(graph.engines, video.id, log?.fork("queue-source"))
+                                    },
+                                    origin = if (playlist != null) {
+                                        QueueOrigin.Playlist
+                                    } else {
+                                        QueueOrigin.Link
                                     },
                                 )
                                 graph.pip.nowPlayingOpen.value = true
@@ -958,6 +973,7 @@ private fun AppRoot(
                             LocalNavigateToSection provides { openSection(it) },
                             LocalLibraryFolderReveal provides libraryReveal,
                             LocalLibraryGroupReveal provides libraryGroupReveal,
+                            LocalLibraryPlaylistsReveal provides libraryPlaylistsReveal,
                             *songActions.provided(),
                             LocalCaptchaResolver provides captchaResolver,
                             LocalSignInResolver provides signInResolver,
@@ -1515,7 +1531,6 @@ private fun DiscoverFeed(
                             coordinator = coordinator,
                             onSearch = onSearch,
                             onSelectDiscoverTab = onSelectDiscoverTab,
-                            onOpenFeedItem = onOpen,
                         )
                     }
                 } else {

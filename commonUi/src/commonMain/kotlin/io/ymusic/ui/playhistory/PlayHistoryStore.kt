@@ -234,7 +234,16 @@ class PlayHistoryStore(
         ) {
             ids.forEachIndexed { i, id -> bindString(i, id) }
         }.value
-        return ids.mapNotNull { byId[it] }
+        // Keep every ranked id playable even if metadata was pruned — title falls back to the id,
+        // artwork to the standard YouTube thumb URL. mapNotNull would hide history that still plays.
+        return ids.map { id ->
+            byId[id] ?: YtFeedItem(
+                kind = YtFeedItem.KIND_VIDEO,
+                id = id,
+                title = id,
+                thumbs = listOf(YtThumb(youtubeThumbUrl(id))),
+            )
+        }
     }
 
     @OptIn(ExperimentalTime::class)

@@ -36,6 +36,9 @@ class TechnicalException(
 /** The well-known category for a connectivity failure — the UI's "check your connection". */
 const val NETWORK_CODE = "network"
 
+/** Host media backend failed to come up — every load surfaces this instead of crashing. */
+const val PLAYBACK_UNAVAILABLE_CODE = "playback_unavailable"
+
 private object TransportFailure : CodedError {
     override val code = NETWORK_CODE
     override val userMessage: String? = null

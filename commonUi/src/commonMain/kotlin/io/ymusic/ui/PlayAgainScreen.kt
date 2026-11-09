@@ -106,7 +106,9 @@ fun PlayAgainScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
 
     fun restore(session: PlayAgainSession, fromBeginning: Boolean) =
         runAction(session, "E60061", "play-again queue failed to restore") {
-            coordinator.playAgain(session, fromBeginning)
+            if (!coordinator.playAgain(session, fromBeginning)) {
+                actionError = "E60061"
+            }
         }
 
     val gridState = rememberLazyGridState()

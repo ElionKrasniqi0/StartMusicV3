@@ -134,6 +134,7 @@ internal class StubPlayer : Player {
         playWhenReady: Boolean,
         queueId: String?,
         source: io.ymusic.player.QueueSource?,
+        origin: io.ymusic.player.QueueOrigin,
     ) {
         lastQueue = items
         lastPlayIndex = playIndex
@@ -195,6 +196,8 @@ internal class StubPlayer : Player {
     override var volume: Float = 1f
 
     override fun setDucked(ducked: Boolean) = Unit
+
+    override fun setVoiceDucked(ducked: Boolean) = Unit
 
     override var speed: Float = 1f
 

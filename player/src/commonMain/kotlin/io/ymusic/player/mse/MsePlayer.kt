@@ -40,7 +40,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CloseableCoroutineDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.IO
@@ -68,6 +67,7 @@ import kotlinx.serialization.json.JsonObject
 import projectcommon.error.TechnicalException
 import projectcommon.error.errorCode
 import projectcommon.json.boolOrNull
+import projectcommon.json.doubleOrNull
 import projectcommon.json.intOrNull
 import projectcommon.json.longOrNull
 import projectcommon.json.objectOrNull
@@ -158,6 +158,9 @@ class MsePlayer internal constructor(
     /** Latest config from the caller. */
     private var config = PlaybackConfig()
 
+    /** base.js's loudness gain for the presenting format; scales [config]'s volume at the host. */
+    private var loudnessGain = 1f
+
     private var loadingVideoId: String? = null
     private var loadedVideoId: String? = null
     private var loadTimeoutJob: Job? = null
@@ -214,6 +217,11 @@ class MsePlayer internal constructor(
         loadingVideoId = source.videoId
         _progress.value = Progress(positionMs = startPositionMs)
         _status.update { it.copy(details = null) }
+        // base.js pushes the new video's gain once it picks a format; until then play at the user's volume.
+        if (source.videoId != loadedVideoId && loudnessGain != 1f) {
+            loudnessGain = 1f
+            if (hostLive()) videoSurface.setVolume(config.volume.coerceIn(0f, 1f))
+        }
         applySurfaceAudio(previous, config)
         val width = viewportW
         val height = viewportH
@@ -424,8 +432,13 @@ class MsePlayer internal constructor(
     }
 
     /** Boot is a blocking eval on the engine thread; null (reported) when [source] will not boot. */
-    private suspend fun bootOrNull(engineThread: CoroutineDispatcher, source: String, failure: String): DynamicEnginePlayer? = try {
-        withContext(engineThread + NonCancellable) { buildPlayer(engineThread, source) }
+    private suspend fun bootOrNull(
+        engineThread: CoroutineDispatcher,
+        source: String,
+        failure: String,
+        onBuilt: (DynamicEnginePlayer) -> Unit,
+    ): DynamicEnginePlayer? = try {
+        withContext(engineThread + NonCancellable) { buildPlayer(engineThread, source).also(onBuilt) }
     } catch (error: CancellationException) {
         throw error
     } catch (error: Throwable) {
@@ -446,22 +459,31 @@ class MsePlayer internal constructor(
             withContext(NonCancellable) { previousClose?.join() }
             ensureActive()
             val engineThread = newEngineThread()
-            var enginePlayer: DynamicEnginePlayer? = null
+            // Set from inside the boot: cancelling the session mid-boot discards withContext's result,
+            // and the runtime it built must still reach the finally.
+            var builtPlayer: DynamicEnginePlayer? = null
             try {
                 // A remote bundle that will not boot must not take playback down with it: the next
-                // one down boots. Each built player is assigned at once so it reaches the finally.
+                // one down boots.
+                var enginePlayer: DynamicEnginePlayer? = null
                 val fresh = pendingPlayerJs.getAndUpdate { null }
                 if (fresh != null) {
-                    enginePlayer = bootOrNull(engineThread, fresh.source, "player.js v${fresh.version} failed to boot, discarded")
+                    enginePlayer = bootOrNull(engineThread, fresh.source, "player.js v${fresh.version} failed to boot, discarded") {
+                        builtPlayer = it
+                    }
                     if (enginePlayer == null) rejectedPlayerJs.update { it + fresh.remote } else keep(fresh)
                 }
                 if (enginePlayer == null) {
                     enginePlayer = playerJs.getCached()?.let { (source, version) ->
-                        bootOrNull(engineThread, source, "player.js v$version failed to boot, using the embedded one")
+                        bootOrNull(engineThread, source, "player.js v$version failed to boot, using the embedded one") {
+                            builtPlayer = it
+                        }
                     }
                 }
                 if (enginePlayer == null) {
-                    enginePlayer = withContext(engineThread + NonCancellable) { buildPlayer(engineThread, playerJs.getEmbed().first) }
+                    enginePlayer = withContext(engineThread + NonCancellable) {
+                        buildPlayer(engineThread, playerJs.getEmbed().first).also { builtPlayer = it }
+                    }
                 }
                 newSession.player = enginePlayer
                 if (hasPendingVideoSurface) enginePlayer.setVideoSurface(pendingVideoSurface)
@@ -490,25 +512,28 @@ class MsePlayer internal constructor(
                 if (session === newSession) fail(error, "mse init failed", needReset = true)
             } finally {
                 newSession.player = null
-                withContext(Dispatchers.Default + NonCancellable) {
-                    if (enginePlayer != null) closePlayerBounded(enginePlayer)
-                    closeEngineThread(engineThread)
-                }
+                withContext(Dispatchers.Default + NonCancellable) { closeSessionEngine(builtPlayer, engineThread) }
             }
         }
     }
 
     /**
      * A wedged engine thread never runs its close hop, so the wait is bounded and the successor
-     * boots anyway. [CoroutineStart.UNDISPATCHED] so the close's engine-thread hop is already
-     * queued — ahead of [closeEngineThread] — by the time this suspends.
+     * boots anyway. The thread closes strictly after its runtime, wedged or not: a closed executor
+     * sends every coroutine still bound to it to Dispatchers.IO, into JS from several threads.
      */
-    private suspend fun closePlayerBounded(enginePlayer: DynamicEnginePlayer) {
-        val closeJob = cleanupScope.launch(start = CoroutineStart.UNDISPATCHED) {
+    private suspend fun closeSessionEngine(enginePlayer: DynamicEnginePlayer?, engineThread: CloseableCoroutineDispatcher) {
+        if (enginePlayer == null) {
+            closeEngineThread(engineThread)
+            return
+        }
+        val closeJob = cleanupScope.launch {
             try {
                 enginePlayer.close()
             } catch (error: Throwable) {
                 log?.log(Logger.Level.WARN, "mse close failed", error)
+            } finally {
+                closeEngineThread(engineThread)
             }
         }
         if (withTimeoutOrNull(ENGINE_CLOSE_TIMEOUT_MS) { closeJob.join() } == null) {
@@ -516,8 +541,7 @@ class MsePlayer internal constructor(
         }
     }
 
-    /** Queued work still drains, then the thread exits. Off main and not awaited: native `close`
-     *  blocks until the worker terminates, which a wedged engine thread never does. */
+    /** Off main and not awaited: native `close` blocks until the worker terminates. */
     private fun closeEngineThread(engineThread: CloseableCoroutineDispatcher) {
         cleanupScope.launch(Dispatchers.IO) {
             try {
@@ -594,7 +618,7 @@ class MsePlayer internal constructor(
     private fun applySurfaceAudio(previous: PlaybackConfig?, config: PlaybackConfig) {
         if (!hostLive()) return
         if (previous == null || config.volume != previous.volume) {
-            videoSurface.setVolume(config.volume.coerceIn(0f, 1f))
+            videoSurface.setVolume(config.volume.coerceIn(0f, 1f) * loudnessGain)
         }
         if (previous == null ||
             config.eqBands != previous.eqBands ||
@@ -690,7 +714,15 @@ class MsePlayer internal constructor(
         json.objectOrNull("state")?.let { applyState(it) }
         json.objectOrNull("picture")?.let { applyPicture(it) }
         json.objectOrNull("details")?.let { applyDetails(it) }
+        json.objectOrNull("gain")?.let { applyLoudnessGain(it) }
         json.objectOrNull("watchNext")?.let { applyWatchNext(it) }
+    }
+
+    private fun applyLoudnessGain(json: JsonObject) {
+        val gain = json.doubleOrNull("value")?.toFloat()?.coerceIn(0f, 1f) ?: return
+        if (gain == loudnessGain) return
+        loudnessGain = gain
+        if (hostLive()) videoSurface.setVolume(config.volume.coerceIn(0f, 1f) * gain)
     }
 
     private fun applyWatchNext(json: JsonObject) {

@@ -36,9 +36,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,23 +50,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.ymusic.dynamicengine.yt.YtFeedItem
-import io.ymusic.mediastore.model.MediaStoreItem
+import io.ymusic.player.PlayableItem
 import io.ymusic.ui.playhistory.PlayAgainSession
 import io.ymusic.ui.resources.Res
 import io.ymusic.ui.resources.about_tagline
 import io.ymusic.ui.resources.app_name
 import io.ymusic.ui.resources.cd_view_all
+import io.ymusic.ui.resources.discover_no_top_tracks
 import io.ymusic.ui.resources.home_featured
 import io.ymusic.ui.resources.home_quick_library
 import io.ymusic.ui.resources.home_quick_play_again
 import io.ymusic.ui.resources.home_quick_playlists
 import io.ymusic.ui.resources.home_quick_recommended
 import io.ymusic.ui.resources.home_quick_trending
-import io.ymusic.ui.resources.home_recently_added
 import io.ymusic.ui.resources.home_recently_played
 import io.ymusic.ui.resources.home_search_hint
 import io.ymusic.ui.resources.startmusic_logo
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -80,10 +83,10 @@ fun HomeHub(
     coordinator: PlaybackCoordinator,
     onSearch: () -> Unit,
     onSelectDiscoverTab: (DiscoverTab) -> Unit,
-    onOpenFeedItem: ((YtFeedItem) -> Unit)?,
     modifier: Modifier = Modifier,
 ) {
     val navigate = LocalNavigateToSection.current
+    val playlistsReveal = LocalLibraryPlaylistsReveal.current
     val guest = graph.guest
     BoxWithConstraints(modifier.fillMaxWidth()) {
         val compact = maxWidth < 600.dp
@@ -106,22 +109,19 @@ fun HomeHub(
                 onRecommended = { onSelectDiscoverTab(DiscoverTab.Recommended) },
                 onTrending = { onSelectDiscoverTab(DiscoverTab.Music) },
                 onLibrary = { navigate(AppSection.Library) },
-                onPlaylists = { navigate(AppSection.Library) },
+                onPlaylists = {
+                    playlistsReveal?.value = true
+                    navigate(AppSection.Library)
+                },
                 onPlayAgain = { navigate(AppSection.PlayAgain) },
             )
             HomeRecentlyPlayed(
                 graph = graph,
                 coordinator = coordinator,
                 cardWidth = recentCardWidth,
-                onOpenFeedItem = onOpenFeedItem,
                 onSeeAll = {
                     if (!guest) onSelectDiscoverTab(DiscoverTab.TopTracks) else navigate(AppSection.PlayAgain)
                 },
-            )
-            HomeRecentlyAdded(
-                graph = graph,
-                coordinator = coordinator,
-                cardWidth = recentCardWidth,
             )
             Text(
                 stringResource(Res.string.home_featured),
@@ -250,22 +250,29 @@ private fun HomeRecentlyPlayed(
     graph: AppGraph,
     coordinator: PlaybackCoordinator,
     cardWidth: androidx.compose.ui.unit.Dp,
-    onOpenFeedItem: ((YtFeedItem) -> Unit)?,
     onSeeAll: () -> Unit,
 ) {
+    val scope = rememberCoroutineScope()
     var recent by remember { mutableStateOf<List<YtFeedItem>>(emptyList()) }
     var sessions by remember { mutableStateOf<List<PlayAgainSession>>(emptyList()) }
-    LaunchedEffect(graph.playHistory) {
-        val history = graph.playHistory
+    var loaded by remember { mutableStateOf(false) }
+    val history = graph.playHistory
+    LaunchedEffect(history) {
         if (history == null) {
             recent = emptyList()
             sessions = emptyList()
+            loaded = true
             return@LaunchedEffect
         }
-        recent = runCatching { history.youtubeRecent(limit = 12) }.getOrDefault(emptyList())
-        sessions = runCatching { history.playAgain.sessions() }.getOrDefault(emptyList()).take(8)
+        // Reload on every ranking/metadata change so Home stays in sync after a successful play.
+        history.changes.onStart { emit(Unit) }.collect {
+            recent = runCatching { history.youtubeRecent(limit = 12) }.getOrDefault(emptyList())
+            sessions = runCatching { history.playAgain.sessions() }.getOrDefault(emptyList()).take(8)
+            loaded = true
+        }
     }
-    if (recent.isEmpty() && sessions.isEmpty()) return
+    val queue by coordinator.player.queue.collectAsState()
+    val playingVideoId = (queue.currentItem as? PlayableItem.YtMedia)?.videoId
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(
@@ -279,122 +286,70 @@ private fun HomeRecentlyPlayed(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            TextButton(onClick = onSeeAll) {
-                Text(stringResource(Res.string.cd_view_all), style = Brand.Label.copy(color = DesignColors.Accent))
-            }
-        }
-        LazyRow(
-            contentPadding = PaddingValues(end = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            if (recent.isNotEmpty()) {
-                items(recent, key = { "yt-${it.id}" }) { item ->
-                    HomeRecentVideoCard(
-                        item = item,
-                        width = cardWidth,
-                        onClick = {
-                            if (onOpenFeedItem != null) onOpenFeedItem(item)
-                            else coordinator.playNow(item)
-                        },
-                    )
-                }
-            } else {
-                items(sessions, key = { "pa-${it.queueId}" }) { session ->
-                    HomeRecentSessionCard(
-                        session = session,
-                        width = cardWidth,
-                        onClick = onSeeAll,
-                    )
+            if (recent.isNotEmpty() || sessions.isNotEmpty()) {
+                TextButton(onClick = onSeeAll) {
+                    Text(stringResource(Res.string.cd_view_all), style = Brand.Label.copy(color = DesignColors.Accent))
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun HomeRecentlyAdded(
-    graph: AppGraph,
-    coordinator: PlaybackCoordinator,
-    cardWidth: androidx.compose.ui.unit.Dp,
-) {
-    val store = graph.mediaStore ?: return
-    var items by remember { mutableStateOf<List<MediaStoreItem>>(emptyList()) }
-    LaunchedEffect(store) {
-        store.itemsChanges().onStart { emit(Unit) }.collect {
-            items = runCatching {
-                store.allItems().sortedByDescending { it.createdAt }.take(12)
-            }.getOrDefault(emptyList())
-        }
-    }
-    if (items.isEmpty()) return
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(
-            stringResource(Res.string.home_recently_added),
-            style = Brand.Headline.copy(fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
-        LazyRow(
-            contentPadding = PaddingValues(end = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            items(items, key = { "local-${it.id}" }) { song ->
-                HomeLocalCard(
-                    title = song.title,
-                    subtitle = song.artist,
-                    artUrl = localArtUrl(song),
-                    width = cardWidth,
-                    onClick = { coordinator.playLocalSingle(song) },
+        when {
+            !loaded -> {
+                Row(
+                    Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    repeat(3) {
+                        Box(
+                            Modifier
+                                .width(cardWidth)
+                                .height(cardWidth * 9f / 16f)
+                                .clip(RoundedCornerShape(Brand.ArtCorner))
+                                .background(DesignColors.Placeholder),
+                        )
+                    }
+                }
+            }
+            recent.isEmpty() && sessions.isEmpty() -> {
+                Text(
+                    stringResource(Res.string.discover_no_top_tracks),
+                    style = Brand.Caption.copy(color = DesignColors.InkSecondary),
+                    modifier = Modifier.padding(vertical = 4.dp),
                 )
             }
-        }
-    }
-}
-
-@Composable
-private fun HomeLocalCard(
-    title: String,
-    subtitle: String?,
-    artUrl: String?,
-    width: androidx.compose.ui.unit.Dp,
-    onClick: () -> Unit,
-) {
-    Column(
-        Modifier
-            .width(width)
-            .clip(RoundedCornerShape(Brand.CardCorner))
-            .clickable(onClick = onClick),
-    ) {
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(width)
-                .clip(RoundedCornerShape(Brand.ArtCorner))
-                .background(DesignColors.Placeholder),
-            contentAlignment = Alignment.Center,
-        ) {
-            if (!artUrl.isNullOrBlank()) {
-                ArtImage(artUrl, RoundedCornerShape(Brand.ArtCorner)) {
-                    ThumbPlaceholder(Icons.Outlined.MusicNote, 24.dp)
+            recent.isNotEmpty() -> {
+                LazyRow(
+                    contentPadding = PaddingValues(end = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    items(recent, key = { "yt-${it.id}" }) { item ->
+                        HomeRecentVideoCard(
+                            item = item,
+                            width = cardWidth,
+                            playing = item.id == playingVideoId,
+                            // Videos must play — never route through openItem (playlist/channel only).
+                            onClick = { coordinator.playNow(item) },
+                        )
+                    }
                 }
-            } else {
-                ThumbPlaceholder(Icons.Outlined.MusicNote, 24.dp)
             }
-        }
-        Text(
-            title,
-            style = Brand.Label.copy(fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong),
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(top = 6.dp),
-        )
-        if (!subtitle.isNullOrBlank()) {
-            Text(
-                subtitle,
-                style = Brand.Caption.copy(color = DesignColors.InkSecondary),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+            else -> {
+                LazyRow(
+                    contentPadding = PaddingValues(end = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    items(sessions, key = { "pa-${it.queueId}" }) { session ->
+                        HomeRecentSessionCard(
+                            session = session,
+                            width = cardWidth,
+                            onClick = {
+                                scope.launch {
+                                    if (!coordinator.playAgain(session)) onSeeAll()
+                                }
+                            },
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -403,13 +358,22 @@ private fun HomeLocalCard(
 private fun HomeRecentVideoCard(
     item: YtFeedItem,
     width: androidx.compose.ui.unit.Dp,
+    playing: Boolean,
     onClick: () -> Unit,
 ) {
     Column(
         Modifier
             .width(width)
             .clip(RoundedCornerShape(Brand.CardCorner))
-            .clickable(onClick = onClick),
+            .then(
+                if (playing) {
+                    Modifier.border(1.5.dp, DesignColors.Accent, RoundedCornerShape(Brand.CardCorner))
+                } else {
+                    Modifier
+                },
+            )
+            .clickable(onClick = onClick)
+            .padding(if (playing) 2.dp else 0.dp),
     ) {
         Box(
             Modifier
@@ -425,7 +389,10 @@ private fun HomeRecentVideoCard(
         }
         Text(
             item.title,
-            style = Brand.Label.copy(fontWeight = FontWeight.SemiBold, color = DesignColors.InkStrong),
+            style = Brand.Label.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = if (playing) DesignColors.Accent else DesignColors.InkStrong,
+            ),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(top = 6.dp),

@@ -13,6 +13,12 @@ enum class LoopMode {
     All,
 }
 
+/** Where a queue came from, for the playback log. */
+enum class QueueOrigin { Unknown, Library, Downloads, Single, Radio, Playlist, Resume, Link, File }
+
+/** Why the current item last changed, for the playback log. */
+enum class QueueChange { Load, Auto, User }
+
 /**
  * The play queue as observed on [Player.queue]. [currentIndex] is `-1` when nothing is queued.
  * [queueId] names the queue the last [Player.setQueue] made: it survives add/move/remove and
@@ -26,6 +32,8 @@ data class QueueState(
     val shuffle: Boolean = false,
     val queueId: String? = null,
     val more: QueueMore? = null,
+    val origin: QueueOrigin = QueueOrigin.Unknown,
+    val lastChange: QueueChange = QueueChange.Load,
 ) {
     val currentItem: PlayableItem? get() = items.getOrNull(currentIndex)
 }
@@ -148,6 +156,7 @@ internal class QueueController(private val random: Random = Random.Default) {
         if (items.isEmpty()) return null
         if (state.shuffle) {
             if (played.size < 2) return null
+            upNext.clear()
             played.removeAt(played.lastIndex)
             val target = played.last()
             state = state.copy(currentIndex = target)
@@ -158,6 +167,7 @@ internal class QueueController(private val random: Random = Random.Default) {
             state.loopMode == LoopMode.All -> items.lastIndex
             else -> return null
         }
+        upNext.clear()
         advanceTo(prev)
         return prev
     }

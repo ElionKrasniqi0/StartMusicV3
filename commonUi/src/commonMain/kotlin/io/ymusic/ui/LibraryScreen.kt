@@ -315,6 +315,13 @@ fun LibraryScreen(graph: AppGraph, coordinator: PlaybackCoordinator) {
                 tab = LibraryTab.Folders
                 folderReveal.value = null
             }
+            // Home "Playlists" chip: land on the Playlists tab, not Folders.
+            val playlistsReveal = LocalLibraryPlaylistsReveal.current
+            LaunchedEffect(playlistsReveal?.value) {
+                if (playlistsReveal?.value != true) return@LaunchedEffect
+                tab = LibraryTab.Playlists
+                playlistsReveal.value = false
+            }
             // "Go to artist/album" from anywhere: open that group's tab drilled into it, then clear the request.
             val groupReveal = LocalLibraryGroupReveal.current
             var revealGroup by remember { mutableStateOf<LibraryGroupReveal?>(null) }

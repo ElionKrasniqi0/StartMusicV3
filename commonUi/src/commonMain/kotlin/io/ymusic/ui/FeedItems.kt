@@ -210,7 +210,8 @@ fun SectionHeader(
             )
             header?.ctaText != null || header?.ctaToken != null || header?.ctaDeeplink != null || header?.ctaAction != null -> {
                 val playAll = header.ctaAction == YtSectionHeader.CTA_PLAY_ALL
-                val cta = if (onCta != null && (header.ctaDeeplink != null || playAll)) onCta else null
+                // Caller decides when the CTA is live (deeplink, play-all, or token reload).
+                val cta = onCta
                 val label = header.ctaText ?: stringResource(if (playAll) Res.string.play_all else Res.string.cd_view_all)
                 // The tap padding bleeds out of the layout, so the bigger target doesn't make the header taller.
                 Box(if (cta != null) Modifier.bleed(SectionCtaPaddingH, SectionCtaPaddingV) else Modifier) {
@@ -246,7 +247,8 @@ private val SectionCtaPaddingH = 10.dp
 private val SectionCtaPaddingV = 6.dp
 
 /** video / playlist / channel — list form, one row size per band: 92dp square thumb, or 16:9
- *  160×90 when [wide] (the [FeedLayout.WideList] band). [compactTitle] on narrow screens ([feedCompactTitleFor]). */
+ *  160×90 when [wide] (the [FeedLayout.WideList] band). [compactTitle] on narrow screens ([feedCompactTitleFor]).
+ *  [onCta] fires the channel Subscribe pill; null keeps the pill decorative only (catalogue mocks). */
 @Composable
 fun FeedListItem(
     item: YtFeedItem,
@@ -255,6 +257,7 @@ fun FeedListItem(
     modifier: Modifier = Modifier,
     wide: Boolean = false,
     compactTitle: Boolean = false,
+    onCta: (() -> Unit)? = null,
 ) {
     Row(
         modifier
@@ -295,7 +298,11 @@ fun FeedListItem(
         when {
             // A pill has no touch padding to absorb the gap or the row's trailing inset, so it carries both;
             // the ⋮'s own hit padding is its gap from the title.
-            item.ctaText != null -> CtaPill(item.ctaText!!, modifier = Modifier.padding(start = DesignSpacing.Space16, end = 12.dp))
+            item.ctaText != null -> CtaPill(
+                item.ctaText!!,
+                onClick = onCta ?: {},
+                modifier = Modifier.padding(start = DesignSpacing.Space16, end = 12.dp),
+            )
             actions.entries.isNotEmpty() -> MoreMenu(actions, Modifier.align(Alignment.Top).padding(top = 2.dp))
         }
     }
@@ -309,9 +316,10 @@ fun FeedGridCard(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     inset: Dp = GRID_CARD_INSET,
+    onCta: (() -> Unit)? = null,
 ) {
     if (item.kind == YtFeedItem.KIND_CHANNEL) {
-        ChannelGridCard(item, onClick, modifier, inset)
+        ChannelGridCard(item, onClick, modifier, inset, onCta)
         return
     }
     // clip → clickable → padding: the hover/ripple gets rounded corners and a breathing inset
@@ -376,6 +384,7 @@ private fun ChannelGridCard(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     inset: Dp = GRID_CARD_INSET,
+    onCta: (() -> Unit)? = null,
 ) {
     Column(
         modifier
@@ -402,7 +411,9 @@ private fun ChannelGridCard(
                 modifier = Modifier.padding(top = 4.dp).clearAndSetSemantics {},
             )
         }
-        item.ctaText?.let { Box(Modifier.padding(top = 8.dp)) { CtaPill(it) } }
+        item.ctaText?.let {
+            Box(Modifier.padding(top = 8.dp)) { CtaPill(it, onClick = onCta ?: {}) }
+        }
     }
 }
 
@@ -430,8 +441,7 @@ fun ShowMoreButton(label: String, expanded: Boolean, onClick: () -> Unit, modifi
     }
 }
 
-/** The outlined pill CTA on channel items ("Subscribe"); hover turns it accent. Real action lands
- *  with accounts. */
+/** The outlined pill CTA on channel items ("Subscribe"); hover turns it accent. */
 @Composable
 internal fun CtaPill(text: String, onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
     val interaction = remember { MutableInteractionSource() }

@@ -196,7 +196,9 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
             SoundRow(graph, speed = true)
             SoundRow(graph, speed = false)
             AudioOnlyDefaultRow(graph)
-            ToggleRow(graph, AppSettings.enablePip, Res.string.settings_enable_pip, Res.string.settings_enable_pip_hint)
+            if (graph.pipSetting) {
+                ToggleRow(graph, AppSettings.enablePip, Res.string.settings_enable_pip, Res.string.settings_enable_pip_hint)
+            }
             if (graph.audioFocusSetting) AudioFocusRow(graph)
             ToggleRow(
                 graph,
@@ -226,11 +228,13 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
                 hint = Res.string.settings_clear_search_history_hint,
                 onClear = { graph.settings.put(AppSettings.searchHistory, "") },
             )
-            ClearHistoryRow(
-                title = Res.string.settings_clear_play_history,
-                hint = Res.string.settings_clear_play_history_hint,
-                onClear = { graph.playHistory?.clearPlayHistory() },
-            )
+            if (graph.playHistory != null) {
+                ClearHistoryRow(
+                    title = Res.string.settings_clear_play_history,
+                    hint = Res.string.settings_clear_play_history_hint,
+                    onClear = { graph.playHistory.clearPlayHistory() },
+                )
+            }
         }
         SettingsSection(Res.string.settings_section_about) {
             AboutBrandHeader(graph.appVersionName, graph.appVersionCode)

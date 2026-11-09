@@ -71,6 +71,7 @@ import io.ymusic.ui.resources.Res
 import io.ymusic.ui.resources.cd_download
 import io.ymusic.ui.resources.cd_share
 import io.ymusic.ui.resources.cd_sort
+import io.ymusic.ui.resources.channel_sign_in_to_subscribe
 import io.ymusic.ui.resources.error_captcha
 import io.ymusic.ui.resources.error_disk_full
 import io.ymusic.ui.resources.error_generic
@@ -630,6 +631,7 @@ private fun FeedSections(
                 }
                 feedSection(
                     section = section,
+                    pager = pager,
                     columns = columns,
                     metrics = metrics,
                     wide = wide,
@@ -666,6 +668,7 @@ private val COLLAPSED_ROWS_BY_COLUMNS = listOf(4, 3, 2)
 
 private fun androidx.compose.foundation.lazy.LazyListScope.feedSection(
     section: YtSection,
+    pager: Pager,
     columns: Int,
     metrics: GridMetrics,
     wide: Boolean,
@@ -679,17 +682,22 @@ private fun androidx.compose.foundation.lazy.LazyListScope.feedSection(
 ) {
     if (section.header != null || section.collapsible) {
         item {
-            val deeplink = section.header?.ctaDeeplink
+            val header = section.header
+            val deeplink = header?.ctaDeeplink
+            val token = header?.ctaToken
             SectionHeader(
-                section.header,
+                header,
                 collapsed = if (section.collapsible) !expanded else null,
                 onToggle = if (section.collapsible) onToggle else null,
                 onCta = when {
-                    section.header?.ctaAction == YtSectionHeader.CTA_PLAY_ALL -> {
+                    header?.ctaAction == YtSectionHeader.CTA_PLAY_ALL -> {
                         { coordinator.playAll(section.items, shuffle = false) }
                     }
                     deeplink != null && onDeeplink != null -> {
-                        { onDeeplink(deeplink, section.header?.title) }
+                        { onDeeplink(deeplink, header.title) }
+                    }
+                    token != null -> {
+                        { pager.reload(token) }
                     }
                     else -> null
                 },
@@ -733,6 +741,7 @@ private fun androidx.compose.foundation.lazy.LazyListScope.feedSection(
                 onClick = itemClick(item, section, coordinator, onOpen, onPlayItem),
                 wide = wide,
                 compactTitle = compactTitle,
+                onCta = channelCtaClick(item, coordinator),
             )
         }
     } else {
@@ -759,6 +768,7 @@ private fun androidx.compose.foundation.lazy.LazyListScope.feedSection(
                         onClick = itemClick(item, section, coordinator, onOpen, onPlayItem),
                         modifier = Modifier.weight(1f),
                         inset = metrics.inset,
+                        onCta = channelCtaClick(item, coordinator),
                     )
                 }
                 repeat(columns - rows[r].size) { Spacer(Modifier.weight(1f)) }
@@ -873,6 +883,37 @@ private fun rememberChannelSubscriber(coordinator: PlaybackCoordinator): ((chann
                 errorText(error.errorCode() ?: "E20161").load()
             }
             snackbar(message)
+        }
+    }
+}
+
+/** Subscribe pill on a channel card: sign-in nudge when signed out, else subscribe + snackbar. */
+@Composable
+private fun channelCtaClick(item: YtFeedItem, coordinator: PlaybackCoordinator): (() -> Unit)? {
+    if (item.kind != YtFeedItem.KIND_CHANNEL || item.ctaText == null) return null
+    val channelId = item.channelId ?: item.id
+    val signIn = LocalSignInResolver.current
+    val snackbar = LocalSnackbar.current
+    val scope = rememberCoroutineScope()
+    val graph = coordinator.graph
+    val signInMessage = stringResource(Res.string.channel_sign_in_to_subscribe)
+    return {
+        if (signIn == null || !signIn.signedIn) {
+            snackbar(signInMessage)
+        } else {
+            scope.launch {
+                val log = graph.logger?.fork("channel-subscribe", mapOf("channelId" to channelId))
+                val message = try {
+                    graph.engines.subscribeChannel(channelId, true, log)
+                    getString(Res.string.subscribed)
+                } catch (error: CancellationException) {
+                    throw error
+                } catch (error: Throwable) {
+                    log?.log(Logger.Level.WARN, "subscribe from channel CTA failed", error)
+                    errorText(error.errorCode() ?: "E20161").load()
+                }
+                snackbar(message)
+            }
         }
     }
 }

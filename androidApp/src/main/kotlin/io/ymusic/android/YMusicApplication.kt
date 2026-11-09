@@ -693,6 +693,7 @@ class YMusicApplication : Application() {
             playerCache = playerCache,
             systemAudioEffects = true,
             audioFocusSetting = true,
+            pipSetting = true,
             stats = shared.stats,
             updates = shared.updates,
             premium = premium,

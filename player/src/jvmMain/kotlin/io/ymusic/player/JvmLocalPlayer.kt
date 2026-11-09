@@ -197,9 +197,15 @@ internal class JvmLocalPlayer(
             FileAvNative.setBass(handle, config.bassBoostDb)
             FileAvNative.setVirtualizer(handle, config.virtualizer)
             FileAvNative.setPreamp(handle, config.preampDb)
+            // Classify missing paths before open so the UI gets [PlayerError.FILE_MISSING]
+            // (localized), not a crash-recorded E60021 — matches AndroidLocalPlayer.
+            if (!java.io.File(path).isFile) {
+                fail(path, missingFile = true)
+                return@dispatch
+            }
             if (FileAvNative.open(handle, path) != 0) {
                 val err = FileAvNative.lastError(handle).ifBlank { "open failed" }
-                fail(err)
+                fail(err, missingFile = looksLikeMissingFile(err, path))
                 return@dispatch
             }
             if (gen != loadGen.get()) return@dispatch
@@ -467,7 +473,7 @@ internal class JvmLocalPlayer(
     override fun onEvent(ended: Boolean, error: String?) {
         if (released) return
         if (error != null && error.isNotEmpty()) {
-            fail(error)
+            fail(error, missingFile = looksLikeMissingFile(error, loadedPath))
             return
         }
         if (!ended) return
@@ -504,8 +510,13 @@ internal class JvmLocalPlayer(
         val file = path ?: return
         if (handle == 0L) return
         val pos = FileAvNative.position(handle)
+        if (!java.io.File(file).isFile) {
+            fail(file, missingFile = true)
+            return
+        }
         if (FileAvNative.open(handle, file) != 0) {
-            fail(FileAvNative.lastError(handle).ifBlank { "open failed" })
+            val err = FileAvNative.lastError(handle).ifBlank { "open failed" }
+            fail(err, missingFile = looksLikeMissingFile(err, file))
             return
         }
         loadedPath = file
@@ -655,13 +666,26 @@ internal class JvmLocalPlayer(
         if (lines != _captionLines.value) _captionLines.value = lines
     }
 
-    private fun fail(message: String) {
+    private fun fail(message: String, missingFile: Boolean = false) {
         pumping = false
+        val error = if (missingFile) {
+            PlayerError(PlayerError.FILE_MISSING, message, canRetry = false)
+        } else {
+            PlayerError("E60021", message)
+        }
         onApp {
-            _status.update { it.copy(state = PlaybackState.Error(PlayerError("E60021", message))) }
+            _status.update { it.copy(state = PlaybackState.Error(error)) }
         }
         dispatch { if (handle != 0L) FileAvNative.pause(handle) }
     }
+}
+
+/** libav / OS wording for a path that is gone — keep in sync with Android's FileNotFound path. */
+internal fun looksLikeMissingFile(message: String, path: String? = null): Boolean {
+    val m = message.lowercase()
+    if (m.contains("no such file") || m.contains("enoent") || m.contains("file not found")) return true
+    if (path != null && !java.io.File(path).isFile) return true
+    return false
 }
 
 private const val KIND_AUDIO = 0

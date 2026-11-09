@@ -10,7 +10,7 @@ Complete Discover Home, Search, Player, Playlists, Library, Queue, and Settings 
 
 | Area | Status | Notes |
 |------|--------|-------|
-| **5.1 Home** | Done | Brand + search pill, quick chips (Recommended / Charts / Library / Playlists / Play again), **Recently played** (`youtubeRecent`), **Recently added** (local library by `createdAt`), Featured = engine Home shelves |
+| **5.1 Home** | Done | Brand + search pill, quick chips (Recommended / Charts / Library / Playlists / Play again), **Recently played** (`youtubeRecent`), Featured = engine Home shelves (Recently added removed) |
 | **5.2 Search** | Done (existing) | Songs/artists/albums/playlists via engine filters; history + clear; loading/empty/error; artwork; debounced suggest (non-blocking) |
 | **5.3 Player** | Done (existing) | Play/pause/resume/next/prev/seek/position/duration/volume/shuffle/repeat(none/one/all)/queue/art/title/artist; single `Player` in `AppGraph`; state survives navigation |
 | **5.4 Playlists** | Done (existing) | Create/rename/delete/add/remove/reorder/play/shuffle/artwork; SQLDelight media-store |
@@ -21,7 +21,7 @@ Complete Discover Home, Search, Player, Playlists, Library, Queue, and Settings 
 ## Phase 5 gap fills (this pass)
 
 - `PlayHistoryStore.youtubeRecent` / `clearPlayHistory`
-- `HomeHub` recently played + recently added shelves
+- `HomeHub` recently played shelf
 - Queue header clear action
 - Settings privacy clear rows + audio-only default toggle
 - Library Favorites (`AppSettings.libraryFavorites`, smart playlist id `-2`)

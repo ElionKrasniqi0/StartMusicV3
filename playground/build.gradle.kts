@@ -136,7 +136,12 @@ tasks.withType<Test>().configureEach {
 
 compose.desktop {
     application {
-        mainClass = "io.ymusic.playground.MainKt"
+        mainClass =
+            if (providers.gradleProperty("validatePlayback").orNull == "true") {
+                "io.ymusic.playground.HeadlessPlaybackValidate"
+            } else {
+                "io.ymusic.playground.MainKt"
+            }
         jvmArgs(
             "-Dmse.native.dir=${mseJniDir.get().asFile.absolutePath}",
         )

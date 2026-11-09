@@ -9,6 +9,7 @@ import io.ymusic.player.PlaybackState
 import io.ymusic.player.PlaybackStatus
 import io.ymusic.player.Player
 import io.ymusic.player.PlayerError
+import io.ymusic.player.QueueOrigin
 import io.ymusic.player.QueueSource
 import io.ymusic.ui.playhistory.PlayAgainSession
 import kmpcommon.log.Logger
@@ -59,6 +60,8 @@ class PlaybackCoordinator(
                         log.log(Logger.Level.WARN, "playability ${err.code} id=$id: ${err.message}")
                     } else if (err != null && err.code == PlayerError.FILE_MISSING) {
                         log.log(Logger.Level.WARN, "file missing id=$id: ${err.message}", err.cause)
+                    } else if (err != null && err.code == PlayerError.PLAYBACK_UNAVAILABLE) {
+                        log.log(Logger.Level.WARN, "playback unavailable id=$id: ${err.message}", err.cause)
                     } else if (err != null && err.code == PlayerError.FOLDER_ACCESS_LOST) {
                         log.log(Logger.Level.WARN, "folder access lost id=$id: ${err.message}", err.cause)
                     } else if (err != null && err.code == "network") {
@@ -149,12 +152,13 @@ class PlaybackCoordinator(
         player.setQueue(
             listOf(video.toYtMedia()),
             source = NextQueueSource.radio(graph.engines, video.id, log?.fork("queue-source")),
+            origin = QueueOrigin.Radio,
         )
     }
 
     /** Play [video] alone — no radio. */
     fun playSingle(video: YtFeedItem) {
-        player.setQueue(listOf(video.toYtMedia()))
+        player.setQueue(listOf(video.toYtMedia()), origin = QueueOrigin.Single)
     }
 
     /** Play [videos] as the queue (a playlist page), starting at [startIndex]; [source] loads the rest of
@@ -167,18 +171,19 @@ class PlaybackCoordinator(
             playable.map { it.toYtMedia() },
             playIndex = startIndex.coerceIn(0, playable.size - 1),
             source = source,
+            origin = QueueOrigin.Playlist,
         )
     }
 
     /** Play local library [songs] as the queue, starting at [index]. [shuffle] null keeps the user's shuffle mode. */
     fun playLocal(songs: List<MediaStoreItem>, index: Int, shuffle: Boolean? = null) {
         shuffle?.let(player::setShuffle)
-        player.setQueue(songs.map { it.toLocalMedia() }, playIndex = index)
+        player.setQueue(songs.map { it.toLocalMedia() }, playIndex = index, origin = QueueOrigin.Library)
     }
 
     /** Play just [song] now (queue of one). */
     fun playLocalSingle(song: MediaStoreItem) {
-        player.setQueue(listOf(song.toLocalMedia()))
+        player.setQueue(listOf(song.toLocalMedia()), origin = QueueOrigin.Library)
     }
 
     /**
@@ -189,7 +194,10 @@ class PlaybackCoordinator(
     suspend fun playDownloaded(uri: String, videoId: String, title: String, artist: String?) {
         mediaStore?.findItemByUri(Uri.parse(uri))?.let { return playLocalSingle(it) }
         val art = if (mediaStore != null) youtubeArtUrl(videoId) else youtubeThumbUrl(videoId)
-        player.setQueue(listOf(PlayableItem.LocalMedia(uri = uri, title = title, artist = artist, thumbnailUrl = art)))
+        player.setQueue(
+            listOf(PlayableItem.LocalMedia(uri = uri, title = title, artist = artist, thumbnailUrl = art)),
+            origin = QueueOrigin.Downloads,
+        )
     }
 
     /**
@@ -207,6 +215,7 @@ class PlaybackCoordinator(
             startPositionMs = if (fromBeginning || !saved.resumesMidItem) 0L else saved.positionMs,
             queueId = saved.queueId,
             source = saved.sourceToken?.let { NextQueueSource.resume(it, graph.engines, items, log?.fork("queue-source")) },
+            origin = QueueOrigin.Resume,
         )
         return true
     }

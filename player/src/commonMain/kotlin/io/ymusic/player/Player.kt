@@ -57,7 +57,7 @@ interface Player {
 
     /** Replace the queue and load [playIndex]. An empty [items] clears and stops. [queueId] becomes
      *  [QueueState.queueId] — pass a saved queue's id to resume it as the same queue; null mints one.
-     *  [source] grows the queue past [items] (see [QueueSource]). */
+     *  [source] grows the queue past [items] (see [QueueSource]). [origin] labels it in the log. */
     fun setQueue(
         items: List<PlayableItem>,
         playIndex: Int = 0,
@@ -65,6 +65,7 @@ interface Player {
         playWhenReady: Boolean = true,
         queueId: String? = null,
         source: QueueSource? = null,
+        origin: QueueOrigin = QueueOrigin.Unknown,
     )
 
     /** Fetch the queue source's next page now (the queue's "Load more" / retry). No-op without one. */
@@ -133,6 +134,9 @@ interface Player {
 
     /** Audio-focus ducking: lowers what the engine plays without touching [volume] or [config]. */
     fun setDucked(ducked: Boolean)
+
+    /** Lowers playback further while voice input is listening, independent of [setDucked]. */
+    fun setVoiceDucked(ducked: Boolean)
 
     /** Last applied playback speed. Write pushes [PlaybackConfig]; not a flow. */
     var speed: Float
@@ -216,11 +220,13 @@ interface Player {
 /**
  * Lazy engine factories — an engine is only constructed when the queue first needs its item type.
  * [youtube] may be null on hosts without a YouTube engine; a [PlayableItem.YtMedia] then fails with
- * `E60050` through [Player.status] instead of crashing.
+ * `E60050` through [Player.status] instead of crashing. [unavailable] is for a host whose media
+ * backend failed to come up: no engine is built and every load publishes it.
  */
 class PlayerEngines(
     val local: () -> LocalPlayer,
     val youtube: (() -> YtEngine)? = null,
+    val unavailable: PlayerError? = null,
 )
 
 fun createPlayer(
