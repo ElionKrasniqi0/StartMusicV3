@@ -365,9 +365,11 @@ fun FeedList(
 ) {
     val state by pager.state.collectAsState()
     val queue by coordinator.player.queue.collectAsState()
-    // A queued/current item means the user left the cold-start empty surface — keep HomeHub /
-    // mini-player visible and do not paste the anonymous-home nudge over playback.
-    val hasPlaybackSession = queue.currentItem != null
+    // Home's anonymous nudge must not cover HomeHub once something is playing. Feeds without
+    // topContent (Recommended / Star, Top tracks, …) have no alternate surface — suppressing
+    // EmptyState there left a blank page after the first song, so keep the empty + Reload UI
+    // until the feed actually has items.
+    val suppressEmptyNudge = queue.currentItem != null && topContent != null
     // Pull-to-refresh / F5 reloads the surface from the top: drop any chip filter and take the
     // server's default first response, keeping the current list on screen until the new page lands.
     val reload = { pager.reload() }
@@ -406,9 +408,9 @@ fun FeedList(
                         FeedChips(s, pager)
                         // Keep-content reload only — pager.refresh() would flip to Loading, tear
                         // down EmptyState, and replay its fade (the empty-home "shake").
-                        // Hide the nudge once playback has a current item; HomeHub + mini-player
-                        // are the real surface then.
-                        if (!hasPlaybackSession) {
+                        // Suppress only when topContent (HomeHub) still fills the screen during
+                        // playback; otherwise EmptyState + Reload must stay (Star black-screen fix).
+                        if (!suppressEmptyNudge) {
                             if (emptyAction != null) {
                                 EmptyState(
                                     s.emptyMessage ?: emptyMessage,
