@@ -37,7 +37,7 @@ sentry {
 
 val appVersionName = appVersionName()
 
-// Outputs read StartMusicV3-<abi>-release.apk (version lives in the APK badging / versionName).
+// Base name for archives; final APK file is forced to StartMusicV3.apk below (all variants).
 base { archivesName.set("StartMusicV3") }
 
 // The ABIs every native the app needs — quickjs, mse, ffmpeg — is built for. A device on any other
@@ -137,6 +137,19 @@ android {
     // as per-ABI native libs. The metadata scanner execs libffmpeg.so from nativeLibraryDir; MSE
     // loads the same libav*.so. stageFfmpeg fills the dir; the merge task depends on it explicitly.
     sourceSets["main"].jniLibs.srcDir(layout.buildDirectory.dir("ffmpegJniLibs").get().asFile)
+}
+
+// Always emit StartMusicV3.apk (debug and release). With ABI splits, build one ABI at a time
+// (-PandroidAbis=…) so outputs do not collide on the same filename.
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            // ApkOutput has outputFileName on AGP's variant API when present.
+            @Suppress("UnstableApiUsage")
+            val apk = output as? com.android.build.api.variant.impl.VariantOutputImpl
+            apk?.outputFileName?.set("StartMusicV3.apk")
+        }
+    }
 }
 
 val stageFfmpeg by tasks.registering(Copy::class) {

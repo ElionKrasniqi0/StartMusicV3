@@ -364,6 +364,10 @@ fun FeedList(
     onDeeplink: ((link: String, title: String?) -> Unit)? = null,
 ) {
     val state by pager.state.collectAsState()
+    val queue by coordinator.player.queue.collectAsState()
+    // A queued/current item means the user left the cold-start empty surface — keep HomeHub /
+    // mini-player visible and do not paste the anonymous-home nudge over playback.
+    val hasPlaybackSession = queue.currentItem != null
     // Pull-to-refresh / F5 reloads the surface from the top: drop any chip filter and take the
     // server's default first response, keeping the current list on screen until the new page lands.
     val reload = { pager.reload() }
@@ -397,24 +401,28 @@ fun FeedList(
             }
             is Pager.State.Ready -> {
                 if (s.sections.all { it.items.isEmpty() }) {
-                    Column(modifier) {
+                    Column(modifier.fillMaxSize()) {
                         topContent?.invoke()
                         FeedChips(s, pager)
-                        // The source's own explainer (anonymous Home's "Try searching to get
-                        // started") beats the surface's generic empty text.
-                        if (emptyAction != null) {
-                            EmptyState(
-                                s.emptyMessage ?: emptyMessage,
-                                title = s.emptyTitle,
-                                actionLabel = emptyAction.label,
-                                onSecondaryReload = { pager.refresh(s.selectedChipToken) },
-                                onReload = emptyAction.onClick,
-                            )
-                        } else {
-                            EmptyState(
-                                s.emptyMessage ?: emptyMessage,
-                                title = s.emptyTitle,
-                            ) { pager.refresh(s.selectedChipToken) }
+                        // Keep-content reload only — pager.refresh() would flip to Loading, tear
+                        // down EmptyState, and replay its fade (the empty-home "shake").
+                        // Hide the nudge once playback has a current item; HomeHub + mini-player
+                        // are the real surface then.
+                        if (!hasPlaybackSession) {
+                            if (emptyAction != null) {
+                                EmptyState(
+                                    s.emptyMessage ?: emptyMessage,
+                                    title = s.emptyTitle,
+                                    actionLabel = emptyAction.label,
+                                    onSecondaryReload = { pager.reload(s.selectedChipToken) },
+                                    onReload = emptyAction.onClick,
+                                )
+                            } else {
+                                EmptyState(
+                                    s.emptyMessage ?: emptyMessage,
+                                    title = s.emptyTitle,
+                                ) { pager.reload(s.selectedChipToken) }
+                            }
                         }
                     }
                 } else {
@@ -457,11 +465,15 @@ internal fun EmptyState(
     onSecondaryReload: (() -> Unit)? = null,
     onReload: (() -> Unit)?,
 ) {
+    // Animate in once for this composition; never reset on parent recomposition (a keep-content
+    // reload must not replay the fade — that read as a screen shake on empty Home).
     val appear = remember { Animatable(0f) }
     LaunchedEffect(Unit) {
-        appear.animateTo(1f, tween(DesignMotion.ContentFadeMs, easing = FastOutSlowInEasing))
+        if (appear.value < 1f) {
+            appear.animateTo(1f, tween(DesignMotion.ContentFadeMs, easing = FastOutSlowInEasing))
+        }
     }
-    CenteredBox(modifier) {
+    CenteredBox(modifier.fillMaxSize()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
