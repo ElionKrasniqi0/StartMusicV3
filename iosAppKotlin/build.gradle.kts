@@ -53,6 +53,8 @@ kotlin {
             }
             linkerOpts("-framework", "MediaPlayer")
             linkerOpts("-framework", "LocalAuthentication")
+            linkerOpts("-lsqlite3")
+
             // Same as :playground: cinterop linkerOpts is ignored; bake libav + VT here.
             val lib = ffmpegSlug?.let {
                 rootProject.projectDir.parentFile.resolve("ffmpeg-build/out/$it/lib")
@@ -91,6 +93,9 @@ kotlin {
             implementation(project(":kmpCommon"))
             implementation(project(":projectCommon"))
             implementation(project(":log-store")) // the app log (logs.db)
+            implementation(project(":media-store"))
+            implementation(project(":media-scanner"))
+            implementation(project(":download"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)

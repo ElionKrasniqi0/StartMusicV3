@@ -3,9 +3,8 @@ import SwiftUI
 import UIKit
 import YMusicApp
 
-// The iOS product shell: hosts the shared Compose UI (MainViewControllerKt.MainViewController from the
-// :commonUi YMusicApp framework), which builds the AppGraph over the AVFoundation local + WKWebView
-// YouTube engines and runs the same App as the desktop/Android shells.
+// StartMusicV3 iOS shell: SwiftUI hosts MainViewControllerKt.MainViewController() from the
+// :iosAppKotlin YMusicApp framework. Shared Compose App over AVFoundation local + MSE YouTube.
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {

@@ -36,6 +36,10 @@
     </array>
     <key>UIBackgroundModes</key>
     <array><string>audio</string></array>
+    <!-- App Documents (Downloads / library folders) visible in the Files app when needed. -->
+    <key>LSSupportsOpeningDocumentsInPlace</key><true/>
+    <key>UIFileSharingEnabled</key><true/>
+    <key>UISupportsDocumentBrowser</key><true/>
     <key>NSCameraUsageDescription</key>
     <string>StartMusicV3 uses the camera to scan a QR code shown on your computer so you can sign in on desktop.</string>
     <key>NSFaceIDUsageDescription</key>

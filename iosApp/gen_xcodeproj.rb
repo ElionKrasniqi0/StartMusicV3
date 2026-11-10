@@ -1,15 +1,16 @@
 #!/usr/bin/env ruby
-# Generates iosApp.xcodeproj — the iOS product shell that runs the shared Compose UI (:commonUi's
-# YMusicApp framework) on a device. Gradle builds + embeds + signs the framework
-# (:commonUi:embedAndSignAppleFrameworkForXcode, -PkmpTargets=all so iosArm64 is configured on this
-# Intel host); Xcode compiles iosApp/iOSApp.swift, which hosts MainViewControllerKt.MainViewController.
+# Generates iosApp.xcodeproj — StartMusicV3 iOS shell hosting shared Compose UI via the
+# :iosAppKotlin YMusicApp framework. Xcode compiles iosApp/*.swift; a build phase runs
+# :iosAppKotlin:embedAndSignAppleFrameworkForXcode (-PkmpTargets=all).
 #
-# REQUIRES XCODE 16+ (iOS 18 SDK): Compose Multiplatform 1.11.1's ui-uikit links against
-# UIViewLayoutRegion (iOS 18), which is absent from Xcode 15.3's iOS 17.4 SDK. The Kotlin side
-# compiles for arm64 on any Xcode; only the framework LINK needs the iOS 18 SDK.
+# Link note: Compose Multiplatform 1.11.1's ui-uikit references UIViewLayoutRegion (iOS 26 SDK /
+# Xcode 26). Older Xcode needs -PiosAllowUndefined=true (dev only, not App Store).
 #
+#   gem install xcodeproj
 #   ruby gen_xcodeproj.rb
+#   open iosApp.xcodeproj
 require "xcodeproj"
+require "fileutils"
 
 HERE = File.dirname(File.expand_path(__FILE__))
 proj_path = File.join(HERE, "iosApp.xcodeproj")
@@ -48,7 +49,7 @@ gradle_phase.shell_script = <<~SH
   # Let this shell (Xcode's child) codesign; Gradle's codesign hits errSecInternalComponent.
   SIGN_ID="${EXPANDED_CODE_SIGN_IDENTITY:-}"
   unset EXPANDED_CODE_SIGN_IDENTITY
-  # -PkmpTargets=all so iosArm64 / iosSimulatorArm64 are configured even on this Intel host.
+  # -PkmpTargets=all so iosArm64 / iosSimulatorArm64 are configured even on an Intel host.
   # -PiosAllowUndefined=true lets Compose 1.11.1's iOS 26 symbols link on an older Xcode
   # (@available-guarded, so unused below iOS 26). Drop it once building with Xcode 26.
   ./gradlew --no-daemon :iosAppKotlin:embedAndSignAppleFrameworkForXcode -PkmpTargets=all -PiosAllowUndefined=true
@@ -75,19 +76,23 @@ target.build_configurations.each do |config|
   s["IPHONEOS_DEPLOYMENT_TARGET"] = "15.0"
   s["PRODUCT_BUNDLE_IDENTIFIER"] = "com.ymusic.iosapp"
   s["PRODUCT_NAME"] = "$(TARGET_NAME)"
+  # Path relative to SRCROOT (the iosApp/ directory that contains iosApp.xcodeproj).
   s["INFOPLIST_FILE"] = "iosApp/Info.plist"
-  s["TARGETED_DEVICE_FAMILY"] = "1,2"
+  s["TARGETED_DEVICE_FAMILY"] = "1,2" # iPhone + iPad
+  s["SUPPORTS_MACCATALYST"] = "NO"
   s["CODE_SIGN_STYLE"] = "Automatic"
   # DEVELOPMENT_TEAM intentionally unset — pick your Team in Xcode's Signing tab.
   s["ENABLE_USER_SCRIPT_SANDBOXING"] = "NO"
   s["ONLY_ACTIVE_ARCH"] = "YES"
   s["ASSETCATALOG_COMPILER_APPICON_NAME"] = "AppIcon"
   s["ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS"] = "NO"
-  # Compose MP has no iosX64, so the simulator path is arm64-only (Apple-Silicon hosts).
-  s["FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]"] = "$(SRCROOT)/../commonUi/build/bin/iosArm64/debugFramework"
-  s["FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]"] = "$(SRCROOT)/../commonUi/build/bin/iosSimulatorArm64/debugFramework"
-  s["OTHER_LDFLAGS"] = "-framework YMusicApp"
+  # Framework is produced by :iosAppKotlin (baseName YMusicApp) — NOT :commonUi.
+  # Compose MP has no iosX64; simulator path is arm64-only (Apple Silicon hosts).
+  s["FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]"] = "$(SRCROOT)/../iosAppKotlin/build/bin/iosArm64/debugFramework"
+  s["FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]"] = "$(SRCROOT)/../iosAppKotlin/build/bin/iosSimulatorArm64/debugFramework"
+  s["OTHER_LDFLAGS"] = "$(inherited) -framework YMusicApp"
 end
 
 project.save
 puts "wrote #{proj_path}"
+puts "NOTE: re-open in Xcode and set Signing Team. Framework paths → iosAppKotlin/build/bin/…"

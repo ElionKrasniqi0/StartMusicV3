@@ -1,61 +1,131 @@
-# iosApp — the shared Compose UI on iOS
+# iosApp — StartMusicV3 on iPhone and iPad
 
-The iOS product shell: runs the **same** shared Compose `App` (`:commonUi`) as the desktop and Android
-shells, on a real iPhone/iPad, over the AVFoundation local + MSE YouTube engines. Symmetric with
-`:desktopApp` and `:androidApp`.
+The iOS product shell runs the **same** shared Compose `App` (`:commonUi`) as the Android and
+Windows shells. SwiftUI (`iOSApp.swift`) hosts `MainViewControllerKt.MainViewController()` from the
+`:iosAppKotlin` **YMusicApp** framework (internal framework name; **user-facing product name is
+StartMusicV3**).
 
-`iosApp/iOSApp.swift` (SwiftUI `@main`) hosts `MainViewControllerKt.MainViewController()` from the
-`:commonUi` **YMusicApp** framework, which builds the iOS `AppGraph` and runs `App(graph)`.
+Playback:
+
+| Source | Engine |
+|--------|--------|
+| YouTube | MSE + QuickJS + native `:mse` (VideoToolbox / AudioQueue) |
+| Local files | AVFoundation `AppleLocalPlayer` |
+
+OS integration already in the shell: `AVAudioSession` `.playback`, `UIBackgroundModes: audio`,
+Lock Screen / Control Center via `MPRemoteCommandCenter` (`IosNowPlaying.kt`), interruption +
+route-change handling (`IosAudioInterruptions.kt`), PiP (`IosPip.swift`).
+
+## Branding
+
+- **Display name:** `CFBundleDisplayName` = **StartMusicV3** (`iosApp/Info.plist`)
+- **Icon:** `Assets.xcassets/AppIcon.appiconset/AppIcon.png` from `AppIcon.svg` (primary `#7B5CFF`)
+- Do not show YMusic / YMusicV4 as the product name. Internal ids (`com.ymusic.iosapp`, framework
+  `YMusicApp`, URL scheme `ymusic://`) stay for deep-link / signing continuity unless a dedicated
+  rename migration is approved.
+
+## What this shell wires (vs earlier “lean” graph)
+
+| Feature | Status |
+|---------|--------|
+| Discover / Search / YT Music / Settings / Home hub | Shared Compose UI |
+| YouTube play / queue / mini-player / Now Playing | Shared + MSE |
+| Lock Screen / Control Center | `IosNowPlaying.kt` |
+| Interruptions / headphone unplug | `IosAudioInterruptions.kt` |
+| Library (`BetterMediaStore`) | Wired (`mediaStoreNativeDriver`) |
+| Folder pick + scan | `UIDocumentPicker` + security-scoped **bookmarks** + `FileSystemDocumentsProvider` + **NoopMetadataExtractor** (no ffmpeg tags) |
+| Downloads | Wired; **M4A-only** (`ffmpeg = null` → `ffmpegAvailable = false`) |
+| Default download folder | App Documents `StartMusicV3/Downloads` |
+| Local video picture in Compose | Still limited (local **audio** is the supported path); YouTube video uses MSE hole |
+| Android Auto / widgets / FGS notification | Not applicable on iOS |
 
 ## SDK / Xcode requirement
 
-The whole Kotlin chain (`:quickjs` / `:media-store` / `:dynamic-engine` / `:player` + the shared Compose
-UI) **compiles for `iosArm64`** here. Linking the Compose framework is the subtle part:
+Compose Multiplatform 1.11.1 (Kotlin/Native 2.4.0) links `ui-uikit` against `UIViewLayoutRegion`
+(an **iOS 26** UIKit class). Older SDKs fail the link unless you allow undefined symbols.
 
-Compose Multiplatform 1.11.1 (with Kotlin/Native 2.4.0, whose toolchain is pinned to **Xcode 26.4**)
-links `ui-uikit` against `UIViewLayoutRegion` — an **iOS 26** UIKit class. It is absent from the iOS
-17.4 (Xcode 15.3) **and** iOS 18.2 (Xcode 16.2) SDKs, so a normal link fails with:
-
-```
-Undefined symbols for architecture arm64:
-  "_OBJC_CLASS_$_UIViewLayoutRegion", referenced from: … ui-uikit … CMPLayoutRegion.o
-```
-
-- **Clean build: Xcode 26 (iOS 26 SDK).** That needs macOS 15/26 — newer than this host's macOS 14.8,
-  so it's a macOS upgrade or a CI runner with Xcode 26.
-- **Works today on Xcode 16.2 (this Mac) via a guarded workaround:** `-PiosAllowUndefined=true` (baked
-  into the Gradle build phase) links with `-undefined dynamic_lookup`, allowing the iOS 26 symbol to
-  stay unresolved. Compose `@available`-guards its use, so on a sub-iOS-26 device (e.g. the iPad on iOS
-  17.5) it is never referenced. **Verified: a complete arm64 `.app` builds** (arm64 binary + embedded
-  `YMusicApp.framework` + `compose-resources`). Runtime on-device is still to be confirmed; this is a
-  dev/test build, **not** App-Store-shippable (dynamic_lookup) — drop the flag on Xcode 26.
+- **Clean / App Store build:** Xcode **26** (iOS 26 SDK) on a compatible macOS — drop
+  `-PiosAllowUndefined`.
+- **Dev on Xcode 16.2:** `-PiosAllowUndefined=true` (Gradle build phase) uses
+  `-undefined dynamic_lookup`. Compose `@available`-guards the iOS 26 class. **Not App Store–safe.**
 
 ## Simulator
 
-Compose MP 1.11.1 has **no `iosX64`**. The Intel iOS Simulator is x86_64, so this app **cannot run
-in Simulator on this Mac**. Apple Silicon hosts use `iosSimulatorArm64` (Xcode destination → any
-iPhone/iPad sim). On Intel, skip the sim and use a plugged-in device.
+Compose MP has **no `iosX64`**. Use **Apple Silicon** `iosSimulatorArm64`, or a physical device
+(Intel Mac → device only).
 
-## Run on a device (Xcode 16.2, today)
+## Build on a Mac (required — cannot complete on Windows)
 
-1. `ruby gen_xcodeproj.rb` (regenerates `iosApp.xcodeproj`; needs the `xcodeproj` gem)
-2. `open iosApp.xcodeproj`
-3. Target **iosApp** → **Signing & Capabilities** → pick your **Team** (change the bundle id if
-   `com.ymusic.iosapp` is taken).
-4. Plug in + unlock + **Trust** the device; select it as the run destination.
-5. **Run** (⌘R). First launch: **Settings → General → VPN & Device Management** → trust the profile.
+Windows can edit these sources and keep Android/desktop green; it **cannot** produce or run a
+signed iOS `.app`. On macOS:
 
-The Gradle build phase runs `:iosAppKotlin:embedAndSignAppleFrameworkForXcode -PkmpTargets=all
--PiosAllowUndefined=true` to build + embed + sign `YMusicApp.framework`. `-PkmpTargets=all` configures
-`iosArm64` on this Intel host; `JAVA_HOME` is set to `$HOME/.sdkman/candidates/java/current`.
+1. Install Xcode 26 (preferred) or 16.2 for the undefined-symbol workaround.
+2. Ensure FFmpeg **static libav** iOS packs exist (MSE link, **not** a CLI):
+   `../ffmpeg-build/out/ios-arm64` and `ios-simulator-arm64`.
+   On Mac: `scripts/build-ios.sh iphoneos` and `scripts/build-ios.sh iphonesimulator`.
+   These packs do **not** enable MP3 mux or `ffmpeg -i` metadata — iOS still cannot
+   `fork`/`exec` (`:kmpFfmpeg` `appleNoProcess`).
+3. JDK available to the Xcode build phase (`JAVA_HOME`, e.g. SDKMAN `current`).
+4. Regenerate the Xcode project if needed:
+   ```bash
+   cd iosApp
+   gem install xcodeproj   # once
+   ruby gen_xcodeproj.rb
+   open iosApp.xcodeproj
+   ```
+5. Target **iosApp** → **Signing & Capabilities** → choose your **Team** (change
+   `com.ymusic.iosapp` if taken).
+6. Select an iPhone/iPad device or `iosSimulatorArm64` destination → **Run** (⌘R).
+7. First device launch: **Settings → General → VPN & Device Management** → trust the profile.
 
-Signing is the only manual step — this environment can't enter your Apple ID; Xcode does it locally.
+The Gradle build phase runs:
 
-## Notes
+```text
+:iosAppKotlin:embedAndSignAppleFrameworkForXcode -PkmpTargets=all [-PiosAllowUndefined=true]
+```
 
-- `mediaStore` is null in the iOS graph for now (Library shows empty) — keeps the shell lean; the
-  media-store SQLDelight native driver can be wired later (it already compiles for `iosArm64`).
-- Local video isn't hosted in the shared surface on iOS yet (AVFoundation renders via `AVPlayerLayer`
-  in the player-lab spike); YouTube picture is MSE `copyFrame`. Audio (the music default) is fine.
-- Settings → Link devices uses the camera (`NSCameraUsageDescription`) to scan a desktop QR, then
-  PIN/Face ID (`NSFaceIDUsageDescription`) before POSTing the encrypted YouTube cookies.
+### Device QA checklist (Mac)
+
+- Cold launch → Home (empty nudge or HomeHub)
+- Search → play → mini-player + Lock Screen controls
+- Background audio / Control Center
+- Phone call / Siri interruption → pause; resume when appropriate
+- Bluetooth / headphone unplug → pause
+- Library → pick folder → rescan
+- Downloads → enqueue M4A only; confirm Library registration
+- iPad orientations / Split View smoke
+- Settings → PiP toggle (shell sets `pipSetting = true`)
+
+### TestFlight / Release
+
+1. Build with Xcode 26; **omit** `iosAllowUndefined`.
+2. Archive → Distribute → TestFlight / App Store Connect.
+3. Bump `CFBundleShortVersionString` / `CFBundleVersion` with the rest of the release flow
+   (`gradle.properties` / shell versions — keep in sync with Android/desktop).
+
+## Permissions (Info.plist)
+
+| Key | Why |
+|-----|-----|
+| `UIBackgroundModes: audio` | Background playback |
+| `NSCameraUsageDescription` | Device-link QR scan |
+| `NSFaceIDUsageDescription` | Confirm before sending cookies to desktop |
+| `NSLocalNetworkUsageDescription` / ATS local | Dev server only |
+| `UIFileSharingEnabled` / document browser | Documents / Downloads in Files |
+
+No push-notification permission is requested for playback (Lock Screen uses Now Playing, not APNs).
+
+## Phase B readiness
+
+Full audit (gaps, Mac commands, signing, QA checklist):  
+[`docs/STARTMUSIC_IOS_PHASE_B_READY.md`](../docs/STARTMUSIC_IOS_PHASE_B_READY.md).
+
+Windows-safe prep already applied: `gen_xcodeproj.rb` framework paths → `:iosAppKotlin`,
+stale WKWebView comment removed, security-scoped bookmark persistence for picked folders.
+
+## Related modules
+
+- [`iosAppKotlin/`](../iosAppKotlin/) — composition root / `AppGraph`
+- [`player/`](../player/) — `AppleLocalPlayer`, `AudioSession.ios.kt`
+- [`mse/`](../mse/), [`dynamic-engine/`](../dynamic-engine/), [`engine-js/`](../engine-js/)
+- [`media-store/`](../media-store/), [`media-scanner/`](../media-scanner/), [`download/`](../download/)

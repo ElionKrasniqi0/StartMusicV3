@@ -14,6 +14,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
+import io.ymusic.download.DefaultDownloadStorage
+import io.ymusic.download.DownloadService
+import io.ymusic.download.DownloadStore
+import io.ymusic.download.downloadDatabaseNativeDriver
 import io.ymusic.dynamicengine.DynamicEngineManager
 import io.ymusic.dynamicengine.EMBEDDED_ENGINE_JS_VERSION
 import io.ymusic.dynamicengine.EMBEDDED_PLAYER_JS_VERSION
@@ -27,6 +31,8 @@ import io.ymusic.imageloader.networkFetcher
 import io.ymusic.logstore.DbLogger
 import io.ymusic.logstore.LogStore
 import io.ymusic.logstore.nativeLogDatabaseDriver
+import io.ymusic.mediastore.BetterMediaStore
+import io.ymusic.mediastore.mediaStoreNativeDriver
 import io.ymusic.mse.MseVideoSurface
 import io.ymusic.player.LocalPlayerContext
 import io.ymusic.player.PlayerEngines
@@ -45,9 +51,12 @@ import io.ymusic.ui.App
 import io.ymusic.ui.AppGraph
 import io.ymusic.ui.AppHttpClients
 import io.ymusic.ui.CatalogueScreen
+import io.ymusic.ui.YtEngineSabrSpecResolver
+import io.ymusic.ui.downloadLocationFolder
 import io.ymusic.ui.ensureAppLanguage
 import io.ymusic.ui.playhistory.PlayHistoryStore
 import io.ymusic.ui.playhistory.playHistoryNativeDriver
+import io.ymusic.ui.registerCompletedDownload
 import io.ymusic.ui.sponsorblock.SqliteSponsorBlockStore
 import io.ymusic.ui.sponsorblock.sponsorBlockNativeDriver
 import io.ymusic.ui.startupFailedMessage
@@ -68,12 +77,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import platform.Foundation.NSApplicationSupportDirectory
 import platform.Foundation.NSBundle
 import platform.Foundation.NSCachesDirectory
 import platform.Foundation.NSDate
+import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSUserDomainMask
 import platform.Foundation.timeIntervalSince1970
@@ -114,6 +125,9 @@ private fun IosAppRoot() {
         else -> {
             LaunchedEffect(g) {
                 connectIosMediaSession(g.player, this, g.logger?.fork("now-playing"), g.imageLoader)
+            }
+            LaunchedEffect(g) {
+                connectIosAudioInterruptions(g.player, g.settings, this, g.logger)
             }
             LaunchedEffect(g) {
                 combine(
@@ -295,15 +309,74 @@ private suspend fun buildIosGraph(container: UIView): AppGraph {
         ),
     )
 
+    val mediaStore = withContext(Dispatchers.Default) {
+        BetterMediaStore.create(mediaStoreNativeDriver())
+    }
+    IosSecurityScopedBookmarks.restoreAll()
+    val documentsDir = (NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).first() as String)
+        .toPath()
+        .resolve("StartMusicV3")
+    FileSystem.SYSTEM.createDirectories(documentsDir)
+    val defaultDownloadUri = iosEnsureDefaultDownloadFolder(mediaStore, documentsDir)
+    if (settings.flow(AppSettings.downloadLocation).value.isBlank()) {
+        settings.put(AppSettings.downloadLocation, defaultDownloadUri)
+    }
+
+    // M4A-only: no ffmpeg CLI on Apple — UI hides MP3/mux formats via ffmpegAvailable=false.
+    val downloadResolver = YtEngineSabrSpecResolver { msePlayer }
+    val downloadService = withContext(Dispatchers.Default) {
+        val store = DownloadStore(downloadDatabaseNativeDriver(), rootLogger)
+        val sabrClient = KmpHttpClient.create {
+            cookieJar = cookies
+            defaultRedirectOptions = RedirectOptions(followRedirects = false, followSslRedirects = false)
+        }
+        val segmentIndex = SqlDelightSegmentIndex(
+            nativeSegmentDatabaseDriver("download_segments.db"),
+            now = { (NSDate().timeIntervalSince1970 * 1000).toLong() },
+        )
+        DownloadService(
+            store = store,
+            scope = CoroutineScope(SupervisorJob() + Dispatchers.Default),
+            now = { (NSDate().timeIntervalSince1970 * 1000).toLong() },
+            resolver = downloadResolver,
+            client = sabrClient,
+            userAgent = MSE_CHROME_UA,
+            ffmpeg = null,
+            storage = DefaultDownloadStorage(
+                FileSystem.SYSTEM,
+                documentsDir.resolve("download-work"),
+            ),
+            mediaCache = playerCache,
+            segmentIndex = segmentIndex,
+            downloadFolder = {
+                settings.downloadLocationFolder()
+                    ?: error("download location unset")
+            },
+            onCompleted = { task, result ->
+                registerCompletedDownload(mediaStore, settings, scanner = null, task, result)
+            },
+            logger = rootLogger,
+            playerResponse = downloadResolver::playerResponse,
+        )
+    }
+
     val graph = AppGraph(
         engines = engines,
         player = player,
         logger = rootLogger,
         playerCache = playerCache,
-        mediaStore = null,
+        mediaStore = mediaStore,
         playHistory = PlayHistoryStore(playHistoryNativeDriver()),
         sponsorBlockStore = SqliteSponsorBlockStore(sponsorBlockNativeDriver()),
-        scanLibraryFolder = null,
+        scanLibraryFolder = { onProgress -> iosScanPickedFolder(mediaStore, onProgress, rootLogger) },
+        libraryFolderPicker = { iosPickAndRegisterFolder(mediaStore) },
+        canWriteFolder = { true },
+        probeDownloadFolder = { uri -> iosProbeDownloadFolder(uri) },
+        rescanLibrary = { folderUri, onProgress ->
+            iosRescanKnownRoots(mediaStore, folderUri, onProgress, rootLogger)
+        },
+        deleteFromDisk = { item -> iosDeleteFromDisk(item.uri.toString()) },
+        downloads = downloadService,
         imageLoader = imageLoader,
         settings = settings,
         appVersion = appVersionName,
@@ -315,6 +388,7 @@ private suspend fun buildIosGraph(container: UIView): AppGraph {
         api = api,
         remoteConfig = remoteConfig.config,
         surfaceScalesDown = true,
+        pipSetting = true,
         loginBrowser = { url, userAgent, state, onPageChanged, modifier ->
             IosLoginBrowser(url, userAgent, state, onPageChanged, modifier)
         },
