@@ -8,6 +8,9 @@ import okio.Path
 expect class Cache {
     fun size(): Long
     fun maxSize(): Long
+
+    /** Drop every entry. Safe while the client is live; in-flight responses keep their snapshots. */
+    fun evictAll()
 }
 
 /**

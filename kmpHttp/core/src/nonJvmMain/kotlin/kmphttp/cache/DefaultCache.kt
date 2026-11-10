@@ -216,6 +216,16 @@ class DefaultCache(
     /** Max size of the cache (in bytes). */
     fun maxSize(): Long = cache.maxSize
 
+    /** Drop every entry; restores the previous budget after trimming. */
+    fun evictAll() {
+        kotlinx.coroutines.runBlocking {
+            val max = cache.maxSize
+            cache.setMaxSize(0)
+            cache.trimNow()
+            cache.setMaxSize(max)
+        }
+    }
+
     @OptIn(ExperimentalAtomicApi::class)
     private class RealCacheRequest private constructor(
         private val editor: DiskLruCache.Editor,

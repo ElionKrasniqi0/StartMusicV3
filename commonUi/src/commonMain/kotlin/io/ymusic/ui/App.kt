@@ -448,6 +448,12 @@ private fun AppRoot(
         // Discover feeds cache per browseId — switching tab or navigating away and back must show
         // the already-loaded feed at its old scroll position, not reload it.
         val discoverSessions = remember { mutableMapOf<String, FeedSession>() }
+        // Featured = Home shelves: reload keep-content when listen history changes (not only on process death).
+        LaunchedEffect(graph.playHistory) {
+            bindFeaturedHomeReload(graph.playHistory) {
+                discoverSessions[DiscoverTab.Home.name]
+            }?.join()
+        }
         // YT Music's per-tab feed cache — same lifetime/locale rules as Discover's above.
         val ytMusicSessions = remember { mutableMapOf<YtMusicTab, FeedSession>() }
         // The content locale decides what every feed CONTAINS and the language of its
@@ -1477,7 +1483,20 @@ private fun DiscoverFeed(
                             DiscoverTab.Music -> graph.engines.extractTrendingMusicFeed(logger = log)
                             else -> home(continuation, false)
                         }
-                    }.also { it.pager.refresh() }
+                    }.also { session ->
+                        if (tab != DiscoverTab.Home) {
+                            session.pager.refresh()
+                        } else {
+                            // Featured: if the user already listened this process, skip the stale
+                            // bootstrap homepage and scrape fresh (keep-content reload path).
+                            scope.launch {
+                                val listened = runCatching {
+                                    graph.playHistory?.youtubeRecent(limit = 1)?.isNotEmpty() == true
+                                }.getOrDefault(false)
+                                if (listened) session.pager.reload() else session.pager.refresh()
+                            }
+                        }
+                    }
                 }
             }
         }

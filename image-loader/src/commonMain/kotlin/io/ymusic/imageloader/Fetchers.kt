@@ -31,8 +31,20 @@ fun networkFetcher(
     cacheDir: Path,
     cacheMaxBytes: Long = 128L * 1024 * 1024,
     maxImageBytes: Long = 32L * 1024 * 1024,
+): ImageFetcher = networkFetcher(
+    client,
+    fileSystem,
+    ImageSourceCache(fileSystem, cacheDir, cacheMaxBytes),
+    maxImageBytes,
+)
+
+/** Same as the directory overload, sharing an existing [cache] (Clear Cache must clear this instance). */
+fun networkFetcher(
+    client: KmpHttpClient,
+    fileSystem: FileSystem,
+    cache: ImageSourceCache,
+    maxImageBytes: Long = 32L * 1024 * 1024,
 ): ImageFetcher {
-    val cache = ImageSourceCache(fileSystem, cacheDir, cacheMaxBytes)
     return ImageFetcher { uri, size, scale ->
         if (!uri.isHttp()) return@ImageFetcher null
         val url = uri.toString()

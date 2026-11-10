@@ -201,6 +201,17 @@ class PlayHistoryStore(
         _changes.tryEmit(Unit)
     }
 
+    /** Clear App Data: ranking tables plus every Play again session. */
+    suspend fun clearAllUserHistory() = withContext(io) {
+        driver.execute(null, "DELETE FROM local_play_history", 0)
+        driver.execute(null, "DELETE FROM yt_play_history", 0)
+        driver.execute(null, "DELETE FROM yt_video_metadata", 0)
+        driver.execute(null, "DELETE FROM play_again", 0)
+        historyCleaned = false
+        _changes.tryEmit(Unit)
+        playAgain.notifyCleared()
+    }
+
     private fun youtubeFeedItems(idSql: String, limit: Int): List<YtFeedItem> {
         val ids = queryIds(idSql, limit)
         if (ids.isEmpty()) return emptyList()

@@ -164,6 +164,9 @@ class SharedServices(
     /** The MSE player bundle, upgraded between player sessions. */
     val playerJs: JsSourceProvider,
     val imageLoader: ImageLoader,
+    val imageSourceCache: io.ymusic.imageloader.ImageSourceCache,
+    val imageCoverCache: io.ymusic.imageloader.ImageSourceCache?,
+    val imageScaledCache: io.ymusic.imageloader.DiskScaledImageCache,
     val stats: StatUsage,
     val updates: AndroidAppUpdates,
     /** The YMusic service; null when this build has no service url. */
@@ -426,10 +429,21 @@ class YMusicApplication : Application() {
         // scales with the device's heap class; onTrimMemory (below) sheds it under pressure.
         val ffmpegBin = File(applicationInfo.nativeLibraryDir, "libffmpeg.so")
             .takeIf { it.exists() }?.absolutePath
+        val imageSourceCache = ImageSourceCache(
+            FileSystem.SYSTEM,
+            cacheDir.resolve("image-source-cache").toOkioPath(),
+        )
+        val imageCoverCache = ffmpegBin?.let {
+            ImageSourceCache(FileSystem.SYSTEM, cacheDir.resolve("image-cover-cache").toOkioPath(), 32L * 1024 * 1024)
+        }
+        val imageScaledCache = DiskScaledImageCache(
+            FileSystem.SYSTEM,
+            cacheDir.resolve("image-scaled-cache").toOkioPath(),
+        )
         val imageNetworkFetcher = networkFetcher(
             http.image,
             FileSystem.SYSTEM,
-            cacheDir.resolve("image-source-cache").toOkioPath(),
+            imageSourceCache,
         )
         var loaderRef: ImageLoader? = null
         val imageLoader = ImageLoader(
@@ -441,11 +455,11 @@ class YMusicApplication : Application() {
                         FfmpegMetadataGetter(it, AndroidFfInputResolver(contentResolver)),
                         mediaStore,
                         loaderYoutubeArt { checkNotNull(loaderRef) },
-                        coverCache = ImageSourceCache(FileSystem.SYSTEM, cacheDir.resolve("image-cover-cache").toOkioPath(), 32L * 1024 * 1024),
+                        coverCache = imageCoverCache,
                     )
                 },
             ),
-            scaledCache = DiskScaledImageCache(FileSystem.SYSTEM, cacheDir.resolve("image-scaled-cache").toOkioPath()),
+            scaledCache = imageScaledCache,
             logger = rootLogger,
             memoryCacheBytes = defaultMemoryCacheBudget(this),
             variantIndex = DiskVariantIndex(FileSystem.SYSTEM, cacheDir.resolve("image-variants").toOkioPath()),
@@ -479,7 +493,11 @@ class YMusicApplication : Application() {
             configUpdates = remoteConfig.appUpdate,
         )
         updates.pruneDownloads()
-        return SharedServices(http, cookies, settings, engines, cacheStore, mediaStore, playerJs, imageLoader, stats, updates, api, remoteConfig, runningBundles)
+        return SharedServices(
+            http, cookies, settings, engines, cacheStore, mediaStore, playerJs, imageLoader,
+            imageSourceCache, imageCoverCache, imageScaledCache,
+            stats, updates, api, remoteConfig, runningBundles,
+        )
     }
 
     private suspend fun buildGraph(): AppGraph {
@@ -761,6 +779,15 @@ class YMusicApplication : Application() {
                 fn(title, subtitle)
             },
             downloads = downloadService,
+            storageHooks = androidStorageHooks(
+                context = this,
+                http = shared.http,
+                imageLoader = shared.imageLoader,
+                imageSourceCache = shared.imageSourceCache,
+                imageCoverCache = shared.imageCoverCache,
+                imageScaledCache = shared.imageScaledCache,
+                engineCache = shared.cacheStore as? io.ymusic.dynamicengine.DiskCacheStore,
+            ),
             captureFeedbackReport = captureFeedbackReportAction.takeIf { BuildConfig.SENTRY_DSN.isNotEmpty() },
             platformInfo = listOfNotNull("Android ${android.os.Build.VERSION.RELEASE}", android.os.Build.SUPPORTED_ABIS.firstOrNull()).joinToString(" · "),
             createDocument = { name, mimeType ->

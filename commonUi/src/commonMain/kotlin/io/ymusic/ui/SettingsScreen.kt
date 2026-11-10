@@ -211,6 +211,7 @@ fun SettingsScreen(graph: AppGraph, signedIn: Boolean = false, onLogin: () -> Un
         if (graph.downloads != null) {
             SettingsSection(Res.string.settings_section_downloads) { DownloadSettingsRows(graph) }
         }
+        StorageSettingsSection(graph)
         if (graph.exportSessionCookies != null && graph.scanQrCode != null &&
             graph.confirmDeviceOwner != null && graph.api != null
         ) {

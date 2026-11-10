@@ -174,6 +174,31 @@ class DiskCacheStore(
         queries.selectByScope(scope, ::toMeta).executeAsList()
     }
 
+    /**
+     * Drop every scope/key and its blob file. Returns approximate bytes freed (sum of row sizes).
+     * Holds the write lock so puts in flight are cancelled via the usual supersede path first.
+     */
+    suspend fun clearAll(): Long = writeLock.withLock {
+        withContext(ioDispatcher) {
+            val rows = queries.selectAll().executeAsList()
+            var freed = 0L
+            for (row in rows) {
+                freed += row.size
+                fileSystem.delete(blobPath(row.scope, row.key), mustExist = false)
+            }
+            queries.deleteAll()
+            // Orphan tmp blobs from interrupted puts.
+            runCatching {
+                fileSystem.list(directory)?.forEach { path ->
+                    if (path.name.endsWith("$BLOB_EXT.tmp")) {
+                        fileSystem.delete(path, mustExist = false)
+                    }
+                }
+            }
+            freed
+        }
+    }
+
     // Column order = table order: scope, key, size, updatedAt, lastUsed, custom.
     private fun toMeta(scope: String, key: String, size: Long, updatedAt: Long, lastUsed: Long, custom: String) =
         CacheStore.Meta(key, size, updatedAt, lastUsed, decodeCustom(custom))

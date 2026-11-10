@@ -90,6 +90,11 @@ class SponsorBlockService(
         if (store.removeFromWhitelist(videoId)) notifyChanged()
     }
 
+    suspend fun clearAll() {
+        store.clearAll()
+        notifyChanged()
+    }
+
     private fun snapshotOf(segments: List<SponsorBlockSegment>): SponsorBlockSnapshot =
         SponsorBlockSnapshot(
             segments,

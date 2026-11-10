@@ -245,12 +245,28 @@ internal class AccountController(
             runSuspendCatching { graph.engines.ytRefreshSession() }
                 .onFailure { log?.log(Logger.Level.WARN, "post-logout session refresh failed", it) }
             log?.log(Logger.Level.INFO, "DBG refresh returned")
-            _signedIn.value = false
-            _account.value = null
-            loginEpoch.value += 1
-            graph.player.refreshOnNext()
-            graph.requestRefresh()
+            markSignedOutLocally()
         }
+    }
+
+    /**
+     * After Clear App Data wiped cookies via the shell: flip account UI without another jar wipe.
+     * Refreshes the engine session when possible so feeds reload anonymous.
+     */
+    fun invalidateAfterDataReset() {
+        scope.launch {
+            runSuspendCatching { graph.engines.ytRefreshSession() }
+                .onFailure { log?.log(Logger.Level.WARN, "post-data-reset session refresh failed", it) }
+            markSignedOutLocally()
+        }
+    }
+
+    private fun markSignedOutLocally() {
+        _signedIn.value = false
+        _account.value = null
+        loginEpoch.value += 1
+        graph.player.refreshOnNext()
+        graph.requestRefresh()
     }
 }
 

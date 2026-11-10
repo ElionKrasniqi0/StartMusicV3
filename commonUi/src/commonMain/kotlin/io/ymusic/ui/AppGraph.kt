@@ -250,6 +250,12 @@ class AppGraph(
     /** The player cache, for its size limit and Settings' usage line; null hides the setting. */
     val playerCache: io.ymusic.ytmedia.cache.MediaCache? = null,
     /**
+     * Platform Clear Cache / Clear App Data hooks (HTTP/image/engine dirs, cookies). Default
+     * [io.ymusic.ui.storage.AppStorageHooks.Noop] hides nothing — Storage UI still offers player-cache
+     * eviction when [playerCache] is set.
+     */
+    val storageHooks: io.ymusic.ui.storage.AppStorageHooks = io.ymusic.ui.storage.AppStorageHooks.Noop,
+    /**
      * SponsorBlock skip-segment fetch, over [api]; null (no service) skips nothing. Shells pass a
      * SQLite [sponsorBlockStore] for cache + per-video whitelist.
      */

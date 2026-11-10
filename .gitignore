@@ -108,3 +108,7 @@ spikes/ios-mse-lab
 
 # Local Windows portable packaging output (jlink image + ZIP)
 /dist/
+
+# Local debug APK copies dropped at the repo root for sideload (never publish)
+/*.apk
+/StartMusicV3.apk

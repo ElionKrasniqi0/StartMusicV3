@@ -66,6 +66,21 @@ class AppHttpClients(
             }
         }
     }.build()
+
+    /** Bytes currently held by the shared HTTP disk cache. */
+    fun diskCacheSize(): Long = runCatching { diskCache.size() }.getOrDefault(0L)
+
+    /**
+     * Evict every HTTP cache entry. Returns bytes freed (best-effort). Safe while clients are live —
+     * in-flight responses keep their snapshots.
+     */
+    fun clearDiskCache(): Long {
+        val before = diskCacheSize()
+        return runCatching {
+            diskCache.evictAll()
+            (before - diskCacheSize()).coerceAtLeast(0L)
+        }.getOrDefault(0L)
+    }
 }
 
 /** The app's network timeout: no response headers within this fails as a network error

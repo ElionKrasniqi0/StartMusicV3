@@ -320,6 +320,15 @@ internal class BetterMediaStoreImpl(
             }
         }
 
+    override suspend fun clearAllUserData(): Unit = withContext(io) {
+        db.transaction {
+            playlistQ.deleteAllPlaylists()
+            // Items first (FK to bucket), then buckets (self-FK parent cascade would also work root-first).
+            driver.execute(null, "DELETE FROM mediaItem", 0)
+            driver.execute(null, "DELETE FROM bucket", 0)
+        }
+    }
+
     override suspend fun restorePlaylists(snapshots: List<PlaylistSnapshot>, replaceAll: Boolean): Unit =
         withContext(io) {
             db.transaction {

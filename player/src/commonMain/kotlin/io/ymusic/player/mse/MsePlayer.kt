@@ -112,6 +112,11 @@ class MsePlayer internal constructor(
     private val _progress = MutableStateFlow(Progress())
     override val progress: StateFlow<Progress> = _progress.asStateFlow()
 
+    /** One-shot breadcrumbs around the known ~40–60s PO/SPS failure band (no secrets / URLs). */
+    private var progressDiagMask = 0
+    private var lastSessionEndReason: String? = null
+    private var lastPoRejected: Boolean = false
+
     private val _videoQuality = MutableStateFlow(VideoQualityState.DEFAULT)
     override val videoQuality: StateFlow<VideoQualityState> = _videoQuality.asStateFlow()
 
@@ -215,6 +220,8 @@ class MsePlayer internal constructor(
         activeSession.loop = loop
         activeSession.live = source.live
         loadingVideoId = source.videoId
+        progressDiagMask = 0
+        lastPoRejected = false
         _progress.value = Progress(positionMs = startPositionMs)
         _status.update { it.copy(details = null) }
         // base.js pushes the new video's gain once it picks a format; until then play at the user's volume.
@@ -554,6 +561,7 @@ class MsePlayer internal constructor(
 
     /** Legacy `resetInternal(loadBlank = true)`: kill the session, leave [status] as is. */
     private fun tearDownSession(reason: String) {
+        lastSessionEndReason = reason
         session?.let {
             log?.log(
                 Logger.Level.INFO,
@@ -563,6 +571,7 @@ class MsePlayer internal constructor(
         }
         loadingVideoId = null
         loadedVideoId = null
+        progressDiagMask = 0
         loadTimeoutJob?.cancel()
         loadTimeoutJob = null
         loadTrace = null
@@ -696,6 +705,7 @@ class MsePlayer internal constructor(
     private fun applyListen(json: JsonObject) {
         if (json.boolOrNull("poRejected") == true) {
             // googlevideo rejected this session's PO token: only a fresh session re-attests.
+            lastPoRejected = true
             tearDownSession("po token rejected")
             fail(TechnicalException(PlayerError.PO_TOKEN_REJECTED, "googlevideo rejected the PO token (StreamProtectionStatus=3)"), "po token rejected", needReset = true)
             return
@@ -764,15 +774,43 @@ class MsePlayer internal constructor(
         val seekableEndMs = json.longOrNull("seekableEndMs") ?: 0L
         /* Engine already maps the DVR window onto progress/duration (0..positionMs). */
         val positionMs = json.longOrNull("progress") ?: json.longOrNull("positionMs") ?: 0L
+        val bufferedMs = json.longOrNull("bufferedMs") ?: 0L
         _progress.value = Progress(
             positionMs = positionMs,
             durationMs = if (durationMs > 0L) durationMs else Progress.DURATION_UNKNOWN,
-            bufferedPositionMs = json.longOrNull("bufferedMs") ?: 0L,
+            bufferedPositionMs = bufferedMs,
             seekable = json.boolOrNull("seekable") ?: (durationMs > 0L),
             isLive = json.boolOrNull("live") ?: _status.value.live,
             seekableStartMs = seekableStartMs,
             seekableEndMs = if (seekableEndMs > seekableStartMs) seekableEndMs else if (durationMs > 0L) durationMs else 0L,
         )
+        logProgressMilestone(positionMs, bufferedMs, durationMs)
+    }
+
+    private fun logProgressMilestone(positionMs: Long, bufferedMs: Long, durationMs: Long) {
+        val marks = PROGRESS_DIAG_MARKS
+        for (i in marks.indices) {
+            val bit = 1 shl i
+            if (progressDiagMask and bit != 0) continue
+            if (positionMs < marks[i]) continue
+            progressDiagMask = progressDiagMask or bit
+            val state = when (val s = _status.value.state) {
+                is PlaybackState.Prepared -> when {
+                    s.ended -> "ended"
+                    s.buffering -> "buffering"
+                    else -> "ready"
+                }
+                is PlaybackState.Error -> "error:${s.error.code}"
+                is PlaybackState.Idle -> "idle"
+                is PlaybackState.Uninitialized -> "uninit"
+            }
+            log?.log(
+                Logger.Level.INFO,
+                "mse-progress mark=${marks[i]}ms pos=${positionMs}ms buffered=${bufferedMs}ms " +
+                    "dur=${durationMs}ms state=$state videoId=${loadedVideoId ?: "-"} " +
+                    "poRejected=$lastPoRejected lastEnd=${lastSessionEndReason ?: "-"}",
+            )
+        }
     }
 
     private fun applyState(json: JsonObject) {
@@ -856,6 +894,8 @@ class MsePlayer internal constructor(
     }
 
     companion object {
+        /** Diagnostic walls for the documented ~40–60s PO/SPS stall band. */
+        private val PROGRESS_DIAG_MARKS = longArrayOf(45_000L, 55_000L, 58_000L, 59_000L, 60_000L, 65_000L)
         private const val INIT_TIMEOUT_MS = 30_000L
         private const val LOAD_TIMEOUT_MS = 5_000L
         private const val ENGINE_CLOSE_TIMEOUT_MS = 3_000L

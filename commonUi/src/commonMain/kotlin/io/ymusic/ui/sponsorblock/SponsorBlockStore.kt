@@ -24,6 +24,9 @@ interface SponsorBlockStore {
 
     /** True when [videoId] was present and removed. */
     suspend fun removeFromWhitelist(videoId: String): Boolean
+
+    /** Clear App Data: drop API cache rows and per-video whitelist. */
+    suspend fun clearAll() {}
 }
 
 /** In-process stand-in used by tests and shells that have not wired a database yet. */
@@ -42,6 +45,11 @@ class InMemorySponsorBlockStore : SponsorBlockStore {
     override suspend fun addToWhitelist(videoId: String): Boolean = whitelist.add(videoId)
 
     override suspend fun removeFromWhitelist(videoId: String): Boolean = whitelist.remove(videoId)
+
+    override suspend fun clearAll() {
+        cache.clear()
+        whitelist.clear()
+    }
 }
 
 /** SQLite port of legacy `SponsorBlockService.Database`. */
@@ -131,6 +139,12 @@ class SqliteSponsorBlockStore(
             1,
         ) { bindString(0, videoId) }
         true
+    }
+
+    override suspend fun clearAll() = withContext(io) {
+        driver.execute(null, "DELETE FROM sponsorBlockCache", 0)
+        driver.execute(null, "DELETE FROM sponsorBlockWhiteList", 0)
+        writes = 0
     }
 
     private fun isWhitelistedNow(videoId: String): Boolean =

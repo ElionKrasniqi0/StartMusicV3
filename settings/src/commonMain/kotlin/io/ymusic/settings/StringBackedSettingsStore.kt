@@ -44,8 +44,22 @@ abstract class StringBackedSettingsStore : SettingsStore {
         writeMutex.withLock { persist(key, data.value.getValue(key)) }
     }
 
+    /**
+     * Drop every key (in-memory + durable). Subclasses that persist per-key must also wipe storage
+     * in [clearPersisted]. After this, typed views read their defaults until new writes.
+     */
+    suspend fun clearAll() {
+        writeMutex.withLock {
+            data.value = emptyMap()
+            clearPersisted()
+        }
+    }
+
     /** Stores the one [key] a write changed, on the writer's coroutine. In-memory stores keep the no-op. */
     protected open suspend fun persist(key: String, value: String) {}
+
+    /** Wipe the durable backing store; default no-op for in-memory. */
+    protected open suspend fun clearPersisted() {}
 }
 
 class InMemorySettingsStore : StringBackedSettingsStore()

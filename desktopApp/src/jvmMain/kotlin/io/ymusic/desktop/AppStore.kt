@@ -26,6 +26,10 @@ internal class AppStore private constructor(private val database: AppDatabase) {
         settingQueries.put(key, value)
     }
 
+    fun clearSettings() {
+        settingQueries.deleteAll()
+    }
+
     fun secret(name: String): ByteArray? = secretQueries.select(name).executeAsOneOrNull()
 
     fun putSecret(name: String, value: ByteArray) {

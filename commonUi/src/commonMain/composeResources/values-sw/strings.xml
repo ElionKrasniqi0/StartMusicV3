@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -564,6 +564,25 @@
     <string name="settings_section_downloads">Vipakuliwa</string>
     <string name="settings_section_devices">Vifaa</string>
     <string name="settings_section_privacy">Faragha</string>
+    <string name="settings_section_storage">Storage</string>
+    <string name="settings_cache_size">Cache size</string>
+    <string name="settings_cache_size_value">%1$s</string>
+    <string name="settings_clear_cache">Clear cache</string>
+    <string name="settings_clear_cache_hint">Removes temporary files, images, and stream cache. Downloads and settings stay.</string>
+    <string name="settings_clearing_cache">Clearing cache…</string>
+    <string name="settings_cache_cleared">Cache cleared · %1$s freed</string>
+    <string name="settings_cache_cleared_skipped">Cache cleared · %1$s freed · %2$d skipped (in use)</string>
+    <string name="settings_app_data">App data</string>
+    <string name="settings_app_data_value">%1$s</string>
+    <string name="settings_clear_app_data">Clear app data</string>
+    <string name="settings_clear_app_data_hint">Resets settings, history, playlists, and signs you out. Downloads stay unless you choose otherwise.</string>
+    <string name="settings_clear_app_data_title">Clear app data?</string>
+    <string name="settings_clear_app_data_body">This will delete settings, search and play history, Play again queues, local playlists and library index, download queue, and sign you out of YouTube.\n\nPreserved: completed download files (unless checked below), and the ability to reopen empty databases.</string>
+    <string name="settings_clear_app_data_also_downloads">Also delete downloaded files</string>
+    <string name="settings_clear_app_data_confirm">Clear app data</string>
+    <string name="settings_clearing_app_data">Resetting…</string>
+    <string name="settings_app_data_cleared">App data reset</string>
+    <string name="settings_app_data_failed">Could not reset app data (%1$s)</string>
     <string name="settings_section_about">Kuhusu</string>
     <string name="settings_quick_download">Upakuaji wa haraka</string>
     <string name="sound_bass">Besi</string>

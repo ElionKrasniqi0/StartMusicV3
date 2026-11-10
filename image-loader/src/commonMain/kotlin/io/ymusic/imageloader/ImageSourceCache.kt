@@ -82,6 +82,19 @@ class ImageSourceCache(
     /** Evict down to the budget now instead of waiting for the throttled background cleanup. */
     suspend fun trimNow() = withContext(Dispatchers.IO) { cache.trimNow() }
 
+    /** Bytes currently accounted by the journal. */
+    val sizeBytes: Long get() = cache.currentSize
+
+    /** Drop every entry; restores the previous budget. Returns bytes freed. */
+    suspend fun clear(): Long = withContext(Dispatchers.IO) {
+        val before = cache.currentSize
+        val max = cache.maxSize
+        cache.setMaxSize(0)
+        cache.trimNow()
+        cache.setMaxSize(max)
+        (before - cache.currentSize).coerceAtLeast(0L)
+    }
+
     /** Flush the journal and release the cache; the directory stays valid for a new instance. */
     suspend fun close() = withContext(Dispatchers.IO) { cache.close() }
 

@@ -121,6 +121,12 @@ interface BetterMediaStore {
      * the same name (case-insensitive, the oldest when several match) or a new one, appending only codes
      * not already in it.
      */
+    /**
+     * Clear App Data: hard-delete every playlist, media item, and bucket (index only — not files
+     * on disk). Emits change flows so Library UI refreshes empty.
+     */
+    suspend fun clearAllUserData()
+
     suspend fun restorePlaylists(snapshots: List<PlaylistSnapshot>, replaceAll: Boolean)
 
     suspend fun playlistItems(playlistId: Long): List<PlaylistItem>

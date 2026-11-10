@@ -11,3 +11,6 @@ INSERT OR REPLACE INTO setting(key, value) VALUES (?, ?);
 
 putIfAbsent:
 INSERT OR IGNORE INTO setting(key, value) VALUES (?, ?);
+
+deleteAll:
+DELETE FROM setting;

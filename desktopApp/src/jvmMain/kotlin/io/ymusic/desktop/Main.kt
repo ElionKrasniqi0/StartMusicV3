@@ -884,11 +884,18 @@ private suspend fun buildGraph(settings: AppStoreSettings, session: CookieSessio
     // Thumbnails: everything is a fetcher — http on a cache-less client (originals stream to the
     // fetcher's disk cache, decode from file) + local files + ffmpeg-extracted embedded art
     // (absent ffmpeg just keeps art:// urls unresolved → placeholder boxes).
-    val imageNetworkFetcher = networkFetcher(
-        http.image,
+    val imageSourceCache = ImageSourceCache(
         FileSystem.SYSTEM,
         File(dataDir, "image-source-cache").absolutePath.toPath(),
     )
+    val imageCoverCache = resolveFfmpeg()?.let {
+        ImageSourceCache(FileSystem.SYSTEM, File(dataDir, "image-cover-cache").absolutePath.toPath(), 64L * 1024 * 1024)
+    }
+    val imageScaledCache = DiskScaledImageCache(
+        FileSystem.SYSTEM,
+        File(dataDir, "image-scaled-cache").absolutePath.toPath(),
+    )
+    val imageNetworkFetcher = networkFetcher(http.image, FileSystem.SYSTEM, imageSourceCache)
     var loaderRef: ImageLoader? = null
     val imageLoader = ImageLoader(
         fetchers = listOfNotNull(
@@ -899,11 +906,11 @@ private suspend fun buildGraph(settings: AppStoreSettings, session: CookieSessio
                     FfmpegMetadataGetter(it),
                     mediaStore,
                     loaderYoutubeArt { checkNotNull(loaderRef) },
-                    coverCache = ImageSourceCache(FileSystem.SYSTEM, File(dataDir, "image-cover-cache").absolutePath.toPath(), 64L * 1024 * 1024),
+                    coverCache = imageCoverCache,
                 )
             },
         ),
-        scaledCache = DiskScaledImageCache(FileSystem.SYSTEM, File(dataDir, "image-scaled-cache").absolutePath.toPath()),
+        scaledCache = imageScaledCache,
         logger = rootLogger,
         memoryCacheBytes = defaultMemoryCacheBudget(),
         variantIndex = DiskVariantIndex(FileSystem.SYSTEM, File(dataDir, "image-variants").absolutePath.toPath()),
@@ -1086,6 +1093,16 @@ private suspend fun buildGraph(settings: AppStoreSettings, session: CookieSessio
         player,
         logger = rootLogger,
         playerCache = playerCache,
+        storageHooks = desktopStorageHooks(
+            dataDir = dataDir,
+            session = session,
+            http = http,
+            imageLoader = imageLoader,
+            imageSourceCache = imageSourceCache,
+            imageCoverCache = imageCoverCache,
+            imageScaledCache = imageScaledCache,
+            engineCache = engineCache as? io.ymusic.dynamicengine.DiskCacheStore,
+        ),
         mediaStore = mediaStore,
         playHistory = PlayHistoryStore(playHistoryJdbcDriver(File(dataDir, "play-history.db").absolutePath)),
         sponsorBlockStore = SqliteSponsorBlockStore(

@@ -28,3 +28,9 @@ UPDATE cache_entry SET lastUsed = ? WHERE scope = ? AND key = ?;
 
 deleteOne:
 DELETE FROM cache_entry WHERE scope = ? AND key = ?;
+
+selectAll:
+SELECT * FROM cache_entry;
+
+deleteAll:
+DELETE FROM cache_entry;

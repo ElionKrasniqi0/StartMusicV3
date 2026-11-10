@@ -182,6 +182,11 @@ class PlayAgainStore(
         _changes.tryEmit(Unit)
     }
 
+    /** Emit after an external wipe of the play_again table (Clear App Data). */
+    fun notifyCleared() {
+        _changes.tryEmit(Unit)
+    }
+
     @OptIn(ExperimentalTime::class)
     private fun now(): Long = Clock.System.now().toEpochMilliseconds()
 
