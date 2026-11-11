@@ -123,6 +123,108 @@ class AppStorageMaintenanceTest {
     }
 
     @Test
+    fun clearCache_snapshotFailure_doesNotWipeScratch() = runBlocking {
+        val settings = InMemorySettingsStore()
+        var platformCalled = false
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        val driver = downloadDatabaseJdbcDriver()
+        val downloads = DownloadService(
+            store = DownloadStore(driver),
+            scope = scope,
+            now = { 0L },
+            resolver = SabrSpecResolver { throw UnsupportedOperationException() },
+            client = CannedHttp { _, _ -> throw UnsupportedOperationException() },
+            userAgent = "test",
+            ffmpeg = null,
+            storage = NoopStorage,
+            downloadFolder = { "file:///tmp/dl" },
+        )
+        // Close the driver so snapshot()/all() fails — Clear Cache must fail closed.
+        driver.close()
+        val graph = AppGraph(
+            engines = engines(),
+            player = StubPlayer(),
+            playerSurface = {},
+            settings = settings,
+            downloads = downloads,
+            storageHooks = AppStorageHooks(
+                clearPlatformCaches = {
+                    platformCalled = true
+                    StorageOpResult()
+                },
+            ),
+        )
+        try {
+            val result = graph.clearCache()
+            assertFalse(platformCalled, "must not clear platform caches when queue unread")
+            assertFalse(result.ok)
+        } finally {
+            scope.cancel()
+        }
+        Unit
+    }
+
+    @Test
+    fun clearCache_protectsNonTerminalDownloadScratchIds() = runBlocking {
+        val settings = InMemorySettingsStore()
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+        val store = DownloadStore(downloadDatabaseJdbcDriver())
+        val downloads = DownloadService(
+            store = store,
+            scope = scope,
+            now = { 0L },
+            resolver = SabrSpecResolver { throw UnsupportedOperationException() },
+            client = CannedHttp { _, _ -> throw UnsupportedOperationException() },
+            userAgent = "test",
+            ffmpeg = null,
+            storage = NoopStorage,
+            downloadFolder = { "file:///tmp/dl" },
+        )
+        // Seed a paused (resumable, non-terminal) task id the platform clear must see.
+        val pausedId = "paused-scratch-1"
+        store.upsert(
+            io.ymusic.download.DownloadTask(
+                id = pausedId,
+                videoId = "vid1",
+                title = "Paused",
+                artist = null,
+                thumbnailUrl = null,
+                format = io.ymusic.download.DownloadFormat.M4A,
+                requestedHeight = null,
+                state = io.ymusic.download.DownloadState.PAUSED,
+                downloadedBytes = 0L,
+                totalBytes = 0L,
+                fileUri = null,
+                errorMessage = null,
+                createdAt = 0L,
+                updatedAt = 0L,
+            ),
+        )
+        var seenIds: Set<String>? = null
+        val graph = AppGraph(
+            engines = engines(),
+            player = StubPlayer(),
+            playerSurface = {},
+            settings = settings,
+            downloads = downloads,
+            storageHooks = AppStorageHooks(
+                clearPlatformCaches = { ids ->
+                    seenIds = ids
+                    StorageOpResult()
+                },
+            ),
+        )
+        try {
+            graph.clearCache()
+            val protected = assertNotNull(seenIds)
+            assertTrue(pausedId in protected, "paused/failed scratch must survive Clear Cache")
+        } finally {
+            scope.cancel()
+        }
+        Unit
+    }
+
+    @Test
     fun clearAppData_resetsSelectedUserData_preservesOutsideAndDownloadFiles() = runBlocking {
         val protected = File(File(root, "outside2").also { it.mkdirs() }, "keep.txt").also { it.writeText("safe") }
         val downloadFile = File(File(root, "dl").also { it.mkdirs() }, "track.m4a").also { it.writeText("bytes") }

@@ -174,6 +174,7 @@ dependencies {
     implementation(project(":commonUi"))
     implementation(project(":media-scanner")) // pulls :media-store + :kmpFfmpeg (api) for the local Library
     implementation(Libs.AndroidX.coreKtx)
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(Libs.AndroidX.activityCompose)
     implementation(Libs.Kotlinx.coroutinesAndroid)
     implementation(project(":kmpHttp:core"))

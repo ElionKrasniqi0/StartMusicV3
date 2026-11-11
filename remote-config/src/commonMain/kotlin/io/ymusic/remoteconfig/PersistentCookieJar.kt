@@ -42,7 +42,10 @@ interface CookieDocument {
  * on the JVM, a suspend interface elsewhere); both actuals are unlocked one-liners — the store
  * below synchronizes itself with one common lock.
  */
-expect class PersistentCookieJar(document: CookieDocument) : CookieJar
+expect class PersistentCookieJar(document: CookieDocument) : CookieJar {
+    /** Drop every in-memory cookie and delete the on-disk document (Clear App Data / sign-out). */
+    fun clear()
+}
 
 /** The common implementation both thin actuals delegate to. */
 @OptIn(ExperimentalTime::class)
@@ -51,6 +54,13 @@ internal class PersistentCookieStore(private val document: CookieDocument) : Syn
     /** Keyed by (name, domain, path) — the cookie identity — so replacement is O(1), not a scan. */
     private val cookies = LinkedHashMap<CookieKey, Cookie>()
     private var loaded = false
+
+    fun clear() = synchronized(this) {
+        cookies.clear()
+        loaded = true
+        runCatching { document.delete() }
+        Unit
+    }
 
     fun saveFromResponse(newCookies: List<Cookie>) = synchronized(this) {
         loadIfNeeded()

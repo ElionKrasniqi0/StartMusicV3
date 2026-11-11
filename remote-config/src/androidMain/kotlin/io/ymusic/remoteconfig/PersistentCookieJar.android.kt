@@ -8,6 +8,8 @@ import kmphttp.HttpUrl
 actual class PersistentCookieJar actual constructor(document: CookieDocument) : CookieJar {
     private val store = PersistentCookieStore(document)
 
+    actual fun clear() = store.clear()
+
     override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) = store.saveFromResponse(cookies)
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> = store.loadForRequest(url)

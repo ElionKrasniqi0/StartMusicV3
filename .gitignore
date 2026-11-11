@@ -112,3 +112,7 @@ spikes/ios-mse-lab
 # Local debug APK copies dropped at the repo root for sideload (never publish)
 /*.apk
 /StartMusicV3.apk
+
+# Local device QA captures / dumps (never publish)
+/qa-evidence/
+

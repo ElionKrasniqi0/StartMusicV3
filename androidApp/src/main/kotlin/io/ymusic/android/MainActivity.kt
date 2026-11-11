@@ -19,9 +19,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -30,11 +36,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import io.ymusic.player.PlayableItem
@@ -44,7 +56,8 @@ import io.ymusic.settings.flow
 import io.ymusic.ui.App
 import io.ymusic.ui.AppGraph
 import io.ymusic.ui.AppSection
-import io.ymusic.ui.BrandBootScreen
+import io.ymusic.ui.Brand
+import io.ymusic.ui.DesignColors
 import io.ymusic.ui.IncomingLinks
 import io.ymusic.ui.LinkAction
 import io.ymusic.ui.designPaletteFor
@@ -65,6 +78,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
+import java.util.concurrent.atomic.AtomicBoolean
 import org.jetbrains.compose.resources.stringResource as resString
 
 /**
@@ -323,6 +337,15 @@ class MainActivity : FragmentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Android 12+ always owns the first window (cannot be skipped). Theme uses a surface-colored
+        // blank splash icon (not empty — Samsung falls back to the launcher mark) so that frame is
+        // color-only. First branded UI is LaunchBrandScreen (large logo + StartMusicV3). Hold the
+        // system splash until that frame is laid out, exit with no animation, then keep until ready.
+        val keepNativeSplash = AtomicBoolean(true)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { keepNativeSplash.get() }
+            setOnExitAnimationListener { provider -> provider.remove() }
+        }
         super.onCreate(savedInstanceState)
         // The app is light-only (commonUi LightScheme paints white behind the bars), so the bar
         // icon color must not follow the SYSTEM dark-mode setting — that yields white-on-white.
@@ -366,9 +389,15 @@ class MainActivity : FragmentActivity() {
                 }
             }
             when {
-                error != null -> Booting { Text(startupFailedMessage("$error"), color = MaterialTheme.colorScheme.error) }
-                graph == null -> Booting { CircularProgressIndicator() }
+                error != null -> {
+                    LaunchedEffect(Unit) { keepNativeSplash.set(false) }
+                    Booting { Text(startupFailedMessage("$error"), color = MaterialTheme.colorScheme.error) }
+                }
+                graph == null -> {
+                    LaunchBrandScreen(onDrawn = { keepNativeSplash.set(false) })
+                }
                 else -> {
+                    LaunchedEffect(Unit) { keepNativeSplash.set(false) }
                     LaunchedEffect(graph) { attachPip(graph!!) }
                     val section = rememberStartSection(graph!!)
                     LaunchedEffect(pendingSection.value) {
@@ -668,11 +697,62 @@ private fun FolderPickerIssueDialog(issue: FolderPickerIssue, onOpenSettings: (S
 
 @androidx.compose.runtime.Composable
 private fun Booting(content: @androidx.compose.runtime.Composable () -> Unit) {
-    // Splash system theme → BrandBootScreen → App: same ground + StartMusicV3 mark.
+    // Error-only chrome — same ground as splash, no second logo/title.
     val context = androidx.compose.ui.platform.LocalContext.current
     val theme = remember { PrefsSettingsStore.open(context).flow(AppSettings.theme).value }
     val palette = designPaletteFor(theme, androidx.compose.foundation.isSystemInDarkTheme())
     io.ymusic.ui.YMusicTheme(palette) {
-        BrandBootScreen(background = palette.Surface) { content() }
+        Box(
+            Modifier.fillMaxSize().background(palette.Surface),
+            contentAlignment = Alignment.Center,
+        ) {
+            content()
+        }
+    }
+}
+
+/**
+ * First branded launch UI: large [ic_splash_logo] + StartMusicV3 on the splash surface.
+ * Not BrandBootScreen (no 88.dp mark, no tagline, no spinner). The preceding Android system
+ * splash is intentionally logo-free (blank surface icon) so this is the first branded appearance.
+ */
+@androidx.compose.runtime.Composable
+private fun LaunchBrandScreen(onDrawn: () -> Unit) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val theme = remember { PrefsSettingsStore.open(context).flow(AppSettings.theme).value }
+    val palette = designPaletteFor(theme, androidx.compose.foundation.isSystemInDarkTheme())
+    var reported by remember { mutableStateOf(false) }
+    io.ymusic.ui.YMusicTheme(palette) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(palette.Surface)
+                .onGloballyPositioned {
+                    if (!reported) {
+                        reported = true
+                        onDrawn()
+                    }
+                },
+            contentAlignment = Alignment.Center,
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                modifier = Modifier.padding(horizontal = 24.dp),
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.ic_splash_logo),
+                    contentDescription = stringResource(R.string.app_name),
+                    modifier = Modifier.size(192.dp),
+                )
+                Text(
+                    text = stringResource(R.string.app_name),
+                    style = Brand.Display.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = DesignColors.InkStrong,
+                    ),
+                )
+            }
+        }
     }
 }

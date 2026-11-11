@@ -15,4 +15,36 @@ class PlaybackStateTest {
         assertTrue(PlaybackState.Error(PlayerError("E1", canRetry = false)).readyToLoad)
         assertFalse(PlaybackState.Error(PlayerError("E1", canRetry = true, needReset = true)).readyToLoad)
     }
+
+    @Test
+    fun isPlaying_false_on_error_and_ended_even_if_intent_true() {
+        val queue = QueueState(items = listOf(PlayableItem.YtMedia("vidAAAA1111")), currentIndex = 0)
+        assertTrue(
+            isPlaying(
+                PlaybackStatus(
+                    state = PlaybackState.Prepared(playWhenReady = true, buffering = false, ended = false),
+                    playWhenReady = true,
+                ),
+                queue,
+            ),
+        )
+        assertFalse(
+            isPlaying(
+                PlaybackStatus(
+                    state = PlaybackState.Error(PlayerError("E60065", canRetry = true, needReset = true)),
+                    playWhenReady = true,
+                ),
+                queue,
+            ),
+        )
+        assertFalse(
+            isPlaying(
+                PlaybackStatus(
+                    state = PlaybackState.Prepared(playWhenReady = false, buffering = false, ended = true),
+                    playWhenReady = true,
+                ),
+                queue,
+            ),
+        )
+    }
 }

@@ -5,7 +5,6 @@ import io.ymusic.imageloader.DiskScaledImageCache
 import io.ymusic.imageloader.ImageLoader
 import io.ymusic.imageloader.ImageSourceCache
 import io.ymusic.ui.AppHttpClients
-import io.ymusic.ui.importSessionCookies
 import io.ymusic.ui.storage.AppStorageHooks
 import io.ymusic.ui.storage.StorageOpResult
 import kmpcommon.uri.filePath
@@ -85,14 +84,8 @@ internal fun desktopStorageHooks(
         },
         signOutCookies = {
             withContext(Dispatchers.IO) {
-                runCatching { session.jar.importSessionCookies(emptyList()) }
-                // Drop sealed jar so the next launch is signed out (guest sessions have no vault).
-                if (!session.isGuest) {
-                    runCatching {
-                        // CookieSession.signOut deletes the secret + session cache dirs; we only
-                        // need the jar empty here — caches are cleared via clearPlatformCaches.
-                    }
-                }
+                // Clears in-memory cookies and deletes the sealed CookieDocument (guest: memory only).
+                session.jar.clear()
             }
         },
         wipeEphemeralFiles = {

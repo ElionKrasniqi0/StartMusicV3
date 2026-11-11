@@ -703,7 +703,9 @@ internal class PlayerImpl(
         prepareJob?.cancel()
         holdPrepareTimeout = false
         val resetFirst = ytResetOnNext && engine is YtEngine
-        if (engine.status.value.state.readyToLoad && !resetFirst) {
+        // Error with needReset=false still reports readyToLoad — must reset before loadOn.
+        val engineState = engine.status.value.state
+        if (engineState.readyToLoad && engineState !is PlaybackState.Error && !resetFirst) {
             loadOn(engine, item, startPositionMs)
             return
         }
@@ -871,6 +873,9 @@ internal class PlayerImpl(
             lastChange = QueueChange.Auto
             publishQueue(refreshNext = false)
             loadCurrent(0L)
+        } else {
+            // Natural queue end: drop play intent so isPlaying / FGS / wake locks release.
+            setPlayWhenReadyIntent(false)
         }
     }
 

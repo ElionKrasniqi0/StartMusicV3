@@ -39,9 +39,13 @@ fun showsVideo(config: PlaybackConfig, quality: VideoQualityState): Boolean =
         quality.preferredQuality != VideoQualityState.AUDIO_ONLY &&
         quality.actualQuality != VideoQualityState.AUDIO_ONLY
 
-/** A current queue item and the user's play intent — true across Idle/Uninitialized load gaps. */
+/** A current queue item and the user's play intent — true across Idle/Uninitialized load gaps.
+ *  Error / ended are not playing: wake locks, FGS, and the pause icon must not stay "active". */
 fun isPlaying(status: PlaybackStatus, queue: QueueState): Boolean =
-    queue.currentItem != null && status.playWhenReady
+    queue.currentItem != null &&
+        status.playWhenReady &&
+        status.state !is PlaybackState.Error &&
+        !status.state.isEnded()
 
 /** How the video fills its surface. Mirrors the legacy player's scale modes. */
 enum class ScaleMode { COVER, FILL, CONTAIN }

@@ -17,7 +17,13 @@ class VoiceSearchActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val forward = Intent(this, PlaybackService::class.java).setAction(ACTION_PLAY_FROM_SEARCH)
         intent.extras?.let { forward.putExtras(it) }
-        ContextCompat.startForegroundService(this, forward)
+        try {
+            ContextCompat.startForegroundService(this, forward)
+        } catch (_: IllegalStateException) {
+            // Background FGS start can be refused on API 31+; fall back to a normal start so the
+            // query still reaches PlaybackService when the system allows a background service.
+            runCatching { startService(forward) }
+        }
         finish()
     }
 }

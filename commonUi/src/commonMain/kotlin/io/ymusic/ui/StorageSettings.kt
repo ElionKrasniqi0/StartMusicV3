@@ -1,6 +1,8 @@
 package io.ymusic.ui
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -91,6 +93,7 @@ internal fun StorageSettingsSection(graph: AppGraph) {
             hint = stringResource(Res.string.settings_clear_cache_hint),
             busy = clearingCache,
             busyLabel = stringResource(Res.string.settings_clearing_cache),
+            suppressHaptics = true,
             onClick = {
                 if (clearingCache) return@StorageActionRow
                 clearingCache = true
@@ -137,6 +140,8 @@ internal fun StorageSettingsSection(graph: AppGraph) {
                         graph.clearAppData(deleteDownloads = alsoDownloads)
                         sizeTick++
                         snackbar(appDataCleared)
+                    } catch (c: kotlinx.coroutines.CancellationException) {
+                        throw c
                     } catch (t: Throwable) {
                         val code = t.errorCode() ?: "E50009"
                         snackbar(appDataFailedFmt.replace("%1\$s", code))
@@ -172,11 +177,19 @@ private fun StorageActionRow(
     busy: Boolean,
     busyLabel: String,
     onClick: () -> Unit,
+    suppressHaptics: Boolean = false,
 ) {
+    val interaction = remember { MutableInteractionSource() }
+    SuppressPressHaptics(active = suppressHaptics, interactionSource = interaction)
     Row(
         Modifier
             .fillMaxWidth()
-            .clickable(enabled = !busy, onClick = onClick)
+            .clickable(
+                interactionSource = interaction,
+                indication = LocalIndication.current,
+                enabled = !busy,
+                onClick = onClick,
+            )
             .padding(horizontal = DesignSpacing.SettingsRowHorizontal, vertical = DesignSpacing.SettingsRowVertical),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically,

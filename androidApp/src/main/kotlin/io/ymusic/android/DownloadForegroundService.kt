@@ -82,6 +82,8 @@ class DownloadForegroundService : Service() {
     private var downloads: DownloadService? = null
     private var imageLoader: ImageLoader? = null
     private var foreground = false
+    /** True after Android 12+ refused startForeground from the background — keep posting notify-only. */
+    private var foregroundRefused = false
     private var wakeLock: PowerManager.WakeLock? = null
     private var wifiLock: WifiManager.WifiLock? = null
 
@@ -129,8 +131,7 @@ class DownloadForegroundService : Service() {
         }
         // The startForegroundService contract: enter foreground now; the collector replaces this
         // placeholder with real progress (or finishes) as soon as the graph is up.
-        startForeground(SUMMARY_NOTIFICATION_ID, placeholderSummary())
-        foreground = true
+        foreground = promote(placeholderSummary())
         return START_NOT_STICKY
     }
 
@@ -199,10 +200,30 @@ class DownloadForegroundService : Service() {
             // The summary is content-gated the same way as the cards.
             val summarySignature = owned.size * 100_000 + aggregatePermille(tasks)
             if (!foreground || summarySignature != lastSummarySignature) {
-                startForeground(SUMMARY_NOTIFICATION_ID, workingSummary(tasks))
+                foreground = promote(workingSummary(tasks))
                 lastSummarySignature = summarySignature
             }
-            foreground = true
+        }
+    }
+
+    /** startForeground, or the notification alone when Android 12+ refuses background promotion. */
+    private fun promote(notification: Notification): Boolean {
+        return try {
+            startForeground(SUMMARY_NOTIFICATION_ID, notification)
+            foregroundRefused = false
+            true
+        } catch (e: IllegalStateException) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S ||
+                e !is android.app.ForegroundServiceStartNotAllowedException
+            ) {
+                throw e
+            }
+            if (!foregroundRefused) {
+                log?.log(Logger.Level.WARN, "download foreground start refused in background", e)
+            }
+            foregroundRefused = true
+            NotificationManagerCompat.from(this).notify(SUMMARY_NOTIFICATION_ID, notification)
+            false
         }
     }
 

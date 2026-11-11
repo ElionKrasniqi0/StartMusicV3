@@ -281,24 +281,28 @@ class Pager(
     fun loadMore() {
         val current = _state.value as? State.Ready ?: return
         val token = current.continuation ?: return
-        if (current.loadingMore) return
+        // Block during pull-to-refresh / chip reload so a stale append cannot overwrite a fresh page.
+        if (current.loadingMore || current.refreshing) return
+        job?.cancel()
         _state.value = current.copy(loadingMore = true)
         job = scope.launch {
             _state.value = try {
                 val page = withTimeout(fetchTimeoutMs) { fetch(token) }
-                current.copy(
-                    sections = appendSections(current.sections, page.sections),
+                // Append onto whatever Ready state is current after cancel races, not the pre-launch snapshot.
+                val latest = (_state.value as? State.Ready) ?: return@launch
+                latest.copy(
+                    sections = appendSections(latest.sections, page.sections),
                     continuation = page.continuation,
                     loadingMore = false,
                 )
             } catch (e: CancellationException) {
                 if (e !is TimeoutCancellationException) throw e
                 logger?.log(Logger.Level.WARN, "loadMore timed out after ${fetchTimeoutMs}ms", e)
-                current.copy(loadingMore = false) // timed out — the tail button stays for a retry
+                (_state.value as? State.Ready)?.copy(loadingMore = false) ?: _state.value
             } catch (e: Exception) {
                 logger?.captureError(e)
                 // Keep what we have; the tail button stays for a retry.
-                current.copy(loadingMore = false)
+                (_state.value as? State.Ready)?.copy(loadingMore = false) ?: _state.value
             }
         }
     }
@@ -658,7 +662,8 @@ private fun FeedSections(
                     onDeeplink = onDeeplink,
                 )
             }
-            if (state.continuation != null) {
+            // Hide Show more while refreshing — loadMore is a no-op then and must not race reload.
+            if (state.continuation != null && !state.refreshing) {
                 item {
                     if (state.loadingMore) {
                         Box(Modifier.fillMaxWidth().padding(12.dp), contentAlignment = Alignment.Center) {

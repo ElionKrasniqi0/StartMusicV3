@@ -115,4 +115,18 @@ class PersistentCookieJarTest {
 
         assertEquals(emptyList(), store().loadForRequest(url))
     }
+
+    @Test
+    fun clear_drops_memory_and_deletes_the_document() {
+        val jar = store()
+        jar.saveFromResponse(listOf(cookie()))
+        assertTrue(fs.exists(file))
+        assertEquals(listOf("act"), jar.loadForRequest(url).map { it.name })
+
+        jar.clear()
+
+        assertEquals(emptyList(), jar.loadForRequest(url))
+        assertFalse(fs.exists(file))
+        assertEquals(emptyList(), store().loadForRequest(url), "next launch stays signed out")
+    }
 }

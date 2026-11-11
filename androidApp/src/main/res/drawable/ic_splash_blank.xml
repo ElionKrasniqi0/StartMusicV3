@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Filled with the splash ground color so the Android 12+ icon slot is "valid" but invisible.
+     An empty/transparent icon makes Samsung One UI fall back to the launcher mark — that is the
+     logo-only frame users still see. A real logo+wordmark cannot fit the circular splash mask. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+    <path
+        android:pathData="M0,0h240v240h-240z"
+        android:fillColor="@color/app_surface" />
+</vector>

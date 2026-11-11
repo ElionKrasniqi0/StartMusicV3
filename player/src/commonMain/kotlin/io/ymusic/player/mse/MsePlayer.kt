@@ -317,7 +317,11 @@ class MsePlayer internal constructor(
         when (_status.value.state) {
             is PlaybackState.Uninitialized -> return
             is PlaybackState.Error -> {
+                // Session is gone; leave Idle-shaped recovery impossible (no host). Cold state
+                // lets the next tryMakePlayerReady init a fresh session instead of load()-no-op.
                 tearDownSession("stop in error")
+                _status.update { it.copy(state = PlaybackState.Uninitialized(isInitializing = false), details = null) }
+                _progress.value = Progress()
                 return
             }
             else -> Unit
@@ -682,7 +686,9 @@ class MsePlayer internal constructor(
         activeSession.scope.launch {
             try {
                 enginePlayer.collectStatus({
-                    if (session === activeSession) loadTrace?.engineEvent()
+                    // Drop events from a torn-down session so a late "buffering/ready" cannot bury Error.
+                    if (session !== activeSession) return@collectStatus
+                    loadTrace?.engineEvent()
                     applyListen(it)
                 }, log)
             } catch (error: CancellationException) {

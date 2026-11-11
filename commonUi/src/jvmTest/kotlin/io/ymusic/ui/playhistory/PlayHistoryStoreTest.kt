@@ -1,6 +1,7 @@
 package io.ymusic.ui.playhistory
 
 import io.ymusic.ui.toYtMedia
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlin.test.AfterTest
 import kotlin.test.Test
@@ -24,8 +25,11 @@ class PlayHistoryStoreTest {
     fun trackYoutube_movesNewestFirst_andDedupes() = runBlocking {
         store.saveYoutubeMetadata("vidAAAA1111", "Song A", artist = "Artist A", durationMs = 120_000L)
         store.saveYoutubeMetadata("vidBBBB2222", "Song B", artist = "Artist B", durationMs = 90_000L)
+        // tracked_at is wall-clock ms; sleep so ORDER BY tracked_at DESC is deterministic.
         store.trackYoutube("vidAAAA1111", 1_000L)
+        delay(2)
         store.trackYoutube("vidBBBB2222", 1_000L)
+        delay(2)
         store.trackYoutube("vidAAAA1111", 500L)
 
         val recent = store.youtubeRecent(limit = 10)

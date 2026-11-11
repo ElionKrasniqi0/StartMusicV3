@@ -2,6 +2,7 @@ package io.ymusic.ui.storage
 
 import io.ymusic.download.DownloadService
 import io.ymusic.download.DownloadState
+import io.ymusic.dynamicengine.yt.ytLogout
 import io.ymusic.settings.AppSettings
 import io.ymusic.settings.StringBackedSettingsStore
 import io.ymusic.settings.ensureUiLanguage
@@ -83,10 +84,23 @@ internal fun clearPlayerCacheBlobs(cache: MediaCache): StorageOpResult {
 suspend fun AppGraph.clearCache(): StorageOpResult = withContext(Dispatchers.IO) {
     var result = StorageOpResult()
     playerCache?.let { result += clearPlayerCacheBlobs(it) }
-    val activeDownloads = runCatching {
-        downloads?.snapshot()?.filter { it.state.isActive }?.map { it.id }?.toSet()
-    }.getOrNull() ?: emptySet()
-    result += runCatching { storageHooks.clearPlatformCaches(activeDownloads) }
+    // Protect any non-terminal scratch (active + paused/failed-resumable), not only isActive.
+    // Fail closed if the queue cannot be read — never delete every scratch by accident.
+    val protectedDownloads = when (val service = downloads) {
+        null -> emptySet()
+        else -> {
+            val snap = runCatching { service.snapshot() }
+            if (snap.isFailure) {
+                result += StorageOpResult(
+                    errorMessage = snap.exceptionOrNull()?.message ?: "download snapshot failed",
+                )
+                imageLoader?.trimMemoryCache(0f)
+                return@withContext result
+            }
+            snap.getOrDefault(emptyList()).filter { !it.state.isTerminal }.map { it.id }.toSet()
+        }
+    }
+    result += runCatching { storageHooks.clearPlatformCaches(protectedDownloads) }
         .getOrElse { StorageOpResult(errorMessage = it.message ?: it.toString()) }
     imageLoader?.trimMemoryCache(0f)
     result
@@ -96,43 +110,59 @@ suspend fun AppGraph.clearCache(): StorageOpResult = withContext(Dispatchers.IO)
  * Controlled app reset (not an OS dataDir wipe). Stops playback/downloads, clears user-resettable
  * stores, signs out, recreates defaults. [deleteDownloads] also removes completed download files.
  */
-suspend fun AppGraph.clearAppData(deleteDownloads: Boolean): StorageOpResult = withContext(Dispatchers.IO) {
+suspend fun AppGraph.clearAppData(deleteDownloads: Boolean): StorageOpResult {
+    stopPlayerForDataReset()
+    return withContext(Dispatchers.IO) {
+        try {
+            temporaryUris.value = emptySet()
+            val downloadUris = mutableListOf<String>()
+            downloads?.let { service ->
+                val tasks = runCatching { service.snapshot() }.getOrDefault(emptyList())
+                for (task in tasks) {
+                    if (!task.state.isTerminal) runCatching { service.cancel(task.id) }
+                    task.fileUri?.let { downloadUris += it }
+                }
+            }
+
+            var result = clearCache()
+            runCatching { storageHooks.wipeEphemeralFiles() }
+
+            playHistory?.clearAllUserHistory()
+            mediaStore?.clearAllUserData()
+            sponsorBlock.clearAll()
+            downloads?.let { clearDownloadQueue(it) }
+            if (deleteDownloads && downloadUris.isNotEmpty()) {
+                result += storageHooks.deleteDownloadFiles(downloadUris)
+            }
+
+            resetSettingsToDefaults()
+            // Engine logout drops auth cookies in the jar; shell hook wipes the platform store.
+            runCatching { engines.ytLogout() }
+            storageHooks.signOutCookies()
+
+            localeEpoch.value++
+            account.invalidateAfterDataReset()
+
+            result
+        } catch (c: kotlinx.coroutines.CancellationException) {
+            throw c
+        } catch (t: Throwable) {
+            logger?.fork("storage-reset")?.captureError(t, "clear app data failed")
+            throw TechnicalException("E50009", "clear app data failed", cause = t)
+        }
+    }
+}
+
+/** Player SPI is main-thread only; JVM unit tests may lack a Main dispatcher (StubPlayer is fine). */
+private suspend fun AppGraph.stopPlayerForDataReset() {
     try {
+        withContext(Dispatchers.Main) {
+            runCatching { player.pause() }
+            runCatching { player.clearQueue() }
+        }
+    } catch (_: IllegalStateException) {
         runCatching { player.pause() }
         runCatching { player.clearQueue() }
-        temporaryUris.value = emptySet()
-        val downloadUris = mutableListOf<String>()
-        downloads?.let { service ->
-            val tasks = runCatching { service.snapshot() }.getOrDefault(emptyList())
-            for (task in tasks) {
-                if (task.state.isActive) runCatching { service.cancel(task.id) }
-                task.fileUri?.let { downloadUris += it }
-            }
-        }
-
-        var result = clearCache()
-        runCatching { storageHooks.wipeEphemeralFiles() }
-
-        playHistory?.clearAllUserHistory()
-        mediaStore?.clearAllUserData()
-        sponsorBlock.clearAll()
-        downloads?.let { clearDownloadQueue(it) }
-        if (deleteDownloads && downloadUris.isNotEmpty()) {
-            result += storageHooks.deleteDownloadFiles(downloadUris)
-        }
-
-        resetSettingsToDefaults()
-        storageHooks.signOutCookies()
-
-        localeEpoch.value++
-        account.invalidateAfterDataReset()
-
-        result
-    } catch (c: kotlinx.coroutines.CancellationException) {
-        throw c
-    } catch (t: Throwable) {
-        logger?.fork("storage-reset")?.captureError(t, "clear app data failed")
-        throw TechnicalException("E50009", "clear app data failed", cause = t)
     }
 }
 
