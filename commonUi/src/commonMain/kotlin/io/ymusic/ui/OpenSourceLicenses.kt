@@ -14,8 +14,10 @@ internal data class OssComponent(val name: String, val license: String, val url:
  * FFmpeg's libraries are linked into the app: shared on Android and desktop (the MSE player and
  * the packed CLI load the same libav* DSOs), static on iOS. That is compatible because the app is
  * GPL-3.0 and every FFmpeg component here is LGPL-2.1-or-later / LGPL-2.0-or-later (built without
- * --enable-gpl or --enable-nonfree), which the GPL-3.0 combination may take. The corresponding
- * source of the FFmpeg build — scripts, pinned sources, patches — is github.com/ymusic-io/ffmpeg-build.
+ * --enable-gpl or --enable-nonfree), which the GPL-3.0 combination may take. Upstream FFmpeg is
+ * https://ffmpeg.org (FFmpeg project). The corresponding source of the binary packaging this app
+ * ships — scripts, pinned dependency checkouts, and patches — is
+ * github.com/ElionKrasniqi0/ffmpeg-build (not a claim of FFmpeg authorship).
  */
 internal val OssComponents: List<OssComponent> = listOf(
     OssComponent("Kotlin Standard Library", "Apache-2.0", "https://github.com/JetBrains/kotlin"),
@@ -35,7 +37,14 @@ internal val OssComponents: List<OssComponent> = listOf(
     OssComponent("QuickJS (Fabrice Bellard, Charlie Gordon)", "MIT", "https://bellard.org/quickjs/"),
     // One line per licence, because they differ: FFmpeg is LGPL-2.1+, the two encoders statically
     // linked into it are LGPL-2.0+. Verified against `ffmpeg -L` and each library's own COPYING.
-    OssComponent("FFmpeg (libav* libraries, ffmpeg CLI)", "LGPL-2.1+", "https://github.com/ymusic-io/ffmpeg-build"),
+    OssComponent("FFmpeg (libav* libraries, ffmpeg CLI)", "LGPL-2.1+", "https://ffmpeg.org"),
+    // Packaging repo has NOTICE.md (third-party table + corresponding-source claim) but no
+    // top-level LICENSE for the scripts themselves — do not invent one here.
+    OssComponent(
+        "FFmpeg packaging used by StartMusicV3 (build scripts, pinned deps, patches)",
+        "Corresponding source for shipped FFmpeg binaries (see NOTICE.md)",
+        "https://github.com/ElionKrasniqi0/ffmpeg-build",
+    ),
     OssComponent("libvpx (linked into FFmpeg)", "BSD-3-Clause", "https://chromium.googlesource.com/webm/libvpx"),
     OssComponent("dav1d (linked into FFmpeg)", "BSD-2-Clause", "https://code.videolan.org/videolan/dav1d", scope = "Desktop / iOS"),
     OssComponent("LAME (linked into FFmpeg)", "LGPL-2.0+", "https://lame.sourceforge.io", scope = "Android / Desktop"),

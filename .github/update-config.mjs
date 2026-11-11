@@ -2,7 +2,7 @@
 // Builds the update part of the server's App config (`releases`, `engineJs`, `playerJs` — shape:
 // ymusic-server src/appConfig.ts) for the files of one GitHub release, ready to paste into the dashboard.
 //
-//   node update-config.mjs <release dir> <owner/repo> <tag> <YMusicV4 checkout> [notes dir]
+//   node update-config.mjs <release dir> <owner/repo> <tag> <StartMusicV3 checkout> [notes dir]
 //
 // The notes dir holds one update-dialog text per platform family: notes-android.txt, notes-macos.txt,
 // notes-windows.txt, notes-linux.txt (a missing file = no notes for that family).
@@ -18,7 +18,7 @@ import { join } from 'node:path'
 
 const [dir, repo, tag, root, notesDir] = process.argv.slice(2)
 if (!dir || !repo || !tag || !root) {
-  console.error('usage: update-config.mjs <release dir> <owner/repo> <tag> <YMusicV4 checkout> [notes dir]')
+  console.error('usage: update-config.mjs <release dir> <owner/repo> <tag> <StartMusicV3 checkout> [notes dir]')
   process.exit(2)
 }
 
@@ -111,7 +111,7 @@ const releasePage = `https://github.com/${repo}/releases/tag/${tag}`
 
 const releases = {}
 for (const { platform, file, versionCode } of INSTALLERS) {
-  const assetName = `YMusic-${versionName}-${file}`
+  const assetName = `StartMusicV3-${versionName}-${file}`
   const path = join(dir, assetName)
   const sha256 = await sha256Of(path)
   releases[platform] = {
