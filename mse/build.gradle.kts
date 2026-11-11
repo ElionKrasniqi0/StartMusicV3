@@ -322,7 +322,11 @@ val stageAndroidJni by tasks.registering {
     doLast {
         val ndk = ndkDir ?: error("Android NDK not found (set ANDROID_HOME with an installed NDK)")
         val toolchain = File(ndk, "build/cmake/android.toolchain.cmake")
-        val root = ffmpegBuildDir ?: error("ffmpeg-build not found next to YMusicV4-mse")
+        val root = ffmpegBuildDir
+            ?: error(
+                "ffmpeg-build not found next to StartMusicV3 " +
+                    "(expected ../ffmpeg-build; build with scripts/build-android.sh <abi>)",
+            )
         // Only require shared libav for ABIs that actually have an android out/ tree (partial packs OK).
         val presentAbis = mseAndroidAbis.filter { File(root, "out/android-$it/include").isDirectory }
         val sharedMissing = presentAbis.filter { abi ->

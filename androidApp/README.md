@@ -13,4 +13,6 @@ Module detail for the one-line summary in the root [`AGENTS.md`](../AGENTS.md) �
 
 - **compileSdk** — 36 (okhttp 5.4 demands it for app modules). **minSdk** / **targetSdk** — `Versions.minSdk` (24) / `Versions.targetSdk` (35). **NDK** — `28.2.13676358`.
 
-- **Build** — `./gradlew :androidApp:assembleDebug` / `installDebug`. Requires a real Android SDK at `sdk.dir` in `local.properties` (platforms;android-36, build-tools, NDK above) and Android ffmpeg packs for `FfmpegBuild.ANDROID_ABIS`.
+- **applicationId** — `io.startmusic.android` (debug suffix `.debug`). AGP `namespace` / Kotlin packages remain `io.ymusic.android` / `io.ymusic.*` (source layout unchanged).
+
+- **Build** — `./gradlew :androidApp:assembleDebug` / `installDebug`. Requires a real Android SDK at `sdk.dir` in `local.properties` (platforms;android-36, build-tools, NDK above) and sibling `../ffmpeg-build/out/android-<abi>/pack` (built with `scripts/build-android.sh <abi>` — not compiled by Gradle). For a single device (e.g. Galaxy arm64): `./gradlew :androidApp:assembleDebug -PandroidAbis=arm64-v8a`.

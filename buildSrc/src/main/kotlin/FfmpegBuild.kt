@@ -118,7 +118,10 @@ abstract class SyncFfmpeg : DefaultTask() {
         for ((subdir, slug) in packs.get()) {
             val pack = File(root, "out/$slug/pack")
             check(packLooksPresent(pack)) {
-                "no ffmpeg pack for $slug at $pack — build it in ffmpeg-build: ${FfmpegBuild.buildCommand(slug)}"
+                "No ffmpeg pack for $slug at $pack. " +
+                    "StartMusicV3 expects a sibling ../ffmpeg-build checkout with prebuilt packs " +
+                    "(not compiled by Gradle). From that repo run: ${FfmpegBuild.buildCommand(slug)}. " +
+                    "For a single Android ABI debug APK use -PandroidAbis=arm64-v8a (etc.)."
             }
             copyPack(pack, if (subdir.isEmpty()) out else File(out, subdir))
             logger.info("ffmpeg: $slug <- ${pack.absolutePath}")

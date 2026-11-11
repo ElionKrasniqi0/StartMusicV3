@@ -48,7 +48,7 @@ Module map: [`AGENTS.md`](AGENTS.md).
 - **JDK 17+** (CI uses **21**). Installers need a full JDK with `jpackage` (e.g. Temurin — not a JBR-only runtime).
 - **Node.js** (CI uses **22**) — engine-js toolchain.
 - **CMake 3.20+** — native pieces (QuickJS, MSE, etc.).
-- **FFmpeg packs** from sibling [`ffmpeg-build`](https://github.com/ymusic-io/ffmpeg-build) (see [FFmpeg](#ffmpeg) below). Nothing is downloaded at app runtime for those natives.
+- **FFmpeg packs** from sibling [`ffmpeg-build`](https://github.com/ElionKrasniqi0/ffmpeg-build) (see [FFmpeg](#ffmpeg) below). Nothing is downloaded at app runtime for those natives.
 
 ### Windows (desktop)
 
@@ -61,7 +61,7 @@ Module map: [`AGENTS.md`](AGENTS.md).
 
 - Android **SDK** with **compileSdk 36**, build-tools, and **NDK `28.2.13676358`**.
 - `sdk.dir` in `local.properties` (or `ANDROID_HOME`) must point at a **real** SDK install.
-- Android FFmpeg packs for `armeabi-v7a` / `arm64-v8a` / `x86` / `x86_64` from `ffmpeg-build`.
+- Android FFmpeg packs for `armeabi-v7a` / `arm64-v8a` / `x86` / `x86_64` from sibling `../ffmpeg-build` (`out/android-<abi>/pack`). Single-ABI debug: `-PandroidAbis=arm64-v8a`.
 - Device or emulator for install/run verification.
 
 ### iOS / macOS / Linux
@@ -98,8 +98,7 @@ cd StartMusicV3
 
 ```sh
 # Windows: first `git config --global core.autocrlf false`, or ffmpeg-build scripts break on CRLF
-git clone --recursive --shallow-submodules https://github.com/ymusic-io/ffmpeg-build ../ffmpeg-build
-git -C ../ffmpeg-build checkout "$(sed -n 's/^ *FFMPEG_BUILD_REF: //p' .github/workflows/release.yml)"
+git clone --recursive --shallow-submodules https://github.com/ElionKrasniqi0/ffmpeg-build ../ffmpeg-build
 
 cd ../ffmpeg-build
 scripts/build-desktop.sh            # desktop: macOS, Linux, or Windows from an MSYS2 shell
@@ -118,8 +117,9 @@ Platform packages for ffmpeg-build:
 
 ```sh
 ./gradlew :desktopApp:run              # Windows / macOS / Linux desktop
-./gradlew :androidApp:assembleDebug    # debug APK
-./gradlew :androidApp:installDebug     # install on connected device/emulator
+./gradlew :androidApp:assembleDebug    # debug APK (needs all four Android ffmpeg packs)
+./gradlew :androidApp:assembleDebug -PandroidAbis=arm64-v8a   # single-ABI (e.g. Galaxy)
+./gradlew :androidApp:installDebug -PandroidAbis=arm64-v8a
 ./gradlew spotlessApply                # Kotlin format (required before commit)
 ```
 
