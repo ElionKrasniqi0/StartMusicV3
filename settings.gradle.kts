@@ -15,7 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "YMusicV4"
+rootProject.name = "StartMusicV3"
 
 include(":commonUi")
 include(":image-loader")

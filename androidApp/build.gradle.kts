@@ -54,7 +54,7 @@ android {
     ndkVersion = "28.2.13676358"
 
     defaultConfig {
-        applicationId = "io.ymusic.android"
+        applicationId = "io.startmusic.android"
         minSdk = Versions.minSdk
         targetSdk = Versions.targetSdk
         versionCode = 20
