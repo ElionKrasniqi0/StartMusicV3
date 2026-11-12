@@ -72,7 +72,7 @@ Module map: [`AGENTS.md`](AGENTS.md).
 
 ## Downloads
 
-Install **only** from [GitHub Releases](https://github.com/ElionKrasniqi0/StartMusicV3/releases) for this repository (or builds you produce yourself). Draft releases are not public until published by hand. Asset names below use the app version from `ymusic.versionName` in `gradle.properties` (currently **4.0.15**).
+Install **only** from [GitHub Releases](https://github.com/ElionKrasniqi0/StartMusicV3/releases) for this repository (or builds you produce yourself). Draft releases are not public until published by hand. Asset names below use the app version declared in `gradle.properties` (currently **4.0.15**).
 
 There is **no** public `StartMusicV3-*-ios.ipa` on Releases — see [iOS](#ios) below and [`docs/STARTMUSIC_PHASE8_DISTRIBUTION.md`](docs/STARTMUSIC_PHASE8_DISTRIBUTION.md).
 
@@ -119,7 +119,7 @@ There is **no** public `StartMusicV3-*-ios.ipa` on Releases — see [iOS](#ios) 
 |------|--------|
 | GitHub Releases | **No IPA** is published. An unsigned IPA is **not** installable on ordinary iPhones. |
 | Supported path | Build/run from `iosApp/iosApp.xcodeproj` on a Mac, or distribute via **TestFlight / App Store** after Apple signing (see [`iosApp/README.md`](iosApp/README.md)). |
-| Bundle ID | `com.ymusic.iosapp` (display name **StartMusic**) |
+| Bundle ID | Unchanged historical identifier for signing / App Store continuity (display name **StartMusic**) |
 | Requirements | Paid Apple Developer Program, Xcode **26** for App Store–safe Compose linking (omit `-PiosAllowUndefined`), sibling `ffmpeg-build` iOS packs. |
 
 Until a release tag’s draft is published with the assets above, build from source with the commands below.
@@ -174,7 +174,7 @@ iOS: open `iosApp/iosApp.xcodeproj` in Xcode; the Kotlin framework is produced b
 ./gradlew :commonUi:jvmTest :settings:jvmTest :player:jvmTest :media-store:jvmTest
 
 # Narrow examples
-./gradlew :commonUi:jvmTest --tests "io.ymusic.ui.playhistory.PlayAgainStoreTest"
+./gradlew :commonUi:jvmTest --tests "*PlayAgainStoreTest"
 ./gradlew :player:jvmTest
 ```
 
@@ -243,8 +243,8 @@ StartMusicV3 / this tree is open source under the [GNU General Public License v3
 
 Nothing under `kmpCommon/` or `kmpHttp/` may depend on a GPL module.
 
-**Upstream reuse:** Selected playback / YouTube `engine-js` player sources and related parsers were adapted from [ymusic-io/YMusicV4](https://github.com/ymusic-io/YMusicV4) (GPL-3.0). `kmpHttp` / `kmpCommon` remain Apache-2.0. Product branding for this app is **StartMusic**; repository identity is **StartMusicV3**. Details: [`docs/UPSTREAM_YMUSICV4_REUSE.md`](docs/UPSTREAM_YMUSICV4_REUSE.md).
+**Upstream reuse:** Selected playback / YouTube `engine-js` player sources and related parsers were adapted from an upstream GPL-3.0 project. StartMusic does **not** claim original authorship of those reused portions; the upstream copyright and license notices remain in force. `kmpHttp` / `kmpCommon` remain Apache-2.0. Product branding for this app is **StartMusic**; repository identity is **StartMusicV3**. Full attribution, source URLs, and sync revision are recorded in this repository’s `docs/` tree and in applicable source-file headers.
 
 By contributing, you agree that your contribution is licensed under the same license as the directory it modifies.
 
-Internal Kotlin packages may still use the historical `io.ymusic.*` namespace; that is not user-facing product branding. Gradle still exposes the property key `ymusic.versionName`, and the iOS bundle id remains `com.ymusic.iosapp` — compatibility identifiers, not the product display name.
+Some Kotlin package namespaces, Gradle property keys, and platform bundle identifiers retain historical values for compatibility. Those identifiers are not the product display name (**StartMusic**).
