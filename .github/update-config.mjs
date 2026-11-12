@@ -94,9 +94,9 @@ const INSTALLERS = [
   { platform: 'android-x86', file: 'android-x86.apk', versionCode: androidVersionCode },
   { platform: 'android-x86_64', file: 'android-x86_64.apk', versionCode: androidVersionCode },
   { platform: 'macos-arm64', file: 'macos-arm64.dmg', versionCode: desktopVersionCode },
-  { platform: 'macos-x64', file: 'macos-intel.dmg', versionCode: desktopVersionCode },
-  { platform: 'windows-x64', file: 'windows-x64-setup.exe', versionCode: desktopVersionCode },
-  { platform: 'windows-arm64', file: 'windows-arm64-setup.exe', versionCode: desktopVersionCode },
+  { platform: 'macos-x64', file: 'macos-x64.dmg', versionCode: desktopVersionCode },
+  { platform: 'windows-x64', file: 'windows-x64.exe', versionCode: desktopVersionCode },
+  { platform: 'windows-arm64', file: 'windows-arm64.exe', versionCode: desktopVersionCode },
   { platform: 'linux-x64', file: 'linux-x86_64.deb', versionCode: desktopVersionCode },
   { platform: 'linux-arm64', file: 'linux-arm64.deb', versionCode: desktopVersionCode },
 ]

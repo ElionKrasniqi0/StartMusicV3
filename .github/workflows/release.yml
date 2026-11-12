@@ -377,7 +377,7 @@ jobs:
           path: StartMusicV3/desktopApp/build/compose/binaries/main-release/dmg/*.dmg
           if-no-files-found: error
 
-  # The Inno Setup installer (StartMusicV3-Setup-<version>-<platform>.exe), unsigned.
+  # The Inno Setup installer (StartMusicV3-<version>-<platform>.exe), unsigned.
   windows:
     name: windows ${{ matrix.slug }}
     needs: ffmpeg
@@ -463,6 +463,15 @@ jobs:
           PATH="$(cygpath -u "$MINGW_HOME")/bin:$PATH" ./gradlew -Pproduction=true "-Pinno.iscc=$INNO_ISCC"
           :desktopApp:packageReleaseInnoSetup
 
+      # Portable ZIP (x64 only): jlinked app + portable marker; not used by in-app update.
+      - name: Package the portable ZIP
+        if: matrix.slug == 'windows-x86_64'
+        shell: bash
+        working-directory: StartMusicV3
+        run: >-
+          PATH="$(cygpath -u "$MINGW_HOME")/bin:$PATH" ./gradlew -Pproduction=true
+          :desktopApp:packagePortableWindows
+
       - name: Discard secrets
         if: always()
         shell: bash
@@ -481,6 +490,13 @@ jobs:
         with:
           name: ${{ matrix.slug }}-setup
           path: StartMusicV3/desktopApp/build/compose/binaries/main-release/innosetup/*.exe
+          if-no-files-found: error
+
+      - if: matrix.slug == 'windows-x86_64'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: windows-x86_64-portable
+          path: StartMusicV3/dist/StartMusicV3-Portable.zip
           if-no-files-found: error
 
   # The Debian package, unsigned.
@@ -707,9 +723,13 @@ jobs:
           cp "$(one_apk x86)" "release/StartMusicV3-$version-android-x86.apk"
           cp "$(one_apk x86_64)" "release/StartMusicV3-$version-android-x86_64.apk"
           cp "$(one 'artifacts/macos-arm64-dmg/*.dmg')" "release/StartMusicV3-$version-macos-arm64.dmg"
-          cp "$(one 'artifacts/macos-x86_64-dmg/*.dmg')" "release/StartMusicV3-$version-macos-intel.dmg"
-          cp "$(one 'artifacts/windows-x86_64-setup/*.exe')" "release/StartMusicV3-$version-windows-x64-setup.exe"
-          cp "$(one 'artifacts/windows-arm64-setup/*.exe')" "release/StartMusicV3-$version-windows-arm64-setup.exe"
+          cp "$(one 'artifacts/macos-x86_64-dmg/*.dmg')" "release/StartMusicV3-$version-macos-x64.dmg"
+          cp "$(one 'artifacts/windows-x86_64-setup/*.exe')" "release/StartMusicV3-$version-windows-x64.exe"
+          cp "$(one 'artifacts/windows-arm64-setup/*.exe')" "release/StartMusicV3-$version-windows-arm64.exe"
+          # Optional: only the windows-x86_64 job uploads a portable ZIP.
+          if [ -d artifacts/windows-x86_64-portable ]; then
+            cp "$(one 'artifacts/windows-x86_64-portable/*.zip')" "release/StartMusicV3-$version-windows-x64-portable.zip"
+          fi
           cp "$(one 'artifacts/linux-x86_64-deb/*.deb')" "release/StartMusicV3-$version-linux-x86_64.deb"
           cp "$(one 'artifacts/linux-arm64-deb/*.deb')" "release/StartMusicV3-$version-linux-arm64.deb"
           cp "$(one 'artifacts/js-bundles/engine.*.js')" "$(one 'artifacts/js-bundles/player.*.js')" release/
