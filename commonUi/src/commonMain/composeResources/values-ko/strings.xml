@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -273,7 +273,7 @@
     <string name="settings_show_fps_hint">재생 중인 동영상 위에 초당 프레임 수를 표시합니다. 일시정지하거나 화면을 벗어나면 측정이 중지됩니다.</string>
     <string name="settings_licenses">오픈소스 라이선스</string>
     <string name="settings_terms">약관 및 개인정보</string>
-    <string name="settings_licenses_intro">StartMusicV3은 GNU GPL v3.0에 따른 오픈소스입니다. 다음 구성요소가 포함되어 있습니다.</string>
+    <string name="settings_licenses_intro">StartMusic은 GNU GPL v3.0에 따른 오픈소스입니다. 다음 구성요소가 포함되어 있습니다.</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">무엇이 잘못됐는지, 무엇을 원하는지 GitHub나 이메일로 알려 주세요. 로그를 찾아 답변할 수 있도록 아래 익명 정보를 함께 보내 주세요.</string>
@@ -289,10 +289,10 @@
     <string name="feedback_github_hint">공개. 버그와 아이디어에 적합 — 다른 사람도 확인하고 의견을 더할 수 있습니다.</string>
     <string name="feedback_email_title">%1$s(으)로 이메일 보내기</string>
     <string name="feedback_email_hint">비공개. 계정 관련 또는 개인적인 문의에 적합합니다.</string>
-    <string name="feedback_email_subject">StartMusicV3 의견</string>
+    <string name="feedback_email_subject">StartMusic 의견</string>
     <string name="feedback_prefilled_note">두 방법 모두 정보가 미리 채워진 상태로 열립니다. 없으면 붙여 넣어 주세요 — 이 정보 없이는 도와드릴 수 없습니다.</string>
     <string name="feedback_reports_off_title">익명 보고서가 꺼져 있음</string>
-    <string name="feedback_reports_off_message">문제를 확인하려면 이 앱의 로그가 필요합니다. 계속을 탭하면 StartMusicV3이 익명 보고서를 다시 켜고 로그를 보냅니다.</string>
+    <string name="feedback_reports_off_message">문제를 확인하려면 이 앱의 로그가 필요합니다. 계속을 탭하면 StartMusic이 익명 보고서를 다시 켜고 로그를 보냅니다.</string>
     <string name="feedback_reports_off_note">이름, 이메일, 계정 정보는 전송되지 않습니다. 설정에서 언제든 보고서를 다시 끌 수 있습니다.</string>
     <string name="feedback_continue">계속</string>
     <string name="feedback_sentry_link">또는 Sentry로 보내기</string>
@@ -343,7 +343,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube로 로그인</string>
-    <string name="signin_preface_subtitle">StartMusicV3에서 YouTube의 모든 기능을 이용하세요</string>
+    <string name="signin_preface_subtitle">StartMusic에서 YouTube의 모든 기능을 이용하세요</string>
     <string name="signin_enables">로그인하면 이용할 수 있는 기능:</string>
     <string name="signin_feature_home">맞춤형 YouTube 홈 피드</string>
     <string name="signin_feature_subscriptions">구독 피드</string>
@@ -356,8 +356,8 @@
     <string name="signin_screen_title">로그인</string>
     <string name="signin_loading">로그인 불러오는 중…</string>
     <string name="signin_unavailable">이 기기에서는 아직 로그인할 수 없습니다</string>
-    <string name="signin_qr_title">StartMusicV3 앱으로 스캔</string>
-    <string name="signin_qr_hint">휴대전화에서 StartMusicV3 → 설정 → 기기 연결 → 카메라 열기를 선택한 후 이 코드를 스캔하세요.</string>
+    <string name="signin_qr_title">StartMusic 앱으로 스캔</string>
+    <string name="signin_qr_hint">휴대전화에서 StartMusic → 설정 → 기기 연결 → 카메라 열기를 선택한 후 이 코드를 스캔하세요.</string>
     <string name="signin_qr_waiting">휴대전화를 기다리는 중…</string>
     <string name="signin_qr_sas_hint">휴대전화에도 같은 코드가 표시됩니다. 일치할 때만 보내세요.</string>
     <string name="signin_or_paste">또는 브라우저에서 쿠키 붙여넣기</string>
@@ -383,11 +383,11 @@
     <string name="signin_paste_no_cookie_title">이 요청에는 쿠키가 없습니다</string>
     <string name="signin_paste_no_cookie_body">다른 요청(가급적 Fetch/XHR)에서 Copy as cURL로 복사하세요. 예:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">확인</string>
-    <string name="cd_device_link_qr">StartMusicV3 앱으로 스캔할 QR 코드</string>
+    <string name="cd_device_link_qr">StartMusic 앱으로 스캔할 QR 코드</string>
     <string name="settings_link_devices">기기 연결</string>
     <string name="settings_link_devices_hint">컴퓨터의 QR 코드를 스캔하여 로그인</string>
     <string name="device_link_title">기기 연결</string>
-    <string name="device_link_intro">컴퓨터의 StartMusicV3에 표시된 QR 코드를 스캔하세요. 이 휴대전화는 이미 로그인되어 있어야 합니다.</string>
+    <string name="device_link_intro">컴퓨터의 StartMusic에 표시된 QR 코드를 스캔하세요. 이 휴대전화는 이미 로그인되어 있어야 합니다.</string>
     <string name="device_link_open_camera">카메라 열기</string>
     <string name="device_link_scan_hint">컴퓨터의 QR 코드에 카메라를 맞추세요</string>
     <string name="device_link_sas_hint">이 코드가 컴퓨터와 일치해야 합니다. 일치하지 않으면 취소를 탭하세요.</string>
@@ -611,7 +611,7 @@
     <string name="video_details_delete_message">댓글과 모든 답글을 영구적으로 삭제할까요?</string>
     <string name="video_details_deleted">댓글을 삭제했습니다</string>
     <string name="cookie_protect_title">로그인 정보를 비밀번호로 보호할까요?</string>
-    <string name="cookie_protect_body">로그인 정보가 이 컴퓨터에 저장되어 있어, 실행 중인 다른 앱에서 읽을 수 있습니다. 비밀번호를 설정해 잠그면 StartMusicV3을 시작할 때마다 비밀번호를 묻습니다.</string>
+    <string name="cookie_protect_body">로그인 정보가 이 컴퓨터에 저장되어 있어, 실행 중인 다른 앱에서 읽을 수 있습니다. 비밀번호를 설정해 잠그면 StartMusic을 시작할 때마다 비밀번호를 묻습니다.</string>
     <string name="cookie_password">비밀번호</string>
     <string name="cookie_protect_confirm">비밀번호 확인</string>
     <string name="cookie_protect_mismatch">비밀번호가 일치하지 않습니다.</string>
@@ -627,7 +627,7 @@
     <string name="cookie_unlock_sign_out">로그아웃</string>
     <string name="cookie_unlock_sign_out_hint">저장된 이 로그인 정보를 삭제합니다.</string>
     <string name="cookie_unlock_sign_out_title">로그아웃할까요?</string>
-    <string name="cookie_unlock_sign_out_body">이 컴퓨터에 저장된 로그인 정보가 삭제됩니다. 다시 로그인하려면 StartMusicV3 앱으로 QR 코드를 스캔하세요.</string>
+    <string name="cookie_unlock_sign_out_body">이 컴퓨터에 저장된 로그인 정보가 삭제됩니다. 다시 로그인하려면 StartMusic 앱으로 QR 코드를 스캔하세요.</string>
     <string name="menu_details_comments">세부정보 및 댓글</string>
     <string name="menu_search_lyrics">가사 검색</string>
     <string name="menu_speed_pitch">속도 및 음높이</string>
@@ -639,7 +639,7 @@
     <string name="cd_move_to_top">맨 위로 이동</string>
     <string name="dialog_undo">실행취소</string>
     <string name="dialog_save">저장</string>
-    <string name="upgraded_message">StartMusicV3이 %1$s(으)로 업데이트되었습니다</string>
+    <string name="upgraded_message">StartMusic이 %1$s(으)로 업데이트되었습니다</string>
     <string name="upgraded_view_changelog">변경 내역 보기</string>
     <string name="menu_go_to_artist">아티스트 보기</string>
     <string name="menu_go_to_album">앨범 보기</string>

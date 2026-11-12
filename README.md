@@ -1,17 +1,17 @@
 # StartMusicV3
 
-StartMusicV3 is a cross-platform music player for **Windows**, **Android**, and **iOS**, built as a Kotlin Multiplatform + Compose Multiplatform rewrite of the earlier StartMusic stack. One shared UI (`:commonUi`) drives Discover / YouTube Music browsing, local library, downloads, and playback; thin product shells wire platform engines and storage.
+**StartMusic** is a cross-platform music player for **Windows**, **Android**, **macOS**, and **iOS** (plus Linux `.deb` builds). This repository is named **StartMusicV3** (Kotlin Multiplatform + Compose Multiplatform rewrite of the earlier YMusic stack). One shared UI (`:commonUi`) drives Discover / YouTube Music browsing, local library, downloads, and playback; thin product shells wire platform engines and storage.
 
 Tagline: *Music for every moment.*
 
 > [!CAUTION]
-> **Only install StartMusicV3 from sources you trust** (official releases you control, or this repository’s release artifacts). Anyone can build a modified copy — a fake build can steal Google account credentials when you sign in.
+> **Only install StartMusic from sources you trust** (official releases you control, or this repository’s release artifacts). Anyone can build a modified copy — a fake build can steal Google account credentials when you sign in.
 >
 > **Misuse:** The authors are not responsible for misuse of the application. Use only authorized music sources and respect their terms of service and licensing. The app does **not** bypass DRM, paywalls, or platform protections.
 
 Planning / phase notes (StartMusicV3 product track): [`docs/STARTMUSIC_PHASE1_AUDIT.md`](docs/STARTMUSIC_PHASE1_AUDIT.md) … [`docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md`](docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md). Final objective audit (no rewrite): [`docs/STARTMUSIC_FINAL_OBJECTIVE_AUDIT.md`](docs/STARTMUSIC_FINAL_OBJECTIVE_AUDIT.md).
 
-**Development rules (mandatory):** see [Phase 14](docs/STARTMUSIC_PHASE14_DEVELOPMENT_RULES.md) — existing repo only, no drive-by rewrites, no Windows↔Android regressions, no fake/untested features, preserve FFmpeg, brand as StartMusicV3.
+**Development rules (mandatory):** see [Phase 14](docs/STARTMUSIC_PHASE14_DEVELOPMENT_RULES.md) — existing repo only, no drive-by rewrites, no Windows↔Android regressions, no fake/untested features, preserve FFmpeg; user-facing product name **StartMusic**, repository **StartMusicV3**.
 
 **Implementation order (mandatory):** see [Phase 15](docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md) — ordered steps; after each major step run build/tests, fix errors, summarize changes, and document what still unfinished.
 
@@ -70,17 +70,59 @@ Module map: [`AGENTS.md`](AGENTS.md).
 - **Linux:** `build-essential`, CMake, Pulse (`libpulse-dev`); `fakeroot` for `.deb`.
 - Details remain in the platform bullets under [Development setup](#development-setup).
 
-## Installation (end users)
+## Downloads
 
-Prefer official release installers / APKs when published:
+Install **only** from [GitHub Releases](https://github.com/ElionKrasniqi0/StartMusicV3/releases) for this repository (or builds you produce yourself). Draft releases are not public until published by hand. Asset names below use the app version from `ymusic.versionName` in `gradle.properties` (currently **4.0.15**).
 
-| Platform | Artifact |
-|----------|----------|
-| Windows | `StartMusicV3-<version>-windows-x64.exe` (Inno Setup) |
-| Android | Release / debug APK from CI or local `assemble*` |
-| macOS / Linux | Platform DMG / DEB from `:desktopApp:releaseInstaller` on that host |
+There is **no** public `StartMusicV3-*-ios.ipa` on Releases — see [iOS](#ios) below and [`docs/STARTMUSIC_PHASE8_DISTRIBUTION.md`](docs/STARTMUSIC_PHASE8_DISTRIBUTION.md).
 
-Until you publish your own channel, build from source with the commands below.
+### Android
+
+| Item | Detail |
+|------|--------|
+| Package | `io.startmusic.android` |
+| Minimum OS | Android **7.0** (API 24) |
+| Architectures | Separate APKs: `armeabi-v7a`, `arm64-v8a`, `x86`, `x86_64` |
+| Artifacts | `StartMusicV3-<version>-android-armv7.apk`, `…-android-arm64.apk`, `…-android-x86.apk`, `…-android-x86_64.apk` |
+| Install | Download the APK that matches the device ABI → enable install from this source if prompted → open the file. Prefer **arm64** on modern phones. |
+| Signing | Release APKs are signed in CI when `SECRETS_PASSPHRASE` can decrypt `secrets.enc`; otherwise the job may still produce debug-signed APKs that are **not** for public distribution. |
+
+### Windows
+
+| Item | Detail |
+|------|--------|
+| Minimum OS | Windows 10+ (x64 primary; arm64 installer also built in CI) |
+| Installer | `StartMusicV3-<version>-windows-x64.exe` (Inno Setup; also `…-windows-arm64.exe`) |
+| Portable | `StartMusicV3-<version>-windows-x64-portable.zip` — extract and run; app data stays under `./data` beside the exe |
+| Install | Run the `.exe` installer (or unzip portable). Bundled JRE + FFmpeg natives are included. |
+| Signing | Installers are **not** Authenticode-signed today — Windows SmartScreen may warn on first launch. |
+
+### macOS
+
+| Item | Detail |
+|------|--------|
+| Minimum OS | macOS **11.0** (Big Sur) |
+| Architectures | `StartMusicV3-<version>-macos-arm64.dmg` (Apple Silicon), `StartMusicV3-<version>-macos-x64.dmg` (Intel) |
+| Install | Open the DMG → drag **StartMusic** to Applications. |
+| Signing / notarization | DMGs are code-signed and notarized **only** when CI has `MACOS_CERT_*` and `mac.notarization.*` in decrypted secrets. Without those, the DMG is unsigned — Gatekeeper may block it until you allow it under System Settings. Do not assume a build is notarized unless the release notes or stapling step succeeded. |
+
+### Linux
+
+| Item | Detail |
+|------|--------|
+| Artifacts | `StartMusicV3-<version>-linux-x86_64.deb`, `…-linux-arm64.deb` |
+| Install | `sudo apt install ./StartMusicV3-<version>-linux-*.deb` (or your distro’s `.deb` tool). Packages are **unsigned**. |
+
+### iOS
+
+| Item | Detail |
+|------|--------|
+| GitHub Releases | **No IPA** is published. An unsigned IPA is **not** installable on ordinary iPhones. |
+| Supported path | Build/run from `iosApp/iosApp.xcodeproj` on a Mac, or distribute via **TestFlight / App Store** after Apple signing (see [`iosApp/README.md`](iosApp/README.md)). |
+| Bundle ID | `com.ymusic.iosapp` (display name **StartMusic**) |
+| Requirements | Paid Apple Developer Program, Xcode **26** for App Store–safe Compose linking (omit `-PiosAllowUndefined`), sibling `ffmpeg-build` iOS packs. |
+
+Until a release tag’s draft is published with the assets above, build from source with the commands below.
 
 ## Development setup
 
@@ -157,7 +199,7 @@ Lower-level:
 # optional: ./gradlew :desktopApp:packageReleaseMsi
 ```
 
-Installer identity uses package name **StartMusicV3** and `startmusic.ico`. More detail: [`desktopApp/README.md`](desktopApp/README.md), [`docs/STARTMUSIC_PHASE6_WINDOWS.md`](docs/STARTMUSIC_PHASE6_WINDOWS.md).
+Installer identity uses visible package name **StartMusic** (release asset files still use the `StartMusicV3-<version>-…` prefix) and `startmusic.ico`. More detail: [`desktopApp/README.md`](desktopApp/README.md), [`docs/STARTMUSIC_PHASE6_WINDOWS.md`](docs/STARTMUSIC_PHASE6_WINDOWS.md).
 
 ## Android APK generation
 
@@ -182,7 +224,7 @@ Documented gaps that are **not** fully implemented or not verified on every mach
 | **Android build on incomplete SDK hosts** | `assembleDebug` fails if `sdk.dir` / `ANDROID_HOME` points at a missing SDK. Device/emulator checklist must be re-run after install. |
 | **Android FFmpeg packs** | All `FfmpegBuild.ANDROID_ABIS` must be built; desktop-only packs are not enough for a green Android native link. |
 | **Full Windows playback QA matrix** | Launch / title / resize / navigation verified; exhaustive seek/volume/queue play-through may still need manual pass (Phase 12). |
-| **In-app “YT Music” section label** | Window and store branding are StartMusicV3; the YouTube Music **section** title remains “YT Music” by design (catalog surface, not product rename of every string). |
+| **In-app “YT Music” section label** | Window and store branding are **StartMusic**; the YouTube Music **section** title remains “YT Music” by design (catalog surface, not product rename of every string). |
 | **iOS** | Supported shell exists; this StartMusic track’s primary QA focus has been Windows + Android. Treat iOS as needing its own device verification. |
 | **Remote config / Sentry** | Optional; empty DSN disables Sentry. Secrets stay in gitignored `local.properties` / `secrets.properties`. |
 | **DRM / premium bypass** | Explicitly out of scope — unavailable / sign-in-required content surfaces playability errors instead of circumvention. |

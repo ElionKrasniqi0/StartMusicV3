@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -273,7 +273,7 @@
     <string name="settings_show_fps_hint">在「現正播放」的影片上疊加顯示每秒影格數。暫停或離開該畫面時會停止取樣。</string>
     <string name="settings_licenses">開放原始碼授權</string>
     <string name="settings_terms">條款與隱私</string>
-    <string name="settings_licenses_intro">StartMusicV3 以 GNU GPL v3.0 授權開放原始碼，包含以下元件：</string>
+    <string name="settings_licenses_intro">StartMusic 以 GNU GPL v3.0 授權開放原始碼，包含以下元件：</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">透過 GitHub 或電子郵件告訴我們哪裡出了問題，或你希望看到什麼。請附上下方的匿名資訊，方便我們找到你的記錄並回覆。</string>
@@ -289,10 +289,10 @@
     <string name="feedback_github_hint">公開。最適合回報錯誤和提出想法 — 其他人可以追蹤並補充。</string>
     <string name="feedback_email_title">寄送電子郵件至 %1$s</string>
     <string name="feedback_email_hint">私人。最適合帳戶或個人問題。</string>
-    <string name="feedback_email_subject">StartMusicV3 意見回饋</string>
+    <string name="feedback_email_subject">StartMusic 意見回饋</string>
     <string name="feedback_prefilled_note">兩種方式開啟時都會預先填好資訊。如果缺少，請貼上 — 沒有這些資訊我們無法協助。</string>
     <string name="feedback_reports_off_title">匿名報告已關閉</string>
-    <string name="feedback_reports_off_message">為了調查你的問題，我們需要本應用程式的記錄。輕觸「繼續」，StartMusicV3 會重新開啟匿名報告並傳送記錄。</string>
+    <string name="feedback_reports_off_message">為了調查你的問題，我們需要本應用程式的記錄。輕觸「繼續」，StartMusic 會重新開啟匿名報告並傳送記錄。</string>
     <string name="feedback_reports_off_note">不會傳送姓名、電子郵件或帳戶。你可以隨時在設定中再次關閉報告。</string>
     <string name="feedback_continue">繼續</string>
     <string name="feedback_sentry_link">或透過 Sentry 傳送</string>
@@ -343,7 +343,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">使用 YouTube 帳號登入</string>
-    <string name="signin_preface_subtitle">在 StartMusicV3 中享有 YouTube 的所有功能</string>
+    <string name="signin_preface_subtitle">在 StartMusic 中享有 YouTube 的所有功能</string>
     <string name="signin_enables">登入後啟用：</string>
     <string name="signin_feature_home">個人化 YouTube 首頁動態</string>
     <string name="signin_feature_subscriptions">訂閱內容動態</string>
@@ -356,8 +356,8 @@
     <string name="signin_screen_title">登入</string>
     <string name="signin_loading">正在載入登入頁面…</string>
     <string name="signin_unavailable">這部裝置目前尚不支援登入</string>
-    <string name="signin_qr_title">使用 StartMusicV3 應用程式掃描</string>
-    <string name="signin_qr_hint">在手機上開啟 StartMusicV3 → 設定 → 連結裝置 → 開啟相機，然後掃描這個條碼。</string>
+    <string name="signin_qr_title">使用 StartMusic 應用程式掃描</string>
+    <string name="signin_qr_hint">在手機上開啟 StartMusic → 設定 → 連結裝置 → 開啟相機，然後掃描這個條碼。</string>
     <string name="signin_qr_waiting">正在等待手機…</string>
     <string name="signin_qr_sas_hint">你的手機會顯示相同的代碼。只有在兩者相符時才傳送。</string>
     <string name="signin_or_paste">或從瀏覽器貼上 Cookie</string>
@@ -383,11 +383,11 @@
     <string name="signin_paste_no_cookie_title">這個要求沒有 Cookie</string>
     <string name="signin_paste_no_cookie_body">請從其他要求（最好是 Fetch/XHR）中 Copy as cURL，例如：\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">知道了</string>
-    <string name="cd_device_link_qr">用 StartMusicV3 應用程式掃描的 QR 圖碼</string>
+    <string name="cd_device_link_qr">用 StartMusic 應用程式掃描的 QR 圖碼</string>
     <string name="settings_link_devices">連結裝置</string>
     <string name="settings_link_devices_hint">掃描電腦上的 QR 圖碼，在電腦上登入</string>
     <string name="device_link_title">連結裝置</string>
-    <string name="device_link_intro">掃描電腦上 StartMusicV3 顯示的 QR 圖碼。這支手機必須已經登入。</string>
+    <string name="device_link_intro">掃描電腦上 StartMusic 顯示的 QR 圖碼。這支手機必須已經登入。</string>
     <string name="device_link_open_camera">開啟相機</string>
     <string name="device_link_scan_hint">將相機對準電腦上的 QR 圖碼</string>
     <string name="device_link_sas_hint">這組代碼必須與電腦上的相符。如果不符，請輕觸「取消」。</string>
@@ -611,7 +611,7 @@
     <string name="video_details_delete_message">要永久刪除你的留言及所有回覆嗎？</string>
     <string name="video_details_deleted">已刪除留言</string>
     <string name="cookie_protect_title">要用密碼保護你的登入資訊嗎？</string>
-    <string name="cookie_protect_body">你的登入資訊儲存在這台電腦上，你執行的其他應用程式都能讀取。設定密碼將其鎖定後，StartMusicV3 每次啟動時都會要求輸入密碼。</string>
+    <string name="cookie_protect_body">你的登入資訊儲存在這台電腦上，你執行的其他應用程式都能讀取。設定密碼將其鎖定後，StartMusic 每次啟動時都會要求輸入密碼。</string>
     <string name="cookie_password">密碼</string>
     <string name="cookie_protect_confirm">確認密碼</string>
     <string name="cookie_protect_mismatch">兩次輸入的密碼不一致。</string>
@@ -627,7 +627,7 @@
     <string name="cookie_unlock_sign_out">登出</string>
     <string name="cookie_unlock_sign_out_hint">移除這組已儲存的登入資訊。</string>
     <string name="cookie_unlock_sign_out_title">要登出嗎？</string>
-    <string name="cookie_unlock_sign_out_body">這會從這台電腦移除已儲存的登入資訊。如要重新登入，請使用 StartMusicV3 應用程式掃描 QR 圖碼。</string>
+    <string name="cookie_unlock_sign_out_body">這會從這台電腦移除已儲存的登入資訊。如要重新登入，請使用 StartMusic 應用程式掃描 QR 圖碼。</string>
     <string name="menu_details_comments">詳細資料和留言</string>
     <string name="menu_search_lyrics">搜尋歌詞</string>
     <string name="menu_speed_pitch">速度和音高</string>
@@ -639,7 +639,7 @@
     <string name="cd_move_to_top">移至頂端</string>
     <string name="dialog_undo">復原</string>
     <string name="dialog_save">儲存</string>
-    <string name="upgraded_message">StartMusicV3 已更新至 %1$s</string>
+    <string name="upgraded_message">StartMusic 已更新至 %1$s</string>
     <string name="upgraded_view_changelog">查看更新紀錄</string>
     <string name="menu_go_to_artist">前往演出者</string>
     <string name="menu_go_to_album">前往專輯</string>

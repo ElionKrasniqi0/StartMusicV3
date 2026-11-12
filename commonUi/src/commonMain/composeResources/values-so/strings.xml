@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -277,7 +277,7 @@
     <string name="settings_show_fps_hint">Ku tus tirada sawirada ilbiriqsigiiba muuqaalka La daarayo. Cabbiriddu way joogsataa marka la hakiyo ama aad ka baxdo shaashaddaas.</string>
     <string name="settings_licenses">Laysinada tixraaca furan</string>
     <string name="settings_terms">Shuruudaha &amp; asturnaanta</string>
-    <string name="settings_licenses_intro">StartMusicV3 waa tixraac furan oo hoos yimaada GNU GPL v3.0. Wuxuu ka kooban yahay qaybahan:</string>
+    <string name="settings_licenses_intro">StartMusic waa tixraac furan oo hoos yimaada GNU GPL v3.0. Wuxuu ka kooban yahay qaybahan:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Noo sheeg waxa khaldamay ama waxaad jeclaan lahayd inaad aragto, GitHub ama iimayl. Ku dar xogtaada qarsoon ee hoose si aan u helno diiwaannadaada oo aan kuugu jawaabno.</string>
@@ -293,10 +293,10 @@
     <string name="feedback_github_hint">Dadweyne. Ugu fiican cilladaha iyo fikradaha — kuwo kale ayaa raaci kara oo ku dari kara.</string>
     <string name="feedback_email_title">Iimayl u dir %1$s</string>
     <string name="feedback_email_hint">Gaar ah. Ugu fiican su’aalaha akoonka ama kuwa shakhsiga ah.</string>
-    <string name="feedback_email_subject">Jawaab-celin StartMusicV3</string>
+    <string name="feedback_email_subject">Jawaab-celin StartMusic</string>
     <string name="feedback_prefilled_note">Labaduba waxay ku furmaan macluumaadka oo horay loo buuxiyay. Haddii uu maqan yahay, ku dheji — la’aantiis kuma caawin karno.</string>
     <string name="feedback_reports_off_title">Warbixinnada qarsoodiga ah way dansan yihiin</string>
-    <string name="feedback_reports_off_message">Si aan u baarno dhibaatadaada waxaan u baahanahay diiwaannada app-kan. Taabo Sii wad, StartMusicV3 waxay dib u shidaysaa warbixinnada qarsoodiga ah oo diraysaa diiwaannada.</string>
+    <string name="feedback_reports_off_message">Si aan u baarno dhibaatadaada waxaan u baahanahay diiwaannada app-kan. Taabo Sii wad, StartMusic waxay dib u shidaysaa warbixinnada qarsoodiga ah oo diraysaa diiwaannada.</string>
     <string name="feedback_reports_off_note">Magac, iimayl ama akoon lama diro. Waxaad mar kale ka dami kartaa warbixinnada Fadhiga.</string>
     <string name="feedback_continue">Sii wad</string>
     <string name="feedback_sentry_link">ama adigoo isticmaalaya Sentry</string>
@@ -347,7 +347,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Ku gal YouTube</string>
-    <string name="signin_preface_subtitle">oo StartMusicV3 gudihiisa ka hel dhammaan adeegyada YouTube</string>
+    <string name="signin_preface_subtitle">oo StartMusic gudihiisa ka hel dhammaan adeegyada YouTube</string>
     <string name="signin_enables">Markaad gasho waxaa kuu furmaya:</string>
     <string name="signin_feature_home">Bogga hore ee YouTube oo kuu gaar ah</string>
     <string name="signin_feature_subscriptions">Bogga rukunka</string>
@@ -360,8 +360,8 @@
     <string name="signin_screen_title">Gal</string>
     <string name="signin_loading">Soo kicinaya galitaanka…</string>
     <string name="signin_unavailable">Galitaanku weli kama shaqeeyo aaladdan</string>
-    <string name="signin_qr_title">Ku baadh app-ka StartMusicV3</string>
-    <string name="signin_qr_hint">Taleefankaaga, fur StartMusicV3 → Fadhiga → Isku xidh aaladaha → Fur kamarada, kadibna baadh koodhkan.</string>
+    <string name="signin_qr_title">Ku baadh app-ka StartMusic</string>
+    <string name="signin_qr_hint">Taleefankaaga, fur StartMusic → Fadhiga → Isku xidh aaladaha → Fur kamarada, kadibna baadh koodhkan.</string>
     <string name="signin_qr_waiting">Sugaya taleefanka…</string>
     <string name="signin_qr_sas_hint">Taleefankaagu wuxuu tusi doonaa isla koodhkan. Dir kaliya haddii ay is waafaqaan.</string>
     <string name="signin_or_paste">Ama ku dheji cookies-ka biraawsarka</string>
@@ -387,11 +387,11 @@
     <string name="signin_paste_no_cookie_title">Codsigaasi cookies ma laha</string>
     <string name="signin_paste_no_cookie_body">Ka samee Copy as cURL codsi kale, ugu fiican Fetch/XHR, tusaale:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Fahmay</string>
-    <string name="cd_device_link_qr">Koodh QR ah oo lagu baadho app-ka StartMusicV3</string>
+    <string name="cd_device_link_qr">Koodh QR ah oo lagu baadho app-ka StartMusic</string>
     <string name="settings_link_devices">Isku xidh aaladaha</string>
     <string name="settings_link_devices_hint">Ku gal kombiyuutar adigoo baadhaya koodhkiisa QR</string>
     <string name="device_link_title">Isku xidh aaladaha</string>
-    <string name="device_link_intro">Baadh koodhka QR ee ka muuqda StartMusicV3 kombiyuutarkaaga. Taleefankani waa inuu horay u galay.</string>
+    <string name="device_link_intro">Baadh koodhka QR ee ka muuqda StartMusic kombiyuutarkaaga. Taleefankani waa inuu horay u galay.</string>
     <string name="device_link_open_camera">Fur kamarada</string>
     <string name="device_link_scan_hint">Kamarada u jeedi koodhka QR ee kombiyuutarka</string>
     <string name="device_link_sas_hint">Koodhkani waa inuu la mid yahay kan kombiyuutarka. Haddii aanu ahayn, taabo Ka noqo.</string>
@@ -619,7 +619,7 @@
     <string name="video_details_delete_message">Ma rabtaa inaad si joogto ah u tirtirto faalladaada iyo dhammaan jawaabaheeda?</string>
     <string name="video_details_deleted">Faallada waa la tirtiray</string>
     <string name="cookie_protect_title">Ku ilaali galitaankaaga erey sir ah?</string>
-    <string name="cookie_protect_body">Galitaankaagu wuxuu ku kaydsan yahay kombiyuutarkan, halkaas oo apps kale oo aad furto ay akhrin karaan. Deji erey sir ah si aad u xidho; StartMusicV3 wuxuu ku weydiinayaa mar kasta oo uu furmo.</string>
+    <string name="cookie_protect_body">Galitaankaagu wuxuu ku kaydsan yahay kombiyuutarkan, halkaas oo apps kale oo aad furto ay akhrin karaan. Deji erey sir ah si aad u xidho; StartMusic wuxuu ku weydiinayaa mar kasta oo uu furmo.</string>
     <string name="cookie_password">Erey sir ah</string>
     <string name="cookie_protect_confirm">Xaqiiji ereyga sirta ah</string>
     <string name="cookie_protect_mismatch">Ereyada sirta ahi isma waafaqsana.</string>
@@ -635,7 +635,7 @@
     <string name="cookie_unlock_sign_out">Ka bax</string>
     <string name="cookie_unlock_sign_out_hint">Wuxuu tirtiraa galitaankan la kaydiyay.</string>
     <string name="cookie_unlock_sign_out_title">Ka bax?</string>
-    <string name="cookie_unlock_sign_out_body">Tani waxay kombiyuutarkan ka tirtiraysaa galitaanka la kaydiyay. Si aad mar kale u gasho, ku baadh koodhka QR app-ka StartMusicV3.</string>
+    <string name="cookie_unlock_sign_out_body">Tani waxay kombiyuutarkan ka tirtiraysaa galitaanka la kaydiyay. Si aad mar kale u gasho, ku baadh koodhka QR app-ka StartMusic.</string>
     <string name="menu_details_comments">Faahfaahin iyo faallooyin</string>
     <string name="menu_search_lyrics">Raadi erayada heesta</string>
     <string name="menu_speed_pitch">Xawaaraha iyo teembada</string>
@@ -647,7 +647,7 @@
     <string name="cd_move_to_top">U dhaqaaji xagga sare</string>
     <string name="dialog_undo">Ka noqo</string>
     <string name="dialog_save">Kaydi</string>
-    <string name="upgraded_message">StartMusicV3 waxaa loo cusboonaysiiyay %1$s</string>
+    <string name="upgraded_message">StartMusic waxaa loo cusboonaysiiyay %1$s</string>
     <string name="upgraded_view_changelog">Eeg isbeddelada</string>
     <string name="menu_go_to_artist">Booqo fanaanka</string>
     <string name="menu_go_to_album">Booqo albumka</string>

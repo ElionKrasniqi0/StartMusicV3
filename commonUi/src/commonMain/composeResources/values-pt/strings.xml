@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -281,7 +281,7 @@
     <string name="settings_show_fps_hint">Mostra os quadros por segundo sobre o vídeo em reprodução. A medição para quando pausado ou quando você sai dessa tela.</string>
     <string name="settings_licenses">Licenças de código aberto</string>
     <string name="settings_terms">Termos e privacidade</string>
-    <string name="settings_licenses_intro">O StartMusicV3 é de código aberto sob a GNU GPL v3.0. Ele inclui estes componentes:</string>
+    <string name="settings_licenses_intro">O StartMusic é de código aberto sob a GNU GPL v3.0. Ele inclui estes componentes:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Conte-nos o que deu errado ou o que gostaria de ver, no GitHub ou por e-mail. Inclua suas informações anônimas abaixo para que possamos encontrar seus registros e responder.</string>
@@ -297,10 +297,10 @@
     <string name="feedback_github_hint">Público. Ideal para bugs e ideias — outras pessoas podem acompanhar e contribuir.</string>
     <string name="feedback_email_title">Enviar e-mail para %1$s</string>
     <string name="feedback_email_hint">Privado. Ideal para perguntas sobre a conta ou pessoais.</string>
-    <string name="feedback_email_subject">Feedback do StartMusicV3</string>
+    <string name="feedback_email_subject">Feedback do StartMusic</string>
     <string name="feedback_prefilled_note">Ambos abrem com as informações já preenchidas. Se estiverem faltando, cole-as — sem elas não conseguimos ajudar.</string>
     <string name="feedback_reports_off_title">Os relatórios anônimos estão desativados</string>
-    <string name="feedback_reports_off_message">Para investigar seu problema, precisamos dos registros deste app. Toque em Continuar e o StartMusicV3 reativará os relatórios anônimos e enviará os registros.</string>
+    <string name="feedback_reports_off_message">Para investigar seu problema, precisamos dos registros deste app. Toque em Continuar e o StartMusic reativará os relatórios anônimos e enviará os registros.</string>
     <string name="feedback_reports_off_note">Nenhum nome, e-mail ou conta é enviado. Você pode desativar os relatórios de novo em Configurações.</string>
     <string name="feedback_continue">Continuar</string>
     <string name="feedback_sentry_link">ou pelo Sentry</string>
@@ -351,7 +351,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Entrar com o YouTube</string>
-    <string name="signin_preface_subtitle">e ter todos os recursos do YouTube no StartMusicV3</string>
+    <string name="signin_preface_subtitle">e ter todos os recursos do YouTube no StartMusic</string>
     <string name="signin_enables">Ao fazer login você tem:</string>
     <string name="signin_feature_home">Página inicial do YouTube personalizada</string>
     <string name="signin_feature_subscriptions">Feed de inscrições</string>
@@ -364,8 +364,8 @@
     <string name="signin_screen_title">Entrar</string>
     <string name="signin_loading">Carregando login…</string>
     <string name="signin_unavailable">O login ainda não está disponível neste dispositivo</string>
-    <string name="signin_qr_title">Escaneie com o app StartMusicV3</string>
-    <string name="signin_qr_hint">No seu celular, abra o StartMusicV3 → Configurações → Vincular dispositivos → Abrir câmera e escaneie este código.</string>
+    <string name="signin_qr_title">Escaneie com o app StartMusic</string>
+    <string name="signin_qr_hint">No seu celular, abra o StartMusic → Configurações → Vincular dispositivos → Abrir câmera e escaneie este código.</string>
     <string name="signin_qr_waiting">Aguardando o celular…</string>
     <string name="signin_qr_sas_hint">Seu celular vai mostrar este mesmo código. Envie só se eles forem iguais.</string>
     <string name="signin_or_paste">Ou cole os cookies de um navegador</string>
@@ -391,11 +391,11 @@
     <string name="signin_paste_no_cookie_title">Essa solicitação não tem cookies</string>
     <string name="signin_paste_no_cookie_body">Copie como cURL de outra solicitação, de preferência Fetch/XHR, por exemplo:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Entendi</string>
-    <string name="cd_device_link_qr">QR code para escanear com o app StartMusicV3</string>
+    <string name="cd_device_link_qr">QR code para escanear com o app StartMusic</string>
     <string name="settings_link_devices">Vincular dispositivos</string>
     <string name="settings_link_devices_hint">Faça login em um computador escaneando o QR code dele</string>
     <string name="device_link_title">Vincular dispositivos</string>
-    <string name="device_link_intro">Escaneie o QR code exibido pelo StartMusicV3 no seu computador. Este celular já precisa estar conectado.</string>
+    <string name="device_link_intro">Escaneie o QR code exibido pelo StartMusic no seu computador. Este celular já precisa estar conectado.</string>
     <string name="device_link_open_camera">Abrir câmera</string>
     <string name="device_link_scan_hint">Aponte a câmera para o QR code do computador</string>
     <string name="device_link_sas_hint">Este código precisa ser igual ao do computador. Se não for, toque em Cancelar.</string>
@@ -627,7 +627,7 @@
     <string name="video_details_delete_message">Excluir permanentemente seu comentário e todas as respostas?</string>
     <string name="video_details_deleted">Comentário excluído</string>
     <string name="cookie_protect_title">Proteger seu login com uma senha?</string>
-    <string name="cookie_protect_body">Seu login fica salvo neste computador, onde outros apps que você executa podem lê-lo. Defina uma senha para bloqueá-lo; o StartMusicV3 vai pedi-la sempre que abrir.</string>
+    <string name="cookie_protect_body">Seu login fica salvo neste computador, onde outros apps que você executa podem lê-lo. Defina uma senha para bloqueá-lo; o StartMusic vai pedi-la sempre que abrir.</string>
     <string name="cookie_password">Senha</string>
     <string name="cookie_protect_confirm">Confirmar senha</string>
     <string name="cookie_protect_mismatch">As senhas não coincidem.</string>
@@ -643,7 +643,7 @@
     <string name="cookie_unlock_sign_out">Sair</string>
     <string name="cookie_unlock_sign_out_hint">Remove este login salvo.</string>
     <string name="cookie_unlock_sign_out_title">Sair?</string>
-    <string name="cookie_unlock_sign_out_body">Isso remove o login salvo deste computador. Para entrar de novo, escaneie o QR code com o app StartMusicV3.</string>
+    <string name="cookie_unlock_sign_out_body">Isso remove o login salvo deste computador. Para entrar de novo, escaneie o QR code com o app StartMusic.</string>
     <string name="menu_details_comments">Detalhes e comentários</string>
     <string name="menu_search_lyrics">Pesquisar letra</string>
     <string name="menu_speed_pitch">Velocidade e tom</string>
@@ -655,7 +655,7 @@
     <string name="cd_move_to_top">Mover para o topo</string>
     <string name="dialog_undo">Desfazer</string>
     <string name="dialog_save">Salvar</string>
-    <string name="upgraded_message">StartMusicV3 atualizado para %1$s</string>
+    <string name="upgraded_message">StartMusic atualizado para %1$s</string>
     <string name="upgraded_view_changelog">Ver novidades</string>
     <string name="menu_go_to_artist">Ir para o artista</string>
     <string name="menu_go_to_album">Ir para o álbum</string>

@@ -2,14 +2,14 @@
 ; passes the version, paths and arch as ISCC /D defines.
 ;
 ; Build input (jpackage's `createReleaseDistributable` output):
-;   AppSourceDir = desktopApp/build/compose/binaries/main-release/app/StartMusicV3
-;     containing StartMusicV3.exe + runtime/ + app/
+;   AppSourceDir = desktopApp/build/compose/binaries/main-release/app/StartMusic
+;     containing StartMusic.exe + runtime/ + app/
 ;
 ; Output:
 ;   OutputDir/OutputBaseFilename.exe (self-contained installer, LZMA2)
 
-#define AppName "StartMusicV3"
-#define AppExeName "StartMusicV3.exe"
+#define AppName "StartMusic"
+#define AppExeName "StartMusic.exe"
 ; Never change: Inno finds the previous install by AppId, so a new one would install side by side.
 #define AppId "{{6F3C2B9E-4D1A-4E8B-9A57-2C1F0D8E7B34}"
 
@@ -54,9 +54,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 ; An upgrade replaces the app image wholesale: jars and DLLs the new version dropped must not linger.
+; Also drop the pre-rename launcher if an older StartMusicV3.exe install is upgraded in place.
 [InstallDelete]
 Type: filesandordirs; Name: "{app}\app"
 Type: filesandordirs; Name: "{app}\runtime"
+Type: files; Name: "{app}\StartMusicV3.exe"
 
 [Files]
 Source: "{#AppSourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs

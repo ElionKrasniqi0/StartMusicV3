@@ -327,10 +327,12 @@ compose.desktop {
         }
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "StartMusicV3"
+            // Linux keeps StartMusicV3 so the .deb Package: name (and apt upgrades) stay stable.
+            // Windows/macOS use StartMusic for the visible .exe / .app name.
+            packageName = if (hostOs == "linux") "StartMusicV3" else "StartMusic"
             packageVersion = desktopVersion
-            description = "StartMusicV3 music player"
-            vendor = "StartMusicV3"
+            description = "StartMusic music player"
+            vendor = "StartMusic"
             macOS {
                 // Stable across releases: the updater and Gatekeeper both identify the app by it.
                 bundleID = "io.ymusic.desktop"
@@ -469,7 +471,12 @@ if (hostOs == "linux") {
             val control = File(root, "DEBIAN/control")
             control.writeText(control.readText().trimEnd() + "\nHomepage: https://ymusic.io\n")
             root.walk().filter { it.isFile && it.name.endsWith(".desktop") }.forEach {
-                it.writeText(it.readText().trimEnd() + "\nStartupWMClass=io-ymusic-desktop-MainKt\n")
+                var text = it.readText()
+                text = text.replace(Regex("(?m)^Name=.*$"), "Name=StartMusic")
+                if (!text.contains("StartupWMClass=")) {
+                    text = text.trimEnd() + "\nStartupWMClass=io-ymusic-desktop-MainKt\n"
+                }
+                it.writeText(text)
             }
             run("dpkg-deb", "--root-owner-group", "--build", root.path, deb.path)
             root.deleteRecursively()
@@ -565,8 +572,8 @@ val packageReleaseInnoSetup by tasks.registering(Exec::class) {
 
     val script = project.file("installer/windows/ymusic.iss")
     val iconFile = project.file("startmusic.ico")
-    // Directory name follows compose.desktop nativeDistributions.packageName.
-    val appDir = layout.buildDirectory.dir("compose/binaries/main-release/app/StartMusicV3")
+    // Directory name follows compose.desktop nativeDistributions.packageName (StartMusic on Windows).
+    val appDir = layout.buildDirectory.dir("compose/binaries/main-release/app/StartMusic")
 
     inputs.file(script)
     inputs.file(iconFile)
@@ -581,13 +588,13 @@ val packageReleaseInnoSetup by tasks.registering(Exec::class) {
             isccPath.get().absolutePath,
             "/Qp",
             "/DAppVersion=$desktopVersion",
-            "/DAppPublisher=StartMusicV3",
+            "/DAppPublisher=StartMusic",
             "/DAppURL=https://github.com/ElionKrasniqi0/StartMusicV3",
             "/DAppSourceDir=${appDir.get().asFile.absolutePath}",
             "/DIconFile=${iconFile.absolutePath}",
             "/DOutputDir=${out.absolutePath}",
             "/DArch=${if (hostArm64) "arm64" else "x64compatible"}",
-            "/DOutputBaseName=StartMusicV3-Setup-$desktopVersion-$hostPlatform",
+            "/DOutputBaseName=StartMusicV3-$desktopVersion-$hostPlatform",
             script.absolutePath,
         )
     }
@@ -595,18 +602,18 @@ val packageReleaseInnoSetup by tasks.registering(Exec::class) {
 
 // ---------------------------------------------------------------------------------------------
 // Windows portable: copy the jlinked release app dir + a `portable` marker so ymusicDataDir()
-// stores state under ./data next to StartMusicV3.exe (no installer, no Program Files).
+// stores state under ./data next to StartMusic.exe (no installer, no Program Files).
 // ---------------------------------------------------------------------------------------------
 val portableOutDir = rootProject.layout.projectDirectory.dir("dist/StartMusicV3-Portable")
 val portableZipFile = rootProject.layout.projectDirectory.file("dist/StartMusicV3-Portable.zip")
 
 val packagePortableWindows by tasks.registering {
     group = "distribution"
-    description = "Assemble a self-contained StartMusicV3 Portable folder + ZIP under dist/ (Windows)."
+    description = "Assemble a self-contained StartMusic Portable folder + ZIP under dist/ (Windows)."
     onlyIf { hostOs == "windows" }
     dependsOn("createReleaseDistributable")
 
-    val appDir = layout.buildDirectory.dir("compose/binaries/main-release/app/StartMusicV3")
+    val appDir = layout.buildDirectory.dir("compose/binaries/main-release/app/StartMusic")
     inputs.dir(appDir)
     inputs.property("version", desktopVersion)
     outputs.dir(portableOutDir)
@@ -614,8 +621,8 @@ val packagePortableWindows by tasks.registering {
 
     doLast {
         val src = appDir.get().asFile
-        check(File(src, "StartMusicV3.exe").isFile) {
-            "missing StartMusicV3.exe under ${src.absolutePath} — createReleaseDistributable did not produce it"
+        check(File(src, "StartMusic.exe").isFile) {
+            "missing StartMusic.exe under ${src.absolutePath} — createReleaseDistributable did not produce it"
         }
         val dest = portableOutDir.asFile
         if (dest.exists()) dest.deleteRecursively()
@@ -623,7 +630,7 @@ val packagePortableWindows by tasks.registering {
         src.copyRecursively(dest, overwrite = true)
 
         // Marker read by Main.kt portableDataDir(); keep installed MSI/Inno copies on ~/.ymusic.
-        File(dest, "portable").writeText("StartMusicV3 portable layout\n")
+        File(dest, "portable").writeText("StartMusic portable layout\n")
         listOf("data", "config", "logs").forEach { name ->
             File(dest, name).mkdirs()
         }
@@ -642,11 +649,11 @@ val packagePortableWindows by tasks.registering {
         )
         File(dest, "README-PORTABLE.txt").writeText(
             """
-            StartMusicV3 Portable (Windows x64)
-            ===================================
+            StartMusic Portable (Windows x64)
+            =================================
             Version: $desktopVersion
 
-            Run StartMusicV3.exe — no installer required. A bundled Java runtime ships in runtime/.
+            Run StartMusic.exe — no installer required. A bundled Java runtime ships in runtime/.
 
             Data: all user state is kept in the data/ folder next to the executable (playlists,
             settings, caches). Copy or move the whole StartMusicV3-Portable folder to keep your

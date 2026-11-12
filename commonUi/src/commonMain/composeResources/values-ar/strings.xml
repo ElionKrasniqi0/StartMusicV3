@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -309,7 +309,7 @@
     <string name="playback_unavailable">هذا الفيديو غير متاح</string>
     <string name="playback_retry_later">يتعذّر تشغيل هذا الفيديو الآن. حاول مرة أخرى لاحقًا</string>
     <string name="playback_file_missing">لم يعد هذا الملف موجودًا على جهازك</string>
-    <string name="playback_folder_access_lost">فقد StartMusicV3 إذن الوصول إلى مجلد هذا الملف. أضف المجلد مرة أخرى لتشغيله</string>
+    <string name="playback_folder_access_lost">فقد StartMusic إذن الوصول إلى مجلد هذا الملف. أضف المجلد مرة أخرى لتشغيله</string>
     <string name="playback_add_folder_again">إضافة مجلد</string>
     <string name="playback_video_unsupported">لا يستطيع جهازك تشغيل تنسيق الفيديو هذا. اختر جودة أخرى.</string>
     <string name="playback_botguard_failed">فشل تجاوز Botguard</string>
@@ -337,7 +337,7 @@
     <string name="settings_versions_app">التطبيق v%1$s/%2$s</string>
     <string name="settings_versions_engine">EngineJs %1$s</string>
     <string name="settings_versions_player">PlayerJs %1$s</string>
-    <string name="settings_licenses_intro">‏StartMusicV3 مفتوح المصدر بموجب رخصة GNU GPL v3.0، ويتضمن المكوّنات التالية:</string>
+    <string name="settings_licenses_intro">‏StartMusic مفتوح المصدر بموجب رخصة GNU GPL v3.0، ويتضمن المكوّنات التالية:</string>
     <string name="feedback_intro">أخبرنا بما حدث من خطأ أو بما تودّ رؤيته، عبر GitHub أو البريد الإلكتروني. أرفق معلوماتك المجهولة أدناه حتى نجد سجلاتك ونرد عليك.</string>
     <string name="feedback_info_title">معلومات مجهولة الهوية</string>
     <string name="feedback_copy">نسخ</string>
@@ -351,10 +351,10 @@
     <string name="feedback_github_hint">عام. الأفضل للأخطاء والأفكار — يمكن للآخرين متابعتها والإضافة إليها.</string>
     <string name="feedback_email_title">مراسلة %1$s</string>
     <string name="feedback_email_hint">خاص. الأفضل لأسئلة الحساب أو الأسئلة الشخصية.</string>
-    <string name="feedback_email_subject">ملاحظات StartMusicV3</string>
+    <string name="feedback_email_subject">ملاحظات StartMusic</string>
     <string name="feedback_prefilled_note">كلاهما يُفتح والمعلومات مُعبّأة مسبقًا. إن لم تكن موجودة، الصقها — لا يمكننا المساعدة بدونها.</string>
     <string name="feedback_reports_off_title">التقارير المجهولة الهوية متوقفة</string>
-    <string name="feedback_reports_off_message">لفحص مشكلتك نحتاج إلى سجلات هذا التطبيق. انقر على متابعة وسيعيد StartMusicV3 تشغيل التقارير المجهولة الهوية ويرسل السجلات.</string>
+    <string name="feedback_reports_off_message">لفحص مشكلتك نحتاج إلى سجلات هذا التطبيق. انقر على متابعة وسيعيد StartMusic تشغيل التقارير المجهولة الهوية ويرسل السجلات.</string>
     <string name="feedback_reports_off_note">لا يُرسل أي اسم أو بريد إلكتروني أو حساب. يمكنك إيقاف التقارير مجددًا من الإعدادات.</string>
     <string name="feedback_continue">متابعة</string>
     <string name="feedback_sentry_link">أو عبر Sentry</string>
@@ -399,7 +399,7 @@
     <string name="cd_drag_to_reorder">اسحب لإعادة الترتيب</string>
     <string name="cd_send">إرسال</string>
     <string name="cd_vote">تصويت</string>
-    <string name="cd_open_app">فتح StartMusicV3</string>
+    <string name="cd_open_app">فتح StartMusic</string>
     <string name="cd_stop_dismiss">إيقاف وإغلاق</string>
     <string name="mini_player_nothing_playing">لا شيء قيد التشغيل</string>
     <string name="folder_picker_title">اختر مجلد موسيقى</string>
@@ -432,7 +432,7 @@
     <string name="settings_system_audio_fx">استخدام مؤثرات الصوت في النظام</string>
     <string name="settings_system_audio_fx_hint">اسمح لتطبيقات المعادل على جهازك بتشكيل الصوت. يوقف المعادل المدمج في التطبيق.</string>
     <string name="signin_preface_title">سجّل الدخول باستخدام YouTube</string>
-    <string name="signin_preface_subtitle">واحصل على جميع ميزات YouTube داخل StartMusicV3</string>
+    <string name="signin_preface_subtitle">واحصل على جميع ميزات YouTube داخل StartMusic</string>
     <string name="signin_enables">يتيح لك تسجيل الدخول:</string>
     <string name="signin_feature_home">صفحة رئيسية مخصّصة لك على YouTube</string>
     <string name="signin_feature_subscriptions">موجز الاشتراكات</string>
@@ -445,8 +445,8 @@
     <string name="signin_screen_title">تسجيل الدخول</string>
     <string name="signin_loading">جارٍ تحميل تسجيل الدخول…</string>
     <string name="signin_unavailable">تسجيل الدخول غير متاح على هذا الجهاز بعد</string>
-    <string name="signin_qr_title">امسح بتطبيق StartMusicV3</string>
-    <string name="signin_qr_hint">على هاتفك، افتح StartMusicV3 ← الإعدادات ← ربط الأجهزة ← فتح الكاميرا، ثم امسح هذا الرمز.</string>
+    <string name="signin_qr_title">امسح بتطبيق StartMusic</string>
+    <string name="signin_qr_hint">على هاتفك، افتح StartMusic ← الإعدادات ← ربط الأجهزة ← فتح الكاميرا، ثم امسح هذا الرمز.</string>
     <string name="signin_qr_waiting">بانتظار الهاتف…</string>
     <string name="signin_qr_sas_hint">سيظهر هاتفك الرمز نفسه. أرسل فقط إذا تطابقا.</string>
     <string name="signin_or_paste">أو الصق ملفات تعريف الارتباط من المتصفح</string>
@@ -473,11 +473,11 @@
     <string name="signin_paste_no_cookie_title">هذا الطلب بلا ملفات تعريف ارتباط</string>
     <string name="signin_paste_no_cookie_body">انسخ Copy as cURL من طلب آخر، ويفضّل Fetch/XHR، مثلاً:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">حسنًا</string>
-    <string name="cd_device_link_qr">رمز QR للمسح بتطبيق StartMusicV3</string>
+    <string name="cd_device_link_qr">رمز QR للمسح بتطبيق StartMusic</string>
     <string name="settings_link_devices">ربط الأجهزة</string>
     <string name="settings_link_devices_hint">سجّل الدخول على الحاسوب بمسح رمز QR الخاص به</string>
     <string name="device_link_title">ربط الأجهزة</string>
-    <string name="device_link_intro">امسح رمز QR المعروض في StartMusicV3 على حاسوبك. يجب أن يكون هذا الهاتف مسجّل الدخول مسبقاً.</string>
+    <string name="device_link_intro">امسح رمز QR المعروض في StartMusic على حاسوبك. يجب أن يكون هذا الهاتف مسجّل الدخول مسبقاً.</string>
     <string name="device_link_open_camera">فتح الكاميرا</string>
     <string name="device_link_scan_hint">وجّه الكاميرا نحو رمز QR على الحاسوب</string>
     <string name="device_link_sas_hint">يجب أن يطابق هذا الرمز الرمز على الحاسوب. إن لم يطابق، ألغِ.</string>
@@ -528,8 +528,8 @@
     <string name="update_version">الإصدار %1$s</string>
     <string name="update_download">تنزيل</string>
     <string name="update_install_now">التثبيت الآن</string>
-    <string name="update_install_permission">يحتاج Android إلى إذنك قبل أن يتمكن StartMusicV3 من تثبيت التحديثات. امنح الإذن، أو نزّل الإصدار الجديد من المتصفح بدلًا من ذلك.</string>
-    <string name="update_install_permission_allow">يحتاج Android إلى إذنك قبل أن يتمكن StartMusicV3 من تثبيت التحديثات.</string>
+    <string name="update_install_permission">يحتاج Android إلى إذنك قبل أن يتمكن StartMusic من تثبيت التحديثات. امنح الإذن، أو نزّل الإصدار الجديد من المتصفح بدلًا من ذلك.</string>
+    <string name="update_install_permission_allow">يحتاج Android إلى إذنك قبل أن يتمكن StartMusic من تثبيت التحديثات.</string>
     <string name="update_allow_install">السماح</string>
     <string name="update_download_in_browser">التنزيل من المتصفح</string>
     <string name="update_ask_later">ذكّرني لاحقًا</string>
@@ -540,7 +540,7 @@
     <string name="update_manual_hint">هذه النسخة لا يمكنها تحديث نفسها (%1$s). نزّل الإصدار الجديد يدويًا.</string>
     <string name="update_blocked_not_installed">التطبيق لا يعمل من نسخة مثبّتة</string>
     <string name="update_blocked_mac_swap">إصدار macOS هذا لا يمكنه استبدال التطبيق في مكانه</string>
-    <string name="update_blocked_folder_read_only">المجلد الذي يحتوي على StartMusicV3 غير قابل للكتابة</string>
+    <string name="update_blocked_folder_read_only">المجلد الذي يحتوي على StartMusic غير قابل للكتابة</string>
     <string name="update_blocked_not_deb">لم تُثبَّت هذه النسخة من حزمة ‎.deb</string>
     <string name="update_blocked_no_pkexec">pkexec أو apt-get غير موجود</string>
     <string name="update_failed">فشل التحديث: %1$s</string>
@@ -717,7 +717,7 @@
     <string name="video_details_delete_message">هل تريد حذف تعليقك وجميع الردود عليه نهائيًا؟</string>
     <string name="video_details_deleted">تم حذف التعليق</string>
     <string name="cookie_protect_title">حماية تسجيل الدخول بكلمة مرور؟</string>
-    <string name="cookie_protect_body">تسجيل الدخول محفوظ على هذا الحاسوب، حيث يمكن للتطبيقات الأخرى التي تشغّلها قراءته. اضبط كلمة مرور لقفله؛ وسيطلبها StartMusicV3 عند كل تشغيل.</string>
+    <string name="cookie_protect_body">تسجيل الدخول محفوظ على هذا الحاسوب، حيث يمكن للتطبيقات الأخرى التي تشغّلها قراءته. اضبط كلمة مرور لقفله؛ وسيطلبها StartMusic عند كل تشغيل.</string>
     <string name="cookie_password">كلمة المرور</string>
     <string name="cookie_protect_confirm">تأكيد كلمة المرور</string>
     <string name="cookie_protect_mismatch">كلمتا المرور غير متطابقتين.</string>
@@ -733,8 +733,8 @@
     <string name="cookie_unlock_sign_out">تسجيل الخروج</string>
     <string name="cookie_unlock_sign_out_hint">يزيل تسجيل الدخول المحفوظ هذا.</string>
     <string name="cookie_unlock_sign_out_title">تسجيل الخروج؟</string>
-    <string name="cookie_unlock_sign_out_body">سيؤدي هذا إلى إزالة تسجيل الدخول المحفوظ من هذا الحاسوب. لتسجيل الدخول مجددًا، امسح رمز QR باستخدام تطبيق StartMusicV3.</string>
-    <string name="link_unsupported">لا يمكن لـ StartMusicV3 فتح هذا الرابط</string>
+    <string name="cookie_unlock_sign_out_body">سيؤدي هذا إلى إزالة تسجيل الدخول المحفوظ من هذا الحاسوب. لتسجيل الدخول مجددًا، امسح رمز QR باستخدام تطبيق StartMusic.</string>
+    <string name="link_unsupported">لا يمكن لـ StartMusic فتح هذا الرابط</string>
     <string name="link_open_failed">تعذّر فتح: %1$s</string>
     <string name="link_queued_next">سيتم تشغيله تاليًا</string>
     <string name="link_queued_last">تمت الإضافة إلى نهاية قائمة الانتظار</string>
@@ -792,8 +792,8 @@
         <item quantity="other">تمت استعادة %1$d قائمة تشغيل</item>
     </plurals>
     <string name="playlist_restore_failed_title">تتعذر الاستعادة</string>
-    <string name="error_playlist_backup_invalid">هذا الملف ليس نسخة احتياطية لقوائم تشغيل StartMusicV3.</string>
-    <string name="error_playlist_backup_newer">أُنشئت هذه النسخة الاحتياطية بإصدار أحدث من StartMusicV3. حدّث التطبيق لاستعادتها.</string>
+    <string name="error_playlist_backup_invalid">هذا الملف ليس نسخة احتياطية لقوائم تشغيل StartMusic.</string>
+    <string name="error_playlist_backup_newer">أُنشئت هذه النسخة الاحتياطية بإصدار أحدث من StartMusic. حدّث التطبيق لاستعادتها.</string>
     <plurals name="n_playlists">
         <item quantity="zero">%1$d قائمة تشغيل</item>
         <item quantity="one">قائمة تشغيل واحدة</item>
@@ -812,7 +812,7 @@
     <string name="cd_move_to_top">نقل إلى الأعلى</string>
     <string name="dialog_undo">تراجع</string>
     <string name="dialog_save">حفظ</string>
-    <string name="upgraded_message">تم تحديث StartMusicV3 إلى %1$s</string>
+    <string name="upgraded_message">تم تحديث StartMusic إلى %1$s</string>
     <string name="upgraded_view_changelog">عرض سجل التغييرات</string>
     <string name="menu_go_to_artist">الذهاب إلى الفنان</string>
     <string name="menu_go_to_album">الذهاب إلى الألبوم</string>

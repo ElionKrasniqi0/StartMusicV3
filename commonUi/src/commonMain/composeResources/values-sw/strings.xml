@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -277,7 +277,7 @@
     <string name="settings_show_fps_hint">Onyesha fremu kwa sekunde juu ya video ya Inayocheza Sasa. Upimaji hukoma unaposimamisha au ukiondoka kwenye skrini hiyo.</string>
     <string name="settings_licenses">Leseni za programu huria</string>
     <string name="settings_terms">Masharti na faragha</string>
-    <string name="settings_licenses_intro">StartMusicV3 ni programu huria chini ya GNU GPL v3.0. Inajumuisha vipengele hivi:</string>
+    <string name="settings_licenses_intro">StartMusic ni programu huria chini ya GNU GPL v3.0. Inajumuisha vipengele hivi:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Tuambie kilichoharibika au unachotaka kuona, kwenye GitHub au kwa barua pepe. Jumuisha maelezo yako yasiyo na jina hapa chini ili tupate kumbukumbu zako na tukujibu.</string>
@@ -293,10 +293,10 @@
     <string name="feedback_github_hint">Hadharani. Bora kwa hitilafu na mawazo — wengine wanaweza kufuatilia na kuongeza.</string>
     <string name="feedback_email_title">Tuma barua pepe kwa %1$s</string>
     <string name="feedback_email_hint">Faragha. Bora kwa maswali ya akaunti au ya binafsi.</string>
-    <string name="feedback_email_subject">Maoni kuhusu StartMusicV3</string>
+    <string name="feedback_email_subject">Maoni kuhusu StartMusic</string>
     <string name="feedback_prefilled_note">Zote mbili hufunguka maelezo yakiwa tayari yamejazwa. Yakikosekana, yabandike — bila hayo hatuwezi kusaidia.</string>
     <string name="feedback_reports_off_title">Ripoti zisizojulikana zimezimwa</string>
-    <string name="feedback_reports_off_message">Ili kuchunguza tatizo lako tunahitaji kumbukumbu za programu hii. Gusa Endelea na StartMusicV3 itawasha tena ripoti zisizojulikana na kutuma kumbukumbu.</string>
+    <string name="feedback_reports_off_message">Ili kuchunguza tatizo lako tunahitaji kumbukumbu za programu hii. Gusa Endelea na StartMusic itawasha tena ripoti zisizojulikana na kutuma kumbukumbu.</string>
     <string name="feedback_reports_off_note">Hakuna jina, barua pepe wala akaunti inayotumwa. Unaweza kuzima ripoti tena kwenye Mipangilio.</string>
     <string name="feedback_continue">Endelea</string>
     <string name="feedback_sentry_link">au kupitia Sentry</string>
@@ -347,7 +347,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Ingia ukitumia YouTube</string>
-    <string name="signin_preface_subtitle">na upate vipengele vyote vya YouTube ndani ya StartMusicV3</string>
+    <string name="signin_preface_subtitle">na upate vipengele vyote vya YouTube ndani ya StartMusic</string>
     <string name="signin_enables">Kuingia katika akaunti huwezesha:</string>
     <string name="signin_feature_home">Mipasho ya mwanzo ya YouTube iliyowekwa mapendeleo yako</string>
     <string name="signin_feature_subscriptions">Mipasho ya usajili</string>
@@ -360,8 +360,8 @@
     <string name="signin_screen_title">Ingia</string>
     <string name="signin_loading">Inapakia ukurasa wa kuingia…</string>
     <string name="signin_unavailable">Kuingia katika akaunti bado hakupatikani kwenye kifaa hiki</string>
-    <string name="signin_qr_title">Changanua ukitumia programu ya StartMusicV3</string>
-    <string name="signin_qr_hint">Kwenye simu yako, fungua StartMusicV3 → Mipangilio → Unganisha vifaa → Fungua kamera, kisha changanua msimbo huu.</string>
+    <string name="signin_qr_title">Changanua ukitumia programu ya StartMusic</string>
+    <string name="signin_qr_hint">Kwenye simu yako, fungua StartMusic → Mipangilio → Unganisha vifaa → Fungua kamera, kisha changanua msimbo huu.</string>
     <string name="signin_qr_waiting">Inasubiri simu…</string>
     <string name="signin_qr_sas_hint">Simu yako itaonyesha msimbo huu huu. Tuma tu ikiwa inalingana.</string>
     <string name="signin_or_paste">Au bandika vidakuzi kutoka kwenye kivinjari</string>
@@ -387,11 +387,11 @@
     <string name="signin_paste_no_cookie_title">Ombi hilo halina vidakuzi</string>
     <string name="signin_paste_no_cookie_body">Tumia Copy as cURL kwenye ombi lingine, ikiwezekana Fetch/XHR, kwa mfano:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Nimeelewa</string>
-    <string name="cd_device_link_qr">Msimbo wa QR wa kuchanganua ukitumia programu ya StartMusicV3</string>
+    <string name="cd_device_link_qr">Msimbo wa QR wa kuchanganua ukitumia programu ya StartMusic</string>
     <string name="settings_link_devices">Unganisha vifaa</string>
     <string name="settings_link_devices_hint">Ingia kwenye kompyuta kwa kuchanganua msimbo wake wa QR</string>
     <string name="device_link_title">Unganisha vifaa</string>
-    <string name="device_link_intro">Changanua msimbo wa QR unaoonyeshwa na StartMusicV3 kwenye kompyuta yako. Simu hii lazima iwe tayari imeingia katika akaunti.</string>
+    <string name="device_link_intro">Changanua msimbo wa QR unaoonyeshwa na StartMusic kwenye kompyuta yako. Simu hii lazima iwe tayari imeingia katika akaunti.</string>
     <string name="device_link_open_camera">Fungua kamera</string>
     <string name="device_link_scan_hint">Elekeza kamera kwenye msimbo wa QR wa kompyuta</string>
     <string name="device_link_sas_hint">Msimbo huu lazima ulingane na wa kompyuta. Usipolingana, gusa Ghairi.</string>
@@ -619,7 +619,7 @@
     <string name="video_details_delete_message">Ungependa kufuta kabisa maoni yako na majibu yake yote?</string>
     <string name="video_details_deleted">Maoni yamefutwa</string>
     <string name="cookie_protect_title">Ungependa kulinda maelezo yako ya kuingia kwa nenosiri?</string>
-    <string name="cookie_protect_body">Maelezo yako ya kuingia yamehifadhiwa kwenye kompyuta hii, ambapo programu nyingine unazotumia zinaweza kuyasoma. Weka nenosiri ili kuyafunga; StartMusicV3 italiuliza kila inapoanza.</string>
+    <string name="cookie_protect_body">Maelezo yako ya kuingia yamehifadhiwa kwenye kompyuta hii, ambapo programu nyingine unazotumia zinaweza kuyasoma. Weka nenosiri ili kuyafunga; StartMusic italiuliza kila inapoanza.</string>
     <string name="cookie_password">Nenosiri</string>
     <string name="cookie_protect_confirm">Thibitisha nenosiri</string>
     <string name="cookie_protect_mismatch">Manenosiri hayalingani.</string>
@@ -635,7 +635,7 @@
     <string name="cookie_unlock_sign_out">Ondoka</string>
     <string name="cookie_unlock_sign_out_hint">Huondoa maelezo haya ya kuingia yaliyohifadhiwa.</string>
     <string name="cookie_unlock_sign_out_title">Ungependa kuondoka?</string>
-    <string name="cookie_unlock_sign_out_body">Hii huondoa maelezo ya kuingia yaliyohifadhiwa kwenye kompyuta hii. Ili uingie tena, changanua msimbo wa QR ukitumia programu ya StartMusicV3.</string>
+    <string name="cookie_unlock_sign_out_body">Hii huondoa maelezo ya kuingia yaliyohifadhiwa kwenye kompyuta hii. Ili uingie tena, changanua msimbo wa QR ukitumia programu ya StartMusic.</string>
     <string name="menu_details_comments">Maelezo na maoni</string>
     <string name="menu_search_lyrics">Tafuta maneno ya wimbo</string>
     <string name="menu_speed_pitch">Kasi na kiimbo</string>
@@ -647,7 +647,7 @@
     <string name="cd_move_to_top">Hamisha juu</string>
     <string name="dialog_undo">Tendua</string>
     <string name="dialog_save">Hifadhi</string>
-    <string name="upgraded_message">StartMusicV3 imesasishwa hadi %1$s</string>
+    <string name="upgraded_message">StartMusic imesasishwa hadi %1$s</string>
     <string name="upgraded_view_changelog">Angalia mabadiliko</string>
     <string name="menu_go_to_artist">Nenda kwa msanii</string>
     <string name="menu_go_to_album">Nenda kwa albamu</string>

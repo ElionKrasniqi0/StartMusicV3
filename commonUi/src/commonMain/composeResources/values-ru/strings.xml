@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -285,7 +285,7 @@
     <string name="settings_show_fps_hint">Показывать число кадров в секунду поверх видео на экране воспроизведения. Подсчёт останавливается на паузе или при уходе с экрана.</string>
     <string name="settings_licenses">Лицензии открытого ПО</string>
     <string name="settings_terms">Условия и конфиденциальность</string>
-    <string name="settings_licenses_intro">StartMusicV3 — открытое ПО под лицензией GNU GPL v3.0. В него входят следующие компоненты:</string>
+    <string name="settings_licenses_intro">StartMusic — открытое ПО под лицензией GNU GPL v3.0. В него входят следующие компоненты:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Расскажите, что пошло не так или что бы вы хотели видеть, на GitHub или по почте. Приложите анонимные данные ниже, чтобы мы нашли ваши логи и ответили.</string>
@@ -301,10 +301,10 @@
     <string name="feedback_github_hint">Публично. Лучше всего для ошибок и идей — другие смогут следить и дополнять.</string>
     <string name="feedback_email_title">Написать на %1$s</string>
     <string name="feedback_email_hint">Лично. Лучше всего для вопросов об аккаунте или личных вопросов.</string>
-    <string name="feedback_email_subject">Отзыв о StartMusicV3</string>
+    <string name="feedback_email_subject">Отзыв о StartMusic</string>
     <string name="feedback_prefilled_note">Оба варианта открываются с уже заполненными данными. Если их нет, вставьте их — без них мы не сможем помочь.</string>
     <string name="feedback_reports_off_title">Анонимные отчёты выключены</string>
-    <string name="feedback_reports_off_message">Чтобы разобраться в проблеме, нам нужны логи этого приложения. Нажмите «Продолжить», и StartMusicV3 снова включит анонимные отчёты и отправит логи.</string>
+    <string name="feedback_reports_off_message">Чтобы разобраться в проблеме, нам нужны логи этого приложения. Нажмите «Продолжить», и StartMusic снова включит анонимные отчёты и отправит логи.</string>
     <string name="feedback_reports_off_note">Имя, почта и аккаунт не отправляются. Отчёты можно снова выключить в Настройках.</string>
     <string name="feedback_continue">Продолжить</string>
     <string name="feedback_sentry_link">или через Sentry</string>
@@ -355,7 +355,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Войти через YouTube</string>
-    <string name="signin_preface_subtitle">и получить все функции YouTube в StartMusicV3</string>
+    <string name="signin_preface_subtitle">и получить все функции YouTube в StartMusic</string>
     <string name="signin_enables">После входа доступны:</string>
     <string name="signin_feature_home">Персональная главная лента YouTube</string>
     <string name="signin_feature_subscriptions">Лента подписок</string>
@@ -368,8 +368,8 @@
     <string name="signin_screen_title">Вход</string>
     <string name="signin_loading">Загрузка страницы входа…</string>
     <string name="signin_unavailable">Вход пока недоступен на этом устройстве</string>
-    <string name="signin_qr_title">Отсканируйте в приложении StartMusicV3</string>
-    <string name="signin_qr_hint">На телефоне откройте StartMusicV3 → Настройки → Связать устройства → Открыть камеру и отсканируйте этот код.</string>
+    <string name="signin_qr_title">Отсканируйте в приложении StartMusic</string>
+    <string name="signin_qr_hint">На телефоне откройте StartMusic → Настройки → Связать устройства → Открыть камеру и отсканируйте этот код.</string>
     <string name="signin_qr_waiting">Ожидание телефона…</string>
     <string name="signin_qr_sas_hint">На телефоне появится такой же код. Отправляйте, только если они совпадают.</string>
     <string name="signin_or_paste">Или вставьте cookies из браузера</string>
@@ -395,11 +395,11 @@
     <string name="signin_paste_no_cookie_title">В этом запросе нет cookies</string>
     <string name="signin_paste_no_cookie_body">Скопируйте как cURL другой запрос, лучше Fetch/XHR, например:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Понятно</string>
-    <string name="cd_device_link_qr">QR-код для сканирования в приложении StartMusicV3</string>
+    <string name="cd_device_link_qr">QR-код для сканирования в приложении StartMusic</string>
     <string name="settings_link_devices">Связать устройства</string>
     <string name="settings_link_devices_hint">Войдите на компьютере, отсканировав его QR-код</string>
     <string name="device_link_title">Связать устройства</string>
-    <string name="device_link_intro">Отсканируйте QR-код, показанный в StartMusicV3 на компьютере. На этом телефоне вход уже должен быть выполнен.</string>
+    <string name="device_link_intro">Отсканируйте QR-код, показанный в StartMusic на компьютере. На этом телефоне вход уже должен быть выполнен.</string>
     <string name="device_link_open_camera">Открыть камеру</string>
     <string name="device_link_scan_hint">Наведите камеру на QR-код на компьютере</string>
     <string name="device_link_sas_hint">Этот код должен совпадать с кодом на компьютере. Если нет — нажмите «Отмена».</string>
@@ -635,7 +635,7 @@
     <string name="video_details_delete_message">Удалить комментарий и все ответы на него без возможности восстановления?</string>
     <string name="video_details_deleted">Комментарий удалён</string>
     <string name="cookie_protect_title">Защитить вход паролем?</string>
-    <string name="cookie_protect_body">Данные входа сохранены на этом компьютере, где их могут прочитать другие запускаемые вами приложения. Задайте пароль, чтобы их заблокировать; StartMusicV3 будет запрашивать его при каждом запуске.</string>
+    <string name="cookie_protect_body">Данные входа сохранены на этом компьютере, где их могут прочитать другие запускаемые вами приложения. Задайте пароль, чтобы их заблокировать; StartMusic будет запрашивать его при каждом запуске.</string>
     <string name="cookie_password">Пароль</string>
     <string name="cookie_protect_confirm">Подтвердите пароль</string>
     <string name="cookie_protect_mismatch">Пароли не совпадают.</string>
@@ -651,7 +651,7 @@
     <string name="cookie_unlock_sign_out">Выйти</string>
     <string name="cookie_unlock_sign_out_hint">Удаляет сохранённые данные входа.</string>
     <string name="cookie_unlock_sign_out_title">Выйти?</string>
-    <string name="cookie_unlock_sign_out_body">Сохранённые данные входа будут удалены с этого компьютера. Чтобы войти снова, отсканируйте QR-код с помощью приложения StartMusicV3.</string>
+    <string name="cookie_unlock_sign_out_body">Сохранённые данные входа будут удалены с этого компьютера. Чтобы войти снова, отсканируйте QR-код с помощью приложения StartMusic.</string>
     <string name="menu_details_comments">Описание и комментарии</string>
     <string name="menu_search_lyrics">Найти текст песни</string>
     <string name="menu_speed_pitch">Скорость и тон</string>
@@ -663,7 +663,7 @@
     <string name="cd_move_to_top">Переместить наверх</string>
     <string name="dialog_undo">Отменить</string>
     <string name="dialog_save">Сохранить</string>
-    <string name="upgraded_message">StartMusicV3 обновлён до %1$s</string>
+    <string name="upgraded_message">StartMusic обновлён до %1$s</string>
     <string name="upgraded_view_changelog">Список изменений</string>
     <string name="menu_go_to_artist">Перейти к исполнителю</string>
     <string name="menu_go_to_album">Перейти к альбому</string>

@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -277,7 +277,7 @@
     <string name="settings_show_fps_hint">İndi oxudulur videosunun üzərində saniyədəki kadr sayını göstərir. Fasilədə və ya ekrandan çıxdıqda ölçmə dayanır.</string>
     <string name="settings_licenses">Açıq mənbə lisenziyaları</string>
     <string name="settings_terms">Şərtlər və məxfilik</string>
-    <string name="settings_licenses_intro">StartMusicV3 GNU GPL v3.0 lisenziyası ilə açıq mənbəlidir. Aşağıdakı komponentləri ehtiva edir:</string>
+    <string name="settings_licenses_intro">StartMusic GNU GPL v3.0 lisenziyası ilə açıq mənbəlidir. Aşağıdakı komponentləri ehtiva edir:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Nəyin səhv getdiyini və ya nə görmək istədiyinizi GitHub-da və ya e-poçtla bizə bildirin. Jurnallarınızı tapıb cavab verə bilməyimiz üçün aşağıdakı anonim məlumatınızı əlavə edin.</string>
@@ -293,10 +293,10 @@
     <string name="feedback_github_hint">İctimai. Xətalar və ideyalar üçün ən yaxşısı — başqaları izləyə və əlavə edə bilər.</string>
     <string name="feedback_email_title">%1$s ünvanına yazın</string>
     <string name="feedback_email_hint">Şəxsi. Hesab və ya şəxsi suallar üçün ən yaxşısı.</string>
-    <string name="feedback_email_subject">StartMusicV3 rəyi</string>
+    <string name="feedback_email_subject">StartMusic rəyi</string>
     <string name="feedback_prefilled_note">Hər ikisi məlumat artıq doldurulmuş halda açılır. Əgər yoxdursa, onu yapışdırın — onsuz kömək edə bilmərik.</string>
     <string name="feedback_reports_off_title">Anonim hesabatlar söndürülüb</string>
-    <string name="feedback_reports_off_message">Probleminizi araşdırmaq üçün bu tətbiqin loglarına ehtiyacımız var. Davam et düyməsinə toxunun, StartMusicV3 anonim hesabatları yenidən aktivləşdirib logları göndərəcək.</string>
+    <string name="feedback_reports_off_message">Probleminizi araşdırmaq üçün bu tətbiqin loglarına ehtiyacımız var. Davam et düyməsinə toxunun, StartMusic anonim hesabatları yenidən aktivləşdirib logları göndərəcək.</string>
     <string name="feedback_reports_off_note">Ad, e-poçt və ya hesab göndərilmir. Hesabatları Tənzimləmələrdə yenidən söndürə bilərsiniz.</string>
     <string name="feedback_continue">Davam et</string>
     <string name="feedback_sentry_link">və ya Sentry ilə</string>
@@ -347,7 +347,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube ilə daxil olun</string>
-    <string name="signin_preface_subtitle">və StartMusicV3 daxilində bütün YouTube funksiyalarını əldə edin</string>
+    <string name="signin_preface_subtitle">və StartMusic daxilində bütün YouTube funksiyalarını əldə edin</string>
     <string name="signin_enables">Giriş ilə aktivləşəcək:</string>
     <string name="signin_feature_home">Fərdiləşdirilmiş YouTube ana səhifə lenti</string>
     <string name="signin_feature_subscriptions">Abunəliklər lenti</string>
@@ -360,8 +360,8 @@
     <string name="signin_screen_title">Daxil ol</string>
     <string name="signin_loading">Giriş yüklənir…</string>
     <string name="signin_unavailable">Bu cihazda giriş hələ mövcud deyil</string>
-    <string name="signin_qr_title">StartMusicV3 tətbiqi ilə skan edin</string>
-    <string name="signin_qr_hint">Telefonunuzda StartMusicV3 → Tənzimləmələr → Cihazları əlaqələndir → Kameranı aç bölməsini açın, sonra bu kodu skan edin.</string>
+    <string name="signin_qr_title">StartMusic tətbiqi ilə skan edin</string>
+    <string name="signin_qr_hint">Telefonunuzda StartMusic → Tənzimləmələr → Cihazları əlaqələndir → Kameranı aç bölməsini açın, sonra bu kodu skan edin.</string>
     <string name="signin_qr_waiting">Telefon gözlənilir…</string>
     <string name="signin_qr_sas_hint">Telefonunuz eyni kodu göstərəcək. Yalnız uyğun gələrsə göndərin.</string>
     <string name="signin_or_paste">Və ya brauzerdən kukiləri yapışdırın</string>
@@ -387,11 +387,11 @@
     <string name="signin_paste_no_cookie_title">Bu sorğuda kuki yoxdur</string>
     <string name="signin_paste_no_cookie_body">Başqa sorğudan, üstünlüklə Fetch/XHR, Copy as cURL ilə kopyalayın, məsələn:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Aydındır</string>
-    <string name="cd_device_link_qr">StartMusicV3 tətbiqi ilə skan ediləcək QR kod</string>
+    <string name="cd_device_link_qr">StartMusic tətbiqi ilə skan ediləcək QR kod</string>
     <string name="settings_link_devices">Cihazları əlaqələndir</string>
     <string name="settings_link_devices_hint">Kompüterin QR kodunu skan edərək orada daxil olun</string>
     <string name="device_link_title">Cihazları əlaqələndir</string>
-    <string name="device_link_intro">Kompüterinizdəki StartMusicV3-də göstərilən QR kodu skan edin. Bu telefonda artıq daxil olunmuş olmalıdır.</string>
+    <string name="device_link_intro">Kompüterinizdəki StartMusic-də göstərilən QR kodu skan edin. Bu telefonda artıq daxil olunmuş olmalıdır.</string>
     <string name="device_link_open_camera">Kameranı aç</string>
     <string name="device_link_scan_hint">Kameranı kompüterin QR koduna tutun</string>
     <string name="device_link_sas_hint">Bu kod kompüterdəki ilə eyni olmalıdır. Əks halda Ləğv et düyməsinə toxunun.</string>
@@ -619,7 +619,7 @@
     <string name="video_details_delete_message">Şərhiniz və bütün cavabları həmişəlik silinsin?</string>
     <string name="video_details_deleted">Şərh silindi</string>
     <string name="cookie_protect_title">Girişiniz parol ilə qorunsun?</string>
-    <string name="cookie_protect_body">Girişiniz bu kompüterdə saxlanılıb və işlətdiyiniz digər tətbiqlər onu oxuya bilər. Onu kilidləmək üçün parol təyin edin; StartMusicV3 hər açılışda onu soruşacaq.</string>
+    <string name="cookie_protect_body">Girişiniz bu kompüterdə saxlanılıb və işlətdiyiniz digər tətbiqlər onu oxuya bilər. Onu kilidləmək üçün parol təyin edin; StartMusic hər açılışda onu soruşacaq.</string>
     <string name="cookie_password">Parol</string>
     <string name="cookie_protect_confirm">Parolu təsdiqləyin</string>
     <string name="cookie_protect_mismatch">Parollar uyğun gəlmir.</string>
@@ -635,7 +635,7 @@
     <string name="cookie_unlock_sign_out">Çıxış</string>
     <string name="cookie_unlock_sign_out_hint">Bu saxlanılmış girişi silir.</string>
     <string name="cookie_unlock_sign_out_title">Çıxış edilsin?</string>
-    <string name="cookie_unlock_sign_out_body">Bu, saxlanılmış girişi bu kompüterdən silir. Yenidən daxil olmaq üçün QR kodu StartMusicV3 tətbiqi ilə skan edin.</string>
+    <string name="cookie_unlock_sign_out_body">Bu, saxlanılmış girişi bu kompüterdən silir. Yenidən daxil olmaq üçün QR kodu StartMusic tətbiqi ilə skan edin.</string>
     <string name="menu_details_comments">Təfərrüatlar və şərhlər</string>
     <string name="menu_search_lyrics">Mahnı sözlərini axtar</string>
     <string name="menu_speed_pitch">Sürət və ton</string>
@@ -647,7 +647,7 @@
     <string name="cd_move_to_top">Yuxarı köçür</string>
     <string name="dialog_undo">Geri al</string>
     <string name="dialog_save">Saxla</string>
-    <string name="upgraded_message">StartMusicV3 %1$s versiyasına yeniləndi</string>
+    <string name="upgraded_message">StartMusic %1$s versiyasına yeniləndi</string>
     <string name="upgraded_view_changelog">Dəyişikliklərə bax</string>
     <string name="menu_go_to_artist">İfaçıya keç</string>
     <string name="menu_go_to_album">Albuma keç</string>

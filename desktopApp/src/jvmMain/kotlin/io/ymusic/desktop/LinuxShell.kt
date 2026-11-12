@@ -121,7 +121,7 @@ internal fun syncLinuxDesktopEntry(icon: BufferedImage?) {
     val entry = """
         |[Desktop Entry]
         |Type=Application
-        |Name=StartMusicV3
+        |Name=StartMusic
         |Exec="$exec"
         |Icon=${iconFile.absolutePath}
         |StartupWMClass=$LINUX_WM_CLASS

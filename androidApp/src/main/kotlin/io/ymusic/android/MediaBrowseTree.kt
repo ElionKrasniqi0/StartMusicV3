@@ -327,7 +327,7 @@ class MediaBrowseTree(private val context: Context, private val graph: AppGraph)
             .setMediaId(ROOT)
             .setMediaMetadata(
                 MediaMetadata.Builder()
-                    .setTitle("StartMusicV3")
+                    .setTitle("StartMusic")
                     .setIsBrowsable(true)
                     .setIsPlayable(false)
                     .setExtras(Bundle())

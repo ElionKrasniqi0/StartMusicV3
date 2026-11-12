@@ -463,7 +463,7 @@ fun main(args: Array<String>) {
                 // carries on; an empty queue → quit.
                 if (graph?.player?.queue?.value?.items?.isNotEmpty() == true) windowVisible = false else quit()
             },
-            title = "StartMusicV3",
+            title = "StartMusic",
             icon = null,
             state = windowState,
             undecorated = true,
@@ -575,7 +575,7 @@ fun main(args: Array<String>) {
                             )
                         }
                         Text(
-                            "StartMusicV3",
+                            "StartMusic",
                             color = if (darkBar) Color.White else palette.InkStrong,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium,

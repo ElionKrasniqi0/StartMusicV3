@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -277,7 +277,7 @@
     <string name="settings_show_fps_hint">प्ले होत असलेल्या व्हिडिओवर प्रति सेकंद फ्रेम दाखवा. थांबवल्यावर किंवा ती स्क्रीन सोडल्यावर मोजणी थांबते.</string>
     <string name="settings_licenses">ओपन सोर्स परवाने</string>
     <string name="settings_terms">अटी आणि गोपनीयता</string>
-    <string name="settings_licenses_intro">StartMusicV3 हे GNU GPL v3.0 अंतर्गत ओपन सोर्स आहे. यात हे घटक समाविष्ट आहेत:</string>
+    <string name="settings_licenses_intro">StartMusic हे GNU GPL v3.0 अंतर्गत ओपन सोर्स आहे. यात हे घटक समाविष्ट आहेत:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">काय बिघडले किंवा तुम्हाला काय पाहायला आवडेल ते GitHub वर किंवा ईमेलने आम्हाला सांगा. खालील तुमची निनावी माहिती जोडा, म्हणजे आम्ही तुमचे लॉग शोधून उत्तर देऊ शकू.</string>
@@ -293,10 +293,10 @@
     <string name="feedback_github_hint">सार्वजनिक. बग आणि कल्पनांसाठी सर्वोत्तम — इतर लोक फॉलो करू शकतात आणि भर घालू शकतात.</string>
     <string name="feedback_email_title">%1$s वर ईमेल करा</string>
     <string name="feedback_email_hint">खाजगी. खाते किंवा वैयक्तिक प्रश्नांसाठी सर्वोत्तम.</string>
-    <string name="feedback_email_subject">StartMusicV3 अभिप्राय</string>
+    <string name="feedback_email_subject">StartMusic अभिप्राय</string>
     <string name="feedback_prefilled_note">दोन्ही माहिती आधीच भरलेली असताना उघडतात. ती नसल्यास, पेस्ट करा — तिच्याशिवाय आम्ही मदत करू शकत नाही.</string>
     <string name="feedback_reports_off_title">निनावी अहवाल बंद आहेत</string>
-    <string name="feedback_reports_off_message">तुमची समस्या तपासण्यासाठी आम्हाला या अ‍ॅपचे लॉग हवे आहेत. सुरू ठेवा वर टॅप करा, StartMusicV3 निनावी अहवाल पुन्हा सुरू करून लॉग पाठवेल.</string>
+    <string name="feedback_reports_off_message">तुमची समस्या तपासण्यासाठी आम्हाला या अ‍ॅपचे लॉग हवे आहेत. सुरू ठेवा वर टॅप करा, StartMusic निनावी अहवाल पुन्हा सुरू करून लॉग पाठवेल.</string>
     <string name="feedback_reports_off_note">कोणतेही नाव, ईमेल किंवा खाते पाठवले जात नाही. सेटिंग्जमध्ये तुम्ही अहवाल पुन्हा बंद करू शकता.</string>
     <string name="feedback_continue">सुरू ठेवा</string>
     <string name="feedback_sentry_link">किंवा Sentry द्वारे</string>
@@ -347,7 +347,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">YouTube सह साइन इन करा</string>
-    <string name="signin_preface_subtitle">आणि StartMusicV3 मध्येच YouTube ची सर्व वैशिष्ट्ये मिळवा</string>
+    <string name="signin_preface_subtitle">आणि StartMusic मध्येच YouTube ची सर्व वैशिष्ट्ये मिळवा</string>
     <string name="signin_enables">साइन इन केल्याने मिळते:</string>
     <string name="signin_feature_home">तुमच्यासाठी YouTube होम फीड</string>
     <string name="signin_feature_subscriptions">सबस्क्रिप्शन फीड</string>
@@ -360,8 +360,8 @@
     <string name="signin_screen_title">साइन इन करा</string>
     <string name="signin_loading">साइन इन लोड करत आहे…</string>
     <string name="signin_unavailable">या डिव्हाइसवर साइन इन अद्याप उपलब्ध नाही</string>
-    <string name="signin_qr_title">StartMusicV3 ॲपने स्कॅन करा</string>
-    <string name="signin_qr_hint">तुमच्या फोनवर StartMusicV3 उघडा → सेटिंग्ज → डिव्हाइस लिंक करा → कॅमेरा उघडा, नंतर हा कोड स्कॅन करा.</string>
+    <string name="signin_qr_title">StartMusic ॲपने स्कॅन करा</string>
+    <string name="signin_qr_hint">तुमच्या फोनवर StartMusic उघडा → सेटिंग्ज → डिव्हाइस लिंक करा → कॅमेरा उघडा, नंतर हा कोड स्कॅन करा.</string>
     <string name="signin_qr_waiting">फोनची प्रतीक्षा करत आहे…</string>
     <string name="signin_qr_sas_hint">तुमचा फोन हाच कोड दाखवेल. जुळला तरच पाठवा.</string>
     <string name="signin_or_paste">किंवा ब्राउझरमधून कुकीज पेस्ट करा</string>
@@ -387,11 +387,11 @@
     <string name="signin_paste_no_cookie_title">त्या विनंतीमध्ये कुकीज नाहीत</string>
     <string name="signin_paste_no_cookie_body">दुसऱ्या विनंतीमधून, शक्यतो Fetch/XHR मधून, Copy as cURL करा, उदाहरणार्थ:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">समजले</string>
-    <string name="cd_device_link_qr">StartMusicV3 ॲपने स्कॅन करण्यासाठी QR कोड</string>
+    <string name="cd_device_link_qr">StartMusic ॲपने स्कॅन करण्यासाठी QR कोड</string>
     <string name="settings_link_devices">डिव्हाइस लिंक करा</string>
     <string name="settings_link_devices_hint">संगणकाचा QR कोड स्कॅन करून त्यावर साइन इन करा</string>
     <string name="device_link_title">डिव्हाइस लिंक करा</string>
-    <string name="device_link_intro">तुमच्या संगणकावरील StartMusicV3 मध्ये दाखवलेला QR कोड स्कॅन करा. हा फोन आधीच साइन इन केलेला असणे आवश्यक आहे.</string>
+    <string name="device_link_intro">तुमच्या संगणकावरील StartMusic मध्ये दाखवलेला QR कोड स्कॅन करा. हा फोन आधीच साइन इन केलेला असणे आवश्यक आहे.</string>
     <string name="device_link_open_camera">कॅमेरा उघडा</string>
     <string name="device_link_scan_hint">कॅमेरा संगणकाच्या QR कोडकडे धरा</string>
     <string name="device_link_sas_hint">हा कोड संगणकाशी जुळला पाहिजे. जुळत नसल्यास, रद्द करा वर टॅप करा.</string>
@@ -619,7 +619,7 @@
     <string name="video_details_delete_message">तुमची टिप्पणी आणि तिची सर्व उत्तरे कायमची हटवायची?</string>
     <string name="video_details_deleted">टिप्पणी हटवली</string>
     <string name="cookie_protect_title">तुमचे साइन इन पासवर्डने सुरक्षित करायचे?</string>
-    <string name="cookie_protect_body">तुमचे साइन इन या संगणकावर सेव्ह केलेले आहे, जिथे तुम्ही चालवत असलेली इतर ॲप्स ते वाचू शकतात. ते लॉक करण्यासाठी पासवर्ड सेट करा; StartMusicV3 प्रत्येक वेळी सुरू होताना तो विचारेल.</string>
+    <string name="cookie_protect_body">तुमचे साइन इन या संगणकावर सेव्ह केलेले आहे, जिथे तुम्ही चालवत असलेली इतर ॲप्स ते वाचू शकतात. ते लॉक करण्यासाठी पासवर्ड सेट करा; StartMusic प्रत्येक वेळी सुरू होताना तो विचारेल.</string>
     <string name="cookie_password">पासवर्ड</string>
     <string name="cookie_protect_confirm">पासवर्डची पुष्टी करा</string>
     <string name="cookie_protect_mismatch">पासवर्ड जुळत नाहीत.</string>
@@ -635,7 +635,7 @@
     <string name="cookie_unlock_sign_out">साइन आउट करा</string>
     <string name="cookie_unlock_sign_out_hint">हे सेव्ह केलेले साइन इन काढून टाकते.</string>
     <string name="cookie_unlock_sign_out_title">साइन आउट करायचे?</string>
-    <string name="cookie_unlock_sign_out_body">यामुळे या संगणकावरून सेव्ह केलेले साइन इन काढून टाकले जाईल. पुन्हा साइन इन करण्यासाठी StartMusicV3 ॲपने QR कोड स्कॅन करा.</string>
+    <string name="cookie_unlock_sign_out_body">यामुळे या संगणकावरून सेव्ह केलेले साइन इन काढून टाकले जाईल. पुन्हा साइन इन करण्यासाठी StartMusic ॲपने QR कोड स्कॅन करा.</string>
     <string name="menu_details_comments">तपशील आणि टिप्पण्या</string>
     <string name="menu_search_lyrics">गाण्याचे बोल शोधा</string>
     <string name="menu_speed_pitch">वेग आणि पिच</string>
@@ -647,7 +647,7 @@
     <string name="cd_move_to_top">सर्वात वर हलवा</string>
     <string name="dialog_undo">पूर्ववत करा</string>
     <string name="dialog_save">जतन करा</string>
-    <string name="upgraded_message">StartMusicV3 %1$s वर अपडेट झाले</string>
+    <string name="upgraded_message">StartMusic %1$s वर अपडेट झाले</string>
     <string name="upgraded_view_changelog">बदल पहा</string>
     <string name="menu_go_to_artist">कलाकाराकडे जा</string>
     <string name="menu_go_to_album">अल्बमकडे जा</string>

@@ -41,7 +41,7 @@ internal val OssComponents: List<OssComponent> = listOf(
     // Packaging repo has NOTICE.md (third-party table + corresponding-source claim) but no
     // top-level LICENSE for the scripts themselves — do not invent one here.
     OssComponent(
-        "FFmpeg packaging used by StartMusicV3 (build scripts, pinned deps, patches)",
+        "FFmpeg packaging used by StartMusic (build scripts, pinned deps, patches)",
         "Corresponding source for shipped FFmpeg binaries (see NOTICE.md)",
         "https://github.com/ElionKrasniqi0/ffmpeg-build",
     ),

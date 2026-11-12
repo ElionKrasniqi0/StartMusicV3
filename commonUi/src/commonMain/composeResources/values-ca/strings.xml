@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -281,7 +281,7 @@
     <string name="settings_show_fps_hint">Mostra els fotogrames per segon sobre el vídeo de Ara sona. La mesura s'atura en pausa o quan surts d'aquesta pantalla.</string>
     <string name="settings_licenses">Llicències de codi obert</string>
     <string name="settings_terms">Condicions i privadesa</string>
-    <string name="settings_licenses_intro">StartMusicV3 és de codi obert sota la GNU GPL v3.0. Inclou aquests components:</string>
+    <string name="settings_licenses_intro">StartMusic és de codi obert sota la GNU GPL v3.0. Inclou aquests components:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Explica’ns què ha fallat o què t’agradaria veure, a GitHub o per correu. Inclou la teva informació anònima de més avall perquè puguem trobar els teus registres i respondre’t.</string>
@@ -297,10 +297,10 @@
     <string name="feedback_github_hint">Pública. Ideal per a errors i idees — altres persones la poden seguir i afegir-hi informació.</string>
     <string name="feedback_email_title">Envia un correu a %1$s</string>
     <string name="feedback_email_hint">Privat. Ideal per a preguntes sobre el compte o personals.</string>
-    <string name="feedback_email_subject">Comentaris sobre StartMusicV3</string>
+    <string name="feedback_email_subject">Comentaris sobre StartMusic</string>
     <string name="feedback_prefilled_note">Totes dues opcions s’obren amb la informació ja emplenada. Si hi falta, enganxa-la — sense ella no et podem ajudar.</string>
     <string name="feedback_reports_off_title">Els informes anònims estan desactivats</string>
-    <string name="feedback_reports_off_message">Per investigar el problema necessitem els registres d’aquesta app. Toca Continua i StartMusicV3 tornarà a activar els informes anònims i enviarà els registres.</string>
+    <string name="feedback_reports_off_message">Per investigar el problema necessitem els registres d’aquesta app. Toca Continua i StartMusic tornarà a activar els informes anònims i enviarà els registres.</string>
     <string name="feedback_reports_off_note">No s’envia cap nom, correu ni compte. Pots tornar a desactivar els informes a Configuració.</string>
     <string name="feedback_continue">Continua</string>
     <string name="feedback_sentry_link">o a través de Sentry</string>
@@ -351,7 +351,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Inicia la sessió amb YouTube</string>
-    <string name="signin_preface_subtitle">i obtén totes les funcions de YouTube a StartMusicV3</string>
+    <string name="signin_preface_subtitle">i obtén totes les funcions de YouTube a StartMusic</string>
     <string name="signin_enables">En iniciar la sessió podràs:</string>
     <string name="signin_feature_home">Feed d'inici de YouTube personalitzat</string>
     <string name="signin_feature_subscriptions">Feed de subscripcions</string>
@@ -364,8 +364,8 @@
     <string name="signin_screen_title">Inici de sessió</string>
     <string name="signin_loading">S'està carregant l'inici de sessió…</string>
     <string name="signin_unavailable">L'inici de sessió encara no està disponible en aquest dispositiu</string>
-    <string name="signin_qr_title">Escaneja amb l'aplicació StartMusicV3</string>
-    <string name="signin_qr_hint">Al telèfon, obre StartMusicV3 → Configuració → Vincula dispositius → Obre la càmera i escaneja aquest codi.</string>
+    <string name="signin_qr_title">Escaneja amb l'aplicació StartMusic</string>
+    <string name="signin_qr_hint">Al telèfon, obre StartMusic → Configuració → Vincula dispositius → Obre la càmera i escaneja aquest codi.</string>
     <string name="signin_qr_waiting">S'està esperant el telèfon…</string>
     <string name="signin_qr_sas_hint">El telèfon mostrarà aquest mateix codi. Envia només si coincideixen.</string>
     <string name="signin_or_paste">O enganxa galetes d'un navegador</string>
@@ -391,11 +391,11 @@
     <string name="signin_paste_no_cookie_title">Aquesta sol·licitud no té galetes</string>
     <string name="signin_paste_no_cookie_body">Fes Copy as cURL d'una altra sol·licitud, preferiblement Fetch/XHR, per exemple:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Entesos</string>
-    <string name="cd_device_link_qr">Codi QR per escanejar amb l'aplicació StartMusicV3</string>
+    <string name="cd_device_link_qr">Codi QR per escanejar amb l'aplicació StartMusic</string>
     <string name="settings_link_devices">Vincula dispositius</string>
     <string name="settings_link_devices_hint">Inicia la sessió en un ordinador escanejant-ne el codi QR</string>
     <string name="device_link_title">Vincula dispositius</string>
-    <string name="device_link_intro">Escaneja el codi QR que mostra StartMusicV3 a l'ordinador. Aquest telèfon ja ha de tenir la sessió iniciada.</string>
+    <string name="device_link_intro">Escaneja el codi QR que mostra StartMusic a l'ordinador. Aquest telèfon ja ha de tenir la sessió iniciada.</string>
     <string name="device_link_open_camera">Obre la càmera</string>
     <string name="device_link_scan_hint">Apunta la càmera al codi QR de l'ordinador</string>
     <string name="device_link_sas_hint">Aquest codi ha de coincidir amb el de l'ordinador. Si no coincideix, toca Cancel·la.</string>
@@ -627,7 +627,7 @@
     <string name="video_details_delete_message">Vols suprimir permanentment el teu comentari i totes les respostes?</string>
     <string name="video_details_deleted">Comentari suprimit</string>
     <string name="cookie_protect_title">Vols protegir l'inici de sessió amb una contrasenya?</string>
-    <string name="cookie_protect_body">L'inici de sessió es desa en aquest ordinador, on altres aplicacions que executis el poden llegir. Defineix una contrasenya per bloquejar-lo; StartMusicV3 te la demanarà cada vegada que s'obri.</string>
+    <string name="cookie_protect_body">L'inici de sessió es desa en aquest ordinador, on altres aplicacions que executis el poden llegir. Defineix una contrasenya per bloquejar-lo; StartMusic te la demanarà cada vegada que s'obri.</string>
     <string name="cookie_password">Contrasenya</string>
     <string name="cookie_protect_confirm">Confirma la contrasenya</string>
     <string name="cookie_protect_mismatch">Les contrasenyes no coincideixen.</string>
@@ -643,7 +643,7 @@
     <string name="cookie_unlock_sign_out">Tanca la sessió</string>
     <string name="cookie_unlock_sign_out_hint">Elimina aquest inici de sessió desat.</string>
     <string name="cookie_unlock_sign_out_title">Vols tancar la sessió?</string>
-    <string name="cookie_unlock_sign_out_body">Això elimina l'inici de sessió desat d'aquest ordinador. Per tornar a iniciar la sessió, escaneja el codi QR amb l'aplicació StartMusicV3.</string>
+    <string name="cookie_unlock_sign_out_body">Això elimina l'inici de sessió desat d'aquest ordinador. Per tornar a iniciar la sessió, escaneja el codi QR amb l'aplicació StartMusic.</string>
     <string name="menu_details_comments">Detalls i comentaris</string>
     <string name="menu_search_lyrics">Cerca la lletra</string>
     <string name="menu_speed_pitch">Velocitat i to</string>
@@ -655,7 +655,7 @@
     <string name="cd_move_to_top">Mou a dalt de tot</string>
     <string name="dialog_undo">Desfés</string>
     <string name="dialog_save">Desa</string>
-    <string name="upgraded_message">StartMusicV3 s'ha actualitzat a la %1$s</string>
+    <string name="upgraded_message">StartMusic s'ha actualitzat a la %1$s</string>
     <string name="upgraded_view_changelog">Mostra els canvis</string>
     <string name="menu_go_to_artist">Ves a l'artista</string>
     <string name="menu_go_to_album">Ves a l'àlbum</string>

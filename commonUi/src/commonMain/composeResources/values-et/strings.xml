@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -277,7 +277,7 @@
     <string name="settings_show_fps_hint">Kuva kaadrisagedus vaate Praegu mängib video peal. Mõõtmine peatub pausi ajal või kui sellelt ekraanilt lahkud.</string>
     <string name="settings_licenses">Avatud lähtekoodi litsentsid</string>
     <string name="settings_terms">Tingimused ja privaatsus</string>
-    <string name="settings_licenses_intro">StartMusicV3 on avatud lähtekoodiga litsentsi GNU GPL v3.0 alusel. See sisaldab järgmisi komponente:</string>
+    <string name="settings_licenses_intro">StartMusic on avatud lähtekoodiga litsentsi GNU GPL v3.0 alusel. See sisaldab järgmisi komponente:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Kirjuta meile, mis läks valesti või mida sooviksid näha, GitHubis või e-postiga. Lisa allolev anonüümne teave, et leiaksime sinu logid ja saaksime vastata.</string>
@@ -293,10 +293,10 @@
     <string name="feedback_github_hint">Avalik. Sobib kõige paremini vigade ja ideede jaoks — teised saavad seda jälgida ja täiendada.</string>
     <string name="feedback_email_title">Kirjuta aadressile %1$s</string>
     <string name="feedback_email_hint">Privaatne. Sobib kõige paremini konto- või isiklike küsimuste jaoks.</string>
-    <string name="feedback_email_subject">StartMusicV3u tagasiside</string>
+    <string name="feedback_email_subject">StartMusicu tagasiside</string>
     <string name="feedback_prefilled_note">Mõlemad avanevad juba täidetud teabega. Kui see puudub, kleepige see — ilma selleta me aidata ei saa.</string>
     <string name="feedback_reports_off_title">Anonüümsed aruanded on välja lülitatud</string>
-    <string name="feedback_reports_off_message">Teie probleemi uurimiseks vajame selle rakenduse logisid. Puudutage Jätka ja StartMusicV3 lülitab anonüümsed aruanded uuesti sisse ning saadab logid.</string>
+    <string name="feedback_reports_off_message">Teie probleemi uurimiseks vajame selle rakenduse logisid. Puudutage Jätka ja StartMusic lülitab anonüümsed aruanded uuesti sisse ning saadab logid.</string>
     <string name="feedback_reports_off_note">Nime, e-posti ega kontot ei saadeta. Aruanded saate sätetes uuesti välja lülitada.</string>
     <string name="feedback_continue">Jätka</string>
     <string name="feedback_sentry_link">või Sentry kaudu</string>
@@ -347,7 +347,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Logi sisse YouTube'iga</string>
-    <string name="signin_preface_subtitle">ja saa kõik YouTube'i funktsioonid StartMusicV3us</string>
+    <string name="signin_preface_subtitle">ja saa kõik YouTube'i funktsioonid StartMusicus</string>
     <string name="signin_enables">Sisselogimine võimaldab:</string>
     <string name="signin_feature_home">Isikupärastatud YouTube'i avalehe voog</string>
     <string name="signin_feature_subscriptions">Tellimuste voog</string>
@@ -360,8 +360,8 @@
     <string name="signin_screen_title">Sisselogimine</string>
     <string name="signin_loading">Sisselogimise laadimine…</string>
     <string name="signin_unavailable">Sisselogimine pole selles seadmes veel saadaval</string>
-    <string name="signin_qr_title">Skanni StartMusicV3u rakendusega</string>
-    <string name="signin_qr_hint">Ava telefonis StartMusicV3 → Sätted → Seo seadmed → Ava kaamera ja skanni see kood.</string>
+    <string name="signin_qr_title">Skanni StartMusicu rakendusega</string>
+    <string name="signin_qr_hint">Ava telefonis StartMusic → Sätted → Seo seadmed → Ava kaamera ja skanni see kood.</string>
     <string name="signin_qr_waiting">Telefoni ootamine…</string>
     <string name="signin_qr_sas_hint">Telefon näitab sama koodi. Saada ainult siis, kui need ühtivad.</string>
     <string name="signin_or_paste">Või kleebi küpsised brauserist</string>
@@ -387,11 +387,11 @@
     <string name="signin_paste_no_cookie_title">Sellel päringul pole küpsiseid</string>
     <string name="signin_paste_no_cookie_body">Kasuta Copy as cURL mõnel teisel päringul, eelistatavalt Fetch/XHR, näiteks:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Selge</string>
-    <string name="cd_device_link_qr">QR-kood StartMusicV3u rakendusega skannimiseks</string>
+    <string name="cd_device_link_qr">QR-kood StartMusicu rakendusega skannimiseks</string>
     <string name="settings_link_devices">Seo seadmed</string>
     <string name="settings_link_devices_hint">Logi arvutis sisse, skannides selle QR-koodi</string>
     <string name="device_link_title">Seo seadmed</string>
-    <string name="device_link_intro">Skanni QR-kood, mida StartMusicV3 arvutis näitab. See telefon peab olema juba sisse logitud.</string>
+    <string name="device_link_intro">Skanni QR-kood, mida StartMusic arvutis näitab. See telefon peab olema juba sisse logitud.</string>
     <string name="device_link_open_camera">Ava kaamera</string>
     <string name="device_link_scan_hint">Suuna kaamera arvuti QR-koodile</string>
     <string name="device_link_sas_hint">See kood peab ühtima arvutis olevaga. Kui ei ühti, puuduta Tühista.</string>
@@ -619,7 +619,7 @@
     <string name="video_details_delete_message">Kas kustutada sinu kommentaar ja kõik selle vastused jäädavalt?</string>
     <string name="video_details_deleted">Kommentaar kustutatud</string>
     <string name="cookie_protect_title">Kas kaitsta sisselogimist parooliga?</string>
-    <string name="cookie_protect_body">Sinu sisselogimine on salvestatud selles arvutis, kus teised sinu käivitatud rakendused saavad seda lugeda. Määra lukustamiseks parool; StartMusicV3 küsib seda igal käivitamisel.</string>
+    <string name="cookie_protect_body">Sinu sisselogimine on salvestatud selles arvutis, kus teised sinu käivitatud rakendused saavad seda lugeda. Määra lukustamiseks parool; StartMusic küsib seda igal käivitamisel.</string>
     <string name="cookie_password">Parool</string>
     <string name="cookie_protect_confirm">Kinnita parool</string>
     <string name="cookie_protect_mismatch">Paroolid ei ühti.</string>
@@ -635,7 +635,7 @@
     <string name="cookie_unlock_sign_out">Logi välja</string>
     <string name="cookie_unlock_sign_out_hint">Eemaldab selle salvestatud sisselogimise.</string>
     <string name="cookie_unlock_sign_out_title">Kas logida välja?</string>
-    <string name="cookie_unlock_sign_out_body">See eemaldab salvestatud sisselogimise sellest arvutist. Uuesti sisselogimiseks skanni QR-kood rakendusega StartMusicV3.</string>
+    <string name="cookie_unlock_sign_out_body">See eemaldab salvestatud sisselogimise sellest arvutist. Uuesti sisselogimiseks skanni QR-kood rakendusega StartMusic.</string>
     <string name="menu_details_comments">Üksikasjad ja kommentaarid</string>
     <string name="menu_search_lyrics">Otsi laulusõnu</string>
     <string name="menu_speed_pitch">Kiirus ja helikõrgus</string>
@@ -647,7 +647,7 @@
     <string name="cd_move_to_top">Liiguta üles</string>
     <string name="dialog_undo">Võta tagasi</string>
     <string name="dialog_save">Salvesta</string>
-    <string name="upgraded_message">StartMusicV3 uuendati versioonile %1$s</string>
+    <string name="upgraded_message">StartMusic uuendati versioonile %1$s</string>
     <string name="upgraded_view_changelog">Vaata muudatusi</string>
     <string name="menu_go_to_artist">Mine artisti juurde</string>
     <string name="menu_go_to_album">Mine albumisse</string>

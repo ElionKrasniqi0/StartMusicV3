@@ -96,7 +96,7 @@ fun ApplicationScope.MiniPlayerWindow(
             ComposeWindow().apply {
                 // No taskbar button on Windows. The type can only be set before the window is shown.
                 if (isWindows) type = java.awt.Window.Type.UTILITY
-                title = "StartMusicV3"
+                title = "StartMusic"
                 isUndecorated = true
                 isTransparent = true
                 isResizable = false
@@ -322,7 +322,7 @@ fun PlayerTray(icon: Painter, logger: Logger, menu: PopupMenu?, onClick: (screen
                     *TRAY_SCALES.map { s -> icon.rasterize(kotlin.math.ceil(px * s).toInt()) }.toTypedArray(),
                 )
             }
-            TrayIcon(image, "StartMusicV3").apply {
+            TrayIcon(image, "StartMusic").apply {
                 addMouseListener(
                     object : MouseAdapter() {
                         // TrayIcon events carry SCREEN coordinates (there is no component space).

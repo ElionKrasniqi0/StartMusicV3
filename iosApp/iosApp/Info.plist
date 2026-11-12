@@ -5,7 +5,7 @@
     <key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleName</key><string>$(PRODUCT_NAME)</string>
-    <key>CFBundleDisplayName</key><string>StartMusicV3</string>
+    <key>CFBundleDisplayName</key><string>StartMusic</string>
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>CFBundleShortVersionString</key><string>4.0.15</string>
     <key>CFBundleVersion</key><string>20</string>
@@ -20,7 +20,7 @@
     </array>
     <!-- Plain http to the local network only: a dev build talks to the StartMusicV3 server on the build
          machine (-PuseLocalServerIp). Everything else stays https-only. -->
-    <key>NSLocalNetworkUsageDescription</key><string>StartMusicV3 connects to a development server on your local network.</string>
+    <key>NSLocalNetworkUsageDescription</key><string>StartMusic connects to a development server on your local network.</string>
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsLocalNetworking</key><true/>
@@ -41,8 +41,8 @@
     <key>UIFileSharingEnabled</key><true/>
     <key>UISupportsDocumentBrowser</key><true/>
     <key>NSCameraUsageDescription</key>
-    <string>StartMusicV3 uses the camera to scan a QR code shown on your computer so you can sign in on desktop.</string>
+    <string>StartMusic uses the camera to scan a QR code shown on your computer so you can sign in on desktop.</string>
     <key>NSFaceIDUsageDescription</key>
-    <string>StartMusicV3 asks you to unlock the phone before sending your YouTube sign-in to a computer.</string>
+    <string>StartMusic asks you to unlock the phone before sending your YouTube sign-in to a computer.</string>
 </dict>
 </plist>

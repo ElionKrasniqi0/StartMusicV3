@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -338,7 +338,7 @@
     <string name="settings_versions_app">Застосунок v%1$s/%2$s</string>
     <string name="settings_versions_engine">EngineJs %1$s</string>
     <string name="settings_versions_player">PlayerJs %1$s</string>
-    <string name="settings_licenses_intro">StartMusicV3 — відкрите ПЗ за ліцензією GNU GPL v3.0. Воно містить такі компоненти:</string>
+    <string name="settings_licenses_intro">StartMusic — відкрите ПЗ за ліцензією GNU GPL v3.0. Воно містить такі компоненти:</string>
     <string name="feedback_intro">Розкажіть, що пішло не так або що ви хотіли б бачити, на GitHub чи поштою. Додайте свої анонімні дані нижче, щоб ми знайшли ваші логи й відповіли.</string>
     <string name="feedback_info_title">Анонімні дані</string>
     <string name="feedback_copy">Копіювати</string>
@@ -352,10 +352,10 @@
     <string name="feedback_github_hint">Публічно. Найкраще для помилок та ідей — інші зможуть стежити й доповнювати.</string>
     <string name="feedback_email_title">Написати на %1$s</string>
     <string name="feedback_email_hint">Приватно. Найкраще для питань щодо облікового запису чи особистих питань.</string>
-    <string name="feedback_email_subject">Відгук про StartMusicV3</string>
+    <string name="feedback_email_subject">Відгук про StartMusic</string>
     <string name="feedback_prefilled_note">Обидва варіанти відкриваються з уже заповненими даними. Якщо їх немає, вставте їх — без них ми не зможемо допомогти.</string>
     <string name="feedback_reports_off_title">Анонімні звіти вимкнено</string>
-    <string name="feedback_reports_off_message">Щоб розібратися з проблемою, нам потрібні логи цього застосунку. Торкніться «Продовжити», і StartMusicV3 знову ввімкне анонімні звіти та надішле логи.</string>
+    <string name="feedback_reports_off_message">Щоб розібратися з проблемою, нам потрібні логи цього застосунку. Торкніться «Продовжити», і StartMusic знову ввімкне анонімні звіти та надішле логи.</string>
     <string name="feedback_reports_off_note">Ім’я, пошта й обліковий запис не надсилаються. Звіти можна знову вимкнути в Налаштуваннях.</string>
     <string name="feedback_continue">Продовжити</string>
     <string name="feedback_sentry_link">або через Sentry</string>
@@ -403,7 +403,7 @@
     <string name="cd_drag_to_reorder">Перетягніть, щоб змінити порядок</string>
     <string name="cd_send">Надіслати</string>
     <string name="cd_vote">Проголосувати</string>
-    <string name="cd_open_app">Відкрити StartMusicV3</string>
+    <string name="cd_open_app">Відкрити StartMusic</string>
     <string name="cd_stop_dismiss">Зупинити й закрити</string>
     <string name="mini_player_nothing_playing">Нічого не відтворюється</string>
     <string name="folder_picker_title">Виберіть музичну папку</string>
@@ -415,7 +415,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Увійти через YouTube</string>
-    <string name="signin_preface_subtitle">і отримати всі функції YouTube у StartMusicV3</string>
+    <string name="signin_preface_subtitle">і отримати всі функції YouTube у StartMusic</string>
     <string name="signin_enables">Після входу доступні:</string>
     <string name="signin_feature_home">Персональна головна стрічка YouTube</string>
     <string name="signin_feature_subscriptions">Стрічка підписок</string>
@@ -428,8 +428,8 @@
     <string name="signin_screen_title">Вхід</string>
     <string name="signin_loading">Завантаження сторінки входу…</string>
     <string name="signin_unavailable">Вхід поки недоступний на цьому пристрої</string>
-    <string name="signin_qr_title">Відскануйте в застосунку StartMusicV3</string>
-    <string name="signin_qr_hint">На телефоні відкрийте StartMusicV3 → Налаштування → Зв’язати пристрої → Відкрити камеру й відскануйте цей код.</string>
+    <string name="signin_qr_title">Відскануйте в застосунку StartMusic</string>
+    <string name="signin_qr_hint">На телефоні відкрийте StartMusic → Налаштування → Зв’язати пристрої → Відкрити камеру й відскануйте цей код.</string>
     <string name="signin_qr_waiting">Очікування телефона…</string>
     <string name="signin_qr_sas_hint">На телефоні з’явиться такий самий код. Надсилайте, лише якщо вони збігаються.</string>
     <string name="signin_or_paste">Або вставте cookies з браузера</string>
@@ -456,11 +456,11 @@
     <string name="signin_paste_no_cookie_title">У цьому запиті немає cookies</string>
     <string name="signin_paste_no_cookie_body">Скопіюйте як cURL інший запит, краще Fetch/XHR, наприклад:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Зрозуміло</string>
-    <string name="cd_device_link_qr">QR-код для сканування в застосунку StartMusicV3</string>
+    <string name="cd_device_link_qr">QR-код для сканування в застосунку StartMusic</string>
     <string name="settings_link_devices">Зв’язати пристрої</string>
     <string name="settings_link_devices_hint">Увійдіть на комп’ютері, відсканувавши його QR-код</string>
     <string name="device_link_title">Зв’язати пристрої</string>
-    <string name="device_link_intro">Відскануйте QR-код, показаний у StartMusicV3 на комп’ютері. На цьому телефоні вже має бути виконано вхід.</string>
+    <string name="device_link_intro">Відскануйте QR-код, показаний у StartMusic на комп’ютері. На цьому телефоні вже має бути виконано вхід.</string>
     <string name="device_link_open_camera">Відкрити камеру</string>
     <string name="device_link_scan_hint">Наведіть камеру на QR-код на комп’ютері</string>
     <string name="device_link_sas_hint">Цей код має збігатися з кодом на комп’ютері. Якщо ні — натисніть «Скасувати».</string>
@@ -534,8 +534,8 @@
     <string name="update_version">Версія %1$s</string>
     <string name="update_download">Завантажити</string>
     <string name="update_install_now">Установити зараз</string>
-    <string name="update_install_permission">Android потребує вашого дозволу, перш ніж StartMusicV3 зможе встановлювати оновлення. Дозвольте це або завантажте нову версію у браузері.</string>
-    <string name="update_install_permission_allow">Android потребує вашого дозволу, перш ніж StartMusicV3 зможе встановлювати оновлення.</string>
+    <string name="update_install_permission">Android потребує вашого дозволу, перш ніж StartMusic зможе встановлювати оновлення. Дозвольте це або завантажте нову версію у браузері.</string>
+    <string name="update_install_permission_allow">Android потребує вашого дозволу, перш ніж StartMusic зможе встановлювати оновлення.</string>
     <string name="update_allow_install">Дозволити</string>
     <string name="update_download_in_browser">Завантажити у браузері</string>
     <string name="update_ask_later">Запитати пізніше</string>
@@ -547,7 +547,7 @@
     <!-- Why this desktop copy cannot update itself; each fills update_manual_hint's %1$s. -->
     <string name="update_blocked_not_installed">застосунок запущено не з установленої копії</string>
     <string name="update_blocked_mac_swap">ця версія macOS не може замінити застосунок на місці</string>
-    <string name="update_blocked_folder_read_only">папка, у якій міститься StartMusicV3, недоступна для запису</string>
+    <string name="update_blocked_folder_read_only">папка, у якій міститься StartMusic, недоступна для запису</string>
     <string name="update_blocked_not_deb">цю копію встановлено не з пакета .deb</string>
     <string name="update_blocked_no_pkexec">pkexec або apt-get відсутній</string>
     <string name="update_failed">Помилка оновлення: %1$s</string>
@@ -734,7 +734,7 @@
     <string name="video_details_delete_message">Остаточно видалити коментар і всі відповіді на нього?</string>
     <string name="video_details_deleted">Коментар видалено</string>
     <string name="cookie_protect_title">Захистити вхід паролем?</string>
-    <string name="cookie_protect_body">Дані для входу зберігаються на цьому комп’ютері, де їх можуть прочитати інші запущені вами застосунки. Установіть пароль для захисту; StartMusicV3 запитуватиме його під час кожного запуску.</string>
+    <string name="cookie_protect_body">Дані для входу зберігаються на цьому комп’ютері, де їх можуть прочитати інші запущені вами застосунки. Установіть пароль для захисту; StartMusic запитуватиме його під час кожного запуску.</string>
     <string name="cookie_password">Пароль</string>
     <string name="cookie_protect_confirm">Підтвердьте пароль</string>
     <string name="cookie_protect_mismatch">Паролі не збігаються.</string>
@@ -750,8 +750,8 @@
     <string name="cookie_unlock_sign_out">Вийти</string>
     <string name="cookie_unlock_sign_out_hint">Видаляє цей збережений вхід.</string>
     <string name="cookie_unlock_sign_out_title">Вийти?</string>
-    <string name="cookie_unlock_sign_out_body">Це видалить збережені дані для входу з цього комп’ютера. Щоб увійти знову, відскануйте QR-код за допомогою застосунку StartMusicV3.</string>
-    <string name="link_unsupported">StartMusicV3 не може відкрити це посилання</string>
+    <string name="cookie_unlock_sign_out_body">Це видалить збережені дані для входу з цього комп’ютера. Щоб увійти знову, відскануйте QR-код за допомогою застосунку StartMusic.</string>
+    <string name="link_unsupported">StartMusic не може відкрити це посилання</string>
     <string name="link_open_failed">Не вдається відкрити: %1$s</string>
     <string name="link_queued_next">Буде відтворено наступним</string>
     <string name="link_queued_last">Додано в кінець черги</string>
@@ -801,8 +801,8 @@
         <item quantity="other">Відновлено %1$d плейлиста</item>
     </plurals>
     <string name="playlist_restore_failed_title">Не вдалося відновити</string>
-    <string name="error_playlist_backup_invalid">Цей файл не є резервною копією плейлистів StartMusicV3.</string>
-    <string name="error_playlist_backup_newer">Цю резервну копію створено новішою версією StartMusicV3. Оновіть застосунок, щоб відновити її.</string>
+    <string name="error_playlist_backup_invalid">Цей файл не є резервною копією плейлистів StartMusic.</string>
+    <string name="error_playlist_backup_newer">Цю резервну копію створено новішою версією StartMusic. Оновіть застосунок, щоб відновити її.</string>
     <plurals name="n_playlists">
         <item quantity="one">%1$d плейлист</item>
         <item quantity="few">%1$d плейлисти</item>
@@ -819,7 +819,7 @@
     <string name="cd_move_to_top">Перемістити вгору</string>
     <string name="dialog_undo">Скасувати</string>
     <string name="dialog_save">Зберегти</string>
-    <string name="upgraded_message">StartMusicV3 оновлено до %1$s</string>
+    <string name="upgraded_message">StartMusic оновлено до %1$s</string>
     <string name="upgraded_view_changelog">Список змін</string>
     <string name="menu_go_to_artist">Перейти до виконавця</string>
     <string name="menu_go_to_album">Перейти до альбому</string>

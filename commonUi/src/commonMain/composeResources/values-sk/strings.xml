@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -285,7 +285,7 @@
     <string name="settings_show_fps_hint">Zobrazí počet snímok za sekundu cez video v Práve hrá. Meranie sa zastaví pri pozastavení alebo opustení obrazovky.</string>
     <string name="settings_licenses">Licencie open source</string>
     <string name="settings_terms">Podmienky a súkromie</string>
-    <string name="settings_licenses_intro">StartMusicV3 je open source pod licenciou GNU GPL v3.0. Obsahuje tieto komponenty:</string>
+    <string name="settings_licenses_intro">StartMusic je open source pod licenciou GNU GPL v3.0. Obsahuje tieto komponenty:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Napíšte nám, čo sa pokazilo alebo čo by ste radi videli, na GitHube alebo e-mailom. Priložte svoje anonymné údaje nižšie, aby sme našli vaše logy a mohli odpovedať.</string>
@@ -301,10 +301,10 @@
     <string name="feedback_github_hint">Verejné. Najlepšie pre chyby a nápady — ostatní ich môžu sledovať a dopĺňať.</string>
     <string name="feedback_email_title">Napísať na %1$s</string>
     <string name="feedback_email_hint">Súkromné. Najlepšie pre otázky k účtu alebo osobné otázky.</string>
-    <string name="feedback_email_subject">Spätná väzba k StartMusicV3</string>
+    <string name="feedback_email_subject">Spätná väzba k StartMusic</string>
     <string name="feedback_prefilled_note">Obe možnosti sa otvoria s už vyplnenými údajmi. Ak chýbajú, vložte ich — bez nich nemôžeme pomôcť.</string>
     <string name="feedback_reports_off_title">Anonymné hlásenia sú vypnuté</string>
-    <string name="feedback_reports_off_message">Na preskúmanie vášho problému potrebujeme logy tejto aplikácie. Klepnite na Pokračovať a StartMusicV3 anonymné hlásenia znova zapne a odošle logy.</string>
+    <string name="feedback_reports_off_message">Na preskúmanie vášho problému potrebujeme logy tejto aplikácie. Klepnite na Pokračovať a StartMusic anonymné hlásenia znova zapne a odošle logy.</string>
     <string name="feedback_reports_off_note">Neodosiela sa žiadne meno, e‑mail ani účet. Hlásenia môžete znova vypnúť v Nastaveniach.</string>
     <string name="feedback_continue">Pokračovať</string>
     <string name="feedback_sentry_link">alebo cez Sentry</string>
@@ -355,7 +355,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Prihlásiť sa cez YouTube</string>
-    <string name="signin_preface_subtitle">a získať všetky funkcie YouTube v StartMusicV3</string>
+    <string name="signin_preface_subtitle">a získať všetky funkcie YouTube v StartMusic</string>
     <string name="signin_enables">Prihlásenie vám umožní:</string>
     <string name="signin_feature_home">Prispôsobený domovský feed YouTube</string>
     <string name="signin_feature_subscriptions">Feed odberov</string>
@@ -368,8 +368,8 @@
     <string name="signin_screen_title">Prihlásenie</string>
     <string name="signin_loading">Načítava sa prihlásenie…</string>
     <string name="signin_unavailable">Prihlásenie zatiaľ na tomto zariadení nie je dostupné</string>
-    <string name="signin_qr_title">Naskenujte aplikáciou StartMusicV3</string>
-    <string name="signin_qr_hint">V telefóne otvorte StartMusicV3 → Nastavenia → Prepojiť zariadenia → Otvoriť fotoaparát a naskenujte tento kód.</string>
+    <string name="signin_qr_title">Naskenujte aplikáciou StartMusic</string>
+    <string name="signin_qr_hint">V telefóne otvorte StartMusic → Nastavenia → Prepojiť zariadenia → Otvoriť fotoaparát a naskenujte tento kód.</string>
     <string name="signin_qr_waiting">Čaká sa na telefón…</string>
     <string name="signin_qr_sas_hint">Telefón zobrazí rovnaký kód. Odošlite, len ak sa zhodujú.</string>
     <string name="signin_or_paste">Alebo vložte cookies z prehliadača</string>
@@ -395,11 +395,11 @@
     <string name="signin_paste_no_cookie_title">Táto požiadavka nemá žiadne cookies</string>
     <string name="signin_paste_no_cookie_body">Skopírujte ako cURL inú požiadavku, najlepšie Fetch/XHR, napríklad:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Rozumiem</string>
-    <string name="cd_device_link_qr">QR kód na naskenovanie aplikáciou StartMusicV3</string>
+    <string name="cd_device_link_qr">QR kód na naskenovanie aplikáciou StartMusic</string>
     <string name="settings_link_devices">Prepojiť zariadenia</string>
     <string name="settings_link_devices_hint">Prihláste sa na počítači naskenovaním jeho QR kódu</string>
     <string name="device_link_title">Prepojiť zariadenia</string>
-    <string name="device_link_intro">Naskenujte QR kód zobrazený v StartMusicV3 na počítači. Tento telefón už musí byť prihlásený.</string>
+    <string name="device_link_intro">Naskenujte QR kód zobrazený v StartMusic na počítači. Tento telefón už musí byť prihlásený.</string>
     <string name="device_link_open_camera">Otvoriť fotoaparát</string>
     <string name="device_link_scan_hint">Namierte fotoaparát na QR kód počítača</string>
     <string name="device_link_sas_hint">Tento kód sa musí zhodovať s počítačom. Ak nie, ťuknite na Zrušiť.</string>
@@ -635,7 +635,7 @@
     <string name="video_details_delete_message">Natrvalo odstrániť váš komentár a všetky odpovede naň?</string>
     <string name="video_details_deleted">Komentár odstránený</string>
     <string name="cookie_protect_title">Chrániť prihlásenie heslom?</string>
-    <string name="cookie_protect_body">Vaše prihlásenie je uložené v tomto počítači, kde ho môžu čítať aj iné aplikácie, ktoré spúšťate. Nastavte heslo, ktoré ho uzamkne; StartMusicV3 si ho vypýta pri každom spustení.</string>
+    <string name="cookie_protect_body">Vaše prihlásenie je uložené v tomto počítači, kde ho môžu čítať aj iné aplikácie, ktoré spúšťate. Nastavte heslo, ktoré ho uzamkne; StartMusic si ho vypýta pri každom spustení.</string>
     <string name="cookie_password">Heslo</string>
     <string name="cookie_protect_confirm">Potvrdenie hesla</string>
     <string name="cookie_protect_mismatch">Heslá sa nezhodujú.</string>
@@ -651,7 +651,7 @@
     <string name="cookie_unlock_sign_out">Odhlásiť sa</string>
     <string name="cookie_unlock_sign_out_hint">Odstráni toto uložené prihlásenie.</string>
     <string name="cookie_unlock_sign_out_title">Odhlásiť sa?</string>
-    <string name="cookie_unlock_sign_out_body">Týmto odstránite uložené prihlásenie z tohto počítača. Ak sa chcete znova prihlásiť, naskenujte QR kód aplikáciou StartMusicV3.</string>
+    <string name="cookie_unlock_sign_out_body">Týmto odstránite uložené prihlásenie z tohto počítača. Ak sa chcete znova prihlásiť, naskenujte QR kód aplikáciou StartMusic.</string>
     <string name="menu_details_comments">Podrobnosti a komentáre</string>
     <string name="menu_search_lyrics">Vyhľadať text piesne</string>
     <string name="menu_speed_pitch">Rýchlosť a výška tónu</string>
@@ -663,7 +663,7 @@
     <string name="cd_move_to_top">Presunúť nahor</string>
     <string name="dialog_undo">Späť</string>
     <string name="dialog_save">Uložiť</string>
-    <string name="upgraded_message">StartMusicV3 bol aktualizovaný na %1$s</string>
+    <string name="upgraded_message">StartMusic bol aktualizovaný na %1$s</string>
     <string name="upgraded_view_changelog">Zobraziť zoznam zmien</string>
     <string name="menu_go_to_artist">Prejsť na interpreta</string>
     <string name="menu_go_to_album">Prejsť na album</string>

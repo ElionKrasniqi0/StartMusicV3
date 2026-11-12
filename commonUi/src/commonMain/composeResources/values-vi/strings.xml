@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -289,7 +289,7 @@
     <string name="playback_unavailable">Video này không khả dụng</string>
     <string name="playback_retry_later">Hiện không thể phát video này. Hãy thử lại sau</string>
     <string name="playback_file_missing">Tệp này không còn trên thiết bị của bạn</string>
-    <string name="playback_folder_access_lost">StartMusicV3 đã mất quyền truy cập thư mục chứa tệp này. Hãy thêm lại thư mục để phát</string>
+    <string name="playback_folder_access_lost">StartMusic đã mất quyền truy cập thư mục chứa tệp này. Hãy thêm lại thư mục để phát</string>
     <string name="playback_add_folder_again">Thêm thư mục</string>
     <string name="playback_video_unsupported">Thiết bị của bạn không phát được định dạng video này. Hãy chọn chất lượng khác.</string>
     <string name="playback_botguard_failed">Vượt Botguard thất bại</string>
@@ -317,7 +317,7 @@
     <string name="settings_versions_app">Ứng dụng v%1$s/%2$s</string>
     <string name="settings_versions_engine">EngineJs %1$s</string>
     <string name="settings_versions_player">PlayerJs %1$s</string>
-    <string name="settings_licenses_intro">StartMusicV3 là phần mềm mã nguồn mở theo giấy phép GNU GPL v3.0. Ứng dụng bao gồm các thành phần sau:</string>
+    <string name="settings_licenses_intro">StartMusic là phần mềm mã nguồn mở theo giấy phép GNU GPL v3.0. Ứng dụng bao gồm các thành phần sau:</string>
     <string name="feedback_intro">Hãy cho chúng tôi biết điều gì bị lỗi hoặc bạn muốn có thêm gì, qua GitHub hoặc email. Hãy kèm thông tin ẩn danh bên dưới để chúng tôi tìm nhật ký của bạn và phản hồi.</string>
     <string name="feedback_info_title">Thông tin ẩn danh</string>
     <string name="feedback_copy">Sao chép</string>
@@ -331,10 +331,10 @@
     <string name="feedback_github_hint">Công khai. Phù hợp nhất cho lỗi và ý tưởng — người khác có thể theo dõi và bổ sung.</string>
     <string name="feedback_email_title">Gửi email tới %1$s</string>
     <string name="feedback_email_hint">Riêng tư. Phù hợp nhất cho câu hỏi về tài khoản hoặc cá nhân.</string>
-    <string name="feedback_email_subject">Góp ý StartMusicV3</string>
+    <string name="feedback_email_subject">Góp ý StartMusic</string>
     <string name="feedback_prefilled_note">Cả hai đều mở với thông tin đã được điền sẵn. Nếu thiếu, hãy dán vào — không có nó chúng tôi không thể hỗ trợ.</string>
     <string name="feedback_reports_off_title">Báo cáo ẩn danh đang tắt</string>
-    <string name="feedback_reports_off_message">Để xem xét sự cố của bạn, chúng tôi cần nhật ký của ứng dụng. Nhấn Tiếp tục, StartMusicV3 sẽ bật lại báo cáo ẩn danh và gửi nhật ký.</string>
+    <string name="feedback_reports_off_message">Để xem xét sự cố của bạn, chúng tôi cần nhật ký của ứng dụng. Nhấn Tiếp tục, StartMusic sẽ bật lại báo cáo ẩn danh và gửi nhật ký.</string>
     <string name="feedback_reports_off_note">Không gửi tên, email hay tài khoản. Bạn có thể tắt báo cáo lại trong Cài đặt.</string>
     <string name="feedback_continue">Tiếp tục</string>
     <string name="feedback_sentry_link">hoặc gửi qua Sentry</string>
@@ -379,7 +379,7 @@
     <string name="cd_drag_to_reorder">Kéo để sắp xếp lại</string>
     <string name="cd_send">Gửi</string>
     <string name="cd_vote">Bình chọn</string>
-    <string name="cd_open_app">Mở StartMusicV3</string>
+    <string name="cd_open_app">Mở StartMusic</string>
     <string name="cd_stop_dismiss">Dừng và đóng</string>
     <string name="mini_player_nothing_playing">Không có gì đang phát</string>
     <string name="folder_picker_title">Chọn thư mục nhạc</string>
@@ -412,7 +412,7 @@
     <string name="settings_system_audio_fx">Dùng hiệu ứng âm thanh hệ thống</string>
     <string name="settings_system_audio_fx_hint">Cho phép ứng dụng equalizer trên thiết bị chỉnh âm thanh. Tắt equalizer trong ứng dụng.</string>
     <string name="signin_preface_title">Đăng nhập bằng YouTube</string>
-    <string name="signin_preface_subtitle">và dùng mọi tính năng của YouTube ngay trong StartMusicV3</string>
+    <string name="signin_preface_subtitle">và dùng mọi tính năng của YouTube ngay trong StartMusic</string>
     <string name="signin_enables">Đăng nhập để có:</string>
     <string name="signin_feature_home">Trang chủ YouTube dành riêng cho bạn</string>
     <string name="signin_feature_subscriptions">Nguồn cấp kênh đăng ký</string>
@@ -425,8 +425,8 @@
     <string name="signin_screen_title">Đăng nhập</string>
     <string name="signin_loading">Đang tải trang đăng nhập…</string>
     <string name="signin_unavailable">Thiết bị này chưa hỗ trợ đăng nhập</string>
-    <string name="signin_qr_title">Quét bằng ứng dụng StartMusicV3</string>
-    <string name="signin_qr_hint">Trên điện thoại, mở StartMusicV3 → Cài đặt → Liên kết thiết bị → Mở camera, rồi quét mã này.</string>
+    <string name="signin_qr_title">Quét bằng ứng dụng StartMusic</string>
+    <string name="signin_qr_hint">Trên điện thoại, mở StartMusic → Cài đặt → Liên kết thiết bị → Mở camera, rồi quét mã này.</string>
     <string name="signin_qr_waiting">Đang chờ điện thoại…</string>
     <string name="signin_qr_sas_hint">Điện thoại sẽ hiện cùng mã này. Chỉ gửi khi hai mã trùng nhau.</string>
     <string name="signin_or_paste">Hoặc dán cookie từ trình duyệt</string>
@@ -453,11 +453,11 @@
     <string name="signin_paste_no_cookie_title">Request đó không có cookie</string>
     <string name="signin_paste_no_cookie_body">Hãy Copy as cURL từ request khác, tốt nhất là Fetch/XHR, ví dụ:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Đã hiểu</string>
-    <string name="cd_device_link_qr">Mã QR để quét bằng ứng dụng StartMusicV3</string>
+    <string name="cd_device_link_qr">Mã QR để quét bằng ứng dụng StartMusic</string>
     <string name="settings_link_devices">Liên kết thiết bị</string>
     <string name="settings_link_devices_hint">Đăng nhập trên máy tính bằng cách quét mã QR của máy</string>
     <string name="device_link_title">Liên kết thiết bị</string>
-    <string name="device_link_intro">Quét mã QR hiện trong StartMusicV3 trên máy tính. Điện thoại này phải đã đăng nhập.</string>
+    <string name="device_link_intro">Quét mã QR hiện trong StartMusic trên máy tính. Điện thoại này phải đã đăng nhập.</string>
     <string name="device_link_open_camera">Mở camera</string>
     <string name="device_link_scan_hint">Hướng camera vào mã QR trên máy tính</string>
     <string name="device_link_sas_hint">Mã này phải trùng với mã trên máy tính. Nếu không, hãy huỷ.</string>
@@ -508,8 +508,8 @@
     <string name="update_version">Phiên bản %1$s</string>
     <string name="update_download">Tải xuống</string>
     <string name="update_install_now">Cài đặt ngay</string>
-    <string name="update_install_permission">Android cần bạn cho phép trước khi StartMusicV3 có thể cài đặt bản cập nhật. Hãy cho phép, hoặc tải bản mới bằng trình duyệt.</string>
-    <string name="update_install_permission_allow">Android cần bạn cho phép trước khi StartMusicV3 có thể cài đặt bản cập nhật.</string>
+    <string name="update_install_permission">Android cần bạn cho phép trước khi StartMusic có thể cài đặt bản cập nhật. Hãy cho phép, hoặc tải bản mới bằng trình duyệt.</string>
+    <string name="update_install_permission_allow">Android cần bạn cho phép trước khi StartMusic có thể cài đặt bản cập nhật.</string>
     <string name="update_allow_install">Cho phép</string>
     <string name="update_download_in_browser">Tải bằng trình duyệt</string>
     <string name="update_ask_later">Nhắc lại sau</string>
@@ -520,7 +520,7 @@
     <string name="update_manual_hint">Bản này không thể tự cập nhật (%1$s). Hãy tải bản mới theo cách thủ công.</string>
     <string name="update_blocked_not_installed">ứng dụng không chạy từ bản đã cài đặt</string>
     <string name="update_blocked_mac_swap">phiên bản macOS này không thể thay thế ứng dụng tại chỗ</string>
-    <string name="update_blocked_folder_read_only">không thể ghi vào thư mục chứa StartMusicV3</string>
+    <string name="update_blocked_folder_read_only">không thể ghi vào thư mục chứa StartMusic</string>
     <string name="update_blocked_not_deb">bản này không được cài từ gói .deb</string>
     <string name="update_blocked_no_pkexec">thiếu pkexec hoặc apt-get</string>
     <string name="update_failed">Cập nhật thất bại: %1$s</string>
@@ -691,7 +691,7 @@
     <string name="video_details_delete_message">Xóa vĩnh viễn bình luận của bạn và tất cả phản hồi?</string>
     <string name="video_details_deleted">Đã xóa bình luận</string>
     <string name="cookie_protect_title">Bảo vệ đăng nhập bằng mật khẩu?</string>
-    <string name="cookie_protect_body">Thông tin đăng nhập được lưu trên máy này, nơi các ứng dụng khác bạn chạy có thể đọc được. Đặt mật khẩu để khoá lại; StartMusicV3 sẽ hỏi mật khẩu mỗi lần khởi động.</string>
+    <string name="cookie_protect_body">Thông tin đăng nhập được lưu trên máy này, nơi các ứng dụng khác bạn chạy có thể đọc được. Đặt mật khẩu để khoá lại; StartMusic sẽ hỏi mật khẩu mỗi lần khởi động.</string>
     <string name="cookie_password">Mật khẩu</string>
     <string name="cookie_protect_confirm">Nhập lại mật khẩu</string>
     <string name="cookie_protect_mismatch">Mật khẩu không khớp.</string>
@@ -707,8 +707,8 @@
     <string name="cookie_unlock_sign_out">Đăng xuất</string>
     <string name="cookie_unlock_sign_out_hint">Xoá thông tin đăng nhập đã lưu này.</string>
     <string name="cookie_unlock_sign_out_title">Đăng xuất?</string>
-    <string name="cookie_unlock_sign_out_body">Thao tác này xoá thông tin đăng nhập đã lưu trên máy tính này. Để đăng nhập lại, hãy quét mã QR bằng ứng dụng StartMusicV3.</string>
-    <string name="link_unsupported">StartMusicV3 không mở được liên kết này</string>
+    <string name="cookie_unlock_sign_out_body">Thao tác này xoá thông tin đăng nhập đã lưu trên máy tính này. Để đăng nhập lại, hãy quét mã QR bằng ứng dụng StartMusic.</string>
+    <string name="link_unsupported">StartMusic không mở được liên kết này</string>
     <string name="link_open_failed">Không mở được: %1$s</string>
     <string name="link_queued_next">Sẽ phát tiếp theo</string>
     <string name="link_queued_last">Đã thêm vào cuối danh sách phát</string>
@@ -746,8 +746,8 @@
         <item quantity="other">Đã khôi phục %1$d danh sách phát</item>
     </plurals>
     <string name="playlist_restore_failed_title">Không thể khôi phục</string>
-    <string name="error_playlist_backup_invalid">Tệp này không phải bản sao lưu danh sách phát của StartMusicV3.</string>
-    <string name="error_playlist_backup_newer">Bản sao lưu này được tạo bởi phiên bản StartMusicV3 mới hơn. Hãy cập nhật ứng dụng để khôi phục.</string>
+    <string name="error_playlist_backup_invalid">Tệp này không phải bản sao lưu danh sách phát của StartMusic.</string>
+    <string name="error_playlist_backup_newer">Bản sao lưu này được tạo bởi phiên bản StartMusic mới hơn. Hãy cập nhật ứng dụng để khôi phục.</string>
     <plurals name="n_playlists">
         <item quantity="other">%1$d danh sách phát</item>
     </plurals>
@@ -761,7 +761,7 @@
     <string name="cd_move_to_top">Đưa lên đầu</string>
     <string name="dialog_undo">Hoàn tác</string>
     <string name="dialog_save">Lưu</string>
-    <string name="upgraded_message">StartMusicV3 đã được cập nhật lên %1$s</string>
+    <string name="upgraded_message">StartMusic đã được cập nhật lên %1$s</string>
     <string name="upgraded_view_changelog">Xem nhật ký thay đổi</string>
     <string name="menu_go_to_artist">Đến nghệ sĩ</string>
     <string name="menu_go_to_album">Đến album</string>

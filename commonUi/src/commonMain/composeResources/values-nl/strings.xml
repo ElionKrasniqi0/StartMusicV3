@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -277,7 +277,7 @@
     <string name="settings_show_fps_hint">Toon beelden per seconde over de video in Speelt nu. Meten stopt bij pauzeren of als je dat scherm verlaat.</string>
     <string name="settings_licenses">Opensourcelicenties</string>
     <string name="settings_terms">Voorwaarden &amp; privacy</string>
-    <string name="settings_licenses_intro">StartMusicV3 is open source onder de GNU GPL v3.0. Het bevat deze componenten:</string>
+    <string name="settings_licenses_intro">StartMusic is open source onder de GNU GPL v3.0. Het bevat deze componenten:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Vertel ons wat er misging of wat je graag zou zien, op GitHub of per e-mail. Voeg je anonieme info hieronder toe zodat we je logs kunnen vinden en kunnen antwoorden.</string>
@@ -293,10 +293,10 @@
     <string name="feedback_github_hint">Openbaar. Het beste voor bugs en ideeën — anderen kunnen meelezen en aanvullen.</string>
     <string name="feedback_email_title">E-mail naar %1$s</string>
     <string name="feedback_email_hint">Privé. Het beste voor vragen over je account of persoonlijke vragen.</string>
-    <string name="feedback_email_subject">StartMusicV3-feedback</string>
+    <string name="feedback_email_subject">StartMusic-feedback</string>
     <string name="feedback_prefilled_note">Beide openen met de info al ingevuld. Ontbreekt die, plak hem dan — zonder kunnen we niet helpen.</string>
     <string name="feedback_reports_off_title">Anonieme rapporten staan uit</string>
-    <string name="feedback_reports_off_message">Om je probleem te onderzoeken hebben we de logs van deze app nodig. Tik op Doorgaan en StartMusicV3 zet anonieme rapporten weer aan en verstuurt de logs.</string>
+    <string name="feedback_reports_off_message">Om je probleem te onderzoeken hebben we de logs van deze app nodig. Tik op Doorgaan en StartMusic zet anonieme rapporten weer aan en verstuurt de logs.</string>
     <string name="feedback_reports_off_note">Er wordt geen naam, e-mail of account verstuurd. Je kunt rapporten in Instellingen weer uitzetten.</string>
     <string name="feedback_continue">Doorgaan</string>
     <string name="feedback_sentry_link">of via Sentry</string>
@@ -347,7 +347,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Inloggen met YouTube</string>
-    <string name="signin_preface_subtitle">en krijg alle YouTube-functies in StartMusicV3</string>
+    <string name="signin_preface_subtitle">en krijg alle YouTube-functies in StartMusic</string>
     <string name="signin_enables">Door in te loggen kun je:</string>
     <string name="signin_feature_home">Gepersonaliseerde YouTube-homefeed</string>
     <string name="signin_feature_subscriptions">Abonnementenfeed</string>
@@ -360,8 +360,8 @@
     <string name="signin_screen_title">Inloggen</string>
     <string name="signin_loading">Inloggen laden…</string>
     <string name="signin_unavailable">Inloggen is nog niet beschikbaar op dit apparaat</string>
-    <string name="signin_qr_title">Scan met de StartMusicV3-app</string>
-    <string name="signin_qr_hint">Open op je telefoon StartMusicV3 → Instellingen → Apparaten koppelen → Camera openen en scan deze code.</string>
+    <string name="signin_qr_title">Scan met de StartMusic-app</string>
+    <string name="signin_qr_hint">Open op je telefoon StartMusic → Instellingen → Apparaten koppelen → Camera openen en scan deze code.</string>
     <string name="signin_qr_waiting">Wachten op de telefoon…</string>
     <string name="signin_qr_sas_hint">Je telefoon toont dezelfde code. Verstuur alleen als ze overeenkomen.</string>
     <string name="signin_or_paste">Of plak cookies uit een browser</string>
@@ -387,11 +387,11 @@
     <string name="signin_paste_no_cookie_title">Dat verzoek bevat geen cookies</string>
     <string name="signin_paste_no_cookie_body">Gebruik Copy as cURL op een ander verzoek, bij voorkeur Fetch/XHR, bijvoorbeeld:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Begrepen</string>
-    <string name="cd_device_link_qr">QR-code om te scannen met de StartMusicV3-app</string>
+    <string name="cd_device_link_qr">QR-code om te scannen met de StartMusic-app</string>
     <string name="settings_link_devices">Apparaten koppelen</string>
     <string name="settings_link_devices_hint">Log in op een computer door de QR-code ervan te scannen</string>
     <string name="device_link_title">Apparaten koppelen</string>
-    <string name="device_link_intro">Scan de QR-code die StartMusicV3 op je computer toont. Deze telefoon moet al ingelogd zijn.</string>
+    <string name="device_link_intro">Scan de QR-code die StartMusic op je computer toont. Deze telefoon moet al ingelogd zijn.</string>
     <string name="device_link_open_camera">Camera openen</string>
     <string name="device_link_scan_hint">Richt de camera op de QR-code van de computer</string>
     <string name="device_link_sas_hint">Deze code moet overeenkomen met de computer. Zo niet, tik op Annuleren.</string>
@@ -619,7 +619,7 @@
     <string name="video_details_delete_message">Je reactie en alle antwoorden erop definitief verwijderen?</string>
     <string name="video_details_deleted">Reactie verwijderd</string>
     <string name="cookie_protect_title">Inloggegevens beveiligen met een wachtwoord?</string>
-    <string name="cookie_protect_body">Je inloggegevens zijn op deze computer opgeslagen, waar andere apps die je gebruikt ze kunnen lezen. Stel een wachtwoord in om ze te vergrendelen; StartMusicV3 vraagt er bij elke start om.</string>
+    <string name="cookie_protect_body">Je inloggegevens zijn op deze computer opgeslagen, waar andere apps die je gebruikt ze kunnen lezen. Stel een wachtwoord in om ze te vergrendelen; StartMusic vraagt er bij elke start om.</string>
     <string name="cookie_password">Wachtwoord</string>
     <string name="cookie_protect_confirm">Wachtwoord bevestigen</string>
     <string name="cookie_protect_mismatch">De wachtwoorden komen niet overeen.</string>
@@ -635,7 +635,7 @@
     <string name="cookie_unlock_sign_out">Uitloggen</string>
     <string name="cookie_unlock_sign_out_hint">Verwijdert deze opgeslagen inloggegevens.</string>
     <string name="cookie_unlock_sign_out_title">Uitloggen?</string>
-    <string name="cookie_unlock_sign_out_body">Hiermee worden de opgeslagen inloggegevens van deze computer verwijderd. Scan de QR-code met de StartMusicV3-app om opnieuw in te loggen.</string>
+    <string name="cookie_unlock_sign_out_body">Hiermee worden de opgeslagen inloggegevens van deze computer verwijderd. Scan de QR-code met de StartMusic-app om opnieuw in te loggen.</string>
     <string name="menu_details_comments">Details en reacties</string>
     <string name="menu_search_lyrics">Songtekst zoeken</string>
     <string name="menu_speed_pitch">Snelheid en toonhoogte</string>
@@ -647,7 +647,7 @@
     <string name="cd_move_to_top">Naar boven verplaatsen</string>
     <string name="dialog_undo">Ongedaan maken</string>
     <string name="dialog_save">Opslaan</string>
-    <string name="upgraded_message">StartMusicV3 is bijgewerkt naar %1$s</string>
+    <string name="upgraded_message">StartMusic is bijgewerkt naar %1$s</string>
     <string name="upgraded_view_changelog">Wijzigingen bekijken</string>
     <string name="menu_go_to_artist">Ga naar artiest</string>
     <string name="menu_go_to_album">Ga naar album</string>

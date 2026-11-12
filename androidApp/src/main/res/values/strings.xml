@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">StartMusicV3</string>
+    <string name="app_name">StartMusic</string>
     <string name="playback_notification_channel">Playback</string>
     <string name="notification_previous">Previous</string>
     <string name="notification_play">Play</string>
     <string name="notification_pause">Pause</string>
     <string name="notification_next">Next</string>
     <string name="notification_close">Close</string>
-    <string name="notifications_required">StartMusicV3 plays music from a background service that must show a playback notification. Allow notifications to continue.</string>
+    <string name="notifications_required">StartMusic plays music from a background service that must show a playback notification. Allow notifications to continue.</string>
     <string name="notifications_allow">Allow notifications</string>
     <string name="download_notification_channel">Downloads</string>
     <string name="notification_downloads_running">Downloading…</string>
@@ -32,5 +32,5 @@
     <string name="widget_square_name">Player · Square</string>
     <string name="widget_description">Now playing with playback controls</string>
     <string name="widget_nothing_playing">Nothing playing</string>
-    <string name="widget_open_to_start">Open StartMusicV3 to start listening</string>
+    <string name="widget_open_to_start">Open StartMusic to start listening</string>
 </resources>

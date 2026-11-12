@@ -1,4 +1,4 @@
-﻿<resources>
+<resources>
     <string name="home_search_hint">Search songs, artists, videos</string>
     <string name="home_featured">Featured</string>
     <string name="home_recently_played">Recently played</string>
@@ -281,7 +281,7 @@
     <string name="settings_show_fps_hint">Приказује број слика у секунди преко видеа у „Сада се пушта“. Мерење стаје при паузи или када напустите тај екран.</string>
     <string name="settings_licenses">Лиценце отвореног кода</string>
     <string name="settings_terms">Услови и приватност</string>
-    <string name="settings_licenses_intro">StartMusicV3 је отвореног кода под лиценцом GNU GPL v3.0. Обухвата следеће компоненте:</string>
+    <string name="settings_licenses_intro">StartMusic је отвореног кода под лиценцом GNU GPL v3.0. Обухвата следеће компоненте:</string>
 
     <!-- Feedback -->
     <string name="feedback_intro">Реците нам шта је пошло наопако или шта бисте волели да видите, на GitHub-у или имејлом. Приложите своје анонимне податке испод да бисмо пронашли ваше логове и одговорили.</string>
@@ -297,10 +297,10 @@
     <string name="feedback_github_hint">Јавно. Најбоље за грешке и идеје — други могу да прате и допуњују.</string>
     <string name="feedback_email_title">Пошаљи имејл на %1$s</string>
     <string name="feedback_email_hint">Приватно. Најбоље за питања о налогу или лична питања.</string>
-    <string name="feedback_email_subject">Повратне информације за StartMusicV3</string>
+    <string name="feedback_email_subject">Повратне информације за StartMusic</string>
     <string name="feedback_prefilled_note">Обе опције се отварају са већ попуњеним подацима. Ако недостају, налепите их — без њих не можемо да помогнемо.</string>
     <string name="feedback_reports_off_title">Анонимни извештаји су искључени</string>
-    <string name="feedback_reports_off_message">Да бисмо истражили проблем, потребни су нам логови ове апликације. Додирните Настави и StartMusicV3 ће поново укључити анонимне извештаје и послати логове.</string>
+    <string name="feedback_reports_off_message">Да бисмо истражили проблем, потребни су нам логови ове апликације. Додирните Настави и StartMusic ће поново укључити анонимне извештаје и послати логове.</string>
     <string name="feedback_reports_off_note">Не шаље се име, имејл ни налог. Извештаје можете поново да искључите у Подешавањима.</string>
     <string name="feedback_continue">Настави</string>
     <string name="feedback_sentry_link">или преко Sentry-ја</string>
@@ -351,7 +351,7 @@
 
     <!-- YouTube sign-in -->
     <string name="signin_preface_title">Пријавите се преко YouTube-а</string>
-    <string name="signin_preface_subtitle">и добијте све YouTube функције у StartMusicV3-у</string>
+    <string name="signin_preface_subtitle">и добијте све YouTube функције у StartMusic-у</string>
     <string name="signin_enables">Пријављивање омогућава:</string>
     <string name="signin_feature_home">Персонализовани YouTube почетни фид</string>
     <string name="signin_feature_subscriptions">Фид праћених канала</string>
@@ -364,8 +364,8 @@
     <string name="signin_screen_title">Пријављивање</string>
     <string name="signin_loading">Учитавање пријављивања…</string>
     <string name="signin_unavailable">Пријављивање још није доступно на овом уређају</string>
-    <string name="signin_qr_title">Скенирајте апликацијом StartMusicV3</string>
-    <string name="signin_qr_hint">На телефону отворите StartMusicV3 → Подешавања → Повежи уређаје → Отвори камеру, па скенирајте овај кôд.</string>
+    <string name="signin_qr_title">Скенирајте апликацијом StartMusic</string>
+    <string name="signin_qr_hint">На телефону отворите StartMusic → Подешавања → Повежи уређаје → Отвори камеру, па скенирајте овај кôд.</string>
     <string name="signin_qr_waiting">Чека се телефон…</string>
     <string name="signin_qr_sas_hint">Телефон ће приказати исти кôд. Пошаљите само ако се подударају.</string>
     <string name="signin_or_paste">Или налепите колачиће из прегледача</string>
@@ -391,11 +391,11 @@
     <string name="signin_paste_no_cookie_title">Тај захтев нема колачиће</string>
     <string name="signin_paste_no_cookie_body">Копирајте као cURL из другог захтева, пожељно Fetch/XHR, на пример:\nwww.youtube.com/generate_204\nwww.youtube.com/getDatasyncIdsEndpoint</string>
     <string name="signin_paste_no_cookie_ok">Важи</string>
-    <string name="cd_device_link_qr">QR кôд за скенирање апликацијом StartMusicV3</string>
+    <string name="cd_device_link_qr">QR кôд за скенирање апликацијом StartMusic</string>
     <string name="settings_link_devices">Повежи уређаје</string>
     <string name="settings_link_devices_hint">Пријавите се на рачунару скенирањем његовог QR кôда</string>
     <string name="device_link_title">Повежи уређаје</string>
-    <string name="device_link_intro">Скенирајте QR кôд приказан у StartMusicV3-у на рачунару. Овај телефон већ мора бити пријављен.</string>
+    <string name="device_link_intro">Скенирајте QR кôд приказан у StartMusic-у на рачунару. Овај телефон већ мора бити пријављен.</string>
     <string name="device_link_open_camera">Отвори камеру</string>
     <string name="device_link_scan_hint">Усмерите камеру ка QR кôду на рачунару</string>
     <string name="device_link_sas_hint">Овај кôд мора да се подудара са рачунаром. Ако се не подудара, додирните Откажи.</string>
@@ -627,7 +627,7 @@
     <string name="video_details_delete_message">Трајно избрисати ваш коментар и све одговоре на њега?</string>
     <string name="video_details_deleted">Коментар је избрисан</string>
     <string name="cookie_protect_title">Заштитити пријаву лозинком?</string>
-    <string name="cookie_protect_body">Ваша пријава је сачувана на овом рачунару, где могу да је прочитају друге апликације које покрећете. Подесите лозинку да бисте је закључали; StartMusicV3 ће је тражити при сваком покретању.</string>
+    <string name="cookie_protect_body">Ваша пријава је сачувана на овом рачунару, где могу да је прочитају друге апликације које покрећете. Подесите лозинку да бисте је закључали; StartMusic ће је тражити при сваком покретању.</string>
     <string name="cookie_password">Лозинка</string>
     <string name="cookie_protect_confirm">Потврдите лозинку</string>
     <string name="cookie_protect_mismatch">Лозинке се не подударају.</string>
@@ -643,7 +643,7 @@
     <string name="cookie_unlock_sign_out">Одјави се</string>
     <string name="cookie_unlock_sign_out_hint">Уклања ову сачувану пријаву.</string>
     <string name="cookie_unlock_sign_out_title">Одјавити се?</string>
-    <string name="cookie_unlock_sign_out_body">Ово уклања сачувану пријаву са овог рачунара. Да бисте се поново пријавили, скенирајте QR кôд апликацијом StartMusicV3.</string>
+    <string name="cookie_unlock_sign_out_body">Ово уклања сачувану пријаву са овог рачунара. Да бисте се поново пријавили, скенирајте QR кôд апликацијом StartMusic.</string>
     <string name="menu_details_comments">Детаљи и коментари</string>
     <string name="menu_search_lyrics">Претражи текст песме</string>
     <string name="menu_speed_pitch">Брзина и висина тона</string>
@@ -655,7 +655,7 @@
     <string name="cd_move_to_top">Премести на врх</string>
     <string name="dialog_undo">Опозови</string>
     <string name="dialog_save">Сачувај</string>
-    <string name="upgraded_message">StartMusicV3 је ажуриран на %1$s</string>
+    <string name="upgraded_message">StartMusic је ажуриран на %1$s</string>
     <string name="upgraded_view_changelog">Погледај измене</string>
     <string name="menu_go_to_artist">Иди на извођача</string>
     <string name="menu_go_to_album">Иди на албум</string>
