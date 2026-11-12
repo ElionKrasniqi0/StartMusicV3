@@ -1,6 +1,6 @@
 # StartMusicV3
 
-StartMusicV3 is a cross-platform music player for **Windows**, **Android**, and **iOS**, built as a Kotlin Multiplatform + Compose Multiplatform rewrite of the earlier YMusic stack. One shared UI (`:commonUi`) drives Discover / YouTube Music browsing, local library, downloads, and playback; thin product shells wire platform engines and storage.
+StartMusicV3 is a cross-platform music player for **Windows**, **Android**, and **iOS**, built as a Kotlin Multiplatform + Compose Multiplatform rewrite of the earlier StartMusic stack. One shared UI (`:commonUi`) drives Discover / YouTube Music browsing, local library, downloads, and playback; thin product shells wire platform engines and storage.
 
 Tagline: *Music for every moment.*
 
