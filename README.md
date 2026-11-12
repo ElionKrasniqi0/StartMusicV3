@@ -1,6 +1,6 @@
 # StartMusicV3
 
-**StartMusic** is a cross-platform music player for **Windows**, **Android**, **macOS**, and **iOS** (plus Linux `.deb` builds). This repository is named **StartMusicV3** (Kotlin Multiplatform + Compose Multiplatform rewrite of the earlier YMusic stack). One shared UI (`:commonUi`) drives Discover / YouTube Music browsing, local library, downloads, and playback; thin product shells wire platform engines and storage.
+**StartMusic** is a cross-platform music player for **Windows**, **Android**, **macOS**, and **iOS** (plus Linux `.deb` builds). This repository is named **StartMusicV3** (Kotlin Multiplatform + Compose Multiplatform). One shared UI (`:commonUi`) drives Discover / YouTube Music browsing, local library, downloads, and playback; thin product shells wire platform engines and storage.
 
 Tagline: *Music for every moment.*
 
@@ -243,6 +243,8 @@ StartMusicV3 / this tree is open source under the [GNU General Public License v3
 
 Nothing under `kmpCommon/` or `kmpHttp/` may depend on a GPL module.
 
+**Upstream reuse:** Selected playback / YouTube `engine-js` player sources and related parsers were adapted from [ymusic-io/YMusicV4](https://github.com/ymusic-io/YMusicV4) (GPL-3.0). `kmpHttp` / `kmpCommon` remain Apache-2.0. Product branding for this app is **StartMusic**; repository identity is **StartMusicV3**. Details: [`docs/UPSTREAM_YMUSICV4_REUSE.md`](docs/UPSTREAM_YMUSICV4_REUSE.md).
+
 By contributing, you agree that your contribution is licensed under the same license as the directory it modifies.
 
-Internal Kotlin packages may still use the historical `io.ymusic.*` namespace; that is not user-facing product branding.
+Internal Kotlin packages may still use the historical `io.ymusic.*` namespace; that is not user-facing product branding. Gradle still exposes the property key `ymusic.versionName`, and the iOS bundle id remains `com.ymusic.iosapp` — compatibility identifiers, not the product display name.
