@@ -1,239 +1,248 @@
-# StartMusicV3
+<div align="center">
 
-**StartMusic** is a cross-platform music player for **Windows**, **Android**, **macOS**, and **iOS** (plus Linux `.deb` builds). This repository is named **StartMusicV3** (Kotlin Multiplatform + Compose Multiplatform). One shared UI (`:commonUi`) drives Discover / YouTube Music browsing, local library, downloads, and playback; thin product shells wire platform engines and storage.
+# StartMusic
 
-Tagline: *Music for every moment.*
+### Your Music. Your Experience.
 
-> [!CAUTION]
-> **Only install StartMusic from sources you trust** (official releases you control, or this repository’s release artifacts). Anyone can build a modified copy — a fake build can steal Google account credentials when you sign in.
->
-> **Misuse:** The authors are not responsible for misuse of the application. Use only authorized music sources and respect their terms of service and licensing. The app does **not** bypass DRM, paywalls, or platform protections.
+<br/>
 
-Planning / phase notes (StartMusicV3 product track): [`docs/STARTMUSIC_PHASE1_AUDIT.md`](docs/STARTMUSIC_PHASE1_AUDIT.md) … [`docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md`](docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md). Final objective audit (no rewrite): [`docs/STARTMUSIC_FINAL_OBJECTIVE_AUDIT.md`](docs/STARTMUSIC_FINAL_OBJECTIVE_AUDIT.md).
+**A cross-platform music player** built for Discover, local libraries, downloads, and fluid playback — with one shared Compose UI across Windows, Android, macOS, iOS, and Linux.
 
-**Development rules (mandatory):** see [Phase 14](docs/STARTMUSIC_PHASE14_DEVELOPMENT_RULES.md) — existing repo only, no drive-by rewrites, no Windows↔Android regressions, no fake/untested features, preserve FFmpeg; user-facing product name **StartMusic**, repository **StartMusicV3**.
+<br/>
 
-**Implementation order (mandatory):** see [Phase 15](docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md) — ordered steps; after each major step run build/tests, fix errors, summarize changes, and document what still unfinished.
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Android%20%7C%20macOS%20%7C%20iOS%20%7C%20Linux-7B5CFF?style=for-the-badge)](https://github.com/ElionKrasniqi0/StartMusicV3/releases)
+[![Version](https://img.shields.io/badge/Version-4.0.15-7B5CFF?style=for-the-badge)](https://github.com/ElionKrasniqi0/StartMusicV3/releases)
+[![License](https://img.shields.io/badge/License-GPL--3.0-7B5CFF?style=for-the-badge)](LICENSE)
+[![Kotlin](https://img.shields.io/badge/Kotlin-Multiplatform-7B5CFF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org/docs/multiplatform.html)
+
+<br/>
+
+[Download](https://github.com/ElionKrasniqi0/StartMusicV3/releases) · [Build from source](#building-from-source) · [Architecture](#technology-and-architecture)
+
+</div>
+
+<br/>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
+
+## About StartMusic
+
+**StartMusic** is the official product name for this music client. The GitHub repository is **StartMusicV3**.
+
+One shared UI (`:commonUi`) powers Discover / YouTube Music browsing, local library management, offline downloads, and playback. Thin platform shells wire the engines and storage that each OS requires — so the experience stays coherent without duplicating the product surface.
+
+Designed for people who want a modern player that respects their sources, their library, and their time.
+
+> **Install only from sources you trust** — official [GitHub Releases](https://github.com/ElionKrasniqi0/StartMusicV3/releases) for this repository, or builds you produce yourself. A modified binary can steal Google credentials at sign-in. StartMusic does **not** bypass DRM, paywalls, or platform protections.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
+
+## What Makes StartMusic Different
+
+| | |
+|:--|:--|
+| **One product, many shells** | Shared Compose Multiplatform UI — not a separate rewrite per platform. |
+| **Streaming + local, together** | Discover and YouTube Music browsing alongside a first-class local library and downloads. |
+| **Serious playback stack** | MSE + QuickJS for YouTube; ExoPlayer, ffmpeg/libav, or AVFoundation for local media. |
+| **Built to ship** | Windows installers, Android APKs, macOS DMGs, and Linux `.deb` packages from the same tree. |
+| **Honest boundaries** | Unavailable or sign-in-required content surfaces clear errors — no circumvention. |
+
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
 
 ## Features
 
-| Area | What you get |
+| Area | Capabilities |
 |------|----------------|
-| **Discover / YouTube Music** | Home, Explore / charts / releases, search, account library (when signed in), playlists, radio / next-queue |
-| **Local library** | Folders, songs, artists, albums, genres; scan via SAF (Android) or folder pick (desktop); favorites + smart playlists |
+| **Discover** | Home, Explore / charts / releases, search, account library (when signed in), playlists, radio / next-queue |
+| **Local library** | Folders, songs, artists, albums, genres; SAF scan (Android) or folder pick (desktop); favorites + smart playlists |
 | **Playback** | Play / pause / seek / next / prev / shuffle / repeat / queue / volume; audio-only default; quality prefs |
-| **Engines** | YouTube via MSE + QuickJS engine; local via ExoPlayer (Android), ffmpeg/libav (desktop), AVFoundation (iOS) |
 | **Downloads** | Offline download manager (SABR / mux where applicable); play from library |
 | **Play again** | Saved queues with resume position |
-| **Settings** | Theme / accent, UI language, content language/region, playback, privacy (telemetry, clear history), About |
-| **Android extras** | Media notification, lock-screen / Bluetooth transport, audio focus, becoming-noisy, home-screen player widgets |
-| **Desktop extras** | System tray (continue while closed to tray), keyboard shortcuts, Jump List (Windows), macOS Now Playing |
+| **Settings** | Theme / accent, UI language, content language/region, playback, privacy controls, About |
+| **Android** | Media notification, lock-screen / Bluetooth transport, audio focus, becoming-noisy, home-screen widgets |
+| **Desktop** | System tray, keyboard shortcuts, Jump List (Windows), macOS Now Playing |
 
-## Technology stack
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
 
-- **Language / UI:** Kotlin Multiplatform, Compose Multiplatform
-- **HTTP:** `:kmpHttp` (OkHttp-shaped API; JVM OkHttp, Apple NSURLSession, desktop libcurl)
-- **JS engine host:** `:quickjs` + `:dynamic-engine` + remotely replaceable `:engine-js`
-- **Media:** `:player` facade; `:mse` (YouTube MSE); ExoPlayer / ffmpeg / AVFoundation locals
-- **Storage:** SQLDelight (`:media-store`, play-history, downloads, logs); typed `:settings`
-- **Images:** `:image-loader` (Compose)
-- **Shells:** `:desktopApp` (JVM), `:androidApp` (AGP 9), `iosApp` (Xcode + `:iosAppKotlin`)
+## Screenshots / Preview
 
-Module map: [`AGENTS.md`](AGENTS.md).
+<div align="center">
 
-## Requirements
+| Discover | Library | Now Playing |
+|:--------:|:-------:|:-----------:|
+| *Coming soon* | *Coming soon* | *Coming soon* |
 
-### Common (all platforms)
+<br/>
 
-- **JDK 17+** (CI uses **21**). Installers need a full JDK with `jpackage` (e.g. Temurin — not a JBR-only runtime).
-- **Node.js** (CI uses **22**) — engine-js toolchain.
-- **CMake 3.20+** — native pieces (QuickJS, MSE, etc.).
-- **FFmpeg packs** from sibling [`ffmpeg-build`](https://github.com/ElionKrasniqi0/ffmpeg-build) (see [FFmpeg](#ffmpeg) below). Nothing is downloaded at app runtime for those natives.
+<sub>Official product screenshots will appear here once captured from shipping builds. No placeholder imagery is fabricated.</sub>
 
-### Windows (desktop)
+</div>
 
-- Windows **x64** (primary packaging target).
-- [MSYS2](https://www.msys2.org) MinGW-w64 for native C (not MSVC). Default: `C:/msys64/mingw64`, or `mingw.dir` / `MINGW_HOME`.
-- Host FFmpeg desktop pack staged by Gradle (`syncFfmpegHost`; Java copy fallback if Unix `cp` is missing).
-- Optional packaging: [Inno Setup 6](https://jrsoftware.org/isinfo.php) (`ISCC` on `PATH` or `inno.iscc` in `local.properties`).
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
 
-### Android
+## Supported Platforms
 
-- Android **SDK** with **compileSdk 36**, build-tools, and **NDK `28.2.13676358`**.
-- `sdk.dir` in `local.properties` (or `ANDROID_HOME`) must point at a **real** SDK install.
-- Android FFmpeg packs for `armeabi-v7a` / `arm64-v8a` / `x86` / `x86_64` from sibling `../ffmpeg-build` (`out/android-<abi>/pack`). Single-ABI debug: `-PandroidAbis=arm64-v8a`.
-- Device or emulator for install/run verification.
+| Platform | Distribution | Notes |
+|----------|--------------|-------|
+| **Windows** | Installer + portable ZIP | Windows 10+ · x64 primary · arm64 installer also built in CI |
+| **Android** | Per-ABI APKs | API 24+ · package `io.startmusic.android` · prefer **arm64** |
+| **macOS** | DMG | macOS 11.0+ · Apple Silicon and Intel |
+| **Linux** | `.deb` | x86_64 and arm64 · unsigned packages |
+| **iOS** | Source / TestFlight / App Store | No public IPA on GitHub Releases |
 
-### iOS / macOS / Linux
+Release asset names use the `StartMusicV3-<version>-…` prefix (repository identity). The visible app name is **StartMusic**.
 
-- **macOS:** Xcode (iOS app + desktop natives); see FFmpeg brew deps below.
-- **Linux:** `build-essential`, CMake, Pulse (`libpulse-dev`); `fakeroot` for `.deb`.
-- Details remain in the platform bullets under [Development setup](#development-setup).
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
 
-## Downloads
+## Installation
 
-Install **only** from [GitHub Releases](https://github.com/ElionKrasniqi0/StartMusicV3/releases) for this repository (or builds you produce yourself). Draft releases are not public until published by hand. Asset names below use the app version declared in `gradle.properties` (currently **4.0.15**).
-
-There is **no** public `StartMusicV3-*-ios.ipa` on Releases — see [iOS](#ios) below and [`docs/STARTMUSIC_PHASE8_DISTRIBUTION.md`](docs/STARTMUSIC_PHASE8_DISTRIBUTION.md).
+Install **only** from [GitHub Releases](https://github.com/ElionKrasniqi0/StartMusicV3/releases) (or your own builds). Draft releases stay private until published. Current version in `gradle.properties`: **4.0.15**.
 
 ### Android
 
-| Item | Detail |
-|------|--------|
-| Package | `io.startmusic.android` |
-| Minimum OS | Android **7.0** (API 24) |
-| Architectures | Separate APKs: `armeabi-v7a`, `arm64-v8a`, `x86`, `x86_64` |
-| Artifacts | `StartMusicV3-<version>-android-armv7.apk`, `…-android-arm64.apk`, `…-android-x86.apk`, `…-android-x86_64.apk` |
-| Install | Download the APK that matches the device ABI → enable install from this source if prompted → open the file. Prefer **arm64** on modern phones. |
-| Signing | Release APKs are signed in CI when `SECRETS_PASSPHRASE` can decrypt `secrets.enc`; otherwise the job may still produce debug-signed APKs that are **not** for public distribution. |
+1. Download the APK that matches your device ABI (`…-android-arm64.apk` on modern phones).
+2. Allow install from this source if prompted, then open the file.
+3. Release APKs are CI-signed when secrets decrypt successfully; otherwise artifacts may be debug-signed and **not** for public distribution.
 
 ### Windows
 
-| Item | Detail |
-|------|--------|
-| Minimum OS | Windows 10+ (x64 primary; arm64 installer also built in CI) |
-| Installer | `StartMusicV3-<version>-windows-x64.exe` (Inno Setup; also `…-windows-arm64.exe`) |
-| Portable | `StartMusicV3-<version>-windows-x64-portable.zip` — extract and run; app data stays under `./data` beside the exe |
-| Install | Run the `.exe` installer (or unzip portable). Bundled JRE + FFmpeg natives are included. |
-| Signing | Installers are **not** Authenticode-signed today — Windows SmartScreen may warn on first launch. |
+1. Run `StartMusicV3-<version>-windows-x64.exe` (or the arm64 installer), **or** unzip the portable package and run from disk.
+2. Bundled JRE and FFmpeg natives are included.
+3. Installers are **not** Authenticode-signed today — SmartScreen may warn on first launch.
 
 ### macOS
 
-| Item | Detail |
-|------|--------|
-| Minimum OS | macOS **11.0** (Big Sur) |
-| Architectures | `StartMusicV3-<version>-macos-arm64.dmg` (Apple Silicon), `StartMusicV3-<version>-macos-x64.dmg` (Intel) |
-| Install | Open the DMG → drag **StartMusic** to Applications. |
-| Signing / notarization | DMGs are code-signed and notarized **only** when CI has `MACOS_CERT_*` and `mac.notarization.*` in decrypted secrets. Without those, the DMG is unsigned — Gatekeeper may block it until you allow it under System Settings. Do not assume a build is notarized unless the release notes or stapling step succeeded. |
+1. Open the DMG → drag **StartMusic** to Applications.
+2. Code signing / notarization apply only when CI secrets are configured; unsigned DMGs may need an allow under System Settings.
 
 ### Linux
 
-| Item | Detail |
-|------|--------|
-| Artifacts | `StartMusicV3-<version>-linux-x86_64.deb`, `…-linux-arm64.deb` |
-| Install | `sudo apt install ./StartMusicV3-<version>-linux-*.deb` (or your distro’s `.deb` tool). Packages are **unsigned**. |
+```sh
+sudo apt install ./StartMusicV3-<version>-linux-*.deb
+```
 
 ### iOS
 
-| Item | Detail |
-|------|--------|
-| GitHub Releases | **No IPA** is published. An unsigned IPA is **not** installable on ordinary iPhones. |
-| Supported path | Build/run from `iosApp/iosApp.xcodeproj` on a Mac, or distribute via **TestFlight / App Store** after Apple signing (see [`iosApp/README.md`](iosApp/README.md)). |
-| Bundle ID | Unchanged historical identifier for signing / App Store continuity (display name **StartMusic**) |
-| Requirements | Paid Apple Developer Program, Xcode **26** for App Store–safe Compose linking (omit `-PiosAllowUndefined`), sibling `ffmpeg-build` iOS packs. |
+No IPA is published on Releases. Build from `iosApp/iosApp.xcodeproj` on a Mac, or distribute via TestFlight / App Store after Apple signing. See [`iosApp/README.md`](iosApp/README.md).
 
-Until a release tag’s draft is published with the assets above, build from source with the commands below.
+More distribution detail: [`docs/STARTMUSIC_PHASE8_DISTRIBUTION.md`](docs/STARTMUSIC_PHASE8_DISTRIBUTION.md).
 
-## Development setup
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
+
+## Building from Source
 
 ```sh
 git clone <this-repo> StartMusicV3
 cd StartMusicV3
 ```
 
-1. Install JDK 21, Node 22, CMake 3.20+.
-2. Create `local.properties` as needed (`sdk.dir=…` for Android; optional `mingw.dir`, `inno.iscc`, Sentry/signing keys via `secrets.properties` — both property files are gitignored).
-3. Build sibling FFmpeg packs ([FFmpeg](#ffmpeg)).
-4. Run a shell ([Build commands](#build-commands)).
-
-### FFmpeg
+**Toolchain:** JDK 21 · Node 22 · CMake 3.20+ · sibling [ffmpeg-build](https://github.com/ElionKrasniqi0/ffmpeg-build) packs · Android SDK/NDK when targeting Android · MSYS2 MinGW on Windows desktop · Xcode on macOS/iOS.
 
 ```sh
-# Windows: first `git config --global core.autocrlf false`, or ffmpeg-build scripts break on CRLF
+# FFmpeg (sibling checkout)
 git clone --recursive --shallow-submodules https://github.com/ElionKrasniqi0/ffmpeg-build ../ffmpeg-build
-
 cd ../ffmpeg-build
-scripts/build-desktop.sh            # desktop: macOS, Linux, or Windows from an MSYS2 shell
-scripts/build-android.sh arm64-v8a  # repeat per ABI: armeabi-v7a, arm64-v8a, x86, x86_64
-scripts/build-ios.sh                # iOS
+scripts/build-desktop.sh
+scripts/build-android.sh arm64-v8a   # repeat per ABI as needed
 ```
 
-Platform packages for ffmpeg-build:
-
-- **macOS:** `brew install nasm automake autoconf libtool pkg-config meson ninja`
-- **Linux (Debian/Ubuntu):** `sudo apt install nasm automake autoconf libtool pkg-config meson ninja-build patchelf` (app: `build-essential cmake libpulse-dev`; packaging: `fakeroot`)
-- **Windows (MSYS2 MINGW64):** `pacman -S git make diffutils autoconf automake libtool patch mingw-w64-x86_64-toolchain mingw-w64-x86_64-make mingw-w64-x86_64-nasm mingw-w64-x86_64-pkgconf mingw-w64-x86_64-meson mingw-w64-x86_64-ninja mingw-w64-x86_64-zlib`
-- **Android:** NDK r28 + `ANDROID_NDK_ROOT`, plus autotools / `nasm` / `patchelf` as in ffmpeg-build’s README
-
-## Build commands
-
 ```sh
-./gradlew :desktopApp:run              # Windows / macOS / Linux desktop
-./gradlew :androidApp:assembleDebug    # debug APK (needs all four Android ffmpeg packs)
-./gradlew :androidApp:assembleDebug -PandroidAbis=arm64-v8a   # single-ABI (e.g. Galaxy)
-./gradlew :androidApp:installDebug -PandroidAbis=arm64-v8a
-./gradlew spotlessApply                # Kotlin format (required before commit)
+# Run / package
+./gradlew :desktopApp:run
+./gradlew :androidApp:assembleDebug -PandroidAbis=arm64-v8a
+./gradlew :desktopApp:releaseInstaller   # Windows x64 host + Inno Setup
+./gradlew spotlessApply
 ```
 
-iOS: open `iosApp/iosApp.xcodeproj` in Xcode; the Kotlin framework is produced by `:iosAppKotlin`.
+iOS: open `iosApp/iosApp.xcodeproj` — Kotlin framework from `:iosAppKotlin`.
 
-## Testing commands
+**Tests**
 
 ```sh
-# Representative unit / JVM UI tests used in Phase 12
 ./gradlew :commonUi:jvmTest :settings:jvmTest :player:jvmTest :media-store:jvmTest
-
-# Narrow examples
-./gradlew :commonUi:jvmTest --tests "*PlayAgainStoreTest"
 ./gradlew :player:jvmTest
 ```
 
-Do not disable failing tests to force a green build — fix the failure or document the block (see Phase 12).
+Contributor guides: [Phase 14 rules](docs/STARTMUSIC_PHASE14_DEVELOPMENT_RULES.md) · [Phase 15 order](docs/STARTMUSIC_PHASE15_IMPLEMENTATION_ORDER.md) · [Phase 12 testing](docs/STARTMUSIC_PHASE12_TESTING.md) · [`AGENTS.md`](AGENTS.md)
 
-Manual checklists: [`docs/STARTMUSIC_PHASE12_TESTING.md`](docs/STARTMUSIC_PHASE12_TESTING.md).
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
 
-## Windows packaging
+## Technology and Architecture
 
-On a **Windows x64** host with a full JDK (`jpackage`) and Inno Setup:
+| Layer | Stack |
+|-------|--------|
+| **Language / UI** | Kotlin Multiplatform · Compose Multiplatform |
+| **HTTP** | `:kmpHttp` (OkHttp-shaped; JVM OkHttp, Apple NSURLSession, desktop libcurl) |
+| **JS engine** | `:quickjs` · `:dynamic-engine` · remotely replaceable `:engine-js` |
+| **Playback** | `:player` facade · `:mse` (YouTube) · ExoPlayer / ffmpeg / AVFoundation locals |
+| **Storage** | SQLDelight (`:media-store`, history, downloads, logs) · typed `:settings` |
+| **Images** | `:image-loader` |
+| **Shells** | `:desktopApp` · `:androidApp` · `iosApp` |
 
-```sh
-./gradlew :desktopApp:releaseInstaller
-# → desktopApp/build/release/StartMusicV3-<version>-windows-x64.exe
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
+
+## Project Structure
+
+```
+StartMusicV3/
+├── androidApp/          Android product shell
+├── desktopApp/          Windows / macOS / Linux desktop shell
+├── iosApp/              Xcode + Compose iOS shell
+├── commonUi/            Shared Compose Multiplatform UI
+├── player/              Cross-platform playback facade
+├── mse/ · quickjs/      YouTube MSE host and JS runtime
+├── dynamic-engine/      Engine host + remote update
+├── engine-js/           Remotely replaceable player/engine bundles
+├── yt-media/ · download/  SABR protocol and offline downloads
+├── media-store/ · media-scanner/
+├── kmpHttp/ · kmpCommon/ · kmpFfmpeg/
+├── image-loader/ · settings/ · log-store/
+└── docs/                Phase audits, distribution, development rules
 ```
 
-Lower-level:
+Module detail: [`AGENTS.md`](AGENTS.md) · platform notes: [`androidApp/README.md`](androidApp/README.md) · [`desktopApp/README.md`](desktopApp/README.md) · [`iosApp/README.md`](iosApp/README.md)
 
-```sh
-./gradlew :desktopApp:createReleaseDistributable   # jlink app dir + bundled FFmpeg
-./gradlew :desktopApp:packageReleaseInnoSetup      # Inno wrapper
-# optional: ./gradlew :desktopApp:packageReleaseMsi
-```
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
 
-Installer identity uses visible package name **StartMusic** (release asset files still use the `StartMusicV3-<version>-…` prefix) and `startmusic.ico`. More detail: [`desktopApp/README.md`](desktopApp/README.md), [`docs/STARTMUSIC_PHASE6_WINDOWS.md`](docs/STARTMUSIC_PHASE6_WINDOWS.md).
+## Privacy and Security
 
-## Android APK generation
+- Install StartMusic only from **trusted** release channels or your own builds.
+- Sign-in credentials must never be handed to unofficial binaries.
+- Optional telemetry (e.g. Sentry) stays off when DSN/secrets are empty; keys live in gitignored property files.
+- Privacy settings include clearing history; content language/region is separate from UI language.
+- DRM / premium bypass is **out of scope** — protected content is not circumvented.
+- Windows SMTC and Linux MPRIS are not implemented; macOS Now Playing is supported on desktop.
 
-```sh
-# Debug
-./gradlew :androidApp:assembleDebug
-# APK under androidApp/build/outputs/apk/debug/
+<p align="center">
+  <img src="https://img.shields.io/badge/—-7B5CFF?style=flat-square" height="3" width="100%" alt="" />
+</p>
 
-# Release (signing configured via your secrets / keystore — never commit private keys)
-./gradlew :androidApp:assembleRelease
-```
+## Credits and Licensing
 
-Requires a real SDK at `sdk.dir` and staged Android FFmpeg ABIs. Module notes: [`androidApp/README.md`](androidApp/README.md).
+- **StartMusic** — product
+- **StartMusicV3** — this repository
 
-## Known limitations
-
-Documented gaps that are **not** fully implemented or not verified on every machine:
-
-| Limitation | Status |
-|------------|--------|
-| **Windows SMTC / OS media session** | Not implemented. `DesktopMediaSession` is **macOS Now Playing only**. Windows has focused Media*/Volume keys + Jump List, not lock-screen SMTC. Linux MPRIS also absent. |
-| **Android build on incomplete SDK hosts** | `assembleDebug` fails if `sdk.dir` / `ANDROID_HOME` points at a missing SDK. Device/emulator checklist must be re-run after install. |
-| **Android FFmpeg packs** | All `FfmpegBuild.ANDROID_ABIS` must be built; desktop-only packs are not enough for a green Android native link. |
-| **Full Windows playback QA matrix** | Launch / title / resize / navigation verified; exhaustive seek/volume/queue play-through may still need manual pass (Phase 12). |
-| **In-app “YT Music” section label** | Window and store branding are **StartMusic**; the YouTube Music **section** title remains “YT Music” by design (catalog surface, not product rename of every string). |
-| **iOS** | Supported shell exists; this StartMusic track’s primary QA focus has been Windows + Android. Treat iOS as needing its own device verification. |
-| **Remote config / Sentry** | Optional; empty DSN disables Sentry. Secrets stay in gitignored `local.properties` / `secrets.properties`. |
-| **DRM / premium bypass** | Explicitly out of scope — unavailable / sign-in-required content surfaces playability errors instead of circumvention. |
-
-Additive work (e.g. Windows SMTC) should stay behind existing SPIs and must not break macOS Now Playing.
-
-## License
-
-StartMusicV3 / this tree is open source under the [GNU General Public License v3.0](LICENSE), except the foundation libraries below (Apache-2.0 so other projects can reuse them):
+This tree is open source under the [GNU General Public License v3.0](LICENSE), except:
 
 | Directory | License |
 |-----------|---------|
@@ -243,8 +252,18 @@ StartMusicV3 / this tree is open source under the [GNU General Public License v3
 
 Nothing under `kmpCommon/` or `kmpHttp/` may depend on a GPL module.
 
-**Upstream reuse:** Selected playback / YouTube `engine-js` player sources and related parsers were adapted from an upstream GPL-3.0 project. StartMusic does **not** claim original authorship of those reused portions; the upstream copyright and license notices remain in force. `kmpHttp` / `kmpCommon` remain Apache-2.0. Product branding for this app is **StartMusic**; repository identity is **StartMusicV3**. Full attribution, source URLs, and sync revision are recorded in this repository’s `docs/` tree and in applicable source-file headers.
+**Upstream reuse:** Selected playback / YouTube `engine-js` player sources and related parsers were adapted from an upstream GPL-3.0 project. StartMusic does **not** claim original authorship of those reused portions; upstream copyright and license notices remain in force. Full attribution, source URLs, and sync revision are recorded in this repository’s `docs/` tree and in applicable source-file headers.
 
 By contributing, you agree that your contribution is licensed under the same license as the directory it modifies.
 
 Some Kotlin package namespaces, Gradle property keys, and platform bundle identifiers retain historical values for compatibility. Those identifiers are not the product display name (**StartMusic**).
+
+---
+
+<div align="center">
+
+**StartMusic** · Your Music. Your Experience.
+
+<sub>Repository · StartMusicV3</sub>
+
+</div>
