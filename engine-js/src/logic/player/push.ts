@@ -7,7 +7,8 @@
 //   gain     — base.js wrote the element's volume: value, its loudness gain for the presenting format
 //   watchNext — a music video's related items: videoId, contents (JSON text; see watch_next.ts)
 //   poRejected — true: googlevideo rejected the session's PO token (StreamProtectionStatus 3), or kept
-//                withholding media while attestation stayed pending (2)
+//                withholding media while attestation stayed pending (2). Optional sps carries the
+//                last StreamProtectionStatus that triggered the hook.
 
 import { JsEngineErrorImpl } from "../../protocol/command";
 import {
@@ -197,8 +198,8 @@ export async function listenPlayerStatus(pipe: Pipe): Promise<void> {
     setWatchNextHook(function (watchNext: Record<string, unknown>) {
       enqueue({ "watchNext": watchNext });
     });
-    setPoRejectedHook(function () {
-      enqueue({ "poRejected": true });
+    setPoRejectedHook(function (sps: number) {
+      enqueue({ "poRejected": true, "sps": sps });
     });
     await waitHostClose(pipe);
   } finally {

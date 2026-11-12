@@ -266,29 +266,40 @@ export function recordSabrForDump(url: string, body: Uint8Array | null): void {
   lastSabrBody = body && body.length ? body : null;
 }
 
-let poRejectedHook: (() => void) | null = null;
+let poRejectedHook: ((sps: number) => void) | null = null;
 
 /** Same limit as the download's SabrSession.maxConsecutiveEmptyRounds. */
-const MAX_WITHHELD_ROUNDS = 3;
+export const MAX_WITHHELD_ROUNDS = 3;
 
 /** Called on StreamProtectionStatus 3 (googlevideo rejected this session's PO token), or when
  *  googlevideo keeps withholding media while attestation stays pending (2). */
-export function setPoRejectedHook(hook: (() => void) | null): void {
+export function setPoRejectedHook(hook: ((sps: number) => void) | null): void {
   poRejectedHook = hook;
 }
 
+/** Pure SPS counter for tests and [noteSps]: media or sps=1 clears pending rounds. */
+export function nextWithheldRounds(sps: number, media: number, withheld: number): number {
+  if (media > 0 || sps === 1) return 0;
+  if (sps === 2) return withheld + 1;
+  return withheld;
+}
+
+/** True when googlevideo rejected the PO (3) or attestation stayed pending too long (2). */
+export function shouldRejectPo(sps: number, withheld: number): boolean {
+  return sps === 3 || withheld > MAX_WITHHELD_ROUNDS;
+}
+
 export function noteSps(sps: number, media: number): void {
-  if (media > 0 || sps === 1) withheldRounds = 0;
-  else if (sps === 2) withheldRounds++;
+  withheldRounds = nextWithheldRounds(sps, media, withheldRounds);
   if (!(sps > 0)) return;
   if (loggedSps !== sps) {
     loggedSps = sps;
     console.info("bg sps=" + sps);
   }
-  if (sps === 3 || withheldRounds > MAX_WITHHELD_ROUNDS) {
+  if (shouldRejectPo(sps, withheldRounds)) {
     if (sps === 2) console.warn("bg sps=2 withheld media for " + withheldRounds + " rounds");
     withheldRounds = 0;
-    if (poRejectedHook) poRejectedHook();
+    if (poRejectedHook) poRejectedHook(sps);
   }
   if (dumpFinished) return;
   if (typeof __bgEntropyStop === "function") __bgEntropyStop();

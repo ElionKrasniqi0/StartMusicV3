@@ -116,6 +116,8 @@ class MsePlayer internal constructor(
     private var progressDiagMask = 0
     private var lastSessionEndReason: String? = null
     private var lastPoRejected: Boolean = false
+    /** One transparent re-attest per [load] (mirrors download's single PO retry). */
+    private var poReattestAttempted: Boolean = false
 
     private val _videoQuality = MutableStateFlow(VideoQualityState.DEFAULT)
     override val videoQuality: StateFlow<VideoQualityState> = _videoQuality.asStateFlow()
@@ -188,7 +190,9 @@ class MsePlayer internal constructor(
     override fun init() {
         requireMainThread()
         if (released || session != null) return
-        startSession("init", freshConfig = false)
+        // Fresh homepage/BotGuard challenge: a disk-cached yt-session from a prior process can mint
+        // a PO that GenerateIT accepts while googlevideo stays at SPS=2 (~60s preview → E60065).
+        startSession("init", freshConfig = true)
     }
 
     override fun reset() = reset("unspecified")
@@ -222,6 +226,7 @@ class MsePlayer internal constructor(
         loadingVideoId = source.videoId
         progressDiagMask = 0
         lastPoRejected = false
+        poReattestAttempted = false
         _progress.value = Progress(positionMs = startPositionMs)
         _status.update { it.copy(details = null) }
         // base.js pushes the new video's gain once it picks a format; until then play at the user's volume.
@@ -710,10 +715,46 @@ class MsePlayer internal constructor(
 
     private fun applyListen(json: JsonObject) {
         if (json.boolOrNull("poRejected") == true) {
-            // googlevideo rejected this session's PO token: only a fresh session re-attests.
+            val sps = json.intOrNull("sps")
             lastPoRejected = true
-            tearDownSession("po token rejected")
-            fail(TechnicalException(PlayerError.PO_TOKEN_REJECTED, "googlevideo rejected the PO token (StreamProtectionStatus=3)"), "po token rejected", needReset = true)
+            val videoId = loadedVideoId ?: loadingVideoId
+            if (videoId != null && PoTokenAttestation.shouldReattest(poReattestAttempted)) {
+                poReattestAttempted = true
+                val resumeMs = _progress.value.positionMs
+                val loadConfig = config
+                log?.log(
+                    Logger.Level.WARN,
+                    "po rejected sps=${sps ?: "?"} — re-attesting once for $videoId @${resumeMs}ms",
+                )
+                tearDownSession("po re-attest sps=${sps ?: "?"}")
+                startSession("po re-attest", freshConfig = true)
+                loadingVideoId = videoId
+                progressDiagMask = 0
+                _progress.value = Progress(positionMs = resumeMs)
+                send { enginePlayer ->
+                    enginePlayer.load(
+                        videoId,
+                        log,
+                        quality = loadConfig.preferVideoQuality.first
+                            .takeIf { it != VideoQualityState.AUDIO_ONLY },
+                        width = viewportW,
+                        height = viewportH,
+                        audioOnly = loadConfig.audioOnly,
+                        startPositionMs = resumeMs,
+                        playWhenReady = true,
+                        speed = loadConfig.speed.coerceIn(0.25f, 3f),
+                        pitch = loadConfig.pitchFactor.coerceIn(0.5f, 2f),
+                        loop = loadConfig.loop,
+                    )
+                }
+                return
+            }
+            tearDownSession("po token rejected sps=${sps ?: "?"}")
+            fail(
+                TechnicalException(PlayerError.PO_TOKEN_REJECTED, PoTokenAttestation.rejectedMessage(sps)),
+                "po token rejected",
+                needReset = true,
+            )
             return
         }
         _audioSessionId.value = if (hostLive()) videoSurface.audioSessionId() else 0
@@ -790,6 +831,9 @@ class MsePlayer internal constructor(
             seekableStartMs = seekableStartMs,
             seekableEndMs = if (seekableEndMs > seekableStartMs) seekableEndMs else if (durationMs > 0L) durationMs else 0L,
         )
+        if (PoTokenAttestation.shouldClearRejectedDiag(poReattestAttempted, lastPoRejected, bufferedMs > 0L)) {
+            lastPoRejected = false
+        }
         logProgressMilestone(positionMs, bufferedMs, durationMs)
     }
 
@@ -824,6 +868,14 @@ class MsePlayer internal constructor(
         if (loadingVideoId != null) loadTrace?.state(newState)
         val playWhenReady = json.boolOrNull("playWhenReady") ?: false
         val live = json.boolOrNull("live") ?: false
+        if (PoTokenAttestation.shouldClearRejectedDiag(
+                poReattestAttempted,
+                lastPoRejected,
+                recovered = newState == "ready" || newState == "buffering",
+            )
+        ) {
+            lastPoRejected = false
+        }
         val state = when (newState) {
             "idle" -> PlaybackState.Idle
             "buffering" -> PlaybackState.Prepared(playWhenReady, buffering = true, ended = false)

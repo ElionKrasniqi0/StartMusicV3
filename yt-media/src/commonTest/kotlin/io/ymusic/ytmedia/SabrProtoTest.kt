@@ -177,8 +177,27 @@ class SabrProtoTest {
         val protection = ProtoWriter().varint(1, 3)
         assertEquals(3, SabrParts.parseStreamProtectionStatus(protection.buffer.readByteArray()))
 
+        val pending = ProtoWriter().varint(1, 2)
+        assertEquals(2, SabrParts.parseStreamProtectionStatus(pending.buffer.readByteArray()))
+
+        val ok = ProtoWriter().varint(1, 1)
+        assertEquals(1, SabrParts.parseStreamProtectionStatus(ok.buffer.readByteArray()))
+
         // malformed payloads are survivable
         assertNull(SabrParts.parseErrorMessage(byteArrayOf(-1, -1, -1)))
         assertNull(SabrParts.parseStreamProtectionStatus(byteArrayOf(-1)))
+    }
+
+    @Test
+    fun streamer_context_binds_po_token_to_request() {
+        val token = byteArrayOf(0x10, 0x20, 0x30, 0x40)
+        val encoded = StreamerContext(
+            clientInfo = ClientInfo(clientName = 1),
+            poToken = token,
+            playbackCookie = byteArrayOf(9),
+        ).encode()
+        val decoded = StreamerContext.from(parse(encoded))
+        assertContentEquals(token, decoded.poToken)
+        assertContentEquals(byteArrayOf(9), decoded.playbackCookie)
     }
 }

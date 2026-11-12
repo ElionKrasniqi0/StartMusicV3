@@ -518,9 +518,10 @@ function patchFlags(s: string, patches: Record<string, string>): string {
 
 let freshPlayerConfig = false;
 
-/** A user reload: this session's config comes from a new homepage scrape, not the held session. */
+/** Hosts still pass freshConfig on reset; player-config scrape is always maxAge 0 for BotGuard. */
 export function requireFreshPlayerConfig(fresh: boolean): void {
   freshPlayerConfig = fresh;
+  if (fresh) console.info("bg player-config freshConfig requested");
 }
 
 /** The base.js response head for diagnostics. Content-Length/-Encoding are as the host relayed
@@ -540,7 +541,11 @@ function baseJsHead(res: HttpResponse): string {
 
 async function fetchPlayerConfig(): Promise<Record<string, unknown>> {
   return callMain("get_player_config", async (pipe) => {
-    const w = pipe.sink.writeObjectAsJson(freshPlayerConfig ? { "maxAge": 0 } : {});
+    // BotGuard's challenge is process/VM-bound. A ≤20 min disk-cached yt-session from a prior
+    // process yields GenerateIT 200 but googlevideo stays at SPS=2 (~60s preview) then E60065.
+    // Always maxAge 0 here; feed/API keep their own longer session maxAge.
+    console.info("bg fetchPlayerConfig maxAge=0 hostFresh=" + freshPlayerConfig);
+    const w = pipe.sink.writeObjectAsJson({ "maxAge": 0 });
     if (w) await w;
     const c = pipe.sink.close();
     if (c) await c;
