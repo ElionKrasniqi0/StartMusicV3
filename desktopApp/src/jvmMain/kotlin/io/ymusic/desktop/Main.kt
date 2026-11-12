@@ -466,8 +466,9 @@ fun main(args: Array<String>) {
             title = "StartMusic",
             icon = null,
             state = windowState,
-            undecorated = true,
-            transparent = true,
+            // Windows: OS title bar + caption buttons. Transparent underlay chrome stays on macOS/Linux.
+            undecorated = !isWindows,
+            transparent = !isWindows,
             onPreviewKeyEvent = preview@{ event ->
                 if (event.type != KeyEventType.KeyDown) return@preview false
                 if (handleGlobalShortcut(event, graph?.player, graph?.pip?.nowPlayingOpen, frame)) return@preview true
@@ -478,7 +479,9 @@ fun main(args: Array<String>) {
             },
             onKeyEvent = { event -> handleArrowShortcut(event, graph?.player, showVolume) },
         ) {
-            paintWindowGround(Color.Transparent)
+            val themePref by settings.flow(AppSettings.theme).collectAsState()
+            val darkBar = isDarkTheme(themePref, isSystemInDarkTheme())
+            paintWindowGround(if (isWindows) groundColorFor(darkBar) else Color.Transparent)
             // Not Window(icon=): that is one 32dp raster the OS nearest-scales into each of its
             // icon slots (Windows: 16/20/24/32/40/48/64/256 px by DPI). One exact raster per slot.
             // macOS ignores window icons (the Dock tile is set above).
@@ -499,8 +502,6 @@ fun main(args: Array<String>) {
             val closeApp = {
                 if (graph?.player?.queue?.value?.items?.isNotEmpty() == true) windowVisible = false else quit()
             }
-            val themePref by settings.flow(AppSettings.theme).collectAsState()
-            val darkBar = isDarkTheme(themePref, isSystemInDarkTheme())
             val accentPref by settings.flow(AppSettings.themeAccent).collectAsState()
             val palette = designPaletteFor(themePref, isSystemInDarkTheme(), accentPref)
             val frameBorder =
@@ -528,7 +529,8 @@ fun main(args: Array<String>) {
                 val rootFocusManager = androidx.compose.ui.platform.LocalFocusManager.current
                 Column(
                     Modifier.fillMaxSize()
-                        .then(if (frame.fullscreen) Modifier else Modifier.border(1.dp, frameBorder))
+                        // Native Windows chrome already frames the window; skip the fake 1dp border.
+                        .then(if (frame.fullscreen || isWindows) Modifier else Modifier.border(1.dp, frameBorder))
                         // Arrows nothing inside consumed (lists, text fields) move focus geometrically;
                         // with Ctrl/Cmd/Alt they go on to the window's media shortcuts.
                         .onKeyEvent { event ->
@@ -544,7 +546,8 @@ fun main(args: Array<String>) {
                             rootFocusManager.moveFocus(dir)
                         },
                 ) {
-                    if (!frame.fullscreen) Box(
+                    // Custom traffic-light chrome is macOS/Linux only. Windows uses the OS title bar.
+                    if (!frame.fullscreen && !isWindows) Box(
                         Modifier
                             .fillMaxWidth()
                             .height(36.dp)
@@ -565,8 +568,8 @@ fun main(args: Array<String>) {
                                 stringResource(Res.string.cd_minimize),
                                 TrafficGlyph.Minimize,
                             ) { window.extendedState = java.awt.Frame.ICONIFIED }
-                            // Windows/Linux: green = maximize/restore work area (double-click title
-                            // does the same). Fullscreen stays on F11. macOS green = native fullscreen.
+                            // Linux: green = maximize/restore work area (double-click title does the same).
+                            // Fullscreen stays on F11. macOS green = native fullscreen.
                             MacTrafficLight(
                                 Color(0xFF28C840),
                                 stringResource(if (isMac) Res.string.cd_fullscreen else Res.string.cd_maximize),
@@ -1167,8 +1170,9 @@ private suspend fun buildGraph(settings: AppStoreSettings, session: CookieSessio
 
 /**
  * EDT, once per process, before any engine loads: puts the one video Canvas in the underlay. Never
- * attach it again: a new Canvas peer is a new HWND / NSView, hence a new swapchain or overlay. Linux has
- * no Canvas: its CPU pictures go to [ComposeVideoFrame].
+ * attach it again: a new Canvas peer is a new HWND / NSView, hence a new swapchain or overlay.
+ * Linux and Windows have no transparent underlay hole (Windows uses a native OS title bar): CPU
+ * pictures go to [ComposeVideoFrame].
  */
 private fun wireVideoOnce(scope: CoroutineScope) {
     if (!videoWired.compareAndSet(false, true)) return
@@ -1178,7 +1182,7 @@ private fun wireVideoOnce(scope: CoroutineScope) {
             SwingUtilities.invokeLater { VideoOverlayNative.poke() }
         }
     }
-    if (isLinux) {
+    if (isLinux || isWindows) {
         videoSurface.onCpuBgra = ComposeVideoFrame::publish
         return
     }
@@ -1223,6 +1227,8 @@ private fun DesktopPlayerSurface(
                 }
             }
             .onGloballyPositioned { coords ->
+                // Windows/Linux paint video in Compose; only macOS needs the underlay hole.
+                if (isLinux || isWindows) return@onGloballyPositioned
                 val win = hostWindow ?: return@onGloballyPositioned
                 val loc = try {
                     win.locationOnScreen
@@ -1246,8 +1252,8 @@ private fun DesktopPlayerSurface(
                 }
             },
     ) {
-        if (isLinux) ComposeVideoFrame.Layer()
-        if (windowResizingNow && !isLinux) {
+        if (isLinux || isWindows) ComposeVideoFrame.Layer()
+        if (windowResizingNow && !isLinux && !isWindows) {
             Box(Modifier.fillMaxSize().background(Color.Black)) {
                 still?.let { bmp ->
                     Image(bmp, null, Modifier.fillMaxSize(), contentScale = ContentScale.Fit)

@@ -23,8 +23,9 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 /**
- * The CPU video picture drawn by Compose, for Linux: the Compose window's X visual has no alpha, so the
- * underlay behind it never shows through. One reused bitmap, rewritten on the EDT, where Compose draws it.
+ * The CPU video picture drawn by Compose when the main window cannot punch a transparent underlay
+ * hole: Linux (no alpha visual) and Windows (native OS title bar requires an opaque decorated frame).
+ * One reused bitmap, rewritten on the EDT, where Compose draws it.
  */
 internal object ComposeVideoFrame {
     private val lock = Any()

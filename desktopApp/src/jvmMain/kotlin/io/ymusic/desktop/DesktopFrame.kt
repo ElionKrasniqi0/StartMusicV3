@@ -16,7 +16,8 @@ import java.awt.Window
 
 /**
  * Floating, zoom (fit the work area), and fullscreen: native on macOS, the window manager's on Linux,
- * on Windows the undecorated window sized to its monitor's full bounds.
+ * and F11 / custom-chrome zoom elsewhere. Windows uses a decorated OS title bar for min/max/close;
+ * [toggleZoom] remains for Linux's custom traffic lights.
  *
  * Never uses [WindowPlacement.Maximized]: AWT's maximized flag fights
  * [NSWindow.toggleFullScreen] and forgets the floating size.
